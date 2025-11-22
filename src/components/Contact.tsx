@@ -45,8 +45,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-card-foreground mb-1">Телефон</h3>
-                  <a href="tel:+359888123456" className="text-muted-foreground hover:text-primary transition-colors">
-                    +359 888 123 456
+                  <a href="tel:0892701176" className="text-muted-foreground hover:text-primary transition-colors">
+                    089 270 1176
                   </a>
                 </div>
               </CardContent>
@@ -59,8 +59,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-card-foreground mb-1">Email</h3>
-                  <a href="mailto:info@remontnapokrivivarna.bg" className="text-muted-foreground hover:text-primary transition-colors">
-                    info@remontnapokrivivarna.bg
+                  <a href="mailto:remontnapokrivivarna@abv.bg" className="text-muted-foreground hover:text-primary transition-colors">
+                    remontnapokrivivarna@abv.bg
                   </a>
                 </div>
               </CardContent>
@@ -74,7 +74,7 @@ const Contact = () => {
                 <div>
                   <h3 className="font-bold text-card-foreground mb-1">Адрес</h3>
                   <p className="text-muted-foreground">
-                    гр. Варна, България
+                    ул. уста колю фичето 25 А
                   </p>
                 </div>
               </CardContent>
