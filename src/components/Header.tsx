@@ -1,15 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const isServicesPage = location.pathname === '/services';
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false);
+    if (isServicesPage) {
+      window.location.href = `/#${id}`;
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        setIsMenuOpen(false);
+      }
     }
   };
 
@@ -17,12 +24,12 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-primary">RemontNaPokriviVarna</h1>
+          <Link to="/" className="text-2xl font-bold text-primary">RemontNaPokriviVarna</Link>
           
           <nav className="hidden md:flex items-center gap-8">
-            <button onClick={() => scrollToSection("services")} className="text-foreground hover:text-primary transition-colors">
-              Услуги
-            </button>
+            <Link to="/services" className="text-foreground hover:text-primary transition-colors">
+              Услуги и Цени
+            </Link>
             <button onClick={() => scrollToSection("about")} className="text-foreground hover:text-primary transition-colors">
               За нас
             </button>
@@ -47,9 +54,9 @@ const Header = () => {
 
         {isMenuOpen && (
           <nav className="md:hidden mt-4 flex flex-col gap-4 pb-4">
-            <button onClick={() => scrollToSection("services")} className="text-left text-foreground hover:text-primary transition-colors">
-              Услуги
-            </button>
+            <Link to="/services" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+              Услуги и Цени
+            </Link>
             <button onClick={() => scrollToSection("about")} className="text-left text-foreground hover:text-primary transition-colors">
               За нас
             </button>
