@@ -52,6 +52,13 @@ const Contact = () => {
               </CardContent>
             </Card>
 
+            <a href="tel:0892701176" className="block">
+              <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" size="lg">
+                <Phone className="w-5 h-5" />
+                Обадете се сега
+              </Button>
+            </a>
+
             <Card className="border-border bg-card">
               <CardContent className="p-6 flex items-start gap-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">

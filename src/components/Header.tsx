@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -39,8 +39,9 @@ const Header = () => {
             <button onClick={() => scrollToSection("contact")} className="text-foreground hover:text-primary transition-colors">
               Контакти
             </button>
-            <Button onClick={() => scrollToSection("contact")} variant="default" size="lg">
-              Заявка
+            <Button onClick={() => scrollToSection("contact")} className="bg-accent hover:bg-accent/90 text-accent-foreground" size="lg">
+              <Phone className="w-4 h-4" />
+              Обадете се
             </Button>
           </nav>
 
@@ -66,8 +67,9 @@ const Header = () => {
             <button onClick={() => scrollToSection("contact")} className="text-left text-foreground hover:text-primary transition-colors">
               Контакти
             </button>
-            <Button onClick={() => scrollToSection("contact")} variant="default" className="w-full">
-              Заявка
+            <Button onClick={() => scrollToSection("contact")} className="bg-accent hover:bg-accent/90 text-accent-foreground w-full">
+              <Phone className="w-4 h-4" />
+              Обадете се
             </Button>
           </nav>
         )}

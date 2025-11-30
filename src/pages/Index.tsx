@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import FloatingCallButton from "@/components/FloatingCallButton";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import Gallery from "@/components/Gallery";
@@ -16,6 +17,7 @@ const Index = () => {
       <Gallery />
       <Contact />
       <Footer />
+      <FloatingCallButton />
     </div>
   );
 };
