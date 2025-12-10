@@ -4,6 +4,7 @@ import FloatingCallButton from "@/components/FloatingCallButton";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import Gallery from "@/components/Gallery";
+import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -15,6 +16,7 @@ const Index = () => {
       <Services />
       <About />
       <Gallery />
+      <BeforeAfterGallery />
       <Contact />
       <Footer />
       <FloatingCallButton />
