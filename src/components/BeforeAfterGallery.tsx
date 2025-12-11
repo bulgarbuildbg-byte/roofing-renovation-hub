@@ -7,22 +7,22 @@ const transformations = [
     id: 1,
     title: "Пълна реконструкция на покрив",
     location: "Варна, кв. Чайка",
-    beforeImage: "https://images.unsplash.com/photo-1632759145351-1d592919f522?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    beforeImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    afterImage: "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=80",
   },
   {
     id: 2,
     title: "Ремонт на керемиден покрив",
     location: "Варна, Бриз",
-    beforeImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    beforeImage: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=80",
+    afterImage: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
   },
   {
     id: 3,
     title: "Хидроизолация на плосък покрив",
     location: "Варна, Младост",
-    beforeImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
+    beforeImage: "https://images.unsplash.com/photo-1621155346337-1d19476ba7d4?w=800&q=80",
+    afterImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
   },
 ];
 
