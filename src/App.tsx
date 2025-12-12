@@ -13,6 +13,8 @@ import RoofRepairPage from "./pages/services/RoofRepairPage";
 import WaterproofingPage from "./pages/services/WaterproofingPage";
 import NewRoofPage from "./pages/services/NewRoofPage";
 import MaintenancePage from "./pages/services/MaintenancePage";
+import BlogPage from "./pages/BlogPage";
+import BlogArticle from "./pages/blog/BlogArticle";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ const App = () => (
           <Route path="/хидроизолация" element={<WaterproofingPage />} />
           <Route path="/изграждане-на-покрив" element={<NewRoofPage />} />
           <Route path="/поддръжка-на-покриви" element={<MaintenancePage />} />
+          <Route path="/блог" element={<BlogPage />} />
+          <Route path="/блог/:slug" element={<BlogArticle />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

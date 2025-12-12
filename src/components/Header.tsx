@@ -64,6 +64,9 @@ const Header = () => {
             <Link to="/проекти" className="text-foreground hover:text-primary transition-colors">
               Проекти
             </Link>
+            <Link to="/блог" className="text-foreground hover:text-primary transition-colors">
+              Блог
+            </Link>
             <Link to="/въпроси" className="text-foreground hover:text-primary transition-colors">
               Въпроси
             </Link>
@@ -105,6 +108,9 @@ const Header = () => {
             </Link>
             <Link to="/проекти" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Проекти
+            </Link>
+            <Link to="/блог" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+              Блог
             </Link>
             <Link to="/въпроси" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Въпроси
