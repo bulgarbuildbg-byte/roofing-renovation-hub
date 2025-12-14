@@ -29,8 +29,12 @@ const Header = () => {
   const serviceLinks = [
     { label: "Всички услуги", href: "/services" },
     { label: "Ремонт на покриви", href: "/ремонт-на-покриви" },
+    { label: "Ремонт на течове", href: "/ремонт-течове" },
     { label: "Хидроизолация", href: "/хидроизолация" },
     { label: "Нов покрив", href: "/изграждане-на-покрив" },
+    { label: "Смяна на керемиди", href: "/смяна-керемиди" },
+    { label: "Плоски покриви", href: "/плоски-покриви" },
+    { label: "Метални покриви", href: "/метални-покриви" },
     { label: "Поддръжка", href: "/поддръжка-на-покриви" },
   ];
 
@@ -63,6 +67,9 @@ const Header = () => {
             </Link>
             <Link to="/проекти" className="text-foreground hover:text-primary transition-colors">
               Проекти
+            </Link>
+            <Link to="/отзиви" className="text-foreground hover:text-primary transition-colors">
+              Отзиви
             </Link>
             <Link to="/блог" className="text-foreground hover:text-primary transition-colors">
               Блог
@@ -108,6 +115,9 @@ const Header = () => {
             </Link>
             <Link to="/проекти" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Проекти
+            </Link>
+            <Link to="/отзиви" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+              Отзиви
             </Link>
             <Link to="/блог" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Блог

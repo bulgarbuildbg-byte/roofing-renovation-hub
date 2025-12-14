@@ -1,4 +1,4 @@
-import { Award, ShieldCheck, FileCheck, Search } from "lucide-react";
+import { Award, ShieldCheck, FileCheck, Search, CheckCircle, MapPin } from "lucide-react";
 
 const indicators = [
   {
@@ -6,31 +6,39 @@ const indicators = [
     text: "15+ години опит"
   },
   {
+    icon: CheckCircle,
+    text: "500+ проекта"
+  },
+  {
     icon: ShieldCheck,
-    text: "Гаранция на всички работи"
+    text: "Гаранция до 10 год."
   },
   {
     icon: FileCheck,
-    text: "Лицензирани и застраховани"
+    text: "Лицензирани"
   },
   {
     icon: Search,
-    text: "Безплатен оглед на място"
+    text: "Безплатен оглед"
+  },
+  {
+    icon: MapPin,
+    text: "Варна и региона"
   }
 ];
 
 const TrustIndicators = () => {
   return (
-    <section className="bg-primary py-6">
+    <section className="bg-primary py-5">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
           {indicators.map((indicator, index) => (
             <div 
               key={index} 
-              className="flex items-center gap-3 justify-center text-primary-foreground"
+              className="flex items-center gap-2 justify-center text-primary-foreground"
             >
-              <indicator.icon className="w-6 h-6 md:w-8 md:h-8 text-accent" />
-              <span className="text-sm md:text-base font-medium">{indicator.text}</span>
+              <indicator.icon className="w-5 h-5 md:w-6 md:h-6 text-accent flex-shrink-0" />
+              <span className="text-xs md:text-sm font-medium whitespace-nowrap">{indicator.text}</span>
             </div>
           ))}
         </div>
