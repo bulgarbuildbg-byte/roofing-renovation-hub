@@ -9,10 +9,15 @@ import AboutPage from "./pages/AboutPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import FAQPage from "./pages/FAQPage";
 import ContactPage from "./pages/ContactPage";
+import ReviewsPage from "./pages/ReviewsPage";
 import RoofRepairPage from "./pages/services/RoofRepairPage";
 import WaterproofingPage from "./pages/services/WaterproofingPage";
 import NewRoofPage from "./pages/services/NewRoofPage";
 import MaintenancePage from "./pages/services/MaintenancePage";
+import RoofLeakRepairPage from "./pages/services/RoofLeakRepairPage";
+import TileReplacementPage from "./pages/services/TileReplacementPage";
+import FlatRoofPage from "./pages/services/FlatRoofPage";
+import MetalRoofPage from "./pages/services/MetalRoofPage";
 import BlogPage from "./pages/BlogPage";
 import BlogArticle from "./pages/blog/BlogArticle";
 import NotFound from "./pages/NotFound";
@@ -32,9 +37,14 @@ const App = () => (
           <Route path="/проекти" element={<ProjectsPage />} />
           <Route path="/въпроси" element={<FAQPage />} />
           <Route path="/контакти" element={<ContactPage />} />
+          <Route path="/отзиви" element={<ReviewsPage />} />
           <Route path="/ремонт-на-покриви" element={<RoofRepairPage />} />
+          <Route path="/ремонт-течове" element={<RoofLeakRepairPage />} />
           <Route path="/хидроизолация" element={<WaterproofingPage />} />
           <Route path="/изграждане-на-покрив" element={<NewRoofPage />} />
+          <Route path="/смяна-керемиди" element={<TileReplacementPage />} />
+          <Route path="/плоски-покриви" element={<FlatRoofPage />} />
+          <Route path="/метални-покриви" element={<MetalRoofPage />} />
           <Route path="/поддръжка-на-покриви" element={<MaintenancePage />} />
           <Route path="/блог" element={<BlogPage />} />
           <Route path="/блог/:slug" element={<BlogArticle />} />
