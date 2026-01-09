@@ -19,6 +19,7 @@ import TileReplacementPage from "./pages/services/TileReplacementPage";
 import FlatRoofPage from "./pages/services/FlatRoofPage";
 import MetalRoofPage from "./pages/services/MetalRoofPage";
 import BlogPage from "./pages/BlogPage";
+import CalculatorPage from "./pages/CalculatorPage";
 import BlogArticle from "./pages/blog/BlogArticle";
 import NotFound from "./pages/NotFound";
 
@@ -48,6 +49,7 @@ const App = () => (
           <Route path="/поддръжка-на-покриви" element={<MaintenancePage />} />
           <Route path="/блог" element={<BlogPage />} />
           <Route path="/блог/:slug" element={<BlogArticle />} />
+          <Route path="/калкулатор" element={<CalculatorPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
