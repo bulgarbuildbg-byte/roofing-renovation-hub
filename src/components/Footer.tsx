@@ -31,7 +31,7 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <Link to="/">
-              <img src={logo} alt="RemontNaPokriviVarna - Ремонт на покриви Варна" className="h-20 w-auto mb-4 brightness-0 invert" />
+              <img src={logo} alt="RemontNaPokriviVarna - Ремонт на покриви Варна" className="h-24 w-auto mb-4 brightness-0 invert" />
             </Link>
             <p className="text-primary-foreground/80 mb-4">
               Професионални покривни услуги във Варна и региона. Над 15 години опит.
