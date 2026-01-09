@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
+import project4 from "@/assets/project-4.jpg";
+import project5 from "@/assets/project-5.jpg";
+import after1 from "@/assets/after-1.jpg";
 
 const projects = [
   {
@@ -29,6 +32,30 @@ const projects = [
     location: "кв. Чайка, Варна",
     type: "Ремонт и хидроизолация",
     duration: "1 седмица"
+  },
+  {
+    image: project4,
+    title: "Вила - с. Звездица",
+    description: "Монтаж на нови керемиди на семейна вила. Включва подмяна на летви и пароизолация.",
+    location: "с. Звездица, Варна",
+    type: "Монтаж на керемиди",
+    duration: "5 дни"
+  },
+  {
+    image: project5,
+    title: "Жилищна Сграда - кв. Аспарухово",
+    description: "Детайлна работа по монтаж на керемиди с прецизно изпълнение. Качествени материали и професионална работа.",
+    location: "кв. Аспарухово, Варна",
+    type: "Ремонт на покрив",
+    duration: "1 седмица"
+  },
+  {
+    image: after1,
+    title: "Панелен Блок - кв. Владиславово",
+    description: "Цялостна подмяна на керемиден покрив с нови материали. Монтаж на водоотводна система.",
+    location: "кв. Владиславово, Варна",
+    type: "Пълна реконструкция",
+    duration: "3 седмици"
   }
 ];
 
@@ -45,7 +72,7 @@ const Gallery = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div 
               key={index} 
