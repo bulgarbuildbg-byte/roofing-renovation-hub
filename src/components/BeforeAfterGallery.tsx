@@ -1,29 +1,38 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import before1 from "@/assets/before-1.jpg";
+import after1 from "@/assets/after-1.jpg";
+import before2 from "@/assets/before-2.jpg";
+import after2 from "@/assets/after-2.jpg";
+import before3 from "@/assets/before-3.jpg";
+import after3 from "@/assets/after-3.jpg";
 
 const transformations = [
   {
     id: 1,
-    title: "Пълна реконструкция на покрив",
-    location: "Варна, кв. Чайка",
-    beforeImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=80",
+    title: "Реконструкция на покрив с керемиди",
+    location: "кв. Левски, Варна",
+    beforeImage: before1,
+    afterImage: after1,
+    description: "Пълна подмяна на стари, повредени керемиди с нови"
   },
   {
     id: 2,
-    title: "Ремонт на керемиден покрив",
-    location: "Варна, Бриз",
-    beforeImage: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
+    title: "Обновяване на метален покрив",
+    location: "Промишлена зона, Варна",
+    beforeImage: before2,
+    afterImage: after2,
+    description: "Премахване на ръжда и монтаж на нов метален покрив"
   },
   {
     id: 3,
     title: "Хидроизолация на плосък покрив",
-    location: "Варна, Младост",
-    beforeImage: "https://images.unsplash.com/photo-1621155346337-1d19476ba7d4?w=800&q=80",
-    afterImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
-  },
+    location: "ж.к. Младост, Варна",
+    beforeImage: before3,
+    afterImage: after3,
+    description: "Ремонт на пукнатини и нова хидроизолационна мембрана"
+  }
 ];
 
 const BeforeAfterGallery = () => {
@@ -54,7 +63,7 @@ const BeforeAfterGallery = () => {
             Преди & След
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Вижте трансформациите, които постигаме с нашите ремонти
+            Вижте трансформациите, които постигаме с нашите ремонти. Плъзнете плъзгача за сравнение.
           </p>
         </div>
 
@@ -114,10 +123,14 @@ const BeforeAfterGallery = () => {
 
             {/* Info Bar */}
             <div className="bg-card p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <h3 className="text-xl font-bold text-card-foreground">{current.title}</h3>
-                  <p className="text-muted-foreground">{current.location}</p>
+                  <p className="text-muted-foreground text-sm">{current.description}</p>
+                  <div className="flex items-center gap-1 text-muted-foreground mt-1">
+                    <MapPin className="w-4 h-4" />
+                    <span>{current.location}</span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
