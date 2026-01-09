@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const serviceLinks = [
@@ -29,7 +30,9 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">RemontNaPokriviVarna</h3>
+            <Link to="/">
+              <img src={logo} alt="RemontNaPokriviVarna - Ремонт на покриви Варна" className="h-16 w-auto mb-4 brightness-0 invert" />
+            </Link>
             <p className="text-primary-foreground/80 mb-4">
               Професионални покривни услуги във Варна и региона. Над 15 години опит.
             </p>
