@@ -71,6 +71,9 @@ const Header = () => {
             <Link to="/отзиви" className="text-foreground hover:text-primary transition-colors">
               Отзиви
             </Link>
+            <Link to="/калкулатор" className="text-foreground hover:text-primary transition-colors">
+              Калкулатор
+            </Link>
             <Link to="/блог" className="text-foreground hover:text-primary transition-colors">
               Блог
             </Link>
@@ -118,6 +121,9 @@ const Header = () => {
             </Link>
             <Link to="/отзиви" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Отзиви
+            </Link>
+            <Link to="/калкулатор" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+              Калкулатор
             </Link>
             <Link to="/блог" className="text-left text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
               Блог

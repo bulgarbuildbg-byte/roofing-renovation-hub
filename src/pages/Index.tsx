@@ -13,6 +13,7 @@ import Testimonials from "@/components/Testimonials";
 import HomeFAQ from "@/components/HomeFAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import PriceCalculator from "@/components/PriceCalculator";
 
 const Index = () => {
   const localBusinessSchema = {
@@ -76,6 +77,7 @@ const Index = () => {
       <Hero />
       <TrustIndicators />
       <Services />
+      <PriceCalculator />
       <CTASection 
         title="Нуждаете се от професионален оглед на покрива?"
         subtitle="Свържете се с нас за безплатна инспекция и честна оценка на състоянието."
