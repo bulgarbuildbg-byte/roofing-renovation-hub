@@ -44,7 +44,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="RemontNaPokriviVarna - Ремонт на покриви Варна" className="h-20 w-auto" />
+            <img src={logo} alt="RemontNaPokriviVarna - Ремонт на покриви Варна" className="h-24 w-auto" />
           </Link>
           
           <nav className="hidden md:flex items-center gap-6">
