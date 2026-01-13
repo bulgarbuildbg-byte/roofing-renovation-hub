@@ -16,7 +16,7 @@ const MobileBottomBar = () => {
           asChild
           className="flex-1 h-14 bg-accent hover:bg-accent/90 text-accent-foreground text-base font-bold shadow-lg"
         >
-          <a href="tel:0892701176" className="flex items-center justify-center gap-2">
+          <a href="tel:0884997659" className="flex items-center justify-center gap-2">
             <Phone className="w-5 h-5" />
             <span>Обадете се</span>
           </a>

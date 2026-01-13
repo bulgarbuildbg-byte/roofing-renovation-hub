@@ -105,7 +105,7 @@ const Testimonials = () => {
               size="lg"
               className="h-14 bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold px-8"
             >
-              <a href="tel:0892701176" className="flex items-center justify-center gap-2">
+              <a href="tel:0884997659" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
                 Обадете се сега
               </a>

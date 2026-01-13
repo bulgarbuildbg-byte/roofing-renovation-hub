@@ -60,9 +60,9 @@ const Hero = () => {
               variant="outline"
               className="w-full sm:w-auto h-14 md:h-16 bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-base md:text-lg font-bold px-6 md:px-8"
             >
-              <a href="tel:0892701176" className="flex items-center justify-center gap-2">
+              <a href="tel:0884997659" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
-                089 270 1176
+                088 499 7659
               </a>
             </Button>
           </div>

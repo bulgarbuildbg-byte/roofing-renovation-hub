@@ -80,11 +80,11 @@ const QuickContactForm = () => {
       <div className="mt-6 pt-6 border-t border-border text-center">
         <p className="text-muted-foreground text-sm mb-3">Или ни се обадете директно:</p>
         <a 
-          href="tel:0892701176" 
+          href="tel:0884997659" 
           className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors"
         >
           <Phone className="w-5 h-5" />
-          089 270 1176
+          088 499 7659
         </a>
       </div>
     </div>

@@ -178,7 +178,7 @@ const WaterproofingPage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359892701176",
+      "telephone": "+359884997659",
       "email": "remontnapokrivivarna@abv.bg",
       "address": {
         "@type": "PostalAddress",
@@ -230,7 +230,7 @@ const WaterproofingPage = () => {
     <>
       <Helmet>
         <title>Хидроизолация Покрив Варна - от 28лв | 10г</title>
-        <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 089 270 1176" />
+        <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
         <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/хидроизолация" />
         <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв" />
@@ -552,11 +552,11 @@ const WaterproofingPage = () => {
               Не чакайте да се появят течове. Обадете се за безплатен оглед и професионална консултация.
             </p>
             <p className="text-2xl font-bold mb-8">
-              ☎ 089 270 1176
+              ☎ 088 499 7659
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359892701176">Обадете се сега</a>
+                <a href="tel:+359884997659">Обадете се сега</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/контакти">Изпратете запитване</Link>

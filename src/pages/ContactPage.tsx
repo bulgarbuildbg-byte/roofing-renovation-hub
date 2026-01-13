@@ -11,7 +11,7 @@ const ContactPage = () => {
     "name": "RemontNaPokriviVarna",
     "description": "Професионални покривни услуги във Варна - ремонт, хидроизолация, изграждане на нови покриви",
     "url": "https://remontnapokrivivarna.com",
-    "telephone": "+359892701176",
+    "telephone": "+359884997659",
     "email": "remontnapokrivivarna@abv.bg",
     "address": {
       "@type": "PostalAddress",
@@ -49,12 +49,12 @@ const ContactPage = () => {
   return (
     <>
       <Helmet>
-        <title>Контакти Покриви Варна - 089 270 1176</title>
+        <title>Контакти Покриви Варна - 088 499 7659</title>
         <meta name="description" content="Свържете се за безплатен оглед. Адрес: ул. Уста Колю Фичето 25А, Варна. Работим 7 дни. Бърз отговор." />
         <meta name="keywords" content="контакти ремонт покриви варна, телефон покриви варна, адрес покривни услуги варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/контакти" />
-        <meta property="og:title" content="Контакти Покриви Варна - 089 270 1176" />
-        <meta property="og:description" content="Свържете се за безплатен оглед. Телефон: 089 270 1176" />
+        <meta property="og:title" content="Контакти Покриви Варна - 088 499 7659" />
+        <meta property="og:description" content="Свържете се за безплатен оглед. Телефон: 088 499 7659" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">
           {JSON.stringify(businessSchema)}

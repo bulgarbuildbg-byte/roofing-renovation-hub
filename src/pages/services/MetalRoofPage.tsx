@@ -183,7 +183,7 @@ const MetalRoofPage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359892701176",
+      "telephone": "+359884997659",
       "email": "remontnapokrivivarna@abv.bg",
       "address": {
         "@type": "PostalAddress",
@@ -236,7 +236,7 @@ const MetalRoofPage = () => {
     <>
       <Helmet>
         <title>Метални Покриви Варна - от 6 €/кв.м | 50г</title>
-        <meta name="description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 089 270 1176" />
+        <meta name="description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="метални покриви варна, метални керемиди варна, ламаринен покрив, трапецовидна ламарина варна, монтаж метален покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/метални-покриви" />
         <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м" />

@@ -183,7 +183,7 @@ const TileReplacementPage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359892701176",
+      "telephone": "+359884997659",
       "email": "remontnapokrivivarna@abv.bg",
       "address": {
         "@type": "PostalAddress",
@@ -236,7 +236,7 @@ const TileReplacementPage = () => {
     <>
       <Helmet>
         <title>Смяна Керемиди Варна - от 8лв/бр | 5г Гаранция</title>
-        <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция. ☎ 089 270 1176" />
+        <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="смяна керемиди варна, подмяна керемиди варна, керемиди цена варна, ремонт керемиден покрив, счупени керемиди" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/смяна-керемиди" />
         <meta property="og:title" content="Смяна Керемиди Варна - от 8лв/бр" />

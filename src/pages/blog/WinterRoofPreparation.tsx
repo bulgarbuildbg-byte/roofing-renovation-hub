@@ -281,11 +281,11 @@ const WinterRoofPreparation = () => {
                     Ще идентифицираме потенциални проблеми и ще ви дадем честна оценка преди зимата.
                   </p>
                   <a 
-                    href="tel:+359892701176" 
+                    href="tel:+359884997659" 
                     className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary/90 transition-colors"
                   >
                     <Phone className="w-5 h-5" />
-                    Обадете се: 089 270 1176
+                    Обадете се: 088 499 7659
                   </a>
                 </div>
 
