@@ -148,11 +148,12 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu - Full screen overlay */}
-        <div 
-          className={`md:hidden fixed left-0 right-0 bottom-0 bg-background z-[55] overflow-y-auto transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
-          style={{ top: isScrolled ? '60px' : '72px' }}
-        >
-          <nav className="flex flex-col p-6 pb-32">
+        {isMenuOpen && (
+          <div 
+            className="md:hidden fixed left-0 right-0 bottom-0 bg-background z-[55] overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200 shadow-lg"
+            style={{ top: isScrolled ? '60px' : '72px' }}
+          >
+            <nav className="flex flex-col p-6 pb-32">
               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Услуги</p>
               {serviceLinks.map((link) => (
                 <Link 
@@ -208,6 +209,7 @@ const Header = () => {
               </div>
             </nav>
           </div>
+        )}
       </div>
     </header>
   );
