@@ -20,7 +20,7 @@ const ChoosingTiles = () => {
       <main className="pt-20">
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1513880989635-6eb491ce7f5b?w=1200&q=80"
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
             alt="Различни видове покривни керемиди"
             className="w-full h-full object-cover"
           />
@@ -65,7 +65,7 @@ const ChoosingTiles = () => {
                 1. Керамични (глинени) керемиди
               </h2>
               <img 
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=800&q=80"
                 alt="Керамични глинени керемиди"
                 className="w-full rounded-xl mb-6"
               />
