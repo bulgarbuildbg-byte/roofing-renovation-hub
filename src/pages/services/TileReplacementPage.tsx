@@ -10,6 +10,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Layers, Shield, Ruler, Palette, MapPin, Clock, Wrench, AlertTriangle, Home, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Process images
+import roofInspection from "@/assets/process/roof-inspection.jpg";
+import tileSamples from "@/assets/process/tile-samples.jpg";
+import roofScaffolding from "@/assets/process/roof-scaffolding.jpg";
+import tileRemoval from "@/assets/process/tile-removal.jpg";
+import tileInstallation from "@/assets/process/tile-installation.jpg";
+import completedTileRoof from "@/assets/process/completed-tile-roof.jpg";
+
 const relatedServices = [
   {
     title: "Ремонт на Покриви",
@@ -108,42 +116,42 @@ const TileReplacementPage = () => {
       step: 1,
       title: "Оглед и оценка на състоянието",
       description: "Нашият специалист извършва детайлен оглед на покрива - визуална инспекция отвън и отвътре (при достъпен таван). Оценяваме състоянието на керемидите, подпокривната конструкция, летвите и мембраната. Документираме всички проблемни зони с фотоснимки.",
-      image: "/src/assets/process/roof-inspection.jpg",
+      image: roofInspection,
       imageAlt: "Оглед на покрив за оценка състоянието на керемиди - професионална инспекция Варна"
     },
     {
       step: 2,
       title: "Подбор на подходящи керемиди",
       description: "При частична подмяна се стремим да намерим керемиди, максимално близки до съществуващите по размер, профил и цвят. При пълна подмяна ви консултираме за най-подходящия тип според конструкцията, климата и бюджета. Осигуряваме мостри за сравнение.",
-      image: "/src/assets/process/tile-samples.jpg",
+      image: tileSamples,
       imageAlt: "Подбор на керемиди за подмяна - сравнение на видове и цветове"
     },
     {
       step: 3,
       title: "Подготовка на работната зона",
       description: "Осигуряваме безопасен достъп до покрива чрез скеле или стълби. Покриваме градината и околните площи за защита от отпадъци. Организираме системата за спускане на старите керемиди и качване на новите, минимизирайки риска от повреди.",
-      image: "/src/assets/process/roof-scaffolding.jpg",
+      image: roofScaffolding,
       imageAlt: "Подготовка за смяна на керемиди - монтаж на скеле и защитни покривала"
     },
     {
       step: 4,
       title: "Демонтаж на старите керемиди",
       description: "Внимателно демонтираме старите керемиди, като избягваме повреди на околните здрави елементи. Проверяваме състоянието на летвите и подпокривната мембрана. При необходимост подменяме повредени летви или участъци от мембраната.",
-      image: "/src/assets/process/tile-removal.jpg",
+      image: tileRemoval,
       imageAlt: "Демонтаж на стари керемиди - премахване на повредено покривно покритие"
     },
     {
       step: 5,
       title: "Монтаж на новите керемиди",
       description: "Полагаме новите керемиди, като спазваме правилното застъпване и позициониране според типа. Закрепваме керемидите с куки или винтове на критичните места - ръбове, било, около комини. Обръщаме специално внимание на обшивките и примикванията.",
-      image: "/src/assets/process/tile-installation.jpg",
+      image: tileInstallation,
       imageAlt: "Монтаж на нови керемиди - професионално полагане на покривно покритие Варна"
     },
     {
       step: 6,
       title: "Финални проверки и почистване",
       description: "След монтажа извършваме цялостна проверка - визуална и при възможност с вода. Монтираме капаците на билото и ръбовете. Почистваме работната зона от всички отпадъци и отломки. Предоставяме гаранционна карта и препоръки за поддръжка.",
-      image: "/src/assets/process/completed-tile-roof.jpg",
+      image: completedTileRoof,
       imageAlt: "Завършена смяна на керемиди - финална проверка и почистване"
     }
   ];

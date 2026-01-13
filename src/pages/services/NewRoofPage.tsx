@@ -9,6 +9,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Home, Shield, Phone, MapPin, Search, Layers, Ruler, HardHat } from "lucide-react";
 
+// Process images
+import roofPlanning from "@/assets/process/roof-planning.jpg";
+import roofingMaterials from "@/assets/process/roofing-materials.jpg";
+import roofFrameConstruction from "@/assets/process/roof-frame-construction.jpg";
+import membraneBattens from "@/assets/process/membrane-battens.jpg";
+import tileInstallation from "@/assets/process/tile-installation.jpg";
+import roofInsulation from "@/assets/process/roof-insulation.jpg";
+
 const relatedServices = [
   {
     title: "Метални Покриви",
@@ -84,42 +92,42 @@ const NewRoofPage = () => {
       step: 1,
       title: "Проектиране и изчисления",
       description: "Всеки нов покрив започва с внимателно проектиране. Нашите специалисти изготвят детайлни чертежи на покривната конструкция, изчисляват натоварванията (собствено тегло, сняг, вятър) и определят необходимите сечения на носещите елементи. Съгласуваме проекта с архитекта и клиента.",
-      image: "/src/assets/process/roof-planning.jpg",
+      image: roofPlanning,
       imageAlt: "Проектиране на покривна конструкция - архитектурни чертежи и изчисления за нов покрив Варна"
     },
     {
       step: 2,
       title: "Избор и доставка на материали",
       description: "След одобрение на проекта подбираме качествени материали - конструктивна дървесина (смърч или ела) с необходимата влажност и обработка, подпокривни мембрани, топлоизолация и покривно покритие. Организираме доставката на място и съхранението на материалите.",
-      image: "/src/assets/process/roofing-materials.jpg",
+      image: roofingMaterials,
       imageAlt: "Доставка на материали за нов покрив - качествена дървесина и покривни материали Варна"
     },
     {
       step: 3,
       title: "Изграждане на носещата конструкция",
       description: "Монтираме мауерлата (основната греда върху стените), след което изграждаме системата от ребра, столици и контрарезе. Използваме метални съединители и анкери за здрава връзка между елементите. Контролираме геометрията и нивелацията на всеки етап.",
-      image: "/src/assets/process/roof-frame-construction.jpg",
+      image: roofFrameConstruction,
       imageAlt: "Изграждане на дървена покривна конструкция - монтаж на ребра и столици Варна"
     },
     {
       step: 4,
       title: "Полагане на летви и мембрана",
       description: "Върху конструкцията полагаме дифузионна мембрана, която предпазва от влага отвън, но позволява изпарението отвътре. След това монтираме контралетвите и летвите, върху които ще се поставят керемидите. Разстоянието между летвите се определя от типа керемиди.",
-      image: "/src/assets/process/membrane-battens.jpg",
+      image: membraneBattens,
       imageAlt: "Полагане на подпокривна мембрана и летви за керемиди - подготовка за покривно покритие"
     },
     {
       step: 5,
       title: "Монтаж на покривното покритие",
       description: "Полагаме керемидите, метални панели или друго избрано покритие, като спазваме технологичните изисквания на производителя. Обръщаме специално внимание на деталите - връзки със стени, комини, капандури. Монтираме снегозадържащи елементи и водосточна система.",
-      image: "/src/assets/process/tile-installation.jpg",
+      image: tileInstallation,
       imageAlt: "Монтаж на керемиди на нов покрив - професионално полагане на покривно покритие Варна"
     },
     {
       step: 6,
       title: "Топлоизолация и вътрешни работи",
       description: "При жилищни подпокривни пространства полагаме топлоизолация между ребрата и под тях. Монтираме пароизолация от вътрешната страна. Извършваме вътрешно обшиване с гипсокартон или дървена ламперия. Финализираме всички детайли и предаваме обекта.",
-      image: "/src/assets/process/roof-insulation.jpg",
+      image: roofInsulation,
       imageAlt: "Топлоизолация на таван под покрив - полагане на минерална вата между ребрата"
     }
   ];

@@ -10,6 +10,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, AlertTriangle, Droplets, Clock, Shield, Wrench, MapPin, Search, ThermometerSun, Home, Hammer } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Process images
+import leakInspection from "@/assets/process/leak-inspection.jpg";
+import emergencyTarp from "@/assets/process/emergency-tarp.jpg";
+import thermalInspection from "@/assets/process/thermal-inspection.jpg";
+import leakPatching from "@/assets/process/leak-patching.jpg";
+import leakTesting from "@/assets/process/leak-testing.jpg";
+import warrantyHandover from "@/assets/process/warranty-handover.jpg";
+
 const relatedServices = [
   {
     title: "Хидроизолация",
@@ -110,42 +118,42 @@ const RoofLeakRepairPage = () => {
       step: 1,
       title: "Спешен оглед и диагностика",
       description: "При обаждане за теч реагираме възможно най-бързо - обикновено в рамките на часове. Нашият специалист извършва първоначална оценка на ситуацията, определя сериозността на течa и необходимостта от незабавни мерки. Използваме термокамера за локализиране на скрити течове без разрушителни методи.",
-      image: "/src/assets/process/leak-inspection.jpg",
+      image: leakInspection,
       imageAlt: "Спешен оглед на покрив за откриване на теч - професионална диагностика Варна"
     },
     {
       step: 2,
       title: "Временна защита (при нужда)",
       description: "Ако времето не позволява незабавен ремонт или течът изисква по-мащабна интервенция, поставяме временна защита. Това може да включва водоустойчиво покривало, временна хидроизолация или друга мярка, която да предпази сградата до окончателния ремонт.",
-      image: "/src/assets/process/emergency-tarp.jpg",
+      image: emergencyTarp,
       imageAlt: "Временна защита на покрив от теч - аварийни мерки за спиране на водата"
     },
     {
       step: 3,
       title: "Подробна инспекция и оферта",
       description: "След овладяване на непосредствената ситуация правим детайлен оглед за определяне на пълния обхват на проблема. Идентифицираме всички причини за теча и изготвяме подробна оферта с ясни цени. Обясняваме различните варианти и препоръчваме оптималното решение.",
-      image: "/src/assets/process/thermal-inspection.jpg",
+      image: thermalInspection,
       imageAlt: "Изготвяне на оферта за ремонт на теч - подробна калкулация и консултация"
     },
     {
       step: 4,
       title: "Отстраняване на причината",
       description: "Пристъпваме към същинския ремонт - подмяна на повредени керемиди, полагане на нова хидроизолация, подмяна на обшивки, ремонт на примиквания. Използваме само качествени материали от доказани производители. Работим прецизно, за да гарантираме дълготраен резултат.",
-      image: "/src/assets/process/leak-patching.jpg",
+      image: leakPatching,
       imageAlt: "Ремонт на течащ покрив - подмяна на повредени материали и хидроизолация Варна"
     },
     {
       step: 5,
       title: "Тестване и финализиране",
       description: "След ремонта извършваме тестване на водонепропускливостта - при възможност с вода или изчакваме следващия дъжд. Почистваме работната зона и извеждаме всички отпадъци. Документираме извършената работа с фотоснимки.",
-      image: "/src/assets/process/leak-testing.jpg",
+      image: leakTesting,
       imageAlt: "Тестване на покрив след ремонт на теч - проверка на водонепропускливост"
     },
     {
       step: 6,
       title: "Гаранция и препоръки",
       description: "Предоставяме писмена гаранция за извършения ремонт - до 5 години в зависимост от типа работа. Даваме препоръки за поддръжка на покрива, за да предотвратите бъдещи проблеми. При желание можем да ви включим в програмата ни за годишна профилактика.",
-      image: "/src/assets/process/warranty-handover.jpg",
+      image: warrantyHandover,
       imageAlt: "Предоставяне на гаранция за ремонт на покрив - документация и препоръки"
     }
   ];
