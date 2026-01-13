@@ -194,7 +194,7 @@ const Header = () => {
                   Услуги
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuContent align="start" sideOffset={8} className="w-48 z-[70]">
                   {serviceLinks.map((link) => (
                     <DropdownMenuItem key={link.href} asChild>
                       <Link to={link.href} className="w-full cursor-pointer">
