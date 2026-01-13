@@ -3,10 +3,35 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Layers, Shield, Ruler, Palette, MapPin, Clock, Wrench, AlertTriangle, Home, Search } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const relatedServices = [
+  {
+    title: "Ремонт на Покриви",
+    description: "Цялостен ремонт на покривната конструкция и покритие.",
+    href: "/ремонт-на-покриви"
+  },
+  {
+    title: "Поддръжка на Покриви",
+    description: "Редовна профилактика за предотвратяване на повреди.",
+    href: "/поддръжка-на-покриви"
+  },
+  {
+    title: "Изграждане на Нов Покрив",
+    description: "Пълно изграждане на нов покрив с качествени материали.",
+    href: "/изграждане-на-покрив"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "Как да изберем правилните керемиди", href: "/блог/как-да-изберем-керемиди-за-нов-покрив" },
+  { title: "5 признака, че покривът се нуждае от ремонт", href: "/блог/5-признака-че-покривът-се-нуждае-от-ремонт" }
+];
 
 const TileReplacementPage = () => {
   const services = [
@@ -614,6 +639,13 @@ const TileReplacementPage = () => {
           title="Нуждаете се от Смяна на Керемиди?"
           subtitle="Получете безплатен оглед и честна оферта без задължение"
         />
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
       
       <Footer />

@@ -191,9 +191,40 @@ const CommonMistakes = () => {
                   Обадете се: 088 499 7659
                 </a>
               </div>
+              {/* Service Links */}
+              <div className="bg-secondary/30 rounded-xl p-6 my-8 border border-border/30">
+                <h4 className="font-bold text-foreground mb-4">🔧 Нашите услуги</h4>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <Link to="/ремонт-на-покриви" className="text-primary hover:underline flex items-center gap-2">
+                    → Ремонт на покриви
+                  </Link>
+                  <Link to="/хидроизолация" className="text-primary hover:underline flex items-center gap-2">
+                    → Хидроизолация
+                  </Link>
+                </div>
+              </div>
             </div>
 
             <div className="max-w-3xl mx-auto">
+              {/* Related Articles */}
+              <div className="py-8 border-t border-border mt-8">
+                <h3 className="font-bold text-xl text-foreground mb-6">Свързани Статии</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Link to="/блог/5-признака-че-покривът-се-нуждае-от-ремонт" className="group">
+                    <div className="p-4 bg-secondary/20 rounded-lg hover:bg-secondary/40 transition-colors">
+                      <h4 className="font-medium text-foreground group-hover:text-primary transition-colors">5 признака, че покривът се нуждае от ремонт</h4>
+                      <span className="text-sm text-muted-foreground">6 мин четене</span>
+                    </div>
+                  </Link>
+                  <Link to="/блог/видове-хидроизолация-и-кога-да-изберем-всяка" className="group">
+                    <div className="p-4 bg-secondary/20 rounded-lg hover:bg-secondary/40 transition-colors">
+                      <h4 className="font-medium text-foreground group-hover:text-primary transition-colors">Видове хидроизолация - пълно ръководство</h4>
+                      <span className="text-sm text-muted-foreground">10 мин четене</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+
               <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-border">
                 <span className="text-muted-foreground mr-2">Тагове:</span>
                 {["грешки", "ремонт", "съвети"].map((tag) => (
