@@ -69,8 +69,7 @@ const CTASection = ({
             <Button 
               onClick={scrollToContact}
               size="lg" 
-              variant="outline"
-              className={`w-full sm:w-auto h-14 md:h-16 border-2 ${textClasses[variant]} border-current bg-transparent hover:bg-background/10 text-base md:text-lg font-bold px-6 md:px-8`}
+              className="w-full sm:w-auto h-14 md:h-16 border-2 border-white text-white bg-transparent hover:bg-white/20 text-base md:text-lg font-bold px-6 md:px-8"
             >
               Изпратете запитване
               <ArrowRight className="w-5 h-5 ml-2" />
