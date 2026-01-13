@@ -59,9 +59,9 @@ const CTASection = ({
               size="lg" 
               className={`w-full sm:w-auto h-14 md:h-16 ${variant === "primary" ? "bg-accent hover:bg-accent/90 text-accent-foreground" : "bg-primary hover:bg-primary/90 text-primary-foreground"} text-base md:text-lg font-bold px-6 md:px-8`}
             >
-              <a href="tel:0892701176" className="flex items-center justify-center gap-2">
+              <a href="tel:0884997659" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
-                089 270 1176
+                088 499 7659
               </a>
             </Button>
           )}

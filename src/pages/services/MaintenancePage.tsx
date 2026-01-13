@@ -211,7 +211,7 @@ const MaintenancePage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359892701176",
+      "telephone": "+359884997659",
       "email": "remontnapokrivivarna@abv.bg",
       "address": {
         "@type": "PostalAddress",
@@ -262,7 +262,7 @@ const MaintenancePage = () => {
     <>
       <Helmet>
         <title>Поддръжка Покриви Варна - от 30 € | Годишни</title>
-        <meta name="description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка. ☎ 089 270 1176" />
+        <meta name="description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка. ☎ 088 499 7659" />
         <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/поддръжка-на-покриви" />
         <meta property="og:title" content="Поддръжка Покриви Варна - от 30 €" />
@@ -587,11 +587,11 @@ const MaintenancePage = () => {
               Препоръчваме преглед на покрива поне два пъти годишно. Обадете се за безплатна консултация.
             </p>
             <p className="text-2xl font-bold mb-8">
-              ☎ 089 270 1176
+              ☎ 088 499 7659
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359892701176">Заявете преглед</a>
+                <a href="tel:+359884997659">Заявете преглед</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to="/контакти">Изпратете запитване</Link>

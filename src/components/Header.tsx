@@ -69,7 +69,7 @@ const Header = () => {
           {/* Mobile: Phone button + Menu toggle */}
           <div className="flex items-center gap-2 md:hidden">
             <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground h-10 px-3">
-              <a href="tel:0892701176" className="flex items-center gap-1">
+              <a href="tel:0884997659" className="flex items-center gap-1">
                 <Phone className="w-4 h-4" />
                 <span className="text-sm font-bold">Обадете се</span>
               </a>
@@ -139,9 +139,9 @@ const Header = () => {
               Безплатен оглед
             </Button>
             <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold" size="lg">
-              <a href="tel:0892701176" className="flex items-center gap-2">
+              <a href="tel:0884997659" className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                089 270 1176
+                088 499 7659
               </a>
             </Button>
           </nav>
@@ -201,9 +201,9 @@ const Header = () => {
 
               <div className="mt-6 space-y-3">
                 <Button asChild className="w-full h-14 bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold">
-                  <a href="tel:0892701176" className="flex items-center justify-center gap-2">
+                  <a href="tel:0884997659" className="flex items-center justify-center gap-2">
                     <Phone className="w-5 h-5" />
-                    089 270 1176
+                    088 499 7659
                   </a>
                 </Button>
                 <Button 

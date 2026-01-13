@@ -39,13 +39,13 @@ const Contact = () => {
             {/* Phone - Prominent */}
             <Card className="border-border bg-card hover:shadow-lg transition-shadow">
               <CardContent className="p-4 md:p-6">
-                <a href="tel:0892701176" className="flex items-center gap-4">
+                <a href="tel:0884997659" className="flex items-center gap-4">
                   <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
                     <Phone className="w-7 h-7 text-accent" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Телефон</p>
-                    <p className="text-xl md:text-2xl font-bold text-accent">089 270 1176</p>
+                    <p className="text-xl md:text-2xl font-bold text-accent">088 499 7659</p>
                   </div>
                 </a>
               </CardContent>

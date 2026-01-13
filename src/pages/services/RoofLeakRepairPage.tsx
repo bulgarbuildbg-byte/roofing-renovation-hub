@@ -185,7 +185,7 @@ const RoofLeakRepairPage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359892701176",
+      "telephone": "+359884997659",
       "email": "remontnapokrivivarna@abv.bg",
       "address": {
         "@type": "PostalAddress",
@@ -238,7 +238,7 @@ const RoofLeakRepairPage = () => {
     <>
       <Helmet>
         <title>Ремонт Течове Покрив Варна - 24/7 | от 40 €</title>
-        <meta name="description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция. ☎ 089 270 1176" />
+        <meta name="description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="ремонт теч покрив варна, теч покрив спешен ремонт, течове покрив варна, ремонт течове комин, аварийни ремонти покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/ремонт-течове" />
         <meta property="og:title" content="Ремонт Течове Покрив Варна - 24/7 | от 40 €" />
@@ -591,9 +591,9 @@ const RoofLeakRepairPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359892701176">
+                <a href="tel:+359884997659">
                   <Phone className="w-5 h-5 mr-2" />
-                  089 270 1176
+                  088 499 7659
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
