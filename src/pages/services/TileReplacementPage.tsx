@@ -235,12 +235,12 @@ const TileReplacementPage = () => {
   return (
     <>
       <Helmet>
-        <title>Смяна на Керемиди Варна - Цени от 8лв/бр | Подмяна с Гаранция | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионална смяна на керемиди във Варна и региона. Бетонни, керамични, марсилски керемиди. Частична или пълна подмяна. Цени от 8лв/бр. До 5г гаранция. ☎ 089 270 1176" />
-        <meta name="keywords" content="смяна керемиди варна, подмяна керемиди варна, керемиди цена варна, ремонт керемиден покрив, счупени керемиди, нови керемиди варна" />
+        <title>Смяна Керемиди Варна - от 8лв/бр | 5г Гаранция</title>
+        <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция. ☎ 089 270 1176" />
+        <meta name="keywords" content="смяна керемиди варна, подмяна керемиди варна, керемиди цена варна, ремонт керемиден покрив, счупени керемиди" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/смяна-керемиди" />
-        <meta property="og:title" content="Смяна на Керемиди Варна - Цени от 8лв/бр | Гаранция до 5 години" />
-        <meta property="og:description" content="Професионална смяна на керемиди. Бетонни, керамични, марсилски. Гаранция до 5 години." />
+        <meta property="og:title" content="Смяна Керемиди Варна - от 8лв/бр" />
+        <meta property="og:description" content="Бетонни, керамични, марсилски. Гаранция до 5 години." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
@@ -265,7 +265,7 @@ const TileReplacementPage = () => {
             
             <div className="max-w-4xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Смяна на Керемиди във Варна
+                Смяна на Керемиди Варна - Професионална Услуга
               </h1>
               
               <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl">

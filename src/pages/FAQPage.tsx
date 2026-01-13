@@ -71,12 +71,12 @@ const FAQPage = () => {
   return (
     <>
       <Helmet>
-        <title>Често задавани въпроси - Ремонт на покриви Варна | RemontNaPokriviVarna</title>
-        <meta name="description" content="Отговори на най-често задаваните въпроси за ремонт на покриви, хидроизолация, цени и гаранции. Научете повече за нашите услуги във Варна." />
+        <title>Въпроси за Покриви Варна - Отговори и Съвети</title>
+        <meta name="description" content="Отговори на често задавани въпроси за ремонт на покриви, цени и гаранции във Варна. Полезна информация." />
         <meta name="keywords" content="ремонт покриви въпроси, цени покриви варна, хидроизолация въпроси, гаранция покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/въпроси" />
-        <meta property="og:title" content="Често задавани въпроси - Ремонт на покриви Варна" />
-        <meta property="og:description" content="Отговори на най-често задаваните въпроси за ремонт на покриви във Варна." />
+        <meta property="og:title" content="Въпроси за Покриви Варна - Отговори и Съвети" />
+        <meta property="og:description" content="Отговори на често задавани въпроси за ремонт на покриви във Варна." />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}
@@ -90,7 +90,7 @@ const FAQPage = () => {
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-              Често задавани въпроси
+              Въпроси за Ремонт на Покриви Варна
             </h1>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto text-center">
               Намерете отговори на най-често задаваните въпроси за нашите услуги
@@ -125,7 +125,7 @@ const FAQPage = () => {
         {/* Contact CTA */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-6">Не намерихте отговор?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-6">Имате Допълнителни Въпроси?</h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
               Свържете се с нас директно и ще отговорим на всички ваши въпроси
             </p>

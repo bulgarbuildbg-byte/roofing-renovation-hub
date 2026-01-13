@@ -207,12 +207,12 @@ const RoofRepairPage = () => {
   return (
     <>
       <Helmet>
-        <title>Ремонт на покриви Варна - Цени от 25лв/кв.м | 5г. гаранция | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионален ремонт на покриви във Варна и региона. Отстраняване на течове, подмяна на керемиди, ремонт на комини. Цени от 25лв/кв.м. 5 години гаранция. Безплатен оглед. ☎ 089 270 1176" />
-        <meta name="keywords" content="ремонт на покриви варна, ремонт покрив цена варна, течове покрив варна, подмяна керемиди варна, аварийни ремонти покриви, ремонт покрив аксаково, покривни услуги варна" />
+        <title>Ремонт на Покриви Варна - от 25лв/кв.м | 5г</title>
+        <meta name="description" content="Професионален ремонт на покриви. Отстраняване на течове, подмяна на керемиди, 5г гаранция. Безплатен оглед 24ч. ☎ 089 270 1176" />
+        <meta name="keywords" content="ремонт на покриви варна, ремонт покрив цена варна, течове покрив варна, подмяна керемиди варна, аварийни ремонти покриви" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/ремонт-на-покриви" />
-        <meta property="og:title" content="Ремонт на покриви Варна - Цени от 25лв/кв.м | 5г. гаранция" />
-        <meta property="og:description" content="Професионален ремонт на покриви. Течове, керемиди, комини. 5 години гаранция. Безплатен оглед." />
+        <meta property="og:title" content="Ремонт на Покриви Варна - от 25лв/кв.м" />
+        <meta property="og:description" content="Професионален ремонт. Течове, керемиди, комини. 5г гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
@@ -235,7 +235,7 @@ const RoofRepairPage = () => {
               <span className="text-primary-foreground">Ремонт на покриви</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
-              Ремонт на покриви Варна
+              Ремонт на Покриви Варна - Професионална Услуга
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto text-center mb-8">
               Професионален ремонт на всички видове покриви с 5 години гаранция. Отстраняваме течове, подменяме керемиди, ремонтираме комини и обшивки.

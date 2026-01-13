@@ -41,17 +41,11 @@ const CalculatorPage = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>Калкулатор за Цена на Ремонт на Покрив | Варна | Безплатна Оценка</title>
-        <meta 
-          name="description" 
-          content="Изчислете ориентировъчна цена за ремонт на покрив, хидроизолация или нов покрив във Варна. Безплатен онлайн калкулатор. Точна оферта след безплатен оглед." 
-        />
-        <meta 
-          name="keywords" 
-          content="цена ремонт покрив Варна, калкулатор покрив, колко струва нов покрив, цена хидроизолация, ремонт покрив цени" 
-        />
-        <meta property="og:title" content="Калкулатор за Цена на Ремонт на Покрив | Варна" />
-        <meta property="og:description" content="Изчислете ориентировъчна цена за ремонт на покрив. Безплатен онлайн калкулатор с мигновен резултат." />
+        <title>Калкулатор Цена Покрив Варна - Онлайн</title>
+        <meta name="description" content="Изчислете ориентировъчна цена за ремонт на покрив онлайн. Безплатен калкулатор с мигновен резултат." />
+        <meta name="keywords" content="цена ремонт покрив Варна, калкулатор покрив, колко струва нов покрив, цена хидроизолация, ремонт покрив цени" />
+        <meta property="og:title" content="Калкулатор Цена Покрив Варна - Онлайн" />
+        <meta property="og:description" content="Изчислете ориентировъчна цена за ремонт на покрив онлайн. Безплатен калкулатор." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/калкулатор" />
         <script type="application/ld+json">

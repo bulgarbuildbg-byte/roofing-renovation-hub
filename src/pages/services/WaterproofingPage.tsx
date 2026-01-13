@@ -229,12 +229,12 @@ const WaterproofingPage = () => {
   return (
     <>
       <Helmet>
-        <title>Хидроизолация на покриви Варна - Цени от 28лв/кв.м | 5г. гаранция | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионална хидроизолация на покриви във Варна. Битумна изолация, PVC мембрани, течна хидроизолация. Цени от 28лв/кв.м. 5 години гаранция. Безплатен оглед. ☎ 089 270 1176" />
-        <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация, хидроизолация плосък покрив, хидроизолация тераса" />
+        <title>Хидроизолация Покрив Варна - от 28лв | 10г</title>
+        <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 089 270 1176" />
+        <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/хидроизолация" />
-        <meta property="og:title" content="Хидроизолация на покриви Варна - Цени от 28лв/кв.м" />
-        <meta property="og:description" content="Професионална хидроизолация. Битумна, PVC, течна. 5г гаранция." />
+        <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв" />
+        <meta property="og:description" content="Битумна, PVC, течна хидроизолация. 10г гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>

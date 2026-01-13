@@ -235,12 +235,12 @@ const MetalRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Метални Покриви Варна - Монтаж от 12лв/кв.м | До 50г Гаранция | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионален монтаж на метални покриви във Варна. Метални керемиди, ламаринени покриви, трапецовидна ламарина, стоящ фалц. Цени от 12лв/кв.м. До 50г гаранция. ☎ 089 270 1176" />
-        <meta name="keywords" content="метални покриви варна, метални керемиди варна, ламаринен покрив, трапецовидна ламарина варна, монтаж метален покрив, ремонт метален покрив" />
+        <title>Метални Покриви Варна - от 12лв/кв.м | 50г</title>
+        <meta name="description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 089 270 1176" />
+        <meta name="keywords" content="метални покриви варна, метални керемиди варна, ламаринен покрив, трапецовидна ламарина варна, монтаж метален покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/метални-покриви" />
-        <meta property="og:title" content="Метални Покриви Варна - Монтаж от 12лв/кв.м | До 50г Гаранция" />
-        <meta property="og:description" content="Професионален монтаж на метални покриви. Керемиди, ламарина, стоящ фалц. До 50г гаранция." />
+        <meta property="og:title" content="Метални Покриви Варна - от 12лв/кв.м" />
+        <meta property="og:description" content="Керемиди, ламарина, стоящ фалц. До 50г гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
@@ -265,7 +265,7 @@ const MetalRoofPage = () => {
             
             <div className="max-w-4xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Метални Покриви във Варна
+                Метални Покриви Варна - Монтаж и Ремонт
               </h1>
               
               <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl">

@@ -237,12 +237,12 @@ const RoofLeakRepairPage = () => {
   return (
     <>
       <Helmet>
-        <title>Ремонт на Течове от Покрив Варна - Спешен Ремонт 24/7 | Цени от 80лв | RemontNaPokriviVarna</title>
-        <meta name="description" content="Спешен ремонт на течове от покрив във Варна и региона. Бърза реакция 24/7, диагностика с термокамера, траен ремонт с до 5г гаранция. Цени от 80лв. ☎ 089 270 1176" />
-        <meta name="keywords" content="ремонт теч покрив варна, теч покрив спешен ремонт, течове покрив варна, ремонт течове комин, аварийни ремонти покрив, спешен ремонт покрив варна" />
+        <title>Ремонт Течове Покрив Варна - 24/7 | от 80лв</title>
+        <meta name="description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция. ☎ 089 270 1176" />
+        <meta name="keywords" content="ремонт теч покрив варна, теч покрив спешен ремонт, течове покрив варна, ремонт течове комин, аварийни ремонти покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/ремонт-течове" />
-        <meta property="og:title" content="Ремонт на Течове от Покрив Варна - Спешен Ремонт 24/7" />
-        <meta property="og:description" content="Спешен ремонт на течове. Бърза реакция, точна диагностика, гаранция до 5 години." />
+        <meta property="og:title" content="Ремонт Течове Покрив Варна - 24/7" />
+        <meta property="og:description" content="Спешен ремонт. Бърза реакция, гаранция до 5 години." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
@@ -272,7 +272,7 @@ const RoofLeakRepairPage = () => {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Ремонт на Течове от Покрив във Варна
+                Ремонт Течове от Покрив Варна - Спешна Услуга
               </h1>
               
               <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl">

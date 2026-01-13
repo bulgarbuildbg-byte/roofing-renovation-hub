@@ -63,12 +63,12 @@ const ProjectsPage = () => {
   return (
     <>
       <Helmet>
-        <title>Нашите проекти - Успешни ремонти на покриви Варна | RemontNaPokriviVarna</title>
-        <meta name="description" content="Разгледайте нашите успешно завършени проекти за ремонт на покриви във Варна. Преди и след снимки, хидроизолация, нови покриви и поддръжка." />
+        <title>Проекти Покриви Варна - Преди и След | 500+</title>
+        <meta name="description" content="Разгледайте 500+ завършени проекта за ремонт на покриви във Варна. Реални снимки преди и след ремонта." />
         <meta name="keywords" content="ремонт покриви варна снимки, проекти покриви варна, хидроизолация варна примери, преди след покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/проекти" />
-        <meta property="og:title" content="Нашите проекти - Ремонт на покриви Варна" />
-        <meta property="og:description" content="Разгледайте нашите успешно завършени проекти за ремонт на покриви във Варна." />
+        <meta property="og:title" content="Проекти Покриви Варна - Преди и След | 500+" />
+        <meta property="og:description" content="Разгледайте 500+ завършени проекта за ремонт на покриви във Варна." />
         <meta property="og:type" content="website" />
       </Helmet>
 
@@ -79,7 +79,7 @@ const ProjectsPage = () => {
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-              Нашите проекти
+              Проекти Ремонт на Покриви Варна
             </h1>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto text-center">
               Разгледайте нашите успешно завършени проекти и се убедете в качеството на нашата работа
@@ -90,7 +90,7 @@ const ProjectsPage = () => {
         {/* Before/After Gallery */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-foreground text-center mb-4">Преди и след</h2>
+            <h2 className="text-3xl font-bold text-foreground text-center mb-4">Преди и След Ремонт на Покрив</h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
               Преместете плъзгача, за да видите трансформацията
             </p>
@@ -101,7 +101,7 @@ const ProjectsPage = () => {
         {/* Featured Projects Grid */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-foreground text-center mb-12">Завършени проекти</h2>
+            <h2 className="text-3xl font-bold text-foreground text-center mb-12">Завършени Покривни Проекти във Варна</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredProjects.map((project, index) => (
                 <Card key={index} className="overflow-hidden border-border bg-card hover:shadow-lg transition-shadow">

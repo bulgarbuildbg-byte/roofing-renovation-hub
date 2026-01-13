@@ -79,13 +79,18 @@ const ReviewsPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Отзиви от клиенти | RemontNaPokriviVarna - Ремонт на покриви Варна</title>
-        <meta name="description" content="Прочетете отзиви от доволни клиенти за нашите покривни услуги във Варна. Над 500 завършени проекта с 4.9/5 средна оценка." />
+        <title>Отзиви за Покриви Варна - 4.9/5 Оценка | 127+</title>
+        <meta name="description" content="127+ положителни отзива от клиенти. Прочетете реални мнения за нашите покривни услуги във Варна." />
+        <meta name="keywords" content="отзиви ремонт покриви варна, мнения покривни услуги, рейтинг покриви варна" />
+        <link rel="canonical" href="https://remontnapokrivivarna.com/отзиви" />
+        <meta property="og:title" content="Отзиви за Покриви Варна - 4.9/5 Оценка" />
+        <meta property="og:description" content="127+ положителни отзива от клиенти за нашите покривни услуги." />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": "RemontNaPokriviVarna",
+            "name": "Ремонт на Покриви Варна",
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": aggregateRating,
@@ -104,7 +109,7 @@ const ReviewsPage = () => {
         <section className="bg-primary py-16">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">
-              Какво Казват Нашите Клиенти
+              Отзиви за Ремонт на Покриви Варна
             </h1>
             <p className="text-xl text-primary-foreground/90 max-w-2xl mx-auto mb-8">
               Над {totalReviews} доволни клиенти ни се довериха за техните покриви
@@ -178,7 +183,7 @@ const ReviewsPage = () => {
         <section className="py-16 bg-secondary">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-              Защо Клиентите Ни Се Доверяват
+              Защо Избират Нас за Покривни Услуги
             </h2>
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
