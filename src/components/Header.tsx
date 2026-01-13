@@ -75,9 +75,11 @@ const Header = () => {
               </a>
             </Button>
             <button 
-              className="text-foreground p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="text-foreground p-2 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md hover:bg-muted transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Затвори меню" : "Отвори меню"}
+              aria-expanded={isMenuOpen}
+              type="button"
             >
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -122,6 +124,20 @@ const Header = () => {
             <Link to="/контакти" className="text-foreground hover:text-primary transition-colors font-medium">
               Контакти
             </Link>
+            <Button 
+              onClick={() => {
+                const element = document.getElementById("contact");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth" });
+                } else {
+                  window.location.href = "/#contact";
+                }
+              }}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold" 
+              size="lg"
+            >
+              Безплатен оглед
+            </Button>
             <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold" size="lg">
               <a href="tel:0892701176" className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
@@ -133,7 +149,7 @@ const Header = () => {
 
         {/* Mobile Menu - Full screen overlay */}
         {isMenuOpen && (
-          <div className="md:hidden fixed inset-0 top-[60px] bg-background z-40 overflow-y-auto">
+          <div className="md:hidden fixed inset-x-0 top-0 bottom-0 bg-background z-[100] overflow-y-auto pt-20">
             <nav className="flex flex-col p-6 pb-32">
               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Услуги</p>
               {serviceLinks.map((link) => (
