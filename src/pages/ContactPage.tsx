@@ -49,12 +49,12 @@ const ContactPage = () => {
   return (
     <>
       <Helmet>
-        <title>Контакти - Ремонт на покриви Варна | Обадете се сега | RemontNaPokriviVarna</title>
-        <meta name="description" content="Свържете се с RemontNaPokriviVarna за безплатен оглед и оферта. Телефон: 089 270 1176. Адрес: ул. Уста Колю Фичето 25 А, Варна. Работим 7 дни в седмицата." />
+        <title>Контакти Покриви Варна - 089 270 1176</title>
+        <meta name="description" content="Свържете се за безплатен оглед. Адрес: ул. Уста Колю Фичето 25А, Варна. Работим 7 дни. Бърз отговор." />
         <meta name="keywords" content="контакти ремонт покриви варна, телефон покриви варна, адрес покривни услуги варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/контакти" />
-        <meta property="og:title" content="Контакти - Ремонт на покриви Варна" />
-        <meta property="og:description" content="Свържете се с нас за безплатен оглед. Телефон: 089 270 1176" />
+        <meta property="og:title" content="Контакти Покриви Варна - 089 270 1176" />
+        <meta property="og:description" content="Свържете се за безплатен оглед. Телефон: 089 270 1176" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">
           {JSON.stringify(businessSchema)}
@@ -68,7 +68,7 @@ const ContactPage = () => {
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-              Свържете се с нас
+              Контакти - Ремонт на Покриви Варна
             </h1>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto text-center">
               Безплатен оглед и консултация за вашия покрив
@@ -82,7 +82,7 @@ const ContactPage = () => {
         {/* Map Section */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-foreground text-center mb-8">Къде се намираме</h2>
+            <h2 className="text-3xl font-bold text-foreground text-center mb-8">Локация и Адрес във Варна</h2>
             <div className="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2907.8856270051813!2d27.9121!3d43.2141!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDEyJzUwLjgiTiAyN8KwNTQnNTIuNCJF!5e0!3m2!1sbg!2sbg!4v1234567890"
@@ -102,7 +102,7 @@ const ContactPage = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-foreground mb-8">Работно време</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-8">Работно Време - 7 Дни в Седмицата</h2>
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-3 border-b border-border">
                   <span className="text-foreground font-medium">Понеделник - Петък</span>

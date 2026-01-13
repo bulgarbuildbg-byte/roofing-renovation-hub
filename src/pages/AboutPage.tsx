@@ -39,18 +39,18 @@ const AboutPage = () => {
   return (
     <>
       <Helmet>
-        <title>За нас - Ремонт на покриви Варна | Над 15 години опит | RemontNaPokriviVarna</title>
-        <meta name="description" content="RemontNaPokriviVarna - професионални покривни услуги във Варна с над 15 години опит. Качествен ремонт, хидроизолация и изграждане на покриви. Безплатен оглед!" />
+        <title>За Нас - Ремонт на Покриви Варна | 15+ Години</title>
+        <meta name="description" content="Над 15 години опит в покривните услуги. Квалифициран екип, качествени материали, гаранция. Научете повече за нас." />
         <meta name="keywords" content="ремонт на покриви варна, покривни услуги варна, майстор покриви варна, хидроизолация варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/за-нас" />
-        <meta property="og:title" content="За нас - Ремонт на покриви Варна | RemontNaPokriviVarna" />
-        <meta property="og:description" content="Професионални покривни услуги във Варна с над 15 години опит. Качествен ремонт и изграждане на покриви." />
+        <meta property="og:title" content="За Нас - Ремонт на Покриви Варна | 15+ Години" />
+        <meta property="og:description" content="Над 15 години опит в покривните услуги. Квалифициран екип и качествени материали." />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "RoofingContractor",
-            "name": "RemontNaPokriviVarna",
+            "name": "Ремонт на Покриви Варна",
             "description": "Професионални покривни услуги във Варна",
             "url": "https://remontnapokrivivarna.com",
             "telephone": "+359892701176",
@@ -74,7 +74,7 @@ const AboutPage = () => {
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
           <div className="container mx-auto px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">
-              За нас
+              За Нас - Покривни Специалисти Варна
             </h1>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto text-center">
               RemontNaPokriviVarna е вашият надежден партньор за всички покривни услуги във Варна и региона
@@ -86,7 +86,7 @@ const AboutPage = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-foreground mb-6">Нашата история</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-6">15+ Години Опит в Ремонт на Покриви</h2>
               <p className="text-muted-foreground text-lg mb-6">
                 С над 15 години опит в сферата на покривните услуги, RemontNaPokriviVarna се е утвърдила като водеща 
                 компания за ремонт и изграждане на покриви във Варна. Започнахме като малък семеен бизнес с мисията 
@@ -108,7 +108,7 @@ const AboutPage = () => {
         {/* Values Section */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-foreground text-center mb-12">Нашите ценности</h2>
+            <h2 className="text-3xl font-bold text-foreground text-center mb-12">Защо Клиентите Ни Се Доверяват</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((value, index) => (
                 <Card key={index} className="border-border bg-card">

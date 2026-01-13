@@ -105,10 +105,13 @@ const ServicesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Услуги и Цени - Ремонт на Покриви Варна | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионални покривни услуги във Варна с конкурентни цени. Ремонт, монтаж, хидроизолация и поддръжка на покриви. Цени от 15 лв/м². Безплатна оценка!" />
+        <title>Покривни Услуги Варна - Цени от 15лв/кв.м</title>
+        <meta name="description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед. Вижте нашите пакети." />
         <meta name="keywords" content="ремонт покриви варна цени, монтаж покриви варна, хидроизолация покриви, покривни услуги варна, цени покриви" />
-        <link rel="canonical" href="https://yoursite.com/services" />
+        <meta property="og:title" content="Покривни Услуги Варна - Цени от 15лв/кв.м" />
+        <meta property="og:description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед." />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://remontnapokrivivarna.com/услуги" />
       </Helmet>
 
       <div className="min-h-screen">
@@ -125,7 +128,7 @@ const ServicesPage = () => {
               
               <div className="max-w-3xl">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                  Професионални Покривни Услуги във Варна
+                  Покривни Услуги Варна - Цени и Пакети
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
                   Предлагаме пълен спектър от покривни услуги с конкурентни цени и гаранция за качество. Безплатна оценка и консултация!
@@ -143,7 +146,7 @@ const ServicesPage = () => {
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Пакетни Предложения
+                  Пакети за Ремонт на Покриви Варна
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   Изберете най-подходящия пакет за вашия проект
@@ -196,7 +199,7 @@ const ServicesPage = () => {
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Подробно за Услугите
+                  Услуги по Ремонт и Изграждане на Покриви
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   Детайлна информация за всяка услуга и какво включва тя

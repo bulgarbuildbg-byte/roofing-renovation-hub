@@ -110,10 +110,13 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Блог за покриви и хидроизолация | Съвети и ръководства | Варна</title>
-        <meta name="description" content="Експертни статии за ремонт на покриви, хидроизолация, сезонна поддръжка и избор на материали. Професионални съвети от специалисти във Варна." />
+        <title>Блог за Покриви Варна - Съвети и Ръководства</title>
+        <meta name="description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви. Експертни съвети от професионалисти." />
         <meta name="keywords" content="блог покриви, съвети за покриви, ремонт покрив, хидроизолация съвети, поддръжка на покрив, Варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/блог" />
+        <meta property="og:title" content="Блог за Покриви Варна - Съвети и Ръководства" />
+        <meta property="og:description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви." />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
@@ -131,7 +134,7 @@ const BlogPage = () => {
             </nav>
             
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Блог за покриви и хидроизолация
+              Блог за Покриви Варна - Съвети и Новини
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl">
               Експертни съвети, ръководства и новини от света на покривните ремонти. 
@@ -160,7 +163,7 @@ const BlogPage = () => {
         {/* Featured Article */}
         <section className="py-12">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-foreground mb-8">Препоръчана статия</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-8">Препоръчана Статия за Покриви</h2>
             
             <Link to={`/блог/${blogPosts[0].id}`} className="block">
               <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
@@ -207,7 +210,7 @@ const BlogPage = () => {
         {/* All Articles */}
         <section className="py-12 bg-secondary/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-foreground mb-8">Всички статии</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-8">Статии за Ремонт и Поддръжка на Покриви</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.slice(1).map((post) => (

@@ -204,11 +204,11 @@ const NewRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Изграждане на нов покрив Варна - Цени от 50лв/кв.м | 10г гаранция | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионално изграждане на нови покриви във Варна. Керемидени, метални, плоски покриви. Цени от 50лв/кв.м. 10 години гаранция. Безплатен проект и оглед. ☎ 089 270 1176" />
-        <meta name="keywords" content="нов покрив варна, изграждане покрив варна, покривна конструкция варна, керемиден покрив цена, метален покрив варна, покрив за къща варна" />
+        <title>Нов Покрив Варна - Изграждане от 65лв/кв.м</title>
+        <meta name="description" content="Изграждане на нови покриви - керемидни, метални, плоски. Пълен проект и монтаж с 10г гаранция. ☎ 089 270 1176" />
+        <meta name="keywords" content="нов покрив варна, изграждане покрив варна, покривна конструкция варна, керемиден покрив цена, метален покрив варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/изграждане-на-покрив" />
-        <meta property="og:title" content="Изграждане на нов покрив Варна - Цени от 50лв/кв.м" />
+        <meta property="og:title" content="Нов Покрив Варна - Изграждане от 65лв/кв.м" />
         <meta property="og:description" content="Нови покриви с 10г гаранция. Керемидени, метални, плоски." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
@@ -232,7 +232,7 @@ const NewRoofPage = () => {
               <span className="text-primary-foreground">Изграждане на нов покрив</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
-              Изграждане на нов покрив Варна
+              Нов Покрив Варна - Изграждане и Монтаж
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto text-center mb-8">
               Професионално проектиране и изграждане на покривни конструкции с качествени материали и 10 години гаранция.

@@ -261,12 +261,12 @@ const MaintenancePage = () => {
   return (
     <>
       <Helmet>
-        <title>Поддръжка на покриви Варна - Почистване от 6лв/м | Годишни пакети | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионална поддръжка на покриви във Варна. Почистване на улуци, премахване на мъх, профилактични прегледи, почистване на сняг. Цени от 6лв/м. ☎ 089 270 1176" />
-        <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив, годишна поддръжка покрив" />
+        <title>Поддръжка Покриви Варна - от 60лв | Годишни</title>
+        <meta name="description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка. ☎ 089 270 1176" />
+        <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/поддръжка-на-покриви" />
-        <meta property="og:title" content="Поддръжка на покриви Варна - Почистване от 6лв/м" />
-        <meta property="og:description" content="Професионална поддръжка. Почистване на улуци и покриви. Годишни пакети." />
+        <meta property="og:title" content="Поддръжка Покриви Варна - от 60лв" />
+        <meta property="og:description" content="Почистване на улуци и покриви. Годишни пакети." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
@@ -289,7 +289,7 @@ const MaintenancePage = () => {
               <span className="text-primary-foreground">Поддръжка на покриви</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
-              Поддръжка на покриви Варна
+              Поддръжка на Покриви Варна - Професионална
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto text-center mb-8">
               Редовната поддръжка удължава живота на покрива с до 50% и предотвратява скъпи аварийни ремонти.

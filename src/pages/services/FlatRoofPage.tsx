@@ -263,12 +263,12 @@ const FlatRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Плоски Покриви Варна - Хидроизолация от 22лв/кв.м | До 10г Гаранция | RemontNaPokriviVarna</title>
-        <meta name="description" content="Професионален ремонт и хидроизолация на плоски покриви във Варна. Битумни и PVC мембрани, течна хидроизолация. Цени от 22лв/кв.м. До 10г гаранция. ☎ 089 270 1176" />
-        <meta name="keywords" content="плосък покрив варна, хидроизолация плосък покрив, ремонт плосък покрив, битумна хидроизолация варна, PVC мембрана варна, течове плосък покрив" />
+        <title>Плоски Покриви Варна - от 22лв/кв.м | 10г</title>
+        <meta name="description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. До 10 години гаранция. ☎ 089 270 1176" />
+        <meta name="keywords" content="плосък покрив варна, хидроизолация плосък покрив, ремонт плосък покрив, битумна хидроизолация варна, PVC мембрана варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/плоски-покриви" />
-        <meta property="og:title" content="Плоски Покриви Варна - Хидроизолация от 22лв/кв.м" />
-        <meta property="og:description" content="Професионална хидроизолация на плоски покриви. Битумни и PVC мембрани. До 10г гаранция." />
+        <meta property="og:title" content="Плоски Покриви Варна - от 22лв/кв.м" />
+        <meta property="og:description" content="Битумни и PVC мембрани. До 10г гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
