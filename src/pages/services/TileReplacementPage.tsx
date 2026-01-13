@@ -281,7 +281,7 @@ const TileReplacementPage = () => {
                     Обадете се
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                   <Link to="/контакти">Безплатна Оферта</Link>
                 </Button>
               </div>

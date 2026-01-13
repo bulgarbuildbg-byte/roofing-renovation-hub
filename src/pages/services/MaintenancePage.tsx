@@ -261,11 +261,11 @@ const MaintenancePage = () => {
   return (
     <>
       <Helmet>
-        <title>Поддръжка Покриви Варна - от 60лв | Годишни</title>
+        <title>Поддръжка Покриви Варна - от 30 € | Годишни</title>
         <meta name="description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка. ☎ 089 270 1176" />
         <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/поддръжка-на-покриви" />
-        <meta property="og:title" content="Поддръжка Покриви Варна - от 60лв" />
+        <meta property="og:title" content="Поддръжка Покриви Варна - от 30 €" />
         <meta property="og:description" content="Почистване на улуци и покриви. Годишни пакети." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
@@ -301,7 +301,7 @@ const MaintenancePage = () => {
                   Обадете се: 089 270 1176
                 </a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                 <Link to="/контакти">Заявете преглед</Link>
               </Button>
             </div>

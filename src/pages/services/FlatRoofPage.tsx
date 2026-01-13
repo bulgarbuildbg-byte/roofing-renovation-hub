@@ -232,7 +232,7 @@ const FlatRoofPage = () => {
       "@type": "AggregateOffer",
       "lowPrice": "22",
       "highPrice": "50",
-      "priceCurrency": "BGN",
+      "priceCurrency": "EUR",
       "offerCount": "6"
     }
   };
@@ -263,11 +263,11 @@ const FlatRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Плоски Покриви Варна - от 22лв/кв.м | 10г</title>
+        <title>Плоски Покриви Варна - от 11 €/кв.м | 10г</title>
         <meta name="description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. До 10 години гаранция. ☎ 089 270 1176" />
         <meta name="keywords" content="плосък покрив варна, хидроизолация плосък покрив, ремонт плосък покрив, битумна хидроизолация варна, PVC мембрана варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/плоски-покриви" />
-        <meta property="og:title" content="Плоски Покриви Варна - от 22лв/кв.м" />
+        <meta property="og:title" content="Плоски Покриви Варна - от 11 €/кв.м" />
         <meta property="og:description" content="Битумни и PVC мембрани. До 10г гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
@@ -309,7 +309,7 @@ const FlatRoofPage = () => {
                     Обадете се
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                   <Link to="/контакти">Безплатен Оглед</Link>
                 </Button>
               </div>

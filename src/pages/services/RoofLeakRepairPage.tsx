@@ -237,11 +237,11 @@ const RoofLeakRepairPage = () => {
   return (
     <>
       <Helmet>
-        <title>Ремонт Течове Покрив Варна - 24/7 | от 80лв</title>
+        <title>Ремонт Течове Покрив Варна - 24/7 | от 40 €</title>
         <meta name="description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция. ☎ 089 270 1176" />
         <meta name="keywords" content="ремонт теч покрив варна, теч покрив спешен ремонт, течове покрив варна, ремонт течове комин, аварийни ремонти покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/ремонт-течове" />
-        <meta property="og:title" content="Ремонт Течове Покрив Варна - 24/7" />
+        <meta property="og:title" content="Ремонт Течове Покрив Варна - 24/7 | от 40 €" />
         <meta property="og:description" content="Спешен ремонт. Бърза реакция, гаранция до 5 години." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
@@ -287,7 +287,7 @@ const RoofLeakRepairPage = () => {
                     Обадете се СЕГА
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                   <Link to="/контакти">Безплатен Оглед</Link>
                 </Button>
               </div>

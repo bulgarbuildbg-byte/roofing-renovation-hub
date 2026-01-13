@@ -54,7 +54,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3 md:py-4'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-md border-b border-border transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3 md:py-4'}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -148,9 +148,11 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu - Full screen overlay */}
-        {isMenuOpen && (
-          <div className="md:hidden fixed inset-x-0 top-0 bottom-0 bg-background z-[100] overflow-y-auto pt-20">
-            <nav className="flex flex-col p-6 pb-32">
+        <div 
+          className={`md:hidden fixed inset-0 bg-background z-[55] overflow-y-auto transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          style={{ paddingTop: isScrolled ? '76px' : '84px' }}
+        >
+          <nav className="flex flex-col p-6 pb-32">
               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Услуги</p>
               {serviceLinks.map((link) => (
                 <Link 
@@ -206,7 +208,6 @@ const Header = () => {
               </div>
             </nav>
           </div>
-        )}
       </div>
     </header>
   );
