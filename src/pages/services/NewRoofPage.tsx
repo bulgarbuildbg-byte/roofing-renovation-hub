@@ -2,10 +2,35 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Home, Shield, Phone, MapPin, Search, Layers, Ruler, HardHat } from "lucide-react";
+
+const relatedServices = [
+  {
+    title: "Метални Покриви",
+    description: "Леки и издръжливи метални покриви с дълга гаранция.",
+    href: "/метални-покриви"
+  },
+  {
+    title: "Смяна на Керемиди",
+    description: "Подмяна на стари керемиди с нови качествени материали.",
+    href: "/смяна-на-керемиди"
+  },
+  {
+    title: "Хидроизолация",
+    description: "Професионална хидроизолация за дълготрайна защита.",
+    href: "/хидроизолация"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "Как да изберем правилните керемиди", href: "/блог/как-да-изберем-керемиди-за-нов-покрив" },
+  { title: "Видове хидроизолация и кога да изберем всяка", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" }
+];
 
 const NewRoofPage = () => {
   const services = [
@@ -508,6 +533,13 @@ const NewRoofPage = () => {
             </div>
           </div>
         </section>
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
 
       <Footer />

@@ -1,4 +1,6 @@
 import { CheckCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const features = [
   "Над 15 години опит в бранша",
@@ -34,6 +36,14 @@ const About = () => {
                   <span className="text-foreground">{feature}</span>
                 </div>
               ))}
+            </div>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <Link to="/за-нас">
+                <Button variant="outline">Научете повече за нас</Button>
+              </Link>
+              <Link to="/проекти">
+                <Button variant="ghost" className="text-primary">Вижте нашите проекти →</Button>
+              </Link>
             </div>
           </div>
           

@@ -2,10 +2,35 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Droplets, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Layers, Thermometer } from "lucide-react";
+
+const relatedServices = [
+  {
+    title: "Плоски Покриви",
+    description: "Специализирани решения за плоски покриви с модерни материали.",
+    href: "/плоски-покриви"
+  },
+  {
+    title: "Ремонт на Течове",
+    description: "Бързо локализиране и отстраняване на течове с гаранция.",
+    href: "/ремонт-течове"
+  },
+  {
+    title: "Поддръжка на Покриви",
+    description: "Превантивна грижа за дълготрайна защита на покрива.",
+    href: "/поддръжка-на-покриви"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "Видове хидроизолация - пълно ръководство", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" },
+  { title: "Най-честите грешки при покривни ремонти", href: "/блог/най-честите-грешки-при-покривни-ремонти" }
+];
 
 const WaterproofingPage = () => {
   const services = [
@@ -564,6 +589,13 @@ const WaterproofingPage = () => {
             </div>
           </div>
         </section>
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
 
       <Footer />

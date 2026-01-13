@@ -2,10 +2,35 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Hammer, ClipboardCheck } from "lucide-react";
+
+const relatedServices = [
+  {
+    title: "Ремонт на Течове",
+    description: "Спешно отстраняване на течове с гаранция. Диагностика с термокамера.",
+    href: "/ремонт-течове"
+  },
+  {
+    title: "Смяна на Керемиди",
+    description: "Подмяна на счупени или износени керемиди с качествени материали.",
+    href: "/смяна-на-керемиди"
+  },
+  {
+    title: "Поддръжка на Покриви",
+    description: "Редовна профилактика за удължаване живота на покрива.",
+    href: "/поддръжка-на-покриви"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "5 признака, че покривът се нуждае от ремонт", href: "/блог/5-признака-че-покривът-се-нуждае-от-ремонт" },
+  { title: "Най-честите грешки при покривни ремонти", href: "/блог/най-честите-грешки-при-покривни-ремонти" }
+];
 
 const RoofRepairPage = () => {
   const services = [
@@ -520,6 +545,13 @@ const RoofRepairPage = () => {
             </div>
           </div>
         </section>
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
 
       <Footer />

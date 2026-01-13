@@ -2,10 +2,35 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Settings, Calendar, Phone, MapPin, Search, Leaf, Snowflake, Sun, CloudRain } from "lucide-react";
+
+const relatedServices = [
+  {
+    title: "Ремонт на Покриви",
+    description: "Професионален ремонт при открити проблеми по време на поддръжка.",
+    href: "/ремонт-на-покриви"
+  },
+  {
+    title: "Смяна на Керемиди",
+    description: "Подмяна на повредени керемиди преди да причинят течове.",
+    href: "/смяна-на-керемиди"
+  },
+  {
+    title: "Хидроизолация",
+    description: "Превантивна хидроизолация за защита на покрива.",
+    href: "/хидроизолация"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "Пролетна инспекция на покрива", href: "/блог/пролетна-инспекция-на-покрива" },
+  { title: "Подготовка на покрива за зимата", href: "/блог/как-да-подготвим-покрива-за-зимата" }
+];
 
 const MaintenancePage = () => {
   const services = [
@@ -599,6 +624,13 @@ const MaintenancePage = () => {
             </div>
           </div>
         </section>
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
 
       <Footer />

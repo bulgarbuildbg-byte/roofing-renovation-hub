@@ -3,10 +3,35 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Shield, Zap, Clock, Palette, Layers, Wind, MapPin, Wrench, Home, AlertTriangle, ThermometerSun } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const relatedServices = [
+  {
+    title: "Изграждане на Нов Покрив",
+    description: "Пълно проектиране и изграждане на нова покривна конструкция.",
+    href: "/изграждане-на-покрив"
+  },
+  {
+    title: "Ремонт на Покриви",
+    description: "Професионален ремонт на всички видове покриви.",
+    href: "/ремонт-на-покриви"
+  },
+  {
+    title: "Поддръжка на Покриви",
+    description: "Редовна поддръжка за дълъг живот на металния покрив.",
+    href: "/поддръжка-на-покриви"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "Как да изберем правилните керемиди", href: "/блог/как-да-изберем-керемиди-за-нов-покрив" },
+  { title: "Подготовка на покрива за зимата", href: "/блог/как-да-подготвим-покрива-за-зимата" }
+];
 
 const MetalRoofPage = () => {
   const services = [
@@ -617,6 +642,13 @@ const MetalRoofPage = () => {
           title="Интересувате се от Метален Покрив?"
           subtitle="Получете безплатна консултация и оферта без задължение"
         />
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
       
       <Footer />

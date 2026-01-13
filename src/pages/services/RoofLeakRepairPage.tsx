@@ -3,10 +3,35 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, AlertTriangle, Droplets, Clock, Shield, Wrench, MapPin, Search, ThermometerSun, Home, Hammer } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const relatedServices = [
+  {
+    title: "Хидроизолация",
+    description: "Професионална хидроизолация за трайно решение на течовете.",
+    href: "/хидроизолация"
+  },
+  {
+    title: "Ремонт на Покриви",
+    description: "Цялостен ремонт на покривната конструкция и покритие.",
+    href: "/ремонт-на-покриви"
+  },
+  {
+    title: "Плоски Покриви",
+    description: "Специализирани решения за течове при плоски покриви.",
+    href: "/плоски-покриви"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "5 признака, че покривът се нуждае от ремонт", href: "/блог/5-признака-че-покривът-се-нуждае-от-ремонт" },
+  { title: "Видове хидроизолация и кога да изберем всяка", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" }
+];
 
 const RoofLeakRepairPage = () => {
   const services = [
@@ -602,6 +627,13 @@ const RoofLeakRepairPage = () => {
             </div>
           </div>
         </section>
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
       
       <Footer />

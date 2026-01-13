@@ -3,10 +3,35 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
+import RelatedServices from "@/components/RelatedServices";
+import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Layers, Shield, Droplets, Sun, MapPin, Clock, Wrench, AlertTriangle, ThermometerSun, Wind, Home } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const relatedServices = [
+  {
+    title: "Хидроизолация",
+    description: "Професионална хидроизолация с PVC, TPO и битумни мембрани.",
+    href: "/хидроизолация"
+  },
+  {
+    title: "Ремонт на Течове",
+    description: "Спешно отстраняване на течове при плоски покриви.",
+    href: "/ремонт-течове"
+  },
+  {
+    title: "Поддръжка на Покриви",
+    description: "Редовна инспекция и почистване на плоски покриви.",
+    href: "/поддръжка-на-покриви"
+  }
+];
+
+const learnMoreLinks = [
+  { title: "Видове хидроизолация - кога да изберем всяка", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" },
+  { title: "Пролетна инспекция на покрива", href: "/блог/пролетна-инспекция-на-покрива" }
+];
 
 const FlatRoofPage = () => {
   const services = [
@@ -678,6 +703,13 @@ const FlatRoofPage = () => {
           title="Нуждаете се от Ремонт на Плосък Покрив?"
           subtitle="Получете безплатен оглед и честна оферта без задължение"
         />
+        {/* Learn More Links */}
+        <div className="container mx-auto px-4 py-12">
+          <LearnMoreLinks links={learnMoreLinks} />
+        </div>
+
+        {/* Related Services */}
+        <RelatedServices services={relatedServices} />
       </main>
       
       <Footer />
