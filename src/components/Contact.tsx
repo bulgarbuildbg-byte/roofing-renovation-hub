@@ -1,45 +1,33 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { Phone, Mail, MapPin, Clock, CheckCircle, Star } from "lucide-react";
+import QuickContactForm from "./QuickContactForm";
 
 const Contact = () => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    service: "",
-    message: ""
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Заявката е изпратена!",
-      description: "Ще се свържем с вас в рамките на 24 часа.",
-    });
-    setFormData({ name: "", phone: "", email: "", service: "", message: "" });
-  };
-
   return (
-    <section id="contact" className="py-20 bg-background">
+    <section id="contact" className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4">
             Свържете се с нас
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Готови сме да отговорим на вашите въпроси и да предложим най-доброто решение
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Готови сме да ви помогнем с всеки покривен проблем
           </p>
+          
+          {/* Rating badge */}
+          <div className="inline-flex items-center gap-2 mt-4 bg-accent/10 px-4 py-2 rounded-full">
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+              ))}
+            </div>
+            <span className="text-sm font-medium text-foreground">4.9/5 от 127 отзива</span>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+          {/* Contact Info - Mobile optimized */}
+          <div className="space-y-4 md:space-y-6 order-2 md:order-1">
             {/* Response guarantee */}
             <div className="bg-accent/10 border border-accent/20 rounded-xl p-4 flex items-center gap-3">
               <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
@@ -48,35 +36,29 @@ const Contact = () => {
               </p>
             </div>
 
-            <Card className="border-border bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-card-foreground mb-1">Телефон</h3>
-                  <a href="tel:0892701176" className="text-muted-foreground hover:text-primary transition-colors text-lg">
-                    089 270 1176
-                  </a>
-                </div>
+            {/* Phone - Prominent */}
+            <Card className="border-border bg-card hover:shadow-lg transition-shadow">
+              <CardContent className="p-4 md:p-6">
+                <a href="tel:0892701176" className="flex items-center gap-4">
+                  <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-7 h-7 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Телефон</p>
+                    <p className="text-xl md:text-2xl font-bold text-accent">089 270 1176</p>
+                  </div>
+                </a>
               </CardContent>
             </Card>
 
-            <a href="tel:0892701176" className="block">
-              <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg py-6" size="lg">
-                <Phone className="w-5 h-5" />
-                Обадете се сега
-              </Button>
-            </a>
-
             <Card className="border-border bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
+              <CardContent className="p-4 md:p-6 flex items-start gap-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-bold text-card-foreground mb-1">Email</h3>
-                  <a href="mailto:remontnapokrivivarna@abv.bg" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="mailto:remontnapokrivivarna@abv.bg" className="text-muted-foreground hover:text-primary transition-colors text-sm md:text-base break-all">
                     remontnapokrivivarna@abv.bg
                   </a>
                 </div>
@@ -84,16 +66,16 @@ const Contact = () => {
             </Card>
 
             <Card className="border-border bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
+              <CardContent className="p-4 md:p-6 flex items-start gap-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-card-foreground mb-1">Адрес и Зона на Обслужване</h3>
-                  <p className="text-muted-foreground mb-1">
+                  <h3 className="font-bold text-card-foreground mb-1">Адрес</h3>
+                  <p className="text-muted-foreground text-sm md:text-base">
                     ул. Уста Колю Фичето 25 А, Варна
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs md:text-sm text-muted-foreground mt-1">
                     Обслужваме Варна и региона в радиус от 50 км
                   </p>
                 </div>
@@ -101,95 +83,27 @@ const Contact = () => {
             </Card>
 
             <Card className="border-border bg-card">
-              <CardContent className="p-6 flex items-start gap-4">
+              <CardContent className="p-4 md:p-6 flex items-start gap-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <Clock className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-bold text-card-foreground mb-1">Работно Време</h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-sm md:text-base">
                     Понеделник - Събота: 08:00 - 18:00
                   </p>
                   <p className="text-sm text-accent font-medium mt-1">
-                    Аварийни случаи: 24/7
+                    🚨 Аварийни случаи: 24/7
                   </p>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          <Card className="border-border bg-card">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-card-foreground mb-4">
-                Изпратете запитване
-              </h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <Input
-                    placeholder="Вашето име"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="bg-background border-input"
-                  />
-                </div>
-                <div>
-                  <Input
-                    type="tel"
-                    placeholder="Телефон"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    required
-                    className="bg-background border-input"
-                  />
-                </div>
-                <div>
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    className="bg-background border-input"
-                  />
-                </div>
-                <div>
-                  <Select 
-                    value={formData.service} 
-                    onValueChange={(value) => setFormData({ ...formData, service: value })}
-                  >
-                    <SelectTrigger className="bg-background border-input">
-                      <SelectValue placeholder="Изберете услуга" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-background border-border">
-                      <SelectItem value="repair">Ремонт на покрив</SelectItem>
-                      <SelectItem value="new-roof">Нов покрив</SelectItem>
-                      <SelectItem value="waterproofing">Хидроизолация</SelectItem>
-                      <SelectItem value="maintenance">Поддръжка</SelectItem>
-                      <SelectItem value="inspection">Безплатна инспекция</SelectItem>
-                      <SelectItem value="emergency">Аварийно ремонт</SelectItem>
-                      <SelectItem value="other">Друго</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Textarea
-                    placeholder="Опишете вашия проблем или запитване..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    className="min-h-32 bg-background border-input"
-                  />
-                </div>
-                <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg py-6" size="lg">
-                  Изпрати заявка
-                </Button>
-                <p className="text-center text-sm text-muted-foreground">
-                  Безплатна консултация • Без задължение
-                </p>
-              </form>
-            </CardContent>
-          </Card>
+          {/* Quick Contact Form */}
+          <div className="order-1 md:order-2">
+            <QuickContactForm />
+          </div>
         </div>
       </div>
     </section>

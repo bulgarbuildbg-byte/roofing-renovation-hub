@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import TrustIndicators from "@/components/TrustIndicators";
 import FloatingCallButton from "@/components/FloatingCallButton";
+import MobileBottomBar from "@/components/MobileBottomBar";
 import Services from "@/components/Services";
 import CTASection from "@/components/CTASection";
 import WhyChooseUs from "@/components/WhyChooseUs";
@@ -221,6 +222,9 @@ const Index = () => {
       />
       <Footer />
       <FloatingCallButton />
+      <MobileBottomBar />
+      {/* Add padding at bottom on mobile to account for sticky bar */}
+      <div className="h-20 md:hidden" />
     </div>
   );
 };

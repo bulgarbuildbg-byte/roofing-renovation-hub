@@ -29,16 +29,16 @@ const indicators = [
 
 const TrustIndicators = () => {
   return (
-    <section className="bg-primary py-5">
+    <section className="bg-primary py-4 md:py-6">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6">
           {indicators.map((indicator, index) => (
             <div 
               key={index} 
-              className="flex items-center gap-2 justify-center text-primary-foreground"
+              className="flex items-center gap-2 md:gap-3 justify-center text-primary-foreground bg-primary-foreground/5 rounded-lg py-3 px-2 md:py-4 md:px-3 hover:bg-primary-foreground/10 transition-colors"
             >
               <indicator.icon className="w-5 h-5 md:w-6 md:h-6 text-accent flex-shrink-0" />
-              <span className="text-xs md:text-sm font-medium whitespace-nowrap">{indicator.text}</span>
+              <span className="text-xs md:text-sm font-semibold">{indicator.text}</span>
             </div>
           ))}
         </div>
