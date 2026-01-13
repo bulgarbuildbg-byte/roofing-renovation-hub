@@ -9,6 +9,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Settings, Calendar, Phone, MapPin, Search, Leaf, Snowflake, Sun, CloudRain } from "lucide-react";
 
+// Process images
+import groundInspection from "@/assets/process/ground-inspection.jpg";
+import roofWalkingInspection from "@/assets/process/roof-walking-inspection.jpg";
+import gutterCleaning from "@/assets/process/gutter-cleaning.jpg";
+import mossRemoval from "@/assets/process/moss-removal.jpg";
+import singleTileRepair from "@/assets/process/single-tile-repair.jpg";
+import maintenanceReport from "@/assets/process/maintenance-report.jpg";
+
 const relatedServices = [
   {
     title: "Ремонт на Покриви",
@@ -133,42 +141,42 @@ const MaintenancePage = () => {
       step: 1,
       title: "Визуална инспекция от земята",
       description: "Нашият специалист започва с оглед от земята, използвайки бинокъл или дрон за първоначална оценка. Това позволява да се идентифицират очевидни проблеми като липсващи керемиди, видими повреди или натрупани отломки без риск за покрива.",
-      image: "/src/assets/process/ground-inspection.jpg",
+      image: groundInspection,
       imageAlt: "Визуална инспекция на покрив от земята - професионален оглед на състоянието Варна"
     },
     {
       step: 2,
       title: "Детайлен оглед на покрива",
       description: "При необходимост се качваме на покрива за по-детайлна инспекция. Проверяваме състоянието на керемидите, обшивките, улуците, комините и всички критични точки. Правим снимки за документация.",
-      image: "/src/assets/process/roof-walking-inspection.jpg",
+      image: roofWalkingInspection,
       imageAlt: "Детайлен оглед на покрив от близо - проверка на керемиди и обшивки"
     },
     {
       step: 3,
       title: "Почистване на улуци и водостоци",
       description: "Ръчно премахваме натрупаните листа, клони и отломки от улуците. Промиваме водосточните тръби с вода под налягане, за да се уверим, че няма запушвания. Проверяваме наклона и закрепването.",
-      image: "/src/assets/process/gutter-cleaning.jpg",
+      image: gutterCleaning,
       imageAlt: "Почистване на улуци от листа и отломки - поддръжка на водосточна система Варна"
     },
     {
       step: 4,
       title: "Отстраняване на мъх и лишеи",
       description: "Мъхът и лишеите задържат влага, която уврежда керемидите. Използваме специализирани препарати и четки за внимателно отстраняване, без да повредим покритието. При необходимост нанасяме превантивен препарат.",
-      image: "https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=800&q=80",
+      image: mossRemoval,
       imageAlt: "Отстраняване на мъх от керемиден покрив - почистване и импрегниране"
     },
     {
       step: 5,
       title: "Дребни ремонти на място",
       description: "При констатиране на дребни проблеми - счупена керемида, разхлабена обшивка, липсващо уплътнение - ги отстраняваме веднага. Това предотвратява развитието на по-сериозни повреди.",
-      image: "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=800&q=80",
+      image: singleTileRepair,
       imageAlt: "Дребен ремонт на покрив - подмяна на счупена керемида при поддръжка"
     },
     {
       step: 6,
       title: "Доклад и препоръки",
       description: "След приключване на поддръжката предоставяме подробен доклад за състоянието на покрива, извършените дейности и препоръки за бъдещи действия. Планираме следващата проверка.",
-      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+      image: maintenanceReport,
       imageAlt: "Изготвяне на доклад за състоянието на покрива - препоръки за поддръжка"
     }
   ];

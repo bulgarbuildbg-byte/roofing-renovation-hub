@@ -10,6 +10,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Shield, Zap, Clock, Palette, Layers, Wind, MapPin, Wrench, Home, AlertTriangle, ThermometerSun } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Process images
+import metalRoofSurvey from "@/assets/process/metal-roof-survey.jpg";
+import membraneBattens from "@/assets/process/membrane-battens.jpg";
+import metalDelivery from "@/assets/process/metal-delivery.jpg";
+import metalInstallation from "@/assets/process/metal-installation.jpg";
+import metalRidgeCap from "@/assets/process/metal-ridge-cap.jpg";
+import gutterInstallation from "@/assets/process/gutter-installation.jpg";
+
 const relatedServices = [
   {
     title: "Изграждане на Нов Покрив",
@@ -115,42 +123,42 @@ const MetalRoofPage = () => {
       step: 1,
       title: "Оглед и проектиране",
       description: "Нашият специалист извършва детайлен оглед на покрива, измерва площите и наклоните, оценява състоянието на носещата конструкция. Изготвяме проект с точно количество материали и препоръки за оптималния тип метален покрив за вашите нужди.",
-      image: "/src/assets/process/metal-roof-survey.jpg",
+      image: metalRoofSurvey,
       imageAlt: "Проектиране на метален покрив - измервания и калкулации Варна"
     },
     {
       step: 2,
       title: "Подготовка на конструкцията",
       description: "Проверяваме и при необходимост укрепваме носещата конструкция. Монтираме летви или обрешетка с правилните разстояния за избрания тип покритие. Полагаме подпокривна мембрана за защита от кондензация и допълнителна водоустойчивост.",
-      image: "/src/assets/process/membrane-battens.jpg",
+      image: membraneBattens,
       imageAlt: "Подготовка на покривна конструкция за монтаж на метален покрив"
     },
     {
       step: 3,
       title: "Доставка и подреждане на материали",
       description: "Организираме доставката на металните панели, които обикновено се произвеждат по поръчка в точните размери. Внимателно разтоварваме и подреждаме материалите на обекта, за да минимизираме вътрешнообектовия транспорт и риска от повреди.",
-      image: "/src/assets/process/metal-delivery.jpg",
+      image: metalDelivery,
       imageAlt: "Доставка на метални панели за покрив - разтоварване и подреждане"
     },
     {
       step: 4,
       title: "Монтаж на покривните панели",
       description: "Полагаме металните панели, започвайки от ръба на покрива и работейки нагоре. Осигуряваме правилното застъпване между панелите. Закрепваме с качествени саморези с EPDM уплътнение. Специално внимание отделяме на билото, ръбовете и примикванията.",
-      image: "/src/assets/process/metal-installation.jpg",
+      image: metalInstallation,
       imageAlt: "Монтаж на метални панели на покрив - закрепване със саморези"
     },
     {
       step: 5,
       title: "Монтаж на аксесоари",
       description: "Монтираме всички допълнителни елементи - билни капаци, ветробранни ленти, снегозадържатели, вентилационни елементи. Изпълняваме примикванията към стени, комини и други проходки с качествени обшивки и уплътнения.",
-      image: "/src/assets/process/metal-ridge-cap.jpg",
+      image: metalRidgeCap,
       imageAlt: "Монтаж на аксесоари за метален покрив - снегозадържатели и капаци"
     },
     {
       step: 6,
       title: "Водосточна система и финализиране",
       description: "Монтираме водосточната система - улуци, водосточни тръби, воронки. Извършваме финална проверка на всички елементи и крепежи. Почистваме работната зона и предоставяме гаранционна документация с препоръки за поддръжка.",
-      image: "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=800&q=80",
+      image: gutterInstallation,
       imageAlt: "Монтаж на водосточна система за метален покрив - улуци и водосточни тръби"
     }
   ];

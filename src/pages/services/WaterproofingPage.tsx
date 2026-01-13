@@ -9,6 +9,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Droplets, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Layers, Thermometer } from "lucide-react";
 
+// Process images
+import roofSurfacePrep from "@/assets/process/roof-surface-prep.jpg";
+import waterproofingPrimer from "@/assets/process/waterproofing-primer.jpg";
+import waterproofingTorch from "@/assets/process/waterproofing-torch.jpg";
+import waterproofingDetail from "@/assets/process/waterproofing-detail.jpg";
+import waterproofingSecondLayer from "@/assets/process/waterproofing-second-layer.jpg";
+import completedFlatRoof from "@/assets/process/completed-flat-roof.jpg";
+
 const relatedServices = [
   {
     title: "Плоски Покриви",
@@ -85,42 +93,42 @@ const WaterproofingPage = () => {
       step: 1,
       title: "Подготовка на повърхността",
       description: "Първата и може би най-важната стъпка е правилната подготовка на основата. Почистваме повърхността от прах, мръсотия, мъхове и стара разрушена хидроизолация. Запълваме пукнатини и неравности със специална смес. При бетонни покриви третираме повърхността с антипраймер.",
-      image: "/src/assets/process/roof-surface-prep.jpg",
+      image: roofSurfacePrep,
       imageAlt: "Подготовка на покривна повърхност за хидроизолация във Варна - почистване и грундиране"
     },
     {
       step: 2,
       title: "Нанасяне на грунд",
       description: "Грундът е критичен за адхезията на хидроизолацията към основата. Използваме битумен праймер или специализиран грунд в зависимост от типа хидроизолация. Нанасяме равномерно с валяк или четка, като осигуряваме пълно покритие. Изчакваме пълно изсъхване преди следващата стъпка.",
-      image: "/src/assets/process/waterproofing-primer.jpg",
+      image: waterproofingPrimer,
       imageAlt: "Нанасяне на битумен грунд върху покрив преди хидроизолация - професионална работа Варна"
     },
     {
       step: 3,
       title: "Полагане на първи слой хидроизолация",
       description: "При битумна хидроизолация полагаме първия слой с газова горелка, като загряваме ролката и я разточваме върху повърхността. Осигуряваме минимално застъпване от 10 см между платна. При PVC мембрана използваме топъл въздух за заваряване на шевовете.",
-      image: "/src/assets/process/waterproofing-torch.jpg",
+      image: waterproofingTorch,
       imageAlt: "Полагане на битумна хидроизолация с горелка - първи слой на плосък покрив Варна"
     },
     {
       step: 4,
       title: "Обработка на детайли и примиквания",
       description: "Детайлите са критични точки за течове. Обработваме внимателно всички връзки с вертикални стени, около комини, водосточни фунии и вентилации. Използваме допълнителни усилващи ленти и течна хидроизолация за максимална защита.",
-      image: "/src/assets/process/waterproofing-detail.jpg",
+      image: waterproofingDetail,
       imageAlt: "Обработка на детайли при хидроизолация - примикване към комин и вертикална стена"
     },
     {
       step: 5,
       title: "Полагане на втори слой (при двуслойна система)",
       description: "За максимална защита препоръчваме двуслойна хидроизолация. Вторият слой се полага перпендикулярно на първия, като шевовете не се застъпват. Това осигурява двойна защита срещу проникване на вода дори при локално увреждане.",
-      image: "/src/assets/process/waterproofing-second-layer.jpg",
+      image: waterproofingSecondLayer,
       imageAlt: "Полагане на втори слой хидроизолация на плосък покрив - двуслойна система Варна"
     },
     {
       step: 6,
       title: "Финална проверка и защитен слой",
       description: "След полагане извършваме визуална проверка на всички шевове и детайли. При необходимост провеждаме воден тест за проверка на водонепропускливостта. Нанасяме защитно покритие (UV защита за битумна изолация или топ-лак за PVC) за удължаване живота на хидроизолацията.",
-      image: "/src/assets/process/completed-flat-roof.jpg",
+      image: completedFlatRoof,
       imageAlt: "Завършена хидроизолация на покрив във Варна - финална проверка и защитно покритие"
     }
   ];

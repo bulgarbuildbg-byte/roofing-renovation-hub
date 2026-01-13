@@ -10,6 +10,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Layers, Shield, Droplets, Sun, MapPin, Clock, Wrench, AlertTriangle, ThermometerSun, Wind, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Process images
+import flatRoofInspection from "@/assets/process/flat-roof-inspection.jpg";
+import roofPressureWashing from "@/assets/process/roof-pressure-washing.jpg";
+import acUnitSealing from "@/assets/process/ac-unit-sealing.jpg";
+import waterproofingTorch from "@/assets/process/waterproofing-torch.jpg";
+import pvcMembrane from "@/assets/process/pvc-membrane.jpg";
+import completedApartmentRoof from "@/assets/process/completed-apartment-roof.jpg";
+
 const relatedServices = [
   {
     title: "Хидроизолация",
@@ -114,42 +122,42 @@ const FlatRoofPage = () => {
       step: 1,
       title: "Инспекция и оценка на състоянието",
       description: "Извършваме цялостен преглед на плоския покрив - проверяваме хидроизолацията за пукнатини, надутини и износване, инспектираме водоотводните елементи, оценяваме състоянието на парапетите и примикванията. Документираме всички проблеми с фотоснимки.",
-      image: "/src/assets/process/flat-roof-inspection.jpg",
+      image: flatRoofInspection,
       imageAlt: "Инспекция на плосък покрив - професионална оценка на хидроизолацията Варна"
     },
     {
       step: 2,
       title: "Почистване и подготовка",
       description: "Почистваме покрива от натрупани отломки, мъх и стара хидроизолация при необходимост. Ремонтираме пукнатини в бетоновата основа с подходящи ремонтни смеси. Проверяваме и подобряваме наклона за оттичане. Нанасяме грунд за по-добра адхезия.",
-      image: "/src/assets/process/roof-pressure-washing.jpg",
+      image: roofPressureWashing,
       imageAlt: "Подготовка на плосък покрив за хидроизолация - почистване и грундиране"
     },
     {
       step: 3,
       title: "Обработка на детайли и примиквания",
       description: "Детайлите са критичните точки при плоските покриви. Полагаме усилващи ленти около всички вертикални стени, комини, вентилационни елементи и водоотводни воронки. Използваме течна хидроизолация за сложните форми и ъгли.",
-      image: "/src/assets/process/ac-unit-sealing.jpg",
+      image: acUnitSealing,
       imageAlt: "Обработка на детайли при хидроизолация на плосък покрив - примиквания към стени"
     },
     {
       step: 4,
       title: "Полагане на хидроизолация",
       description: "В зависимост от избрания материал - полагаме битумна мембрана с газова горелка, заваряваме PVC мембрана с горещ въздух или нанасяме течна хидроизолация с валяк. Осигуряваме правилно застъпване на платната и херметичност на всички шевове.",
-      image: "/src/assets/process/waterproofing-torch.jpg",
+      image: waterproofingTorch,
       imageAlt: "Полагане на хидроизолация на плосък покрив - битумна мембрана с горелка"
     },
     {
       step: 5,
       title: "Втори слой (при двуслойна система)",
       description: "За максимална защита препоръчваме двуслойна хидроизолация. Вторият слой се полага перпендикулярно на първия, осигурявайки допълнителна сигурност. Шевовете на двата слоя не се застъпват, елиминирайки слабите точки.",
-      image: "/src/assets/process/pvc-membrane.jpg",
+      image: pvcMembrane,
       imageAlt: "Полагане на втори слой хидроизолация - двуслойна система за плосък покрив"
     },
     {
       step: 6,
       title: "Финализиране и защита",
       description: "Нанасяме защитен слой - UV защита за битумна изолация, рефлектиращо покритие за охлаждане или баластен слой от чакъл. Почистваме работната зона и извършваме финална проверка. Предоставяме гаранционна документация.",
-      image: "/src/assets/process/completed-apartment-roof.jpg",
+      image: completedApartmentRoof,
       imageAlt: "Завършена хидроизолация на плосък покрив - защитно покритие и финална проверка"
     }
   ];

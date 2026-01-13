@@ -9,6 +9,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Hammer, ClipboardCheck } from "lucide-react";
 
+// Process images
+import roofInspection from "@/assets/process/roof-inspection.jpg";
+import roofAssessment from "@/assets/process/roof-assessment.jpg";
+import roofScaffolding from "@/assets/process/roof-scaffolding.jpg";
+import tileRemoval from "@/assets/process/tile-removal.jpg";
+import tileInstallation from "@/assets/process/tile-installation.jpg";
+import completedTileRoof from "@/assets/process/completed-tile-roof.jpg";
+
 const relatedServices = [
   {
     title: "Ремонт на Течове",
@@ -85,42 +93,42 @@ const RoofRepairPage = () => {
       step: 1,
       title: "Първоначална инспекция и диагностика",
       description: "Нашият експерт извършва подробен оглед на покрива, като използва професионално оборудване за откриване на течове и скрити повреди. Инспектираме както външната повърхност, така и подпокривното пространство. Правим снимки и документираме всички проблемни зони.",
-      image: "/src/assets/process/roof-inspection.jpg",
+      image: roofInspection,
       imageAlt: "Професионална диагностика на покрив във Варна - специалист инспектира керемиди за течове и повреди"
     },
     {
       step: 2,
       title: "Оценка на щетите и изготвяне на оферта",
       description: "След инспекцията изготвяме подробен доклад за състоянието на покрива и необходимите ремонтни дейности. Предоставяме прозрачна оферта с фиксирани цени, без скрити разходи. Обсъждаме различните варианти и препоръчваме оптималното решение за вашия бюджет.",
-      image: "/src/assets/process/roof-assessment.jpg",
+      image: roofAssessment,
       imageAlt: "Изготвяне на оферта за ремонт на покрив - подробна калкулация на цени и материали"
     },
     {
       step: 3,
       title: "Подготовка на работната зона",
       description: "Преди започване на ремонта осигуряваме безопасен достъп до покрива чрез професионални скелета или подемна техника. Покриваме градината и околните площи за защита от отпадъци. Организираме логистиката за доставка на материали.",
-      image: "/src/assets/process/roof-scaffolding.jpg",
+      image: roofScaffolding,
       imageAlt: "Подготовка за ремонт на покрив Варна - монтаж на скеле и защитни покривала"
     },
     {
       step: 4,
       title: "Премахване на повредени материали",
       description: "Внимателно премахваме повредените керемиди, износената хидроизолация или други компрометирани елементи. Разкриваме подлежащата конструкция за проверка на дървените греди за гниене или повреди от влага. При необходимост третираме дървесината с антисептик.",
-      image: "/src/assets/process/tile-removal.jpg",
+      image: tileRemoval,
       imageAlt: "Демонтаж на повредени керемиди при ремонт на покрив - професионално премахване на стари материали"
     },
     {
       step: 5,
       title: "Монтаж на нови материали",
       description: "Полагаме нова подпокривна мембрана или хидроизолация според нуждите. Монтираме нови керемиди, като се уверяваме в правилното им позициониране и закрепване. При работа с ламаринени покриви използваме качествени винтове с уплътнение против течове.",
-      image: "/src/assets/process/tile-installation.jpg",
+      image: tileInstallation,
       imageAlt: "Монтаж на нови керемиди при ремонт на покрив Варна - професионално полагане на покривни материали"
     },
     {
       step: 6,
       title: "Финална инспекция и почистване",
       description: "След завършване на ремонта извършваме цялостна проверка на качеството. Тестваме водонепропускливостта при възможност. Почистваме работната зона от всички отпадъци и материали. Предоставяме гаранционна карта и препоръки за поддръжка.",
-      image: "/src/assets/process/completed-tile-roof.jpg",
+      image: completedTileRoof,
       imageAlt: "Завършен ремонт на покрив - финална инспекция и почистване на работната площадка"
     }
   ];
