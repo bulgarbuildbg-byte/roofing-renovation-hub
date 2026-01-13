@@ -204,11 +204,11 @@ const NewRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Нов Покрив Варна - Изграждане от 65лв/кв.м</title>
+        <title>Нов Покрив Варна - Изграждане от 33 €/кв.м</title>
         <meta name="description" content="Изграждане на нови покриви - керемидни, метални, плоски. Пълен проект и монтаж с 10г гаранция. ☎ 089 270 1176" />
         <meta name="keywords" content="нов покрив варна, изграждане покрив варна, покривна конструкция варна, керемиден покрив цена, метален покрив варна" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/изграждане-на-покрив" />
-        <meta property="og:title" content="Нов Покрив Варна - Изграждане от 65лв/кв.м" />
+        <meta property="og:title" content="Нов Покрив Варна - Изграждане от 33 €/кв.м" />
         <meta property="og:description" content="Нови покриви с 10г гаранция. Керемидени, метални, плоски." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
@@ -244,7 +244,7 @@ const NewRoofPage = () => {
                   Обадете се: 089 270 1176
                 </a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                 <Link to="/контакти">Безплатна консултация</Link>
               </Button>
             </div>

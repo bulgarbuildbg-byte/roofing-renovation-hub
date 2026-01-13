@@ -235,11 +235,11 @@ const MetalRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Метални Покриви Варна - от 12лв/кв.м | 50г</title>
+        <title>Метални Покриви Варна - от 6 €/кв.м | 50г</title>
         <meta name="description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 089 270 1176" />
         <meta name="keywords" content="метални покриви варна, метални керемиди варна, ламаринен покрив, трапецовидна ламарина варна, монтаж метален покрив" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/метални-покриви" />
-        <meta property="og:title" content="Метални Покриви Варна - от 12лв/кв.м" />
+        <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м" />
         <meta property="og:description" content="Керемиди, ламарина, стоящ фалц. До 50г гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="bg_BG" />
@@ -281,7 +281,7 @@ const MetalRoofPage = () => {
                     Обадете се
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                   <Link to="/контакти">Безплатна Оферта</Link>
                 </Button>
               </div>

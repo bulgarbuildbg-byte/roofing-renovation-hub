@@ -105,10 +105,10 @@ const ServicesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Покривни Услуги Варна - Цени от 15лв/кв.м</title>
+        <title>Покривни Услуги Варна - Цени от 8 €/кв.м</title>
         <meta name="description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед. Вижте нашите пакети." />
         <meta name="keywords" content="ремонт покриви варна цени, монтаж покриви варна, хидроизолация покриви, покривни услуги варна, цени покриви" />
-        <meta property="og:title" content="Покривни Услуги Варна - Цени от 15лв/кв.м" />
+        <meta property="og:title" content="Покривни Услуги Варна - Цени от 8 €/кв.м" />
         <meta property="og:description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://remontnapokrivivarna.com/услуги" />
@@ -247,7 +247,7 @@ const ServicesPage = () => {
                   <Phone className="w-5 h-5" />
                   089 270 1176
                 </Button>
-                <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                <Button size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                   remontnapokrivivarna@abv.bg
                 </Button>
               </div>
