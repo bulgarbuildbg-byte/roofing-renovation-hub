@@ -11,14 +11,14 @@ interface PriceCalculatorProps {
 }
 
 const services = [
-  { id: "repair", label: "Ремонт на покрив", icon: Wrench, priceMin: 15, priceMax: 35 },
-  { id: "leak", label: "Ремонт на течове", icon: Droplets, priceMin: 80, priceMax: 200, isFixed: true },
-  { id: "waterproofing", label: "Хидроизолация", icon: Layers, priceMin: 25, priceMax: 50 },
-  { id: "new-roof", label: "Нов покрив", icon: Home, priceMin: 80, priceMax: 180 },
-  { id: "tiles", label: "Смяна керемиди", icon: SquareStack, priceMin: 20, priceMax: 45 },
-  { id: "flat", label: "Плоски покриви", icon: Layers, priceMin: 30, priceMax: 60 },
-  { id: "metal", label: "Метални покриви", icon: HardHat, priceMin: 45, priceMax: 90 },
-  { id: "maintenance", label: "Поддръжка", icon: Settings, priceMin: 5, priceMax: 15 },
+  { id: "repair", label: "Ремонт на покрив", icon: Wrench, priceMin: 8, priceMax: 18 },
+  { id: "leak", label: "Ремонт на течове", icon: Droplets, priceMin: 40, priceMax: 100, isFixed: true },
+  { id: "waterproofing", label: "Хидроизолация", icon: Layers, priceMin: 13, priceMax: 26 },
+  { id: "new-roof", label: "Нов покрив", icon: Home, priceMin: 40, priceMax: 90 },
+  { id: "tiles", label: "Смяна керемиди", icon: SquareStack, priceMin: 10, priceMax: 23 },
+  { id: "flat", label: "Плоски покриви", icon: Layers, priceMin: 15, priceMax: 30 },
+  { id: "metal", label: "Метални покриви", icon: HardHat, priceMin: 23, priceMax: 46 },
+  { id: "maintenance", label: "Поддръжка", icon: Settings, priceMin: 3, priceMax: 8 },
 ];
 
 const roofTypes = [
@@ -58,12 +58,12 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
     // Add additional services
     if (addHydro) {
-      minPrice += 15 * roofSize;
-      maxPrice += 25 * roofSize;
+      minPrice += 8 * roofSize;
+      maxPrice += 13 * roofSize;
     }
     if (addThermal) {
-      minPrice += 20 * roofSize;
-      maxPrice += 35 * roofSize;
+      minPrice += 10 * roofSize;
+      maxPrice += 18 * roofSize;
     }
 
     // Urgency surcharge
@@ -216,7 +216,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                           onCheckedChange={(checked) => setAddHydro(checked === true)}
                         />
                         <Label htmlFor="hydro" className="text-foreground cursor-pointer">
-                          Хидроизолация (+15-25 лв/кв.м)
+                          Хидроизолация (+8-13 €/кв.м)
                         </Label>
                       </div>
                       <div className="flex items-center space-x-3">
@@ -226,7 +226,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                           onCheckedChange={(checked) => setAddThermal(checked === true)}
                         />
                         <Label htmlFor="thermal" className="text-foreground cursor-pointer">
-                          Топлоизолация (+20-35 лв/кв.м)
+                          Топлоизолация (+10-18 €/кв.м)
                         </Label>
                       </div>
                     </>
@@ -246,9 +246,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
               {/* Price Display */}
               <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-6 md:p-8 text-center mb-6">
-                <p className="text-muted-foreground mb-2">Ориентировъчна цена</p>
+              <p className="text-muted-foreground mb-2">Ориентировъчна цена</p>
                 <p className="text-4xl md:text-5xl font-bold text-primary mb-4">
-                  {priceRange.min.toLocaleString()} - {priceRange.max.toLocaleString()} лв.
+                  {priceRange.min.toLocaleString()} - {priceRange.max.toLocaleString()} €
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 text-sm">
                   <span className="flex items-center gap-1.5 text-foreground">
