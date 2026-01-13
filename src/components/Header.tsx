@@ -149,8 +149,8 @@ const Header = () => {
 
         {/* Mobile Menu - Full screen overlay */}
         <div 
-          className={`md:hidden fixed inset-0 bg-background z-[55] overflow-y-auto transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
-          style={{ paddingTop: isScrolled ? '76px' : '84px' }}
+          className={`md:hidden fixed left-0 right-0 bottom-0 bg-background z-[55] overflow-y-auto transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+          style={{ top: isScrolled ? '60px' : '72px' }}
         >
           <nav className="flex flex-col p-6 pb-32">
               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Услуги</p>
