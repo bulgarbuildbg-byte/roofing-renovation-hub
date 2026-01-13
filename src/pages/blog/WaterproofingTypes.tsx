@@ -35,7 +35,7 @@ const WaterproofingTypes = () => {
         {/* Hero Section */}
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80"
+            src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80"
             alt="Полагане на хидроизолация на плосък покрив"
             className="w-full h-full object-cover"
           />
@@ -83,7 +83,7 @@ const WaterproofingTypes = () => {
                   1. Битумна хидроизолация (Модифициран битум)
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
                   alt="Полагане на битумна хидроизолация с горелка"
                   className="w-full rounded-xl mb-6"
                 />
@@ -147,7 +147,7 @@ const WaterproofingTypes = () => {
                   2. PVC мембрани (Синтетични мембрани)
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=800&q=80"
+                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80"
                   alt="PVC мембрана за хидроизолация на покрив"
                   className="w-full rounded-xl mb-6"
                 />
@@ -211,7 +211,7 @@ const WaterproofingTypes = () => {
                   3. Течна хидроизолация (Полимерни покрития)
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80"
+                  src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=800&q=80"
                   alt="Нанасяне на течна хидроизолация"
                   className="w-full rounded-xl mb-6"
                 />

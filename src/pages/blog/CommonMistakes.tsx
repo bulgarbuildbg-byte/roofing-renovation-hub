@@ -20,7 +20,7 @@ const CommonMistakes = () => {
       <main className="pt-20">
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=1200&q=80"
+            src="https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=1200&q=80"
             alt="Грешки при покривни ремонти"
             className="w-full h-full object-cover"
           />

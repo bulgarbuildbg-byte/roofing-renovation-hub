@@ -19,7 +19,7 @@ const SpringInspection = () => {
       <main className="pt-20">
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
+            src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=1200&q=80"
             alt="Пролетна инспекция на покрив"
             className="w-full h-full object-cover"
           />

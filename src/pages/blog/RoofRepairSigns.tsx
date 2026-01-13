@@ -47,7 +47,7 @@ const RoofRepairSigns = () => {
         {/* Hero Section */}
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1632759145889-a3afa99e5c57?w=1200&q=80"
+            src="https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=1200&q=80"
             alt="Повреден покрив, нуждаещ се от ремонт"
             className="w-full h-full object-cover"
           />
@@ -137,7 +137,7 @@ const RoofRepairSigns = () => {
                   </div>
                 </div>
                 <img 
-                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+                  src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=800&q=80"
                   alt="Липсващи и повредени керемиди на покрив"
                   className="w-full rounded-xl mb-6"
                 />
@@ -208,7 +208,7 @@ const RoofRepairSigns = () => {
                   </div>
                 </div>
                 <img 
-                  src="https://images.unsplash.com/photo-1598449356475-b9f71db7d847?w=800&q=80"
+                  src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80"
                   alt="Мос и лишеи по покривни керемиди"
                   className="w-full rounded-xl mb-6"
                 />
