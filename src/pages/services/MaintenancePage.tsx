@@ -344,7 +344,7 @@ const MaintenancePage = () => {
         {/* Hero Image */}
         <section className="relative h-[400px] md:h-[500px]">
           <img 
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80" 
+            src={gutterCleaning} 
             alt="Професионална поддръжка на покрив във Варна - почистване на улуци и керемиди"
             className="w-full h-full object-cover"
           />

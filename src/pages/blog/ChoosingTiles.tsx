@@ -7,6 +7,10 @@ import { Calendar, Clock, ArrowLeft, Phone, Tag, CheckCircle } from "lucide-reac
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
+// Import blog images
+import choosingTilesImg from "@/assets/blog/choosing-tiles.jpg";
+import tileSamplesImg from "@/assets/process/tile-samples.jpg";
+
 const ChoosingTiles = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -20,7 +24,7 @@ const ChoosingTiles = () => {
       <main className="pt-20">
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
+            src={choosingTilesImg}
             alt="Различни видове покривни керемиди"
             className="w-full h-full object-cover"
           />
@@ -65,7 +69,7 @@ const ChoosingTiles = () => {
                 1. Керамични (глинени) керемиди
               </h2>
               <img 
-                src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=800&q=80"
+                src={tileSamplesImg}
                 alt="Керамични глинени керемиди"
                 className="w-full rounded-xl mb-6"
               />

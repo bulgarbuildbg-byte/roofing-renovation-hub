@@ -8,6 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { MapPin, Calendar, Wrench } from "lucide-react";
 
+// Import project images
+import project1 from "@/assets/project-1.jpg";
+import project2 from "@/assets/project-2.jpg";
+import project3 from "@/assets/project-3.jpg";
+import project4 from "@/assets/project-4.jpg";
+import project5 from "@/assets/project-5.jpg";
+import after1 from "@/assets/after-1.jpg";
+
 const ProjectsPage = () => {
   const featuredProjects = [
     {
@@ -16,7 +24,7 @@ const ProjectsPage = () => {
       date: "2024",
       type: "Ремонт на покрив",
       description: "Цялостна подмяна на керемиди и хидроизолация на жилищна сграда.",
-      image: "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=600&q=80"
+      image: project1
     },
     {
       title: "Хидроизолация на плосък покрив",
@@ -24,7 +32,7 @@ const ProjectsPage = () => {
       date: "2024",
       type: "Хидроизолация",
       description: "Професионална хидроизолация с PVC мембрана на търговски обект.",
-      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80"
+      image: project2
     },
     {
       title: "Изграждане на нов покрив",
@@ -32,7 +40,7 @@ const ProjectsPage = () => {
       date: "2023",
       type: "Нов покрив",
       description: "Проектиране и изграждане на нова покривна конструкция за еднофамилна къща.",
-      image: "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=600&q=80"
+      image: project3
     },
     {
       title: "Ремонт след буря",
@@ -40,7 +48,7 @@ const ProjectsPage = () => {
       date: "2024",
       type: "Аварен ремонт",
       description: "Спешен ремонт на повредени от буря покривни елементи.",
-      image: "https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=600&q=80"
+      image: project4
     },
     {
       title: "Подмяна на улуци",
@@ -48,7 +56,7 @@ const ProjectsPage = () => {
       date: "2024",
       type: "Поддръжка",
       description: "Демонтаж на стари и монтаж на нови водосточни тръби и улуци.",
-      image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80"
+      image: project5
     },
     {
       title: "Топлоизолация на таван",
@@ -56,7 +64,7 @@ const ProjectsPage = () => {
       date: "2023",
       type: "Изолация",
       description: "Полагане на топлоизолация за подобряване на енергийната ефективност.",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80"
+      image: after1
     }
   ];
 

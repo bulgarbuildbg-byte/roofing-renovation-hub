@@ -7,12 +7,20 @@ import { Calendar, Clock, ArrowRight, Tag } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
+// Import blog images
+import winterPreparation from "@/assets/blog/winter-preparation.jpg";
+import roofRepairSigns from "@/assets/blog/roof-repair-signs.jpg";
+import waterproofingTypes from "@/assets/blog/waterproofing-types.jpg";
+import springInspection from "@/assets/blog/spring-inspection.jpg";
+import commonMistakes from "@/assets/blog/common-mistakes.jpg";
+import choosingTiles from "@/assets/blog/choosing-tiles.jpg";
+
 const blogPosts = [
   {
     id: "как-да-подготвим-покрива-за-зимата",
     title: "Как да подготвим покрива за зимата: Пълно ръководство",
     excerpt: "Научете как да подготвите покрива си за студените месеци с нашите експертни съвети. От инспекция до превантивни мерки - всичко, което трябва да знаете.",
-    image: "https://images.unsplash.com/photo-1547393429-098dd122fd78?w=600&q=80",
+    image: winterPreparation,
     date: "2024-12-01",
     readTime: "8 мин",
     category: "Сезонна поддръжка",
@@ -22,7 +30,7 @@ const blogPosts = [
     id: "5-признака-че-покривът-се-нуждае-от-ремонт",
     title: "5 признака, че покривът ви се нуждае от спешен ремонт",
     excerpt: "Разберете кои са най-честите признаци за проблеми с покрива и кога е време да се обадите на специалист. Не пропускайте тези важни сигнали!",
-    image: "https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=600&q=80",
+    image: roofRepairSigns,
     date: "2024-11-15",
     readTime: "6 мин",
     category: "Ремонт",
@@ -32,7 +40,7 @@ const blogPosts = [
     id: "видове-хидроизолация-и-кога-да-изберем-всяка",
     title: "Видове хидроизолация и кога да изберем всяка от тях",
     excerpt: "Пълен наръчник за различните видове хидроизолационни материали - битумни, PVC мембрани, течна хидроизолация. Научете коя е най-подходяща за вашия покрив.",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
+    image: waterproofingTypes,
     date: "2024-11-01",
     readTime: "10 мин",
     category: "Хидроизолация",
@@ -42,7 +50,7 @@ const blogPosts = [
     id: "пролетна-инспекция-на-покрива",
     title: "Пролетна инспекция на покрива: Какво да проверите след зимата",
     excerpt: "След тежката зима покривът ви може да е претърпял щети. Ето какво трябва да проверите и как да предотвратите скъпи ремонти.",
-    image: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=600&q=80",
+    image: springInspection,
     date: "2024-10-20",
     readTime: "7 мин",
     category: "Сезонна поддръжка",
@@ -52,7 +60,7 @@ const blogPosts = [
     id: "най-честите-грешки-при-покривни-ремонти",
     title: "Най-честите грешки при покривни ремонти и как да ги избегнете",
     excerpt: "Избягвайте скъпите грешки при ремонт на покрив. Научете какви са най-честите проблеми и как професионалистите ги решават правилно.",
-    image: "https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=600&q=80",
+    image: commonMistakes,
     date: "2024-10-05",
     readTime: "9 мин",
     category: "Ремонт",
@@ -62,7 +70,7 @@ const blogPosts = [
     id: "избор-на-керемиди-за-нов-покрив",
     title: "Как да изберем правилните керемиди за нов покрив",
     excerpt: "Керамични, бетонни или метални керемиди? Разгледайте предимствата и недостатъците на всеки тип и направете правилния избор за вашия дом.",
-    image: "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=600&q=80",
+    image: choosingTiles,
     date: "2024-09-18",
     readTime: "11 мин",
     category: "Нов покрив",

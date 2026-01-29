@@ -7,6 +7,9 @@ import { Calendar, Clock, ArrowLeft, Phone, Tag, XCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
+// Import blog hero image
+import commonMistakesImg from "@/assets/blog/common-mistakes.jpg";
+
 const CommonMistakes = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -20,7 +23,7 @@ const CommonMistakes = () => {
       <main className="pt-20">
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=1200&q=80"
+            src={commonMistakesImg}
             alt="Грешки при покривни ремонти"
             className="w-full h-full object-cover"
           />

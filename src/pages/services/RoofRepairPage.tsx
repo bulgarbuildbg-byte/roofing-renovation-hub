@@ -290,7 +290,7 @@ const RoofRepairPage = () => {
         {/* Hero Image */}
         <section className="relative h-[400px] md:h-[500px]">
           <img 
-            src="https://images.unsplash.com/photo-1632759145351-1d592919f522?w=1920&q=80" 
+            src={roofInspection} 
             alt="Професионален ремонт на керемиден покрив във Варна - майстор подменя повредени керемиди"
             className="w-full h-full object-cover"
           />

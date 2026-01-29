@@ -6,6 +6,9 @@ import { Helmet } from "react-helmet";
 import { Calendar, Clock, ArrowLeft, Phone, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+// Import blog hero image
+import springInspectionImg from "@/assets/blog/spring-inspection.jpg";
+
 const SpringInspection = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -19,7 +22,7 @@ const SpringInspection = () => {
       <main className="pt-20">
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=1200&q=80"
+            src={springInspectionImg}
             alt="Пролетна инспекция на покрив"
             className="w-full h-full object-cover"
           />
