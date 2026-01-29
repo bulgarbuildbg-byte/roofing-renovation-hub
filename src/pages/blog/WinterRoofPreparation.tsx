@@ -8,13 +8,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+// Import blog images
+import winterPreparationImg from "@/assets/blog/winter-preparation.jpg";
+import roofInspectionImg from "@/assets/process/roof-inspection.jpg";
+import gutterCleaningImg from "@/assets/process/gutter-cleaning.jpg";
+import snowGuardsImg from "@/assets/process/snow-guards.jpg";
+
 const WinterRoofPreparation = () => {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "Как да подготвим покрива за зимата: Пълно ръководство",
     "description": "Научете как да подготвите покрива си за студените месеци с нашите експертни съвети. От инспекция до превантивни мерки.",
-    "image": "https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?w=1200&q=80",
+    "image": winterPreparationImg,
     "datePublished": "2024-12-01",
     "dateModified": "2024-12-01",
     "author": {
@@ -60,7 +66,7 @@ const WinterRoofPreparation = () => {
         {/* Hero Section */}
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1547393429-098dd122fd78?w=1200&q=80"
+            src={winterPreparationImg}
             alt="Покрив покрит със сняг - подготовка за зимата"
             className="w-full h-full object-cover"
           />
@@ -127,7 +133,7 @@ const WinterRoofPreparation = () => {
                   Стъпка 1: Визуална инспекция на покрива
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80"
+                  src={roofInspectionImg}
                   alt="Инспекция на покрив преди зимата - проверка за повреди"
                   className="w-full rounded-xl mb-6"
                 />
@@ -155,7 +161,7 @@ const WinterRoofPreparation = () => {
                   Стъпка 2: Почистване на улуците и водосточните тръби
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1599686162886-f1c1a0b5c0b5?w=800&q=80"
+                  src={gutterCleaningImg}
                   alt="Почистване на улуци от листа - есенна поддръжка"
                   className="w-full rounded-xl mb-6"
                 />
@@ -230,7 +236,7 @@ const WinterRoofPreparation = () => {
                   Стъпка 5: Подрязване на надвиснали клони
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=800&q=80"
+                  src={snowGuardsImg}
                   alt="Подрязване на дървета близо до покрив - превантивна поддръжка"
                   className="w-full rounded-xl mb-6"
                 />

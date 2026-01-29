@@ -8,13 +8,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+// Import blog images
+import roofRepairSignsImg from "@/assets/blog/roof-repair-signs.jpg";
+import leakInspectionImg from "@/assets/process/leak-inspection.jpg";
+import tileRemovalImg from "@/assets/process/tile-removal.jpg";
+import mossRemovalImg from "@/assets/process/moss-removal.jpg";
+
 const RoofRepairSigns = () => {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "5 признака, че покривът ви се нуждае от спешен ремонт",
     "description": "Разберете кои са най-честите признаци за проблеми с покрива и кога е време да се обадите на специалист.",
-    "image": "https://images.unsplash.com/photo-1632759145889-a3afa99e5c57?w=1200&q=80",
+    "image": roofRepairSignsImg,
     "datePublished": "2024-11-15",
     "author": { "@type": "Organization", "name": "RemontNaPokriviVarna" },
     "publisher": { "@type": "LocalBusiness", "name": "RemontNaPokriviVarna" }
@@ -47,7 +53,7 @@ const RoofRepairSigns = () => {
         {/* Hero Section */}
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1632759145389-a3afa99e5c57?w=1200&q=80"
+            src={roofRepairSignsImg}
             alt="Повреден покрив, нуждаещ се от ремонт"
             className="w-full h-full object-cover"
           />
@@ -109,7 +115,7 @@ const RoofRepairSigns = () => {
                   </div>
                 </div>
                 <img 
-                  src="https://images.unsplash.com/photo-1585128792020-803d29415281?w=800&q=80"
+                  src={leakInspectionImg}
                   alt="Петна от влага на таван - признак за течове в покрива"
                   className="w-full rounded-xl mb-6"
                 />
@@ -137,7 +143,7 @@ const RoofRepairSigns = () => {
                   </div>
                 </div>
                 <img 
-                  src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?w=800&q=80"
+                  src={tileRemovalImg}
                   alt="Липсващи и повредени керемиди на покрив"
                   className="w-full rounded-xl mb-6"
                 />
@@ -208,7 +214,7 @@ const RoofRepairSigns = () => {
                   </div>
                 </div>
                 <img 
-                  src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80"
+                  src={mossRemovalImg}
                   alt="Мос и лишеи по покривни керемиди"
                   className="w-full rounded-xl mb-6"
                 />

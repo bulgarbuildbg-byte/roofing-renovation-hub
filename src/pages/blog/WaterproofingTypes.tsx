@@ -8,13 +8,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
+// Import blog images
+import waterproofingTypesImg from "@/assets/blog/waterproofing-types.jpg";
+import waterproofingTorchImg from "@/assets/process/waterproofing-torch.jpg";
+import pvcMembraneImg from "@/assets/process/pvc-membrane.jpg";
+import liquidWaterproofingImg from "@/assets/process/liquid-waterproofing.jpg";
+
 const WaterproofingTypes = () => {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "Видове хидроизолация и кога да изберем всяка от тях",
     "description": "Пълен наръчник за различните видове хидроизолационни материали - битумни, PVC мембрани, течна хидроизолация.",
-    "image": "https://images.unsplash.com/photo-504307651254-35680f356dfd?w=1200&q=80",
+    "image": waterproofingTypesImg,
     "datePublished": "2024-11-01",
     "author": { "@type": "Organization", "name": "RemontNaPokriviVarna" }
   };
@@ -35,7 +41,7 @@ const WaterproofingTypes = () => {
         {/* Hero Section */}
         <section className="relative h-[50vh] min-h-[400px]">
           <img 
-            src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80"
+            src={waterproofingTypesImg}
             alt="Полагане на хидроизолация на плосък покрив"
             className="w-full h-full object-cover"
           />
@@ -83,7 +89,7 @@ const WaterproofingTypes = () => {
                   1. Битумна хидроизолация (Модифициран битум)
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
+                  src={waterproofingTorchImg}
                   alt="Полагане на битумна хидроизолация с горелка"
                   className="w-full rounded-xl mb-6"
                 />
@@ -147,7 +153,7 @@ const WaterproofingTypes = () => {
                   2. PVC мембрани (Синтетични мембрани)
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80"
+                  src={pvcMembraneImg}
                   alt="PVC мембрана за хидроизолация на покрив"
                   className="w-full rounded-xl mb-6"
                 />
@@ -211,7 +217,7 @@ const WaterproofingTypes = () => {
                   3. Течна хидроизолация (Полимерни покрития)
                 </h2>
                 <img 
-                  src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=800&q=80"
+                  src={liquidWaterproofingImg}
                   alt="Нанасяне на течна хидроизолация"
                   className="w-full rounded-xl mb-6"
                 />

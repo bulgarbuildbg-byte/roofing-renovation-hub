@@ -312,7 +312,7 @@ const WaterproofingPage = () => {
         {/* Hero Image */}
         <section className="relative h-[400px] md:h-[500px]">
           <img 
-            src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?w=1920&q=80" 
+            src={waterproofingTorch} 
             alt="Професионално полагане на хидроизолация на плосък покрив във Варна - работник с газова горелка"
             className="w-full h-full object-cover"
           />

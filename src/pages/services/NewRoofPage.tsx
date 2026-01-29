@@ -287,7 +287,7 @@ const NewRoofPage = () => {
         {/* Hero Image */}
         <section className="relative h-[400px] md:h-[500px]">
           <img 
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80" 
+            src={roofFrameConstruction} 
             alt="Изграждане на нов керемиден покрив във Варна - професионален монтаж на покривна конструкция"
             className="w-full h-full object-cover"
           />
