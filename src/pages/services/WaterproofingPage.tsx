@@ -9,13 +9,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Droplets, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Layers, Thermometer } from "lucide-react";
 
-// Process images
-import roofSurfacePrep from "@/assets/process/roof-surface-prep.jpg";
-import waterproofingPrimer from "@/assets/process/waterproofing-primer.jpg";
-import waterproofingTorch from "@/assets/process/waterproofing-torch.jpg";
-import waterproofingDetail from "@/assets/process/waterproofing-detail.jpg";
-import waterproofingSecondLayer from "@/assets/process/waterproofing-second-layer.jpg";
-import completedFlatRoof from "@/assets/process/completed-flat-roof.jpg";
+// Process images - Bituminous waterproofing
+import roofSurfacePrep from "@/assets/process/flat-roof-waterproofing.jpg";
+import waterproofingPrimer from "@/assets/process/waterproofing-membrane.jpg";
+import waterproofingTorch from "@/assets/process/bitumen-torch-application.jpg";
+import waterproofingDetail from "@/assets/process/roof-chimney-detail.jpg";
+import waterproofingSecondLayer from "@/assets/process/flat-roof-overview.jpg";
+import completedFlatRoof from "@/assets/portfolio/apartment-building.jpg";
 
 const relatedServices = [
   {

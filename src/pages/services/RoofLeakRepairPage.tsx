@@ -10,13 +10,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, AlertTriangle, Droplets, Clock, Shield, Wrench, MapPin, Search, ThermometerSun, Home, Hammer } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// Process images
-import leakInspection from "@/assets/process/leak-inspection.jpg";
-import emergencyTarp from "@/assets/process/emergency-tarp.jpg";
-import thermalInspection from "@/assets/process/thermal-inspection.jpg";
-import leakPatching from "@/assets/process/leak-patching.jpg";
-import leakTesting from "@/assets/process/leak-testing.jpg";
-import warrantyHandover from "@/assets/process/warranty-handover.jpg";
+// Process images - Leak repair
+import leakInspection from "@/assets/process/roof-leak-damage.jpg";
+import emergencyTarp from "@/assets/process/water-damage-ceiling.jpg";
+import thermalInspection from "@/assets/process/roof-measuring.jpg";
+import leakPatching from "@/assets/process/shingle-installation.jpg";
+import leakTesting from "@/assets/process/tile-laying-process.jpg";
+import warrantyHandover from "@/assets/process/blueprint-calculation.jpg";
 
 const relatedServices = [
   {

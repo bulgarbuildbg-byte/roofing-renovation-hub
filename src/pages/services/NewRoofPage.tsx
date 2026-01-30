@@ -9,13 +9,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Home, Shield, Phone, MapPin, Search, Layers, Ruler, HardHat } from "lucide-react";
 
-// Process images
-import roofPlanning from "@/assets/process/roof-planning.jpg";
-import roofingMaterials from "@/assets/process/roofing-materials.jpg";
-import roofFrameConstruction from "@/assets/process/roof-frame-construction.jpg";
-import membraneBattens from "@/assets/process/membrane-battens.jpg";
-import tileInstallation from "@/assets/process/tile-installation.jpg";
-import roofInsulation from "@/assets/process/roof-insulation.jpg";
+// Process images - New roof construction
+import roofPlanning from "@/assets/process/architect-planning.jpg";
+import roofingMaterials from "@/assets/process/roof-tiles-stack.jpg";
+import roofFrameConstruction from "@/assets/process/roof-frame-work.jpg";
+import membraneBattens from "@/assets/process/roof-underlayment.jpg";
+import tileInstallation from "@/assets/process/tile-roof-construction.jpg";
+import roofInsulation from "@/assets/portfolio/family-house.jpg";
 
 const relatedServices = [
   {

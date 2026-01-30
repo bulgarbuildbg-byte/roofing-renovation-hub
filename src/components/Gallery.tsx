@@ -1,12 +1,13 @@
 import { MapPin, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
-import project4 from "@/assets/project-4.jpg";
-import project5 from "@/assets/project-5.jpg";
-import after1 from "@/assets/after-1.jpg";
+// Portfolio building type images
+import project1 from "@/assets/portfolio/residential-tile-roof.jpg";
+import project2 from "@/assets/portfolio/apartment-building.jpg";
+import project3 from "@/assets/portfolio/family-house.jpg";
+import project4 from "@/assets/portfolio/villa-roof.jpg";
+import project5 from "@/assets/portfolio/commercial-building.jpg";
+import after1 from "@/assets/portfolio/panel-block.jpg";
 
 const projects = [
   {

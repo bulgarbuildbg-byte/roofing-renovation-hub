@@ -9,13 +9,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Settings, Calendar, Phone, MapPin, Search, Leaf, Snowflake, Sun, CloudRain } from "lucide-react";
 
-// Process images
-import groundInspection from "@/assets/process/ground-inspection.jpg";
-import roofWalkingInspection from "@/assets/process/roof-walking-inspection.jpg";
-import gutterCleaning from "@/assets/process/gutter-cleaning.jpg";
-import mossRemoval from "@/assets/process/moss-removal.jpg";
-import singleTileRepair from "@/assets/process/single-tile-repair.jpg";
-import maintenanceReport from "@/assets/process/maintenance-report.jpg";
+// Process images - Roof maintenance and inspection
+import groundInspection from "@/assets/process/roof-inspection-pro.jpg";
+import roofWalkingInspection from "@/assets/process/roof-measuring.jpg";
+import gutterCleaning from "@/assets/process/tile-laying-process.jpg";
+import mossRemoval from "@/assets/process/shingle-worker.jpg";
+import singleTileRepair from "@/assets/process/tile-installation-worker.jpg";
+import maintenanceReport from "@/assets/process/cost-calculation.jpg";
 
 const relatedServices = [
   {

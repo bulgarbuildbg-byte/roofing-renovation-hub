@@ -10,13 +10,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Shield, Zap, Clock, Palette, Layers, Wind, MapPin, Wrench, Home, AlertTriangle, ThermometerSun } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// Process images
-import metalRoofSurvey from "@/assets/process/metal-roof-survey.jpg";
-import membraneBattens from "@/assets/process/membrane-battens.jpg";
-import metalDelivery from "@/assets/process/metal-delivery.jpg";
-import metalInstallation from "@/assets/process/metal-installation.jpg";
-import metalRidgeCap from "@/assets/process/metal-ridge-cap.jpg";
-import gutterInstallation from "@/assets/process/gutter-installation.jpg";
+// Process images - Metal roof installation
+import metalRoofSurvey from "@/assets/process/roof-measuring.jpg";
+import membraneBattens from "@/assets/process/roof-underlayment.jpg";
+import metalDelivery from "@/assets/process/roof-tiles-stack.jpg";
+import metalInstallation from "@/assets/process/roof-frame-work.jpg";
+import metalRidgeCap from "@/assets/process/tile-roof-construction.jpg";
+import gutterInstallation from "@/assets/portfolio/commercial-building.jpg";
 
 const relatedServices = [
   {
