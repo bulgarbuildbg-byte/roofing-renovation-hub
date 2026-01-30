@@ -9,13 +9,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Hammer, ClipboardCheck } from "lucide-react";
 
-// Process images
-import roofInspection from "@/assets/process/roof-inspection.jpg";
-import roofAssessment from "@/assets/process/roof-assessment.jpg";
-import roofScaffolding from "@/assets/process/roof-scaffolding.jpg";
-import tileRemoval from "@/assets/process/tile-removal.jpg";
-import tileInstallation from "@/assets/process/tile-installation.jpg";
-import completedTileRoof from "@/assets/process/completed-tile-roof.jpg";
+// Process images - Ceramic tile roof repair
+import roofInspection from "@/assets/process/roof-measuring.jpg";
+import roofAssessment from "@/assets/process/cost-calculation.jpg";
+import roofScaffolding from "@/assets/process/roof-frame-work.jpg";
+import tileRemoval from "@/assets/process/old-roof-removal.jpg";
+import tileInstallation from "@/assets/process/tile-roof-construction.jpg";
+import completedTileRoof from "@/assets/portfolio/residential-tile-roof.jpg";
 
 const relatedServices = [
   {

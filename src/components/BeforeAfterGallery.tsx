@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import before1 from "@/assets/before-1.jpg";
-import after1 from "@/assets/after-1.jpg";
-import before2 from "@/assets/before-2.jpg";
-import after2 from "@/assets/after-2.jpg";
-import before3 from "@/assets/before-3.jpg";
-import after3 from "@/assets/after-3.jpg";
+// Before/After roofing images
+import before1 from "@/assets/before-after-1.jpg";
+import after1 from "@/assets/portfolio/residential-tile-roof.jpg";
+import before2 from "@/assets/process/old-roof-removal.jpg";
+import after2 from "@/assets/portfolio/villa-roof.jpg";
+import before3 from "@/assets/process/roof-leak-damage.jpg";
+import after3 from "@/assets/portfolio/apartment-building.jpg";
 
 const transformations = [
   {
