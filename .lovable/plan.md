@@ -1,170 +1,97 @@
 
 
-# Plan: Global Image Fix Across All Website Pages
+# Plan: Add AI Chatbot for Roofing Website
 
-## Problem Identified
+## Overview
 
-There are **two separate issues** causing incorrect images across the website:
+Add a floating AI chatbot that can answer customer questions about roofing services, pricing, and help schedule consultations. The chatbot will be powered by Lovable AI and appear as a floating widget in the bottom-right corner of the website.
 
-### Issue 1: Downloaded Asset Files
-The image files in `src/assets/` and `src/assets/process/` may contain incorrect content (animals, food, kitchens, etc.) from previous failed download attempts.
+## Features
 
-### Issue 2: Hardcoded External URLs
-Many pages use direct `images.unsplash.com` URLs in the code instead of local assets. These external URLs are showing unrelated content (food, animals, people, etc.).
+- **Floating chat button** - Appears on all pages, opens chat dialog
+- **AI-powered responses** - Answers questions about roofing services in Bulgarian
+- **Streaming responses** - Real-time token-by-token display for better UX
+- **Conversation history** - Maintains context within session
+- **Quick action buttons** - Pre-defined questions for common inquiries
+- **Mobile responsive** - Works well on both desktop and mobile
 
-**Files using external Unsplash URLs (12 files):**
-- `ProjectsPage.tsx` - 6 project images
-- `BlogPage.tsx` - 6 blog article images  
-- `WaterproofingPage.tsx` - 1 hero section image
-- `MaintenancePage.tsx` - 1 hero section image
-- `SpringInspection.tsx` - 1 blog hero image
-- `ChoosingTiles.tsx` - 2 images
-- Additional blog article pages
+## User Experience
 
----
-
-## Solution
-
-### Part A: Replace All Downloaded Asset Files (57 files)
-
-Replace all image files in `src/assets/` with verified roofing photographs:
-
-| Category | Files | Required Content |
-|----------|-------|-----------------|
-| Hero | `hero-roofing.jpg` | Roofer working on tile roof |
-| Before/After | `before-1.jpg` to `after-3.jpg` (6 files) | Roof damage and completed repairs |
-| Projects | `project-1.jpg` to `project-5.jpg` (5 files) | Various completed roof projects |
-| Roof Repair Process | 6 files | Inspection, scaffolding, tile work |
-| Waterproofing Process | 6 files | Surface prep, primer, torch application |
-| Flat Roof Process | 6 files | Flat roof inspection and membrane work |
-| Maintenance Process | 6 files | Gutter cleaning, moss removal, inspection |
-| Metal Roof Process | 6 files | Metal roof survey, installation, completion |
-| New Roof Process | 6 files | Planning, frame construction, insulation |
-| Leak Repair Process | 6 files | Leak detection, emergency tarp, patching |
-| Tile Replacement | 6 files (shared with Roof Repair) | Tile removal and installation |
-
-### Part B: Update Hardcoded External URLs in Code
-
-Replace all Unsplash URLs in these files with local asset imports:
-
-**1. ProjectsPage.tsx** - Replace 6 external URLs with local imports
-```
-Current: image: "https://images.unsplash.com/..."
-Replace with: import from "@/assets/..."
-```
-
-**2. BlogPage.tsx** - Replace 6 blog thumbnail URLs with local imports
-
-**3. WaterproofingPage.tsx** - Replace 1 hero section URL
-
-**4. MaintenancePage.tsx** - Replace 1 hero section URL
-
-**5. Blog article pages** - Replace hero images in:
-- SpringInspection.tsx
-- ChoosingTiles.tsx
-- CommonMistakes.tsx
-- RoofRepairSigns.tsx
-- WaterproofingTypes.tsx
-- WinterRoofPreparation.tsx
-
----
-
-## Image Selection Criteria
-
-Every image must be:
-- Real photography (non-AI generated)
-- Directly related to roofing/construction
-- Matching the exact work type and process step
-- Professional quality, well-lit
-- European residential style where applicable
-
-**Strictly forbidden:**
-- Animals
-- Food
-- Kitchens or unrelated indoor environments
-- Lifestyle photos
-- Any images not connected to roofing/construction
-
----
+1. User sees a chat icon in the bottom-right corner
+2. Clicking opens a chat dialog with welcome message
+3. User can type questions or click quick action buttons
+4. AI responds with helpful information about services
+5. Chat can suggest booking a free inspection
 
 ## Technical Implementation
 
-### Step 1: Download new asset files
-Use `lov-download-to-repo` with verified Pexels URLs for all 57 asset files in `src/assets/`
+### Step 1: Enable Lovable Cloud
+- Set up Lovable Cloud backend infrastructure
+- This provides the Supabase environment and LOVABLE_API_KEY
 
-### Step 2: Add new blog-specific images
-Create new asset files for blog articles:
-- `src/assets/blog/winter-preparation.jpg`
-- `src/assets/blog/roof-repair-signs.jpg`
-- `src/assets/blog/waterproofing-types.jpg`
-- `src/assets/blog/spring-inspection.jpg`
-- `src/assets/blog/common-mistakes.jpg`
-- `src/assets/blog/choosing-tiles.jpg`
+### Step 2: Create Edge Function
+Create `supabase/functions/chat/index.ts`:
+- Receives user messages from frontend
+- Adds system prompt with roofing company context (services, pricing, contact info)
+- Calls Lovable AI Gateway with streaming enabled
+- Returns SSE stream to frontend
 
-### Step 3: Update code files
-Modify the following files to use local imports instead of external URLs:
+### Step 3: Install Dependencies
+- `react-markdown` - For rendering AI responses with formatting
 
-**ProjectsPage.tsx:**
-- Add imports for 6 project images
-- Replace `image: "https://..."` with imported variables
+### Step 4: Create Chat Components
 
-**BlogPage.tsx:**
-- Add imports for 6 blog thumbnail images
-- Replace `image: "https://..."` with imported variables
+**New files:**
+- `src/components/ChatBot.tsx` - Main chat widget component
+- `src/components/ChatMessage.tsx` - Individual message display
+- `src/hooks/useChat.ts` - Chat state management and streaming logic
 
-**Service pages (WaterproofingPage.tsx, MaintenancePage.tsx):**
-- Add hero image imports
-- Replace inline `src="https://..."` with imported variables
+### Step 5: Integrate into App
+- Add ChatBot component to Index.tsx (and other pages as needed)
+- Position as floating widget that doesn't interfere with existing FloatingCallButton
 
-**Blog article pages (6 files):**
-- Add hero image imports
-- Replace inline `src="https://..."` with imported variables
+## Component Structure
 
----
+```text
+┌─────────────────────────────────────┐
+│  ChatBot.tsx                        │
+│  ├── Floating trigger button        │
+│  ├── Chat dialog (when open)        │
+│  │   ├── Header with title/close    │
+│  │   ├── Messages area (scrollable) │
+│  │   │   └── ChatMessage.tsx        │
+│  │   ├── Quick action buttons       │
+│  │   └── Input form                 │
+│  └── useChat hook for state/API     │
+└─────────────────────────────────────┘
+```
 
-## Files to Modify (Code Changes)
+## AI System Prompt Context
 
-| File | Changes |
-|------|---------|
-| `src/pages/ProjectsPage.tsx` | Add 6 imports, update 6 image references |
-| `src/pages/BlogPage.tsx` | Add 6 imports, update 6 image references |
-| `src/pages/services/WaterproofingPage.tsx` | Add 1 import, update 1 hero image |
-| `src/pages/services/MaintenancePage.tsx` | Add 1 import, update 1 hero image |
-| `src/pages/blog/SpringInspection.tsx` | Add 1 import, update 1 hero image |
-| `src/pages/blog/ChoosingTiles.tsx` | Add 2 imports, update 2 images |
-| `src/pages/blog/CommonMistakes.tsx` | Add 1 import, update 1 hero image |
-| `src/pages/blog/RoofRepairSigns.tsx` | Add 1 import, update 1 hero image |
-| `src/pages/blog/WaterproofingTypes.tsx` | Add 1 import, update 1 hero image |
-| `src/pages/blog/WinterRoofPreparation.tsx` | Add 1 import, update 1 hero image |
+The AI will be configured with knowledge about:
+- Company services (roof repair, waterproofing, tile replacement, etc.)
+- Service areas (Varna region)
+- Contact information (phone, email, address)
+- Working hours
+- General pricing guidance
+- Ability to recommend scheduling a free inspection
 
----
+## Files to Create/Modify
 
-## Expected Outcome
+| File | Action | Description |
+|------|--------|-------------|
+| `supabase/functions/chat/index.ts` | Create | Edge function for AI chat |
+| `supabase/config.toml` | Create | Supabase configuration |
+| `src/components/ChatBot.tsx` | Create | Main chat widget |
+| `src/components/ChatMessage.tsx` | Create | Message bubble component |
+| `src/hooks/useChat.ts` | Create | Chat logic and streaming |
+| `src/pages/Index.tsx` | Modify | Add ChatBot component |
+| `package.json` | Modify | Add react-markdown dependency |
 
-After implementation:
-- All 57+ asset files will contain correct roofing photographs
-- All pages will use local imports (no external Unsplash URLs)
-- Every image will be directly relevant to its page topic and section
-- No more animals, food, kitchens, or unrelated content anywhere on the site
-- Website will visually represent professional roof repair and construction work
+## Estimated Scope
 
----
-
-## Image Content Mapping
-
-| Page/Section | Required Image Content |
-|--------------|----------------------|
-| Homepage Hero | Roofer installing tiles on residential roof |
-| Before/After 1 | Damaged tile roof / Completed renovation |
-| Before/After 2 | Rusty metal roof / New metal installation |
-| Before/After 3 | Damaged flat roof / Waterproofed flat roof |
-| Project Gallery | Various completed roofing projects |
-| Roof Repair Process | Inspection, scaffolding, tile removal, installation |
-| Waterproofing Process | Surface prep, primer, torch application, membrane |
-| Flat Roof Process | Flat roof assessment, cleaning, membrane installation |
-| Maintenance Process | Gutter cleaning, moss removal, minor repairs |
-| Metal Roof Process | Survey, panel delivery, installation, ridge caps |
-| New Roof Process | Planning, framing, insulation, tile laying |
-| Leak Repair Process | Water damage inspection, emergency tarp, patching |
-| Blog Articles | Contextual roofing images matching article topics |
+- 1 edge function
+- 3 new React files
+- 2 file modifications
+- 1 new dependency
 
