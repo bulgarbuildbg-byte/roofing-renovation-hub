@@ -1,97 +1,45 @@
 
 
-# Plan: Add AI Chatbot for Roofing Website
+# Fix: ChatBot Not Visible on Mobile
 
-## Overview
+## Problem
 
-Add a floating AI chatbot that can answer customer questions about roofing services, pricing, and help schedule consultations. The chatbot will be powered by Lovable AI and appear as a floating widget in the bottom-right corner of the website.
+The ChatBot floating button is hidden behind the `MobileBottomBar` on mobile devices.
 
-## Features
+**Current positioning:**
+- ChatBot button: `bottom-6` (24px from bottom) on all screen sizes
+- MobileBottomBar: Covers ~80px at bottom on mobile (h-14 buttons + p-3 padding)
 
-- **Floating chat button** - Appears on all pages, opens chat dialog
-- **AI-powered responses** - Answers questions about roofing services in Bulgarian
-- **Streaming responses** - Real-time token-by-token display for better UX
-- **Conversation history** - Maintains context within session
-- **Quick action buttons** - Pre-defined questions for common inquiries
-- **Mobile responsive** - Works well on both desktop and mobile
+The chat button is rendered but sits behind the MobileBottomBar, making it invisible.
 
-## User Experience
+## Solution
 
-1. User sees a chat icon in the bottom-right corner
-2. Clicking opens a chat dialog with welcome message
-3. User can type questions or click quick action buttons
-4. AI responds with helpful information about services
-5. Chat can suggest booking a free inspection
+Adjust the ChatBot button positioning to account for the MobileBottomBar on mobile:
 
-## Technical Implementation
+**Change in `src/components/ChatBot.tsx` (line 57):**
 
-### Step 1: Enable Lovable Cloud
-- Set up Lovable Cloud backend infrastructure
-- This provides the Supabase environment and LOVABLE_API_KEY
+| Current | Fixed |
+|---------|-------|
+| `bottom-6 left-6 md:bottom-6 md:left-6` | `bottom-24 left-4 md:bottom-6 md:left-6` |
 
-### Step 2: Create Edge Function
-Create `supabase/functions/chat/index.ts`:
-- Receives user messages from frontend
-- Adds system prompt with roofing company context (services, pricing, contact info)
-- Calls Lovable AI Gateway with streaming enabled
-- Returns SSE stream to frontend
+This positions the chat button:
+- **Mobile**: 96px from bottom (above the MobileBottomBar)
+- **Desktop**: 24px from bottom (no change)
 
-### Step 3: Install Dependencies
-- `react-markdown` - For rendering AI responses with formatting
+## File to Modify
 
-### Step 4: Create Chat Components
+| File | Change |
+|------|--------|
+| `src/components/ChatBot.tsx` | Update button positioning from `bottom-6` to `bottom-24` on mobile |
 
-**New files:**
-- `src/components/ChatBot.tsx` - Main chat widget component
-- `src/components/ChatMessage.tsx` - Individual message display
-- `src/hooks/useChat.ts` - Chat state management and streaming logic
+## Code Change
 
-### Step 5: Integrate into App
-- Add ChatBot component to Index.tsx (and other pages as needed)
-- Position as floating widget that doesn't interfere with existing FloatingCallButton
-
-## Component Structure
-
-```text
-┌─────────────────────────────────────┐
-│  ChatBot.tsx                        │
-│  ├── Floating trigger button        │
-│  ├── Chat dialog (when open)        │
-│  │   ├── Header with title/close    │
-│  │   ├── Messages area (scrollable) │
-│  │   │   └── ChatMessage.tsx        │
-│  │   ├── Quick action buttons       │
-│  │   └── Input form                 │
-│  └── useChat hook for state/API     │
-└─────────────────────────────────────┘
+```tsx
+// Line 56-58: Change positioning classes
+className={cn(
+  "fixed z-50 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105",
+  "bottom-24 left-4 md:bottom-6 md:left-6",  // <-- Updated
+  isOpen && "hidden"
+)}
 ```
-
-## AI System Prompt Context
-
-The AI will be configured with knowledge about:
-- Company services (roof repair, waterproofing, tile replacement, etc.)
-- Service areas (Varna region)
-- Contact information (phone, email, address)
-- Working hours
-- General pricing guidance
-- Ability to recommend scheduling a free inspection
-
-## Files to Create/Modify
-
-| File | Action | Description |
-|------|--------|-------------|
-| `supabase/functions/chat/index.ts` | Create | Edge function for AI chat |
-| `supabase/config.toml` | Create | Supabase configuration |
-| `src/components/ChatBot.tsx` | Create | Main chat widget |
-| `src/components/ChatMessage.tsx` | Create | Message bubble component |
-| `src/hooks/useChat.ts` | Create | Chat logic and streaming |
-| `src/pages/Index.tsx` | Modify | Add ChatBot component |
-| `package.json` | Modify | Add react-markdown dependency |
-
-## Estimated Scope
-
-- 1 edge function
-- 3 new React files
-- 2 file modifications
-- 1 new dependency
 
