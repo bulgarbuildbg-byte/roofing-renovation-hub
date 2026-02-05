@@ -54,7 +54,7 @@ const ChatBot = () => {
         onClick={() => setIsOpen(true)}
         className={cn(
           "fixed z-50 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105",
-          "bottom-24 left-4 md:bottom-6 md:left-6",
+          "bottom-24 right-4 md:bottom-24 md:right-6",
           isOpen && "hidden"
         )}
         aria-label="Отвори чат"
