@@ -11,11 +11,11 @@ import { CheckCircle, Settings, Calendar, Phone, MapPin, Search, Leaf, Snowflake
 
 // Process images - Roof maintenance and inspection
 import groundInspection from "@/assets/process/roof-inspection-pro.jpg";
-import roofWalkingInspection from "@/assets/process/roof-measuring.jpg";
-import gutterCleaning from "@/assets/process/tile-laying-process.jpg";
-import mossRemoval from "@/assets/process/shingle-worker.jpg";
-import singleTileRepair from "@/assets/process/tile-installation-worker.jpg";
-import maintenanceReport from "@/assets/process/cost-calculation.jpg";
+import roofWalkingInspection from "@/assets/process/roof-walking-inspection.jpg";
+import gutterCleaning from "@/assets/process/gutter-cleaning.jpg";
+import mossRemoval from "@/assets/process/moss-removal.jpg";
+import singleTileRepair from "@/assets/process/single-tile-repair.jpg";
+import maintenanceReport from "@/assets/process/maintenance-report.jpg";
 
 const relatedServices = [
   {
