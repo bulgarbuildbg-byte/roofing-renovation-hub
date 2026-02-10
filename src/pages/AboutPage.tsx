@@ -42,7 +42,7 @@ const AboutPage = () => {
         <title>За Нас - Ремонт на Покриви Варна | 15+ Години</title>
         <meta name="description" content="Над 15 години опит в покривните услуги. Квалифициран екип, качествени материали, гаранция. Научете повече за нас." />
         <meta name="keywords" content="ремонт на покриви варна, покривни услуги варна, майстор покриви варна, хидроизолация варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/за-нас" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/за-нас" />
         <meta property="og:title" content="За Нас - Ремонт на Покриви Варна | 15+ Години" />
         <meta property="og:description" content="Над 15 години опит в покривните услуги. Квалифициран екип и качествени материали." />
         <meta property="og:type" content="website" />
@@ -52,7 +52,7 @@ const AboutPage = () => {
             "@type": "RoofingContractor",
             "name": "Ремонт на Покриви Варна",
             "description": "Професионални покривни услуги във Варна",
-            "url": "https://remontnapokrivivarna.com",
+            "url": "https://www.remontnapokrivivarna.bg",
             "telephone": "+359884997659",
             "email": "remontnapokrivivarna@abv.bg",
             "address": {

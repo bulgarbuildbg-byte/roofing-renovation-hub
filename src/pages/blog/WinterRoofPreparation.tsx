@@ -36,16 +36,16 @@ const WinterRoofPreparation = () => {
         "addressCountry": "BG"
       }
     },
-    "mainEntityOfPage": "https://remontnapokrivivarna.com/блог/как-да-подготвим-покрива-за-зимата"
+    "mainEntityOfPage": "https://www.remontnapokrivivarna.bg/блог/как-да-подготвим-покрива-за-зимата"
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://remontnapokrivivarna.com/блог" },
-      { "@type": "ListItem", "position": 3, "name": "Подготовка на покрива за зимата", "item": "https://remontnapokrivivarna.com/блог/как-да-подготвим-покрива-за-зимата" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.remontnapokrivivarna.bg/блог" },
+      { "@type": "ListItem", "position": 3, "name": "Подготовка на покрива за зимата", "item": "https://www.remontnapokrivivarna.bg/блог/как-да-подготвим-покрива-за-зимата" }
     ]
   };
 
@@ -55,7 +55,7 @@ const WinterRoofPreparation = () => {
         <title>Как да подготвим покрива за зимата | Пълно ръководство | Варна</title>
         <meta name="description" content="Научете как да подготвите покрива си за студените месеци. Експертни съвети за инспекция, почистване на улуци, проверка за течове и превантивни мерки." />
         <meta name="keywords" content="подготовка покрив зима, зимна поддръжка покрив, почистване улуци, предотвратяване течове, Варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/блог/как-да-подготвим-покрива-за-зимата" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог/как-да-подготвим-покрива-за-зимата" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>

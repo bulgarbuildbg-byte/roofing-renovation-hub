@@ -111,7 +111,7 @@ const ServicesPage = () => {
         <meta property="og:title" content="Покривни Услуги Варна - Цени от 8 €/кв.м" />
         <meta property="og:description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/услуги" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/services" />
       </Helmet>
 
       <div className="min-h-screen">
@@ -133,9 +133,8 @@ const ServicesPage = () => {
                 <p className="text-xl text-muted-foreground mb-8">
                   Предлагаме пълен спектър от покривни услуги с конкурентни цени и гаранция за качество. Безплатна оценка и консултация!
                 </p>
-                <Button size="lg" className="gap-2">
-                  <Phone className="w-5 h-5" />
-                  089 270 1176
+                <Button size="lg" className="gap-2" asChild>
+                  <a href="tel:0884997659"><Phone className="w-5 h-5" />088 499 7659</a>
                 </Button>
               </div>
             </div>
@@ -243,9 +242,8 @@ const ServicesPage = () => {
                 Свържете се с нас днес за професионална консултация и безплатна оценка на вашия проект
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="gap-2">
-                  <Phone className="w-5 h-5" />
-                  089 270 1176
+                <Button size="lg" variant="secondary" className="gap-2" asChild>
+                  <a href="tel:0884997659"><Phone className="w-5 h-5" />088 499 7659</a>
                 </Button>
                 <Button size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                   remontnapokrivivarna@abv.bg

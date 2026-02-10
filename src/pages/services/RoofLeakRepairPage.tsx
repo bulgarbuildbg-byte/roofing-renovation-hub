@@ -261,9 +261,9 @@ const RoofLeakRepairPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://remontnapokrivivarna.com/услуги" },
-      { "@type": "ListItem", "position": 3, "name": "Ремонт на течове", "item": "https://remontnapokrivivarna.com/ремонт-течове" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" },
+      { "@type": "ListItem", "position": 3, "name": "Ремонт на течове", "item": "https://www.remontnapokrivivarna.bg/ремонт-течове" }
     ]
   };
 
@@ -273,7 +273,7 @@ const RoofLeakRepairPage = () => {
         <title>Ремонт Течове Покрив Варна - 24/7 | от 40 €</title>
         <meta name="description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="ремонт теч покрив варна, теч покрив спешен ремонт, течове покрив варна, ремонт течове комин, аварийни ремонти покрив" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/ремонт-течове" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/ремонт-течове" />
         <meta property="og:title" content="Ремонт Течове Покрив Варна - 24/7 | от 40 €" />
         <meta property="og:description" content="Спешен ремонт. Бърза реакция, гаранция до 5 години." />
         <meta property="og:type" content="website" />
@@ -315,7 +315,7 @@ const RoofLeakRepairPage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                  <a href="tel:+359892701176">
+                  <a href="tel:0884997659">
                     <Phone className="w-5 h-5 mr-2" />
                     Обадете се СЕГА
                   </a>

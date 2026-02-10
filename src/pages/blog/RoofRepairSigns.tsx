@@ -30,9 +30,9 @@ const RoofRepairSigns = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://remontnapokrivivarna.com/блог" },
-      { "@type": "ListItem", "position": 3, "name": "Признаци за ремонт", "item": "https://remontnapokrivivarna.com/блог/5-признака-че-покривът-се-нуждае-от-ремонт" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.remontnapokrivivarna.bg/блог" },
+      { "@type": "ListItem", "position": 3, "name": "Признаци за ремонт", "item": "https://www.remontnapokrivivarna.bg/блог/5-признака-че-покривът-се-нуждае-от-ремонт" }
     ]
   };
 
@@ -42,7 +42,7 @@ const RoofRepairSigns = () => {
         <title>5 признака, че покривът се нуждае от ремонт | Експертни съвети | Варна</title>
         <meta name="description" content="Разберете кои са най-честите признаци за проблеми с покрива - течове, липсващи керемиди, провисване. Кога е време за спешен ремонт?" />
         <meta name="keywords" content="признаци ремонт покрив, течове покрив, счупени керемиди, проблеми покрив, Варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/блог/5-признака-че-покривът-се-нуждае-от-ремонт" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог/5-признака-че-покривът-се-нуждае-от-ремонт" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>

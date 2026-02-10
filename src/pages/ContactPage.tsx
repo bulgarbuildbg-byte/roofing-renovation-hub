@@ -10,7 +10,7 @@ const ContactPage = () => {
     "@type": "RoofingContractor",
     "name": "RemontNaPokriviVarna",
     "description": "Професионални покривни услуги във Варна - ремонт, хидроизолация, изграждане на нови покриви",
-    "url": "https://remontnapokrivivarna.com",
+    "url": "https://www.remontnapokrivivarna.bg",
     "telephone": "+359884997659",
     "email": "remontnapokrivivarna@abv.bg",
     "address": {
@@ -52,7 +52,7 @@ const ContactPage = () => {
         <title>Контакти Покриви Варна - 088 499 7659</title>
         <meta name="description" content="Свържете се за безплатен оглед. Адрес: ул. Уста Колю Фичето 25А, Варна. Работим 7 дни. Бърз отговор." />
         <meta name="keywords" content="контакти ремонт покриви варна, телефон покриви варна, адрес покривни услуги варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/контакти" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/контакти" />
         <meta property="og:title" content="Контакти Покриви Варна - 088 499 7659" />
         <meta property="og:description" content="Свържете се за безплатен оглед. Телефон: 088 499 7659" />
         <meta property="og:type" content="website" />

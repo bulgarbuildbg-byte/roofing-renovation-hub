@@ -74,7 +74,7 @@ const FAQPage = () => {
         <title>Въпроси за Покриви Варна - Отговори и Съвети</title>
         <meta name="description" content="Отговори на често задавани въпроси за ремонт на покриви, цени и гаранции във Варна. Полезна информация." />
         <meta name="keywords" content="ремонт покриви въпроси, цени покриви варна, хидроизолация въпроси, гаранция покрив" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/въпроси" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/въпроси" />
         <meta property="og:title" content="Въпроси за Покриви Варна - Отговори и Съвети" />
         <meta property="og:description" content="Отговори на често задавани въпроси за ремонт на покриви във Варна." />
         <meta property="og:type" content="website" />

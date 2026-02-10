@@ -31,7 +31,7 @@ const WaterproofingTypes = () => {
         <title>Видове хидроизолация - Битумна, PVC, Течна | Ръководство | Варна</title>
         <meta name="description" content="Пълен наръчник за хидроизолационни материали. Научете коя хидроизолация е най-подходяща - битумна, PVC мембрана или течна хидроизолация." />
         <meta name="keywords" content="видове хидроизолация, битумна хидроизолация, PVC мембрана, течна хидроизолация, Варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/блог/видове-хидроизолация-и-кога-да-изберем-всяка" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог/видове-хидроизолация-и-кога-да-изберем-всяка" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </Helmet>
 

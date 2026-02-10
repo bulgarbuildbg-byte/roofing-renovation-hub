@@ -22,7 +22,7 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
     "name": "Ремонт на Покриви Варна",
-    "image": "https://remontnapokrivivarna.com/og-image.jpg",
+    "image": "https://www.remontnapokrivivarna.bg/favicon.png",
     "description": "Професионален ремонт на покриви и хидроизолация във Варна. Над 15 години опит, безплатен оглед и писмена гаранция.",
     "address": {
       "@type": "PostalAddress",
@@ -32,9 +32,9 @@ const Index = () => {
       "postalCode": "9000",
       "addressCountry": "BG"
     },
-    "telephone": "+359892701176",
+    "telephone": "+359884997659",
     "email": "remontnapokrivivarna@abv.bg",
-    "url": "https://remontnapokrivivarna.com",
+    "url": "https://www.remontnapokrivivarna.bg",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -68,7 +68,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Ремонт на покриви",
             "description": "Професионален ремонт на всички видове покриви - скатни, плоски и мансардни.",
-            "url": "https://remontnapokrivivarna.com/ремонт-на-покриви"
+            "url": "https://www.remontnapokrivivarna.bg/ремонт-на-покриви"
           }
         },
         {
@@ -77,7 +77,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Хидроизолация",
             "description": "Качествена хидроизолация с гаранция до 10 години.",
-            "url": "https://remontnapokrivivarna.com/хидроизолация"
+            "url": "https://www.remontnapokrivivarna.bg/хидроизолация"
           }
         },
         {
@@ -86,7 +86,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Ремонт на течове",
             "description": "Бързо и ефективно отстраняване на течове по покрива.",
-            "url": "https://remontnapokrivivarna.com/ремонт-течове"
+            "url": "https://www.remontnapokrivivarna.bg/ремонт-течове"
           }
         },
         {
@@ -95,7 +95,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Изграждане на нов покрив",
             "description": "Пълно изграждане на нови покриви с модерни материали.",
-            "url": "https://remontnapokrivivarna.com/изграждане-на-покрив"
+            "url": "https://www.remontnapokrivivarna.bg/изграждане-на-покрив"
           }
         },
         {
@@ -104,7 +104,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Смяна на керемиди",
             "description": "Подмяна на счупени или износени керемиди.",
-            "url": "https://remontnapokrivivarna.com/смяна-керемиди"
+            "url": "https://www.remontnapokrivivarna.bg/смяна-керемиди"
           }
         },
         {
@@ -113,7 +113,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Плоски покриви",
             "description": "Специализирани услуги за плоски покриви и тераси.",
-            "url": "https://remontnapokrivivarna.com/плоски-покриви"
+            "url": "https://www.remontnapokrivivarna.bg/плоски-покриви"
           }
         },
         {
@@ -122,7 +122,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Метални покриви",
             "description": "Монтаж и ремонт на метални покриви.",
-            "url": "https://remontnapokrivivarna.com/метални-покриви"
+            "url": "https://www.remontnapokrivivarna.bg/метални-покриви"
           }
         },
         {
@@ -131,7 +131,7 @@ const Index = () => {
             "@type": "Service",
             "name": "Поддръжка на покриви",
             "description": "Редовна поддръжка и профилактика на покривни конструкции.",
-            "url": "https://remontnapokrivivarna.com/поддръжка-на-покриви"
+            "url": "https://www.remontnapokrivivarna.bg/поддръжка-на-покриви"
           }
         }
       ]
@@ -181,12 +181,13 @@ const Index = () => {
     <div className="min-h-screen">
       <Helmet>
         <title>Ремонт на Покриви Варна - Безплатен Оглед 24ч</title>
-        <meta name="description" content="Професионален ремонт на покриви във Варна. 15+ години опит, до 10г гаранция, безплатен оглед. Обадете се: 089 270 1176" />
+        <meta name="description" content="Професионален ремонт на покриви във Варна. 15+ години опит, до 10г гаранция, безплатен оглед. Обадете се: 088 499 7659" />
         <meta name="keywords" content="ремонт на покриви Варна, хидроизолация Варна, покривни услуги, течове покрив, нов покрив Варна, керемиди Варна" />
         <meta property="og:title" content="Ремонт на Покриви Варна - Безплатен Оглед" />
         <meta property="og:description" content="Професионален ремонт на покриви във Варна. 15+ години опит, безплатен оглед и писмена гаранция." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/" />
         <script type="application/ld+json">
           {JSON.stringify(localBusinessSchema)}
         </script>

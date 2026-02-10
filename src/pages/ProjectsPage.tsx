@@ -74,7 +74,7 @@ const ProjectsPage = () => {
         <title>Проекти Покриви Варна - Преди и След | 500+</title>
         <meta name="description" content="Разгледайте 500+ завършени проекта за ремонт на покриви във Варна. Реални снимки преди и след ремонта." />
         <meta name="keywords" content="ремонт покриви варна снимки, проекти покриви варна, хидроизолация варна примери, преди след покрив" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/проекти" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/проекти" />
         <meta property="og:title" content="Проекти Покриви Варна - Преди и След | 500+" />
         <meta property="og:description" content="Разгледайте 500+ завършени проекта за ремонт на покриви във Варна." />
         <meta property="og:type" content="website" />

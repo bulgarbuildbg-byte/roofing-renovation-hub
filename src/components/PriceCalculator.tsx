@@ -269,7 +269,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground">
-                  <a href="tel:+359892701176">
+                  <a href="tel:0884997659">
                     <Phone className="w-5 h-5 mr-2" />
                     Обадете се сега
                   </a>

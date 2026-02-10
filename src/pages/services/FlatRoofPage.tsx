@@ -287,9 +287,9 @@ const FlatRoofPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://remontnapokrivivarna.com/услуги" },
-      { "@type": "ListItem", "position": 3, "name": "Плоски покриви", "item": "https://remontnapokrivivarna.com/плоски-покриви" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" },
+      { "@type": "ListItem", "position": 3, "name": "Плоски покриви", "item": "https://www.remontnapokrivivarna.bg/плоски-покриви" }
     ]
   };
 
@@ -299,7 +299,7 @@ const FlatRoofPage = () => {
         <title>Плоски Покриви Варна - от 11 €/кв.м | 10г</title>
         <meta name="description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. До 10 години гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="плосък покрив варна, хидроизолация плосък покрив, ремонт плосък покрив, битумна хидроизолация варна, PVC мембрана варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/плоски-покриви" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/плоски-покриви" />
         <meta property="og:title" content="Плоски Покриви Варна - от 11 €/кв.м" />
         <meta property="og:description" content="Битумни и PVC мембрани. До 10г гаранция." />
         <meta property="og:type" content="website" />
@@ -337,7 +337,7 @@ const FlatRoofPage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                  <a href="tel:+359892701176">
+                  <a href="tel:0884997659">
                     <Phone className="w-5 h-5 mr-2" />
                     Обадете се
                   </a>

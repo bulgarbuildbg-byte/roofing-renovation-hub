@@ -82,7 +82,7 @@ const ReviewsPage = () => {
         <title>Отзиви за Покриви Варна - 4.9/5 Оценка | 127+</title>
         <meta name="description" content="127+ положителни отзива от клиенти. Прочетете реални мнения за нашите покривни услуги във Варна." />
         <meta name="keywords" content="отзиви ремонт покриви варна, мнения покривни услуги, рейтинг покриви варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/отзиви" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/отзиви" />
         <meta property="og:title" content="Отзиви за Покриви Варна - 4.9/5 Оценка" />
         <meta property="og:description" content="127+ положителни отзива от клиенти за нашите покривни услуги." />
         <meta property="og:type" content="website" />
