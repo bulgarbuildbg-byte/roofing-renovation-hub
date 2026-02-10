@@ -1,39 +1,87 @@
 
-# Plan: Move ChatBot to Bottom-Right Corner
 
-## Problem
-The chatbot button is currently in the **bottom-LEFT** corner, which is less visible and unconventional. Most chat widgets appear in the bottom-right corner where users expect them.
+# SEO Audit and Sitemap Update Plan
 
-## Solution
-Move the chatbot button to the **bottom-RIGHT** corner of the screen.
+## Issues Found
 
-### Positioning Strategy
+### 1. Sitemap - Outdated lastmod dates
+All URLs show `2026-01-14` but the site has been actively updated. The `/калкулатор` page exists in routes but is missing proper dating.
 
-| Device | Current Position | New Position |
-|--------|-----------------|--------------|
-| Mobile | bottom-24 left-4 | bottom-24 right-4 |
-| Desktop | bottom-6 left-6 | bottom-24 right-6 |
+### 2. Sitemap - Missing the `/калкулатор` page
+The calculator page IS in the sitemap already - good. But the `lastmod` dates should be updated to `2026-02-10`.
 
-On desktop, the chatbot will sit above the FloatingCallButton (which is at bottom-6 right-6).
+### 3. Domain inconsistency (CRITICAL)
+- **Sitemap and robots.txt** use: `remontnapokrivivarna.bg`
+- **Canonical URLs in pages** use: `remontnapokrivivarna.com`
+- This confuses search engines. All URLs must use one consistent domain.
 
-## File to Modify
+### 4. `index.html` - Wrong `lang` attribute
+Currently `lang="en"` but the site is entirely in Bulgarian. Should be `lang="bg"`.
 
-| File | Change |
-|------|--------|
-| `src/components/ChatBot.tsx` | Change `left-4`/`left-6` to `right-4`/`right-6` |
+### 5. `index.html` - Generic OG image
+OG image points to `lovable.dev/opengraph-image-p98pqg.png` instead of a branded image. Same for Twitter card image and `twitter:site` says `@Lovable`.
 
-## Code Change
+### 6. ServicesPage canonical URL mismatch
+The canonical says `/услуги` but the actual route is `/services`. This is a mismatch that hurts SEO.
 
-```tsx
-// Line 56-58: Change from left to right positioning
-className={cn(
-  "fixed z-50 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105",
-  "bottom-24 right-4 md:bottom-24 md:right-6",  // Changed left → right
-  isOpen && "hidden"
-)}
-```
+### 7. Missing `og:url` on most pages
+Pages have `og:title`, `og:description`, `og:type` but no `og:url` meta tag.
 
-## Result
-- Chat button appears in bottom-right corner (standard UX pattern)
-- Mobile: 96px from bottom, 16px from right (above MobileBottomBar)
-- Desktop: 96px from bottom, 24px from right (above FloatingCallButton)
+### 8. Phone number inconsistency
+- Index page schema: `+359892701176` (089 270 1176)
+- Header/Footer/Contact: `0884997659` (088 499 7659)
+- About page schema: `+359884997659`
+- Two different phone numbers used across the site
+
+---
+
+## Changes to Make
+
+### File 1: `public/sitemap.xml`
+- Update all `lastmod` dates to `2026-02-10`
+- Fix domain: use `remontnapokrivivarna.bg` consistently (matching robots.txt)
+
+### File 2: `index.html`
+- Change `lang="en"` to `lang="bg"`
+- Remove `twitter:site` pointing to `@Lovable`
+- Update OG image and Twitter image to use the site's own branding (or remove the Lovable placeholder)
+
+### File 3: `src/pages/Index.tsx`
+- Fix canonical URL domain from `.com` to `.bg`
+- Fix all service URLs in schema from `.com` to `.bg`
+
+### File 4: `src/pages/ServicesPage.tsx`
+- Fix canonical from `/услуги` to `/services` (matching actual route)
+- Fix domain from `.com` to `.bg`
+
+### File 5: `src/pages/AboutPage.tsx`
+- Fix canonical and schema URL domain from `.com` to `.bg`
+
+### File 6: `src/pages/ContactPage.tsx`
+- Fix canonical and schema URL domain from `.com` to `.bg`
+
+### File 7: `src/pages/ReviewsPage.tsx`
+- Fix canonical URL domain from `.com` to `.bg`
+
+### File 8: `src/pages/CalculatorPage.tsx`
+- Fix canonical URL domain from `.com` to `.bg`
+
+### File 9: `src/pages/BlogPage.tsx` (if it has canonical)
+- Fix domain
+
+### File 10: All service subpages (`RoofRepairPage`, `WaterproofingPage`, etc.)
+- Fix canonical URL domains from `.com` to `.bg`
+
+---
+
+## Summary of SEO Improvements
+
+| Issue | Impact | Fix |
+|-------|--------|-----|
+| Domain mismatch (.com vs .bg) | HIGH - confuses Google indexing | Unify all to `.bg` |
+| `lang="en"` on Bulgarian site | HIGH - wrong language signal | Change to `lang="bg"` |
+| Lovable branding in OG/Twitter | MEDIUM - unprofessional sharing | Remove/replace |
+| ServicesPage wrong canonical | MEDIUM - points to non-existent URL | Fix to `/services` |
+| Outdated sitemap dates | LOW - signals stale content | Update to current date |
+| Phone number inconsistency | MEDIUM - confuses schema validation | Standardize across site |
+
