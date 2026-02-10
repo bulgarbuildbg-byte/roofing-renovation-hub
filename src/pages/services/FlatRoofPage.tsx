@@ -11,12 +11,12 @@ import { Phone, CheckCircle, Layers, Shield, Droplets, Sun, MapPin, Clock, Wrenc
 import { Link } from "react-router-dom";
 
 // Process images - Flat roof / bituminous waterproofing
-import flatRoofInspection from "@/assets/process/flat-roof-overview.jpg";
-import roofPressureWashing from "@/assets/process/flat-roof-waterproofing.jpg";
-import acUnitSealing from "@/assets/process/roof-chimney-detail.jpg";
+import flatRoofInspection from "@/assets/process/flat-roof-inspection.jpg";
+import roofPressureWashing from "@/assets/process/roof-pressure-washing.jpg";
+import acUnitSealing from "@/assets/process/ac-unit-sealing.jpg";
 import waterproofingTorch from "@/assets/process/bitumen-torch-application.jpg";
-import pvcMembrane from "@/assets/process/waterproofing-membrane.jpg";
-import completedApartmentRoof from "@/assets/portfolio/panel-block.jpg";
+import pvcMembrane from "@/assets/process/pvc-membrane.jpg";
+import completedApartmentRoof from "@/assets/process/completed-flat-roof.jpg";
 
 const relatedServices = [
   {
