@@ -86,7 +86,7 @@ const BlogPage = () => {
     "@type": "Blog",
     "name": "Блог за покриви и хидроизолация - RemontNaPokriviVarna",
     "description": "Експертни статии, съвети и ръководства за ремонт на покриви, хидроизолация и поддръжка от професионалисти във Варна",
-    "url": "https://remontnapokrivivarna.com/блог",
+    "url": "https://www.remontnapokrivivarna.bg/блог",
     "publisher": {
       "@type": "LocalBusiness",
       "name": "RemontNaPokriviVarna",
@@ -102,7 +102,7 @@ const BlogPage = () => {
       "headline": post.title,
       "description": post.excerpt,
       "datePublished": post.date,
-      "url": `https://remontnapokrivivarna.com/блог/${post.id}`
+      "url": `https://www.remontnapokrivivarna.bg/блог/${post.id}`
     }))
   };
 
@@ -110,8 +110,8 @@ const BlogPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://remontnapokrivivarna.com/блог" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.remontnapokrivivarna.bg/блог" }
     ]
   };
 
@@ -121,7 +121,7 @@ const BlogPage = () => {
         <title>Блог за Покриви Варна - Съвети и Ръководства</title>
         <meta name="description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви. Експертни съвети от професионалисти." />
         <meta name="keywords" content="блог покриви, съвети за покриви, ремонт покрив, хидроизолация съвети, поддръжка на покрив, Варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/блог" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог" />
         <meta property="og:title" content="Блог за Покриви Варна - Съвети и Ръководства" />
         <meta property="og:description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви." />
         <meta property="og:type" content="website" />
@@ -279,10 +279,10 @@ const BlogPage = () => {
               Свържете се с нас за безплатна консултация и оглед. Нашите експерти ще ви помогнат да намерите най-доброто решение.
             </p>
             <a 
-              href="tel:+359892701176" 
+              href="tel:0884997659" 
               className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-4 rounded-lg font-bold text-lg hover:bg-accent/90 transition-colors"
             >
-              Обадете се сега: 089 270 1176
+              Обадете се сега: 088 499 7659
             </a>
           </div>
         </section>

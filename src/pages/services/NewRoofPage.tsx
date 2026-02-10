@@ -228,9 +228,9 @@ const NewRoofPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://remontnapokrivivarna.com/услуги" },
-      { "@type": "ListItem", "position": 3, "name": "Изграждане на нов покрив", "item": "https://remontnapokrivivarna.com/изграждане-на-покрив" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" },
+      { "@type": "ListItem", "position": 3, "name": "Изграждане на нов покрив", "item": "https://www.remontnapokrivivarna.bg/изграждане-на-покрив" }
     ]
   };
 
@@ -240,7 +240,7 @@ const NewRoofPage = () => {
         <title>Нов Покрив Варна - Изграждане от 33 €/кв.м</title>
         <meta name="description" content="Изграждане на нови покриви - керемидни, метални, плоски. Пълен проект и монтаж с 10г гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="нов покрив варна, изграждане покрив варна, покривна конструкция варна, керемиден покрив цена, метален покрив варна" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/изграждане-на-покрив" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/изграждане-на-покрив" />
         <meta property="og:title" content="Нов Покрив Варна - Изграждане от 33 €/кв.м" />
         <meta property="og:description" content="Нови покриви с 10г гаранция. Керемидени, метални, плоски." />
         <meta property="og:type" content="website" />
@@ -272,9 +272,9 @@ const NewRoofPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359892701176">
+                <a href="tel:0884997659">
                   <Phone className="w-5 h-5 mr-2" />
-                  Обадете се: 089 270 1176
+                  Обадете се: 088 499 7659
                 </a>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">

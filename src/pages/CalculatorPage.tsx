@@ -47,7 +47,7 @@ const CalculatorPage = () => {
         <meta property="og:title" content="Калкулатор Цена Покрив Варна - Онлайн" />
         <meta property="og:description" content="Изчислете ориентировъчна цена за ремонт на покрив онлайн. Безплатен калкулатор." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/калкулатор" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/калкулатор" />
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}
         </script>

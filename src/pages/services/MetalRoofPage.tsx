@@ -259,9 +259,9 @@ const MetalRoofPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://remontnapokrivivarna.com/услуги" },
-      { "@type": "ListItem", "position": 3, "name": "Метални покриви", "item": "https://remontnapokrivivarna.com/метални-покриви" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" },
+      { "@type": "ListItem", "position": 3, "name": "Метални покриви", "item": "https://www.remontnapokrivivarna.bg/метални-покриви" }
     ]
   };
 
@@ -271,7 +271,7 @@ const MetalRoofPage = () => {
         <title>Метални Покриви Варна - от 6 €/кв.м | 50г</title>
         <meta name="description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="метални покриви варна, метални керемиди варна, ламаринен покрив, трапецовидна ламарина варна, монтаж метален покрив" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/метални-покриви" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/метални-покриви" />
         <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м" />
         <meta property="og:description" content="Керемиди, ламарина, стоящ фалц. До 50г гаранция." />
         <meta property="og:type" content="website" />
@@ -309,7 +309,7 @@ const MetalRoofPage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                  <a href="tel:+359892701176">
+                  <a href="tel:0884997659">
                     <Phone className="w-5 h-5 mr-2" />
                     Обадете се
                   </a>

@@ -253,9 +253,9 @@ const WaterproofingPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://remontnapokrivivarna.com/услуги" },
-      { "@type": "ListItem", "position": 3, "name": "Хидроизолация", "item": "https://remontnapokrivivarna.com/хидроизолация" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" },
+      { "@type": "ListItem", "position": 3, "name": "Хидроизолация", "item": "https://www.remontnapokrivivarna.bg/хидроизолация" }
     ]
   };
 
@@ -265,7 +265,7 @@ const WaterproofingPage = () => {
         <title>Хидроизолация Покрив Варна - от 28лв | 10г</title>
         <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
         <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/хидроизолация" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/хидроизолация" />
         <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв" />
         <meta property="og:description" content="Битумна, PVC, течна хидроизолация. 10г гаранция." />
         <meta property="og:type" content="website" />
@@ -297,9 +297,9 @@ const WaterproofingPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359892701176">
+                <a href="tel:0884997659">
                   <Phone className="w-5 h-5 mr-2" />
-                  Обадете се: 089 270 1176
+                  Обадете се: 088 499 7659
                 </a>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">

@@ -259,9 +259,9 @@ const TileReplacementPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://remontnapokrivivarna.com/услуги" },
-      { "@type": "ListItem", "position": 3, "name": "Смяна на керемиди", "item": "https://remontnapokrivivarna.com/смяна-керемиди" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" },
+      { "@type": "ListItem", "position": 3, "name": "Смяна на керемиди", "item": "https://www.remontnapokrivivarna.bg/смяна-керемиди" }
     ]
   };
 
@@ -271,7 +271,7 @@ const TileReplacementPage = () => {
         <title>Смяна Керемиди Варна - от 8лв/бр | 5г Гаранция</title>
         <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="смяна керемиди варна, подмяна керемиди варна, керемиди цена варна, ремонт керемиден покрив, счупени керемиди" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/смяна-керемиди" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/смяна-керемиди" />
         <meta property="og:title" content="Смяна Керемиди Варна - от 8лв/бр" />
         <meta property="og:description" content="Бетонни, керамични, марсилски. Гаранция до 5 години." />
         <meta property="og:type" content="website" />
@@ -309,7 +309,7 @@ const TileReplacementPage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                  <a href="tel:+359892701176">
+                  <a href="tel:0884997659">
                     <Phone className="w-5 h-5 mr-2" />
                     Обадете се
                   </a>

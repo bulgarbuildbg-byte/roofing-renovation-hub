@@ -285,9 +285,9 @@ const MaintenancePage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://remontnapokrivivarna.com" },
-      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://remontnapokrivivarna.com/услуги" },
-      { "@type": "ListItem", "position": 3, "name": "Поддръжка на покриви", "item": "https://remontnapokrivivarna.com/поддръжка-на-покриви" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" },
+      { "@type": "ListItem", "position": 3, "name": "Поддръжка на покриви", "item": "https://www.remontnapokrivivarna.bg/поддръжка-на-покриви" }
     ]
   };
 
@@ -297,7 +297,7 @@ const MaintenancePage = () => {
         <title>Поддръжка Покриви Варна - от 30 € | Годишни</title>
         <meta name="description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка. ☎ 088 499 7659" />
         <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив" />
-        <link rel="canonical" href="https://remontnapokrivivarna.com/поддръжка-на-покриви" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/поддръжка-на-покриви" />
         <meta property="og:title" content="Поддръжка Покриви Варна - от 30 €" />
         <meta property="og:description" content="Почистване на улуци и покриви. Годишни пакети." />
         <meta property="og:type" content="website" />
@@ -329,9 +329,9 @@ const MaintenancePage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359892701176">
+                <a href="tel:0884997659">
                   <Phone className="w-5 h-5 mr-2" />
-                  Обадете се: 089 270 1176
+                  Обадете се: 088 499 7659
                 </a>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
