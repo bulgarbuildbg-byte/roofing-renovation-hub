@@ -1,87 +1,63 @@
 
+# Plan: Fix Image-to-Context Mismatches on Service Pages
 
-# SEO Audit and Sitemap Update Plan
+## Problem Found
+After visual inspection of the entire site, all images are roofing-related (no animals, office, or generic photos). However, several service pages use **wrong category images** -- for example, the Metal Roof page shows tile stack images instead of metal roof images, and the Maintenance page shows tile-laying instead of gutter cleaning.
 
-## Issues Found
+The project has dedicated correctly-named images in `src/assets/process/` that are simply not being used on the right pages.
 
-### 1. Sitemap - Outdated lastmod dates
-All URLs show `2026-01-14` but the site has been actively updated. The `/калкулатор` page exists in routes but is missing proper dating.
+## Changes
 
-### 2. Sitemap - Missing the `/калкулатор` page
-The calculator page IS in the sitemap already - good. But the `lastmod` dates should be updated to `2026-02-10`.
+### 1. MetalRoofPage.tsx -- Use metal-specific images
+Currently uses tile/generic images. Will switch to the dedicated metal process images.
 
-### 3. Domain inconsistency (CRITICAL)
-- **Sitemap and robots.txt** use: `remontnapokrivivarna.bg`
-- **Canonical URLs in pages** use: `remontnapokrivivarna.com`
-- This confuses search engines. All URLs must use one consistent domain.
+| Step | Current Image | New Image |
+|------|--------------|-----------|
+| Survey | `roof-measuring.jpg` | `metal-roof-survey.jpg` |
+| Battens | `roof-underlayment.jpg` | `membrane-battens.jpg` (keep -- correct) |
+| Materials | `roof-tiles-stack.jpg` (WRONG - tiles) | `metal-delivery.jpg` |
+| Installation | `roof-frame-work.jpg` | `metal-installation.jpg` |
+| Ridge cap | `tile-roof-construction.jpg` (WRONG - tiles) | `metal-ridge-cap.jpg` |
+| Final | `commercial-building.jpg` | `completed-metal-roof.jpg` |
 
-### 4. `index.html` - Wrong `lang` attribute
-Currently `lang="en"` but the site is entirely in Bulgarian. Should be `lang="bg"`.
+### 2. MaintenancePage.tsx -- Use maintenance-specific images
+Currently uses tile-laying and cost-calculation images for maintenance steps.
 
-### 5. `index.html` - Generic OG image
-OG image points to `lovable.dev/opengraph-image-p98pqg.png` instead of a branded image. Same for Twitter card image and `twitter:site` says `@Lovable`.
+| Step | Current Image | New Image |
+|------|--------------|-----------|
+| Ground inspection | `roof-inspection-pro.jpg` | Keep (correct) |
+| Walking inspection | `roof-measuring.jpg` | `roof-walking-inspection.jpg` |
+| Gutter cleaning | `tile-laying-process.jpg` (WRONG) | `gutter-cleaning.jpg` |
+| Moss removal | `shingle-worker.jpg` (WRONG) | `moss-removal.jpg` |
+| Tile repair | `tile-installation-worker.jpg` | `single-tile-repair.jpg` |
+| Report | `cost-calculation.jpg` | `maintenance-report.jpg` |
 
-### 6. ServicesPage canonical URL mismatch
-The canonical says `/услуги` but the actual route is `/services`. This is a mismatch that hurts SEO.
+### 3. RoofLeakRepairPage.tsx -- Use leak-specific images
+| Step | Current Image | New Image |
+|------|--------------|-----------|
+| Inspection | `roof-leak-damage.jpg` | Keep (correct) |
+| Emergency | `water-damage-ceiling.jpg` | `emergency-tarp.jpg` |
+| Thermal scan | `roof-measuring.jpg` | `thermal-inspection.jpg` |
+| Patching | `shingle-installation.jpg` (WRONG) | `leak-patching.jpg` |
+| Testing | `tile-laying-process.jpg` (WRONG) | `leak-testing.jpg` |
+| Warranty | `blueprint-calculation.jpg` | `warranty-handover.jpg` |
 
-### 7. Missing `og:url` on most pages
-Pages have `og:title`, `og:description`, `og:type` but no `og:url` meta tag.
+### 4. FlatRoofPage.tsx -- Minor fix
+| Step | Current Image | New Image |
+|------|--------------|-----------|
+| Inspection | `flat-roof-overview.jpg` | `flat-roof-inspection.jpg` |
+| Cleaning | `flat-roof-waterproofing.jpg` | `roof-pressure-washing.jpg` |
+| Sealing | `roof-chimney-detail.jpg` | `ac-unit-sealing.jpg` |
+| Torch | `bitumen-torch-application.jpg` | Keep (correct) |
+| Membrane | `waterproofing-membrane.jpg` | `pvc-membrane.jpg` |
+| Final | `panel-block.jpg` | `completed-flat-roof.jpg` |
 
-### 8. Phone number inconsistency
-- Index page schema: `+359892701176` (089 270 1176)
-- Header/Footer/Contact: `0884997659` (088 499 7659)
-- About page schema: `+359884997659`
-- Two different phone numbers used across the site
+## Technical Details
 
----
+Each fix only changes the import paths at the top of the file. No structural changes needed. All replacement images already exist in `src/assets/process/`. All imports follow the ES6 module standard (`import x from "@/assets/..."`).
 
-## Changes to Make
-
-### File 1: `public/sitemap.xml`
-- Update all `lastmod` dates to `2026-02-10`
-- Fix domain: use `remontnapokrivivarna.bg` consistently (matching robots.txt)
-
-### File 2: `index.html`
-- Change `lang="en"` to `lang="bg"`
-- Remove `twitter:site` pointing to `@Lovable`
-- Update OG image and Twitter image to use the site's own branding (or remove the Lovable placeholder)
-
-### File 3: `src/pages/Index.tsx`
-- Fix canonical URL domain from `.com` to `.bg`
-- Fix all service URLs in schema from `.com` to `.bg`
-
-### File 4: `src/pages/ServicesPage.tsx`
-- Fix canonical from `/услуги` to `/services` (matching actual route)
-- Fix domain from `.com` to `.bg`
-
-### File 5: `src/pages/AboutPage.tsx`
-- Fix canonical and schema URL domain from `.com` to `.bg`
-
-### File 6: `src/pages/ContactPage.tsx`
-- Fix canonical and schema URL domain from `.com` to `.bg`
-
-### File 7: `src/pages/ReviewsPage.tsx`
-- Fix canonical URL domain from `.com` to `.bg`
-
-### File 8: `src/pages/CalculatorPage.tsx`
-- Fix canonical URL domain from `.com` to `.bg`
-
-### File 9: `src/pages/BlogPage.tsx` (if it has canonical)
-- Fix domain
-
-### File 10: All service subpages (`RoofRepairPage`, `WaterproofingPage`, etc.)
-- Fix canonical URL domains from `.com` to `.bg`
-
----
-
-## Summary of SEO Improvements
-
-| Issue | Impact | Fix |
-|-------|--------|-----|
-| Domain mismatch (.com vs .bg) | HIGH - confuses Google indexing | Unify all to `.bg` |
-| `lang="en"` on Bulgarian site | HIGH - wrong language signal | Change to `lang="bg"` |
-| Lovable branding in OG/Twitter | MEDIUM - unprofessional sharing | Remove/replace |
-| ServicesPage wrong canonical | MEDIUM - points to non-existent URL | Fix to `/services` |
-| Outdated sitemap dates | LOW - signals stale content | Update to current date |
-| Phone number inconsistency | MEDIUM - confuses schema validation | Standardize across site |
-
+Files to modify:
+- `src/pages/services/MetalRoofPage.tsx` (6 import changes)
+- `src/pages/services/MaintenancePage.tsx` (4 import changes)
+- `src/pages/services/RoofLeakRepairPage.tsx` (5 import changes)
+- `src/pages/services/FlatRoofPage.tsx` (5 import changes)
