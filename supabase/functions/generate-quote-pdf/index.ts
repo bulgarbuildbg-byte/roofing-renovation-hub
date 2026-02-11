@@ -6,6 +6,15 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const COMPANY_INFO = {
+  name: "България Билд ЕООД",
+  brand: "Ремонт на Покриви Варна",
+  address: "ул. Уста Колю Фичето 25 А, Варна",
+  phone: "088 499 7659",
+  website: "remontnapokrivivarna.bg",
+  parent: "bulgarbuild.com",
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
@@ -28,11 +37,11 @@ serve(async (req) => {
 
     const itemRows = items.map((item) => `
       <tr>
-        <td style="padding:8px;border-bottom:1px solid #eee">${item.description}</td>
-        <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${item.qty}</td>
-        <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${item.unit}</td>
-        <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${Number(item.unit_price).toFixed(2)} лв</td>
-        <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">${(item.qty * item.unit_price).toFixed(2)} лв</td>
+        <td style="padding:8px;border-bottom:1px solid #ddd">${item.description}</td>
+        <td style="padding:8px;border-bottom:1px solid #ddd;text-align:right">${item.qty}</td>
+        <td style="padding:8px;border-bottom:1px solid #ddd;text-align:right">${item.unit}</td>
+        <td style="padding:8px;border-bottom:1px solid #ddd;text-align:right">${Number(item.unit_price).toFixed(2)} лв</td>
+        <td style="padding:8px;border-bottom:1px solid #ddd;text-align:right">${(item.qty * item.unit_price).toFixed(2)} лв</td>
       </tr>
     `).join("");
 
@@ -43,20 +52,23 @@ serve(async (req) => {
     const html = `<!DOCTYPE html>
 <html lang="bg">
 <head><meta charset="UTF-8"><style>
-body{font-family:'Helvetica Neue',Arial,sans-serif;color:#1a1a1a;margin:0;padding:40px}
+@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } @page { margin: 20mm; size: A4; } }
+body{font-family:'Helvetica Neue',Arial,sans-serif;color:#1a1a1a;margin:0;padding:40px;font-size:13px}
 table{width:100%;border-collapse:collapse}
-.header{display:flex;justify-content:space-between;margin-bottom:40px}
-.total-row{font-size:18px;font-weight:bold;border-top:2px solid #333}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #ea580c}
+.stamp{border:2px solid #333;border-radius:50%;width:100px;height:100px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;color:#333;margin-top:20px}
 </style></head>
 <body>
 <div class="header">
   <div>
-    <h1 style="margin:0;font-size:20px;color:#ea580c">Ремонт Руф Прос</h1>
-    <p style="color:#666;margin:4px 0">тел: 088 499 7659</p>
-    <p style="color:#666;margin:4px 0">remontnapokrivivarna.bg</p>
+    <h1 style="margin:0;font-size:22px;color:#ea580c">${COMPANY_INFO.brand}</h1>
+    <p style="color:#666;margin:4px 0;font-size:12px">Подразделение на ${COMPANY_INFO.name}</p>
+    <p style="color:#666;margin:4px 0">${COMPANY_INFO.address}</p>
+    <p style="color:#666;margin:4px 0">тел: ${COMPANY_INFO.phone}</p>
+    <p style="color:#666;margin:4px 0">${COMPANY_INFO.website} | ${COMPANY_INFO.parent}</p>
   </div>
   <div style="text-align:right">
-    <h2 style="margin:0;font-size:28px">ОФЕРТА</h2>
+    <h2 style="margin:0;font-size:28px;color:#333">ОФЕРТА</h2>
     <p style="color:#666;margin:4px 0">Дата: ${date}</p>
     <p style="color:#666;margin:4px 0">Валидност: ${quote.validity_days} дни</p>
   </div>
@@ -67,6 +79,7 @@ table{width:100%;border-collapse:collapse}
   <p style="margin:2px 0">${inquiry.name}</p>
   <p style="margin:2px 0">${inquiry.email}</p>
   <p style="margin:2px 0">${inquiry.phone}</p>
+  ${inquiry.address ? `<p style="margin:2px 0">Адрес: ${inquiry.address}</p>` : ""}
 </div>
 
 <table>
@@ -83,14 +96,24 @@ table{width:100%;border-collapse:collapse}
     ${itemRows}
     <tr><td colspan="4" style="padding:8px;text-align:right">Междинна сума:</td><td style="padding:8px;text-align:right">${Number(quote.subtotal).toFixed(2)} лв</td></tr>
     ${discountRow}
-    <tr class="total-row"><td colspan="4" style="padding:12px 8px;text-align:right">Общо:</td><td style="padding:12px 8px;text-align:right">${Number(quote.total).toFixed(2)} лв</td></tr>
+    <tr style="font-size:16px;font-weight:bold;border-top:2px solid #333"><td colspan="4" style="padding:12px 8px;text-align:right">Общо:</td><td style="padding:12px 8px;text-align:right">${Number(quote.total).toFixed(2)} лв</td></tr>
   </tbody>
 </table>
 
-${quote.terms ? `<div style="margin-top:32px;padding-top:16px;border-top:1px solid #ddd">
-  <h3 style="margin:0 0 8px">Условия:</h3>
-  <p style="color:#666;white-space:pre-line">${quote.terms}</p>
+${quote.terms ? `<div style="margin-top:30px;padding-top:16px;border-top:1px solid #ddd">
+  <h3 style="margin:0 0 8px;font-size:14px">Условия и правила:</h3>
+  <p style="color:#555;white-space:pre-line;font-size:12px;line-height:1.6">${quote.terms}</p>
 </div>` : ""}
+
+<div style="margin-top:40px;padding-top:16px;border-top:1px solid #ddd;display:flex;justify-content:space-between;align-items:flex-end">
+  <div style="font-size:11px;color:#888">
+    <p style="margin:2px 0"><strong>${COMPANY_INFO.name}</strong></p>
+    <p style="margin:2px 0">${COMPANY_INFO.address}</p>
+    <p style="margin:2px 0">тел: ${COMPANY_INFO.phone}</p>
+    <p style="margin:2px 0">${COMPANY_INFO.website}</p>
+  </div>
+  <div class="stamp">Печат /<br/>Подпис</div>
+</div>
 </body></html>`;
 
     return new Response(JSON.stringify({ html }), {

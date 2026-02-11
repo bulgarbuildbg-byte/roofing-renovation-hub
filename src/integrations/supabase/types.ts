@@ -62,8 +62,75 @@ export type Database = {
         }
         Relationships: []
       }
+      contracts: {
+        Row: {
+          client_address: string | null
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at: string
+          created_by: string
+          custom_clauses: string | null
+          id: string
+          inquiry_id: string
+          material_details: string | null
+          quote_id: string
+          status: Database["public"]["Enums"]["contract_status"]
+          total_price: number
+          updated_at: string
+        }
+        Insert: {
+          client_address?: string | null
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at?: string
+          created_by: string
+          custom_clauses?: string | null
+          id?: string
+          inquiry_id: string
+          material_details?: string | null
+          quote_id: string
+          status?: Database["public"]["Enums"]["contract_status"]
+          total_price?: number
+          updated_at?: string
+        }
+        Update: {
+          client_address?: string | null
+          client_email?: string
+          client_name?: string
+          client_phone?: string
+          created_at?: string
+          created_by?: string
+          custom_clauses?: string | null
+          id?: string
+          inquiry_id?: string
+          material_details?: string | null
+          quote_id?: string
+          status?: Database["public"]["Enums"]["contract_status"]
+          total_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contracts_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       inquiries: {
         Row: {
+          address: string | null
           area_sqm: number | null
           assigned_to: string | null
           created_at: string
@@ -81,6 +148,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          address?: string | null
           area_sqm?: number | null
           assigned_to?: string | null
           created_at?: string
@@ -100,6 +168,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          address?: string | null
           area_sqm?: number | null
           assigned_to?: string | null
           created_at?: string
@@ -269,6 +338,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "staff"
+      contract_status: "draft" | "signed" | "completed"
       inquiry_status:
         | "new"
         | "contacted"
@@ -423,6 +493,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "staff"],
+      contract_status: ["draft", "signed", "completed"],
       inquiry_status: [
         "new",
         "contacted",
