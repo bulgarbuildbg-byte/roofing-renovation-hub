@@ -51,6 +51,7 @@ const MultiStepInquiryForm = () => {
     name: "",
     phone: "",
     email: "",
+    address: "",
     service_type: "",
     area_sqm: "",
     preferred_material: "",
@@ -61,7 +62,7 @@ const MultiStepInquiryForm = () => {
   const update = (field: string, value: string) => setForm({ ...form, [field]: value });
 
   const canNext = () => {
-    if (step === 1) return form.name && form.phone && form.email;
+    if (step === 1) return form.name && form.phone && form.email && form.address;
     if (step === 2) return form.service_type;
     return true;
   };
@@ -84,6 +85,7 @@ const MultiStepInquiryForm = () => {
         name: form.name,
         phone: form.phone,
         email: form.email,
+        address: form.address || null,
         service_type: form.service_type as any || "other",
         area_sqm: form.area_sqm ? Number(form.area_sqm) : null,
         preferred_material: form.preferred_material as any || null,
@@ -171,6 +173,10 @@ const MultiStepInquiryForm = () => {
           <div>
             <Label>Имейл *</Label>
             <Input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="ivan@example.com" required className="h-12" />
+          </div>
+          <div>
+            <Label>Адрес на обекта *</Label>
+            <Input value={form.address} onChange={(e) => update("address", e.target.value)} placeholder="гр. Варна, ул. Примерна 10" required className="h-12" />
           </div>
         </div>
       )}
@@ -267,6 +273,11 @@ const MultiStepInquiryForm = () => {
             <div className="flex justify-between p-3 bg-muted rounded-lg">
               <span className="text-muted-foreground">Имейл:</span><span className="font-medium">{form.email}</span>
             </div>
+            {form.address && (
+              <div className="flex justify-between p-3 bg-muted rounded-lg">
+                <span className="text-muted-foreground">Адрес:</span><span className="font-medium">{form.address}</span>
+              </div>
+            )}
             <div className="flex justify-between p-3 bg-muted rounded-lg">
               <span className="text-muted-foreground">Услуга:</span>
               <span className="font-medium">{serviceOptions.find((s) => s.value === form.service_type)?.label || "—"}</span>

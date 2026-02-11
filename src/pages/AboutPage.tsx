@@ -51,7 +51,7 @@ const AboutPage = () => {
             "@context": "https://schema.org",
             "@type": "RoofingContractor",
             "name": "Ремонт на Покриви Варна",
-            "description": "Професионални покривни услуги във Варна",
+            "description": "Специализирано покривно подразделение на България Билд ЕООД",
             "url": "https://www.remontnapokrivivarna.bg",
             "telephone": "+359884997659",
             "email": "remontnapokrivivarna@abv.bg",
@@ -60,6 +60,11 @@ const AboutPage = () => {
               "streetAddress": "ул. Уста Колю Фичето 25 А",
               "addressLocality": "Варна",
               "addressCountry": "BG"
+            },
+            "parentOrganization": {
+              "@type": "Organization",
+              "name": "България Билд ЕООД",
+              "url": "https://bulgarbuild.com"
             },
             "areaServed": serviceAreas.map(area => ({ "@type": "City", "name": area })),
             "priceRange": "$$"
@@ -77,7 +82,10 @@ const AboutPage = () => {
               За Нас - Покривни Специалисти Варна
             </h1>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto text-center">
-              RemontNaPokriviVarna е вашият надежден партньор за всички покривни услуги във Варна и региона
+              Специализирано покривно подразделение на{" "}
+              <a href="https://bulgarbuild.com" target="_blank" rel="noopener noreferrer" className="underline font-semibold">
+                България Билд ЕООД
+              </a>
             </p>
           </div>
         </section>
@@ -88,14 +96,18 @@ const AboutPage = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-foreground mb-6">15+ Години Опит в Ремонт на Покриви</h2>
               <p className="text-muted-foreground text-lg mb-6">
-                С над 15 години опит в сферата на покривните услуги, RemontNaPokriviVarna се е утвърдила като водеща 
-                компания за ремонт и изграждане на покриви във Варна. Започнахме като малък семеен бизнес с мисията 
-                да предоставяме качествени и надеждни покривни решения на достъпни цени.
+                RemontNaPokriviVarna е специализирано покривно подразделение на{" "}
+                <a href="https://bulgarbuild.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-semibold">
+                  България Билд ЕООД (Bulgari Build EOOD)
+                </a>{" "}
+                — водеща строителна компания, напълно сертифицирана и лицензирана. Този специализиран 
+                покривен бранш беше създаден, за да предоставя фокусирана експертиза, по-високо качество 
+                и по-добро обслужване конкретно за покривни проекти.
               </p>
               <p className="text-muted-foreground text-lg mb-6">
-                Днес разполагаме с екип от квалифицирани специалисти, модерно оборудване и богат опит в работата 
-                с всички видове покривни конструкции. Нашата цел е да осигурим дълготрайна защита на вашия дом 
-                или бизнес сграда.
+                С над 15 години опит и стотици успешно реализирани проекти, ние разполагаме с екип от 
+                квалифицирани специалисти, модерно оборудване и богат опит в работата с всички видове 
+                покривни конструкции.
               </p>
               <p className="text-muted-foreground text-lg">
                 Вярваме, че качеството не е лукс, а необходимост. Затова използваме само доказани материали от 

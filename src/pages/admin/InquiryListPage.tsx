@@ -67,7 +67,7 @@ const InquiryListPage = () => {
   const filtered = inquiries.filter((i) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
-    return i.name?.toLowerCase().includes(q) || i.phone?.includes(q) || i.email?.toLowerCase().includes(q);
+    return i.name?.toLowerCase().includes(q) || i.phone?.includes(q) || i.email?.toLowerCase().includes(q) || i.address?.toLowerCase().includes(q);
   });
 
   return (
@@ -108,11 +108,12 @@ const InquiryListPage = () => {
       ) : (
         <div className="bg-card rounded-xl border border-border overflow-hidden">
           <Table>
-            <TableHeader>
+             <TableHeader>
               <TableRow>
                 <TableHead>Дата</TableHead>
                 <TableHead>Име</TableHead>
                 <TableHead>Телефон</TableHead>
+                <TableHead className="hidden md:table-cell">Адрес</TableHead>
                 <TableHead className="hidden md:table-cell">Услуга</TableHead>
                 <TableHead>Статус</TableHead>
                 <TableHead className="w-12" />
@@ -126,6 +127,9 @@ const InquiryListPage = () => {
                   </TableCell>
                   <TableCell className="font-medium">{inquiry.name}</TableCell>
                   <TableCell>{inquiry.phone}</TableCell>
+                  <TableCell className="hidden md:table-cell text-sm text-muted-foreground">
+                    {inquiry.address || "—"}
+                  </TableCell>
                   <TableCell className="hidden md:table-cell">
                     {serviceLabels[inquiry.service_type] || inquiry.service_type}
                   </TableCell>

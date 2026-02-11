@@ -34,6 +34,7 @@ import QuoteListPage from "./pages/admin/QuoteListPage";
 import StaffManagementPage from "./pages/admin/StaffManagementPage";
 import ArticleListPage from "./pages/admin/ArticleListPage";
 import ArticleEditorPage from "./pages/admin/ArticleEditorPage";
+import ContractEditorPage from "./pages/admin/ContractEditorPage";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +73,7 @@ const App = () => (
               <Route path="inquiries" element={<InquiryListPage />} />
               <Route path="inquiries/:id" element={<InquiryDetailPage />} />
               <Route path="inquiries/:id/quote" element={<QuoteEditorPage />} />
+              <Route path="inquiries/:id/contract" element={<ContractEditorPage />} />
               <Route path="quotes" element={<QuoteListPage />} />
               <Route path="articles" element={<ArticleListPage />} />
               <Route path="articles/new" element={<ArticleEditorPage />} />

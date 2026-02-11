@@ -82,6 +82,12 @@ const InquiryDetailPage = () => {
                 <Mail className="h-4 w-4 text-muted-foreground" />
                 <a href={`mailto:${inquiry.email}`} className="text-accent hover:underline">{inquiry.email}</a>
               </div>
+              {inquiry.address && (
+                <div className="flex items-center gap-2 text-sm sm:col-span-2">
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                  <span>{inquiry.address}</span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -175,6 +181,13 @@ const InquiryDetailPage = () => {
             <Button className="w-full" size="lg">
               <FileText className="h-4 w-4 mr-2" />
               Създай оферта
+            </Button>
+          </Link>
+
+          <Link to={`/admin/inquiries/${id}/contract`}>
+            <Button className="w-full mt-3" size="lg" variant="outline">
+              <FileText className="h-4 w-4 mr-2" />
+              Генерирай договор
             </Button>
           </Link>
         </div>
