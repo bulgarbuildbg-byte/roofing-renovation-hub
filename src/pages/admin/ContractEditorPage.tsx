@@ -5,18 +5,20 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowLeft, Save, Eye, Download, Mail, MessageCircle, Phone as PhoneIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const COMPANY_INFO = {
   name: "България Билд ЕООД",
-  brand: "Ремонт на Покриви Варна",
+  brand: "Булгар Билд",
+  subtitle: "Ремонт на Покриви Варна",
   address: "ул. Уста Колю Фичето 25 А, Варна",
   phone: "088 499 7659",
   website: "remontnapokrivivarna.bg",
 };
 
-const DEFAULT_CLAUSES = `ДОГОВОР ЗА СТРОИТЕЛНО-РЕМОНТНИ ДЕЙНОСТИ
+const DEFAULT_CONTRACT_CLAUSES = `ДОГОВОР ЗА СТРОИТЕЛНО-РЕМОНТНИ ДЕЙНОСТИ
 
 I. ПРЕДМЕТ НА ДОГОВОРА
 Изпълнителят се задължава да извърши строително-ремонтни дейности на покрива на обекта, описан по-долу, съгласно одобрената оферта.
@@ -26,9 +28,7 @@ II. СРОК НА ИЗПЪЛНЕНИЕ
 
 III. ЦЕНА И НАЧИН НА ПЛАЩАНЕ
 3.1. Общата стойност на договора е съгласно приложената оферта.
-3.2. Плащането се извършва на два етапа:
-   - 50% аванс при подписване на договора
-   - 50% при приемане на работата
+3.2. Плащането се извършва съгласно фактурния график от офертата.
 
 IV. ЗАДЪЛЖЕНИЯ НА ИЗПЪЛНИТЕЛЯ
 4.1. Да извърши дейностите качествено и в срок.
@@ -42,7 +42,7 @@ V. ЗАДЪЛЖЕНИЯ НА ВЪЗЛОЖИТЕЛЯ
 5.3. Да приеме работата при нейното завършване.
 
 VI. ГАРАНЦИЯ
-6.1. Изпълнителят предоставя гаранция от 5 (пет) години за извършените СМР дейности.
+6.1. Изпълнителят предоставя гаранция от 10 (десет) години за извършените СМР дейности.
 6.2. Гаранцията за вложените материали е съгласно гаранционните условия на производителя.
 6.3. Гаранцията не покрива повреди, причинени от непреодолима сила, неправилна експлоатация или намеса на трети лица.
 
@@ -55,6 +55,14 @@ VIII. ПРЕКРАТЯВАНЕ
 
 IX. ЗАКЛЮЧИТЕЛНИ РАЗПОРЕДБИ
 За всички неуредени в настоящия договор въпроси се прилагат разпоредбите на действащото българско законодателство.`;
+
+const DEFAULT_GENERAL_TERMS = `ОБЩИ УСЛОВИЯ (ПРАВЕН ДОПЪЛНЕНИЕ)
+
+1. Настоящият договор влиза в сила от датата на подписването му от двете страни.
+2. Всякакви изменения и допълнения към настоящия договор се извършват в писмена форма и са валидни след подписването им от двете страни.
+3. Спорове между страните се решават чрез преговори, а при невъзможност — от компетентния съд.
+4. Договорът се изготвя в два еднообразни екземпляра — по един за всяка страна.
+5. Неразделна част от договора е одобрената оферта с всичките й приложения.`;
 
 const ContractEditorPage = () => {
   const { id } = useParams();
@@ -75,7 +83,9 @@ const ContractEditorPage = () => {
   const [clientEmail, setClientEmail] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [materialDetails, setMaterialDetails] = useState("");
-  const [customClauses, setCustomClauses] = useState(DEFAULT_CLAUSES);
+  const [customClauses, setCustomClauses] = useState(DEFAULT_CONTRACT_CLAUSES);
+  const [generalTerms, setGeneralTerms] = useState(DEFAULT_GENERAL_TERMS);
+  const [manualAdditions, setManualAdditions] = useState("");
 
   useEffect(() => {
     const fetch = async () => {
@@ -96,7 +106,7 @@ const ContractEditorPage = () => {
         setClientEmail(c.client_email);
         setTotalPrice(c.total_price);
         setMaterialDetails(c.material_details || "");
-        setCustomClauses(c.custom_clauses || DEFAULT_CLAUSES);
+        setCustomClauses(c.custom_clauses || DEFAULT_CONTRACT_CLAUSES);
       } else if (inq) {
         setClientName(inq.name);
         setClientAddress(inq.address || "");
@@ -105,11 +115,12 @@ const ContractEditorPage = () => {
       }
 
       if (quotes && quotes.length > 0) {
-        setQuote(quotes[0]);
+        const q = quotes[0] as any;
+        setQuote(q);
         if (!contracts || contracts.length === 0) {
-          setTotalPrice(quotes[0].total || 0);
-          const items = (quotes[0].items as any[]) || [];
-          setMaterialDetails(items.map((i) => `${i.description} (${i.qty} ${i.unit})`).join("\n"));
+          setTotalPrice(q.total || 0);
+          const items = (q.items as any[]) || [];
+          setMaterialDetails(items.map((i: any) => `${i.description} — ${(i.qty * i.unit_price).toFixed(2)} EUR`).join("\n"));
         }
       }
 
@@ -143,70 +154,98 @@ const ContractEditorPage = () => {
     setSaving(false);
   };
 
+  const pageHeader = (date: string) => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:3px solid #ea580c;margin-bottom:24px">
+      <div>
+        <div style="font-size:20px;font-weight:800;color:#ea580c;letter-spacing:0.5px">${COMPANY_INFO.brand}</div>
+        <div style="font-size:10px;color:#9ca3af">${COMPANY_INFO.subtitle} — ${COMPANY_INFO.name}</div>
+      </div>
+      <div style="text-align:right;font-size:11px;color:#6b7280">${date}</div>
+    </div>`;
+
+  const sidebarSection = (title: string, content: string, color = "#0d9488") => `
+    <div style="margin-bottom:28px;page-break-inside:avoid">
+      <div style="display:flex;gap:0">
+        <div style="width:6px;background:${color};border-radius:3px;flex-shrink:0"></div>
+        <div style="padding:12px 16px;flex:1">
+          <h3 style="margin:0 0 10px;font-size:15px;font-weight:700;color:${color};text-transform:uppercase;letter-spacing:0.5px">${title}</h3>
+          <div style="white-space:pre-line;color:#374151;font-size:12.5px;line-height:1.7">${content}</div>
+        </div>
+      </div>
+    </div>`;
+
   const generatePrintableHtml = () => {
     const date = new Date().toLocaleDateString("bg-BG");
     return `<!DOCTYPE html><html lang="bg"><head><meta charset="UTF-8">
 <style>
-@media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } @page { margin: 20mm; size: A4; } }
-body{font-family:'Helvetica Neue',Arial,sans-serif;color:#1a1a1a;margin:0;padding:40px;font-size:13px;line-height:1.6}
-.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #ea580c}
-.stamp{border:2px solid #333;border-radius:50%;width:90px;height:90px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;color:#333}
-.signatures{display:flex;justify-content:space-between;margin-top:60px}
-.sig-block{width:40%;text-align:center}
-.sig-line{border-top:1px solid #333;margin-top:60px;padding-top:8px}
+@media print {
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 18mm 20mm; size: A4; }
+}
+body{font-family:'Helvetica Neue',Arial,sans-serif;color:#1a1a1a;margin:0;padding:36px 40px;font-size:13px;line-height:1.6}
+.page-break{break-before:page}
 </style></head><body>
-<div class="header">
-  <div>
-    <h1 style="margin:0;font-size:20px;color:#ea580c">${COMPANY_INFO.brand}</h1>
-    <p style="color:#666;margin:4px 0;font-size:12px">Подразделение на ${COMPANY_INFO.name}</p>
-    <p style="color:#666;margin:4px 0">${COMPANY_INFO.address}</p>
-    <p style="color:#666;margin:4px 0">тел: ${COMPANY_INFO.phone}</p>
+
+<!-- PAGE 1: COVER -->
+${pageHeader(date)}
+
+<div style="text-align:center;margin:40px 0 30px">
+  <h1 style="margin:0;font-size:32px;font-weight:800;color:#1f2937;letter-spacing:1px">ДОГОВОР</h1>
+  <p style="margin:6px 0 0;font-size:14px;color:#6b7280">за строително-монтажни дейности</p>
+</div>
+
+<div style="display:flex;gap:24px;margin-bottom:28px">
+  <div style="flex:1;background:#f9fafb;border-radius:8px;padding:16px;border-left:4px solid #ea580c">
+    <p style="font-weight:700;margin:0 0 6px;font-size:13px;color:#ea580c">ВЪЗЛОЖИТЕЛ</p>
+    <p style="margin:2px 0;font-size:12.5px">${clientName}</p>
+    <p style="margin:2px 0;font-size:12.5px">${clientEmail}</p>
+    <p style="margin:2px 0;font-size:12.5px">${clientPhone}</p>
+    ${clientAddress ? `<p style="margin:2px 0;font-size:12.5px">${clientAddress}</p>` : ""}
   </div>
-  <div style="text-align:right">
-    <h2 style="margin:0;font-size:24px;color:#333">ДОГОВОР</h2>
-    <p style="color:#666;margin:4px 0">Дата: ${date}</p>
+  <div style="flex:1;background:#f9fafb;border-radius:8px;padding:16px;border-left:4px solid #0d9488">
+    <p style="font-weight:700;margin:0 0 6px;font-size:13px;color:#0d9488">ИЗПЪЛНИТЕЛ</p>
+    <p style="margin:2px 0;font-size:12.5px">${COMPANY_INFO.name}</p>
+    <p style="margin:2px 0;font-size:12.5px">${COMPANY_INFO.address}</p>
+    <p style="margin:2px 0;font-size:12.5px">тел: ${COMPANY_INFO.phone}</p>
+    <p style="margin:2px 0;font-size:12.5px">${COMPANY_INFO.website}</p>
   </div>
 </div>
 
-<div style="background:#f9fafb;border-radius:8px;padding:16px;margin-bottom:24px">
-  <div style="display:flex;gap:40px">
-    <div>
-      <p style="font-weight:bold;margin:0 0 4px">Изпълнител:</p>
-      <p style="margin:2px 0">${COMPANY_INFO.name}</p>
-      <p style="margin:2px 0">${COMPANY_INFO.address}</p>
-      <p style="margin:2px 0">тел: ${COMPANY_INFO.phone}</p>
-    </div>
-    <div>
-      <p style="font-weight:bold;margin:0 0 4px">Възложител:</p>
-      <p style="margin:2px 0">${clientName}</p>
-      <p style="margin:2px 0">${clientEmail}</p>
-      <p style="margin:2px 0">${clientPhone}</p>
-      ${clientAddress ? `<p style="margin:2px 0">Адрес: ${clientAddress}</p>` : ""}
-    </div>
-  </div>
+<div style="background:#f0fdf4;border-radius:8px;padding:16px;margin-bottom:28px;border-left:4px solid #16a34a">
+  <p style="font-weight:700;margin:0 0 4px;font-size:15px;color:#16a34a">Обща стойност: ${Number(totalPrice).toFixed(2)} EUR</p>
+  <p style="margin:0;font-size:11px;color:#6b7280">Сумата е без включен ДДС</p>
 </div>
 
-<div style="margin-bottom:24px">
-  <p style="font-weight:bold;margin:0 0 4px">Обща стойност: ${Number(totalPrice).toFixed(2)} лв</p>
+${materialDetails ? sidebarSection("ОПИСАНИЕ НА ДЕЙНОСТИТЕ И МАТЕРИАЛИТЕ", materialDetails, "#ea580c") : ""}
+
+<!-- PAGE 2: CONTRACT CLAUSES -->
+<div class="page-break">
+${pageHeader(date)}
+${sidebarSection("ДОГОВОРНИ КЛАУЗИ", customClauses, "#374151")}
 </div>
 
-${materialDetails ? `<div style="margin-bottom:24px">
-  <p style="font-weight:bold;margin:0 0 4px">Описание на дейностите и материалите:</p>
-  <p style="white-space:pre-line;color:#555">${materialDetails}</p>
-</div>` : ""}
+<!-- PAGE 3: GENERAL TERMS & MANUAL ADDITIONS -->
+<div class="page-break">
+${pageHeader(date)}
+${generalTerms ? sidebarSection("ОБЩИ УСЛОВИЯ", generalTerms, "#0d9488") : ""}
+${manualAdditions ? sidebarSection("ДОПЪЛНИТЕЛНИ ДОГОВОРКИ", manualAdditions, "#7c3aed") : ""}
 
-<div style="white-space:pre-line">${customClauses}</div>
-
-<div class="signatures">
-  <div class="sig-block">
-    <p style="font-weight:bold">${COMPANY_INFO.name}</p>
-    <div class="sig-line">Подпис и печат на Изпълнителя</div>
+<div style="margin-top:50px;display:flex;justify-content:space-between">
+  <div style="text-align:center;width:40%">
+    <p style="font-weight:700;font-size:13px;margin:0 0 4px">${COMPANY_INFO.name}</p>
+    <p style="font-size:11px;color:#6b7280;margin:0">Изпълнител</p>
+    <div style="border-top:1px solid #374151;margin-top:60px;padding-top:8px;font-size:11px;color:#9ca3af">Подпис и печат</div>
   </div>
-  <div class="sig-block">
-    <p style="font-weight:bold">${clientName}</p>
-    <div class="sig-line">Подпис на Възложителя</div>
+  <div style="text-align:center;width:40%">
+    <p style="font-weight:700;font-size:13px;margin:0 0 4px">${clientName}</p>
+    <p style="font-size:11px;color:#6b7280;margin:0">Възложител</p>
+    <div style="border-top:1px solid #374151;margin-top:60px;padding-top:8px;font-size:11px;color:#9ca3af">Подпис</div>
   </div>
 </div>
+</div>
+
+<div style="position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:10px;color:#9ca3af;padding:8px">${COMPANY_INFO.brand} — ${COMPANY_INFO.name} | ${COMPANY_INFO.phone} | ${COMPANY_INFO.website}</div>
+
 </body></html>`;
   };
 
@@ -227,8 +266,7 @@ ${materialDetails ? `<div style="margin-bottom:24px">
     }
   };
 
-  const getShareMessage = () => `Здравейте ${clientName}, изпращаме Ви договор от ${COMPANY_INFO.brand} на стойност ${Number(totalPrice).toFixed(2)} лв. За въпроси: ${COMPANY_INFO.phone}`;
-
+  const getShareMessage = () => `Здравейте ${clientName}, изпращаме Ви договор от ${COMPANY_INFO.brand} на стойност ${Number(totalPrice).toFixed(2)} EUR. За въпроси: ${COMPANY_INFO.phone}`;
   const handleWhatsApp = () => {
     const phone = clientPhone?.replace(/\s/g, "").replace(/^0/, "+359");
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(getShareMessage())}`, "_blank");
@@ -255,9 +293,7 @@ ${materialDetails ? `<div style="margin-bottom:24px">
           <Button variant="outline" onClick={handleDownloadPdf}>
             <Download className="h-4 w-4 mr-2" /> Изтегли PDF
           </Button>
-          <Button variant="outline" onClick={handleEmail}>
-            <Mail className="h-4 w-4 mr-2" /> Email
-          </Button>
+          <Button variant="outline" onClick={handleEmail}><Mail className="h-4 w-4 mr-2" /> Email</Button>
           <Button variant="outline" onClick={handleWhatsApp} className="text-green-600 border-green-600 hover:bg-green-50">
             <MessageCircle className="h-4 w-4 mr-2" /> WhatsApp
           </Button>
@@ -265,57 +301,10 @@ ${materialDetails ? `<div style="margin-bottom:24px">
             <PhoneIcon className="h-4 w-4 mr-2" /> Viber
           </Button>
         </div>
-        <div className="bg-white text-black rounded-xl border p-8 max-w-3xl mx-auto">
-          <div className="flex items-start justify-between mb-6 pb-4 border-b-2 border-orange-500">
-            <div>
-              <h1 className="text-xl font-bold text-orange-600">{COMPANY_INFO.brand}</h1>
-              <p className="text-xs text-gray-500">Подразделение на {COMPANY_INFO.name}</p>
-              <p className="text-sm text-gray-600">{COMPANY_INFO.address}</p>
-              <p className="text-sm text-gray-600">тел: {COMPANY_INFO.phone}</p>
-            </div>
-            <div className="text-right">
-              <h2 className="text-2xl font-bold">ДОГОВОР</h2>
-              <p className="text-sm text-gray-500">Дата: {new Date().toLocaleDateString("bg-BG")}</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-6 mb-6 p-4 bg-gray-50 rounded-lg">
-            <div>
-              <p className="font-semibold text-sm">Изпълнител:</p>
-              <p className="text-sm">{COMPANY_INFO.name}</p>
-              <p className="text-sm">{COMPANY_INFO.address}</p>
-            </div>
-            <div>
-              <p className="font-semibold text-sm">Възложител:</p>
-              <p className="text-sm">{clientName}</p>
-              <p className="text-sm">{clientEmail}</p>
-              <p className="text-sm">{clientPhone}</p>
-              {clientAddress && <p className="text-sm">Адрес: {clientAddress}</p>}
-            </div>
-          </div>
-
-          <p className="font-bold mb-4">Обща стойност: {Number(totalPrice).toFixed(2)} лв</p>
-
-          {materialDetails && (
-            <div className="mb-4">
-              <p className="font-semibold text-sm mb-1">Описание на дейностите:</p>
-              <p className="text-sm whitespace-pre-line text-gray-600">{materialDetails}</p>
-            </div>
-          )}
-
-          <div className="whitespace-pre-line text-sm leading-relaxed">{customClauses}</div>
-
-          <div className="flex justify-between mt-16">
-            <div className="text-center w-2/5">
-              <p className="font-semibold text-sm">{COMPANY_INFO.name}</p>
-              <div className="border-t border-gray-400 mt-16 pt-2 text-xs text-gray-500">Подпис и печат на Изпълнителя</div>
-            </div>
-            <div className="text-center w-2/5">
-              <p className="font-semibold text-sm">{clientName}</p>
-              <div className="border-t border-gray-400 mt-16 pt-2 text-xs text-gray-500">Подпис на Възложителя</div>
-            </div>
-          </div>
-        </div>
+        <div
+          className="bg-white text-black rounded-xl border p-8 max-w-3xl mx-auto"
+          dangerouslySetInnerHTML={{ __html: generatePrintableHtml().replace(/<!DOCTYPE.*?<body[^>]*>/s, "").replace(/<\/body>.*$/s, "") }}
+        />
       </div>
     );
   }
@@ -331,40 +320,60 @@ ${materialDetails ? `<div style="margin-bottom:24px">
         </h1>
       </div>
 
-      <div className="bg-card rounded-xl border border-border p-6 space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="text-sm text-muted-foreground">Име на клиент</label>
-            <Input value={clientName} onChange={(e) => setClientName(e.target.value)} />
-          </div>
-          <div>
-            <label className="text-sm text-muted-foreground">Адрес на обекта</label>
-            <Input value={clientAddress} onChange={(e) => setClientAddress(e.target.value)} />
-          </div>
-          <div>
-            <label className="text-sm text-muted-foreground">Телефон</label>
-            <Input value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} />
-          </div>
-          <div>
-            <label className="text-sm text-muted-foreground">Имейл</label>
-            <Input value={clientEmail} onChange={(e) => setClientEmail(e.target.value)} />
-          </div>
-        </div>
+      <div className="bg-card rounded-xl border border-border p-6 space-y-4">
+        <Accordion type="multiple" defaultValue={["client", "clauses"]} className="space-y-2">
 
-        <div>
-          <label className="text-sm text-muted-foreground">Обща стойност (лв)</label>
-          <Input type="number" value={totalPrice} onChange={(e) => setTotalPrice(Number(e.target.value))} className="w-48" />
-        </div>
+          <AccordionItem value="client" className="border rounded-lg px-4">
+            <AccordionTrigger className="text-sm font-semibold">📋 Данни на клиента</AccordionTrigger>
+            <AccordionContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
+                <div><label className="text-xs text-muted-foreground">Име</label><Input value={clientName} onChange={(e) => setClientName(e.target.value)} /></div>
+                <div><label className="text-xs text-muted-foreground">Адрес</label><Input value={clientAddress} onChange={(e) => setClientAddress(e.target.value)} /></div>
+                <div><label className="text-xs text-muted-foreground">Телефон</label><Input value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} /></div>
+                <div><label className="text-xs text-muted-foreground">Имейл</label><Input value={clientEmail} onChange={(e) => setClientEmail(e.target.value)} /></div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
 
-        <div>
-          <label className="text-sm text-muted-foreground">Описание на дейностите и материалите</label>
-          <Textarea value={materialDetails} onChange={(e) => setMaterialDetails(e.target.value)} rows={4} />
-        </div>
+          <AccordionItem value="price" className="border rounded-lg px-4">
+            <AccordionTrigger className="text-sm font-semibold">💰 Стойност</AccordionTrigger>
+            <AccordionContent>
+              <div className="py-2">
+                <label className="text-xs text-muted-foreground">Обща стойност (EUR)</label>
+                <Input type="number" value={totalPrice} onChange={(e) => setTotalPrice(Number(e.target.value))} className="w-48" />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
 
-        <div>
-          <label className="text-sm text-muted-foreground">Клаузи на договора</label>
-          <Textarea value={customClauses} onChange={(e) => setCustomClauses(e.target.value)} rows={20} className="font-mono text-sm" />
-        </div>
+          <AccordionItem value="materials" className="border rounded-lg px-4">
+            <AccordionTrigger className="text-sm font-semibold">🏗️ Описание на дейностите</AccordionTrigger>
+            <AccordionContent>
+              <Textarea value={materialDetails} onChange={(e) => setMaterialDetails(e.target.value)} rows={6} className="mt-2 font-mono text-sm" />
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="clauses" className="border rounded-lg px-4">
+            <AccordionTrigger className="text-sm font-semibold">📜 Договорни клаузи</AccordionTrigger>
+            <AccordionContent>
+              <Textarea value={customClauses} onChange={(e) => setCustomClauses(e.target.value)} rows={20} className="mt-2 font-mono text-sm" />
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="general-terms" className="border rounded-lg px-4">
+            <AccordionTrigger className="text-sm font-semibold">⚖️ Общи условия (правен допълнение)</AccordionTrigger>
+            <AccordionContent>
+              <Textarea value={generalTerms} onChange={(e) => setGeneralTerms(e.target.value)} rows={8} className="mt-2 font-mono text-sm" />
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="manual" className="border rounded-lg px-4">
+            <AccordionTrigger className="text-sm font-semibold">✏️ Допълнителни договорки</AccordionTrigger>
+            <AccordionContent>
+              <Textarea value={manualAdditions} onChange={(e) => setManualAdditions(e.target.value)} rows={4} placeholder="Специфични договорки за конкретния проект..." className="mt-2" />
+            </AccordionContent>
+          </AccordionItem>
+
+        </Accordion>
 
         <div className="flex gap-3 pt-4 border-t border-border">
           <Button onClick={handleSave} disabled={saving}>
