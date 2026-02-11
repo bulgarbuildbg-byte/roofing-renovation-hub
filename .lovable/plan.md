@@ -1,127 +1,142 @@
 
-# CRM Upgrade: Branding, PDF, Contracts, Multi-Channel Sharing
+
+# Advanced PDF Engine & Modular Document Generator
 
 ## Overview
 
-This plan covers 6 areas: About Us branding update, address field in inquiry form, true PDF generation, contract generation, Terms & Conditions in quotes, and multi-channel sharing (Email/Viber/WhatsApp).
+Complete redesign of the Quote (Offer) and Contract PDF system to match the professional multi-page document sample provided. The system will feature modular, editable text blocks in the admin panel, a sophisticated print-to-PDF layout with sidebars, headers/footers, and page numbering, plus photo gallery support.
 
 ---
 
-## 1. Branding & "About Us" Update
+## 1. Database Changes
 
-Update `About.tsx` and `AboutPage.tsx` to reflect the parent company relationship:
+Add new columns to the `quotes` table to store the modular content sections:
 
-- Mention that this roofing site is a specialized subsidiary of **"Bulgari Build EOOD" (България Билд ЕООД)** -- [bulgarbuild.com](https://bulgarbuild.com)
-- Highlight that the parent company is fully certified and licensed
-- Explain this branch was created for focused roofing expertise, higher quality, and better customer service
-- Update the structured data (JSON-LD schema) in AboutPage to include the parent organization
+- `work_description` (text) -- "Work Project" description
+- `work_phases` (text) -- "First Step / Implementation Priorities" narrative
+- `invoicing_schedule` (text) -- payment stages (30%, 50%, 80%, 100%)
+- `warranty_text` (text) -- warranty clause (default 10 years)
+- `force_majeure` (text) -- force majeure clause
+- `technical_notes` (text) -- technical logic descriptions
+- `manual_additions` (text) -- free-form additional notes
+- `photo_urls` (text array) -- URLs of uploaded project photos for the gallery section
 
----
-
-## 2. Address Field in Inquiry Form
-
-**Database migration:** Add `address` (text, nullable) column to the `inquiries` table.
-
-**Frontend changes:**
-- `MultiStepInquiryForm.tsx`: Add a mandatory "Адрес на обекта" (Project Address) field in Step 1 (contact info), making it required alongside name/phone/email
-- `InquiryListPage.tsx`: Add an "Адрес" column to the inquiry table
-- `InquiryDetailPage.tsx`: Display the address in the contact info section
-- The review step (Step 5) will also show the address
+These are all nullable with sensible defaults so existing quotes remain valid.
 
 ---
 
-## 3. True PDF Generation
+## 2. Admin Panel: Modular Quote Editor (QuoteEditorPage.tsx)
 
-The current `generate-quote-pdf` edge function returns HTML. This will be upgraded:
+Redesign the editor form to have collapsible/accordion sections for each "block":
 
-- Use the browser's built-in `window.print()` / CSS `@media print` approach on the frontend to generate a proper PDF from the styled HTML preview
-- The edge function will continue generating the HTML template, but the frontend download button will use `window.print()` to save as PDF (or use a lightweight library approach via `iframe.contentWindow.print()`)
-- The PDF will include: company logo, company stamp placeholder, client details (including address), line items, totals, terms & conditions, and company legal info
+| Section | Field Type | Default Content |
+|---------|-----------|----------------|
+| Client Info | Auto-populated inputs | From inquiry |
+| Work Project | Textarea | Project description from inquiry |
+| Work Phases / Priorities | Textarea | Default construction sequence text |
+| Line Items Table | Current table editor | Existing functionality |
+| Invoicing Schedule | Textarea | 30% advance, 50%, 80%, 100% stages |
+| Warranty | Textarea | 10-year installation warranty |
+| Force Majeure | Textarea | Weather/external delays clause |
+| Technical Notes | Textarea | Why certain steps come first |
+| Terms & Conditions | Textarea (existing) | Current terms |
+| Manual Additions | Textarea | Empty -- for one-off notes |
+| Photo Gallery | File upload area | Upload project photos |
 
-**Alternative approach (more reliable):** Render the HTML in a hidden iframe and trigger `print()` with PDF as the destination. This produces a true static PDF without needing external PDF libraries in Deno.
-
----
-
-## 4. Contract Generation
-
-**Database migration:** Create a `contracts` table:
-- `id` (uuid, PK)
-- `quote_id` (uuid, FK to quotes)
-- `inquiry_id` (uuid, FK to inquiries)
-- `created_by` (uuid)
-- `client_name`, `client_address`, `client_phone`, `client_email` (text -- auto-populated from inquiry)
-- `total_price` (numeric)
-- `material_details` (text)
-- `custom_clauses` (text -- editable standard terms)
-- `status` (enum: draft, signed, completed)
-- `created_at`, `updated_at` (timestamps)
-- RLS: Admin/staff only
-
-**New pages:**
-- `ContractEditorPage.tsx` -- auto-populates from quote/inquiry data, loads standard company terms as default, allows admin to edit clauses before finalizing
-- Route: `/admin/inquiries/:id/contract`
-
-**UI additions:**
-- Add a "Генерирай договор" (Generate Contract) button in `InquiryDetailPage.tsx` (visible when a quote exists with "accepted" status)
-- The contract editor will have a "Download PDF" button using the same print-to-PDF approach
-
-**Edge function:** `generate-contract-pdf` -- renders contract HTML with all legal sections
+Each section is collapsible using the existing Accordion component. All text blocks come pre-populated with professional Bulgarian default text but are fully editable per quote.
 
 ---
 
-## 5. Terms, Conditions & Company Info in Quotes
+## 3. PDF Visual Design (Matching the Sample)
 
-Update the `generate-quote-pdf` edge function and the frontend quote preview to include:
-- Full company legal info section (България Билд ЕООД, EIK, address, phone, website)
-- Standard Terms & Conditions section with warranty clauses, liability terms, payment conditions
-- The terms field in the quote editor will be pre-populated with the full legal template
+The `generatePrintableHtml()` function will be completely rewritten to produce a multi-page professional document:
+
+**Page 1 -- Cover / Summary:**
+- Header: "Булгар Билд" left, date right, orange underline
+- Large "OFFER" title with company logo
+- "for construction and installation works" subtitle
+- Sidebar-labeled sections: Client, Contractor, Work Project, Work Activities
+- Footer: company name + page number
+
+**Page 2+ -- Work Description & Phases:**
+- "First Step" section with the editable narrative text
+- Implementation priorities and technical logic
+- Styled with the cyan/teal sidebar labels from the sample
+
+**Itemized Table Page:**
+- Professional table with Description, Price EUR, Notes columns
+- Currency displayed in EUR (per project standard)
+- Subtotal, discount, total clearly shown
+- "Total amount: XXX EUR excluding VAT" statement
+
+**Invoicing & Warranty Pages:**
+- Invoicing schedule (30% / 50% / 80% / 100%)
+- 10-year warranty clause
+- Force majeure section
+- Each with colored sidebar labels
+
+**Photo Gallery (Last Page):**
+- Grid layout of uploaded project photos
+- Captions if provided
+
+**Every Page:**
+- Consistent header with "Булгар Билд" branding
+- Page number in footer
+- Professional gray/cyan sidebars for section titles (CSS `@media print` with `@page` rules)
 
 ---
 
-## 6. Multi-Channel Distribution (Email, Viber, WhatsApp)
+## 4. Offer-to-Contract Conversion
 
-**Email (requires Resend API key):**
-- Create `send-quote-email` and `send-contract-email` edge functions
-- Add "Send via Email" button next to PDF downloads
-- **A Resend API key is required** -- will prompt for this during implementation
+Update `ContractEditorPage.tsx`:
 
-**Viber & WhatsApp:**
-- Add sharing buttons that open deep links:
-  - WhatsApp: `https://wa.me/{phone}?text={message_with_link}`
-  - Viber: `viber://chat?number={phone}&text={message}`
-- These will share a pre-formatted message with a link to download the document (stored temporarily or as a generated link)
-- Since direct file attachment via deep links is limited, the message will include a link to the quote/contract
-
-**UI:** Add a sharing dropdown/button group next to each PDF download button in the quote and contract editors.
+- Add a modular editor matching the quote structure
+- Auto-populate ALL fields from the source quote (including work phases, invoicing, warranty, etc.)
+- Add a "General Terms" section (legal supplement)
+- Add a "Manual Addition" free-text section for one-off agreements
+- The contract PDF follows the same professional styling as the offer
 
 ---
 
-## 7. Admin Panel UI Updates
+## 5. Photo Upload for Documents
 
-- `InquiryListPage.tsx`: Add "Адрес" column to the table
-- `QuoteListPage.tsx`: The "Дата" column already exists; ensure it's clearly labeled
-- Search filter in InquiryListPage will also search by address
+- Use the existing `inquiry-attachments` storage bucket (or create a `document-photos` bucket) to store project photos
+- Add a drag-and-drop upload area in the quote editor
+- Store photo URLs in the `photo_urls` array column
+- Render photos in a grid in the final PDF
+
+---
+
+## 6. Currency: EUR
+
+All prices in the PDF will display in EUR (per project-wide standard), with "excluding VAT" disclaimer. The line items table header will show "Price EUR" and "Notes" columns.
+
+---
+
+## 7. Sharing (Already Implemented)
+
+The existing Email, WhatsApp, and Viber sharing buttons remain. No changes needed -- they already work on both quotes and contracts.
 
 ---
 
 ## Implementation Sequence
 
-1. **Database migration** -- Add `address` to inquiries, create `contracts` table and enum
-2. **Inquiry form** -- Add address field to MultiStepInquiryForm
-3. **About Us** -- Update branding text in About.tsx and AboutPage.tsx
-4. **PDF upgrade** -- Rewrite generate-quote-pdf to produce printable HTML, update frontend to use print-to-PDF
-5. **Terms template** -- Add full legal terms to quote editor defaults and PDF
-6. **Contract system** -- ContractEditorPage, generate-contract-pdf edge function
-7. **Admin UI** -- Add address column to tables
-8. **Prompt for Resend API key** -- Required for email sending
-9. **Email edge functions** -- send-quote-email, send-contract-email
-10. **Viber/WhatsApp sharing** -- Deep link buttons
+1. **Database migration** -- Add modular text columns and `photo_urls` to `quotes` table
+2. **Quote Editor redesign** -- Accordion-based modular sections with defaults, photo upload
+3. **PDF engine rewrite** -- Multi-page professional HTML with sidebars, headers/footers, page numbers
+4. **Contract editor update** -- Mirror the modular structure, auto-populate from quote
+5. **Contract PDF** -- Same professional styling for contract documents
+6. **Testing** -- Verify PDF output matches the sample design
 
-## Technical Notes
+---
 
-- No external PDF library needed -- using browser print-to-PDF for true PDF output
-- Contracts table has its own status enum (draft/signed/completed)
-- Viber and WhatsApp sharing use native deep links, no API keys needed
-- Email functionality requires a **Resend API key** -- will ask before implementing
-- All new admin routes protected by existing ProtectedRoute wrapper
-- The address field is added as nullable in the DB to avoid breaking existing data, but marked as required in the form going forward
+## Technical Details
+
+- PDF generation continues using the `iframe.contentWindow.print()` approach (no external libraries needed)
+- Multi-page layout achieved with CSS `page-break-before` / `break-before: page` rules
+- Sidebar labels implemented with CSS `position: relative` blocks with left-border styling in the accent color
+- Page headers/footers use CSS `@page` with `@top-left` / `@bottom-right` or fixed-position elements
+- Photo uploads use the Supabase storage client to upload to a public bucket
+- All new columns are nullable so existing data is unaffected
+- Default text constants defined at the top of the file for easy maintenance
+
