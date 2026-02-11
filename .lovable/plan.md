@@ -1,166 +1,52 @@
 
 
-# CRM System with Admin Panel and Quote Generator
+# Plan: Add Login Button to Navigation and Create Admin Account
 
-## Overview
+## What will be done
 
-Transform the current simple contact form into a full CRM system with authentication, admin dashboard, inquiry management, and automated quote generation. This is a large feature set that will be built in phases.
+1. **Add a "Вход за екип" (Staff Login) link to the navigation menu** -- both desktop and mobile versions in `Header.tsx`. It will use a subtle style (like a `LogIn` icon) so it doesn't distract regular customers but is accessible to staff.
 
-## Architecture
+2. **Create the first Administrator account** via a database migration that:
+   - Creates the user in Supabase Auth with email `zhekoviliya@gmail.com` and password `Zhekov01`
+   - Inserts their profile into the `profiles` table
+   - Assigns them the `admin` role in the `user_roles` table
 
-### Database Schema
+3. **Enable auto-confirm for this signup** so the admin account is immediately usable without email verification (then disable it again after).
 
-**Tables to create:**
+## Changes
 
-1. **profiles** - User profile data linked to auth
-   - `id` (uuid, FK to auth.users)
-   - `full_name`, `email`, `phone`
-   - `created_at`
+### 1. Header.tsx -- Add login link
 
-2. **user_roles** - Role-based access (admin/staff)
-   - `id` (uuid)
-   - `user_id` (uuid, FK to auth.users)
-   - `role` (enum: admin, staff)
+**Desktop navigation:** Add a small `LogIn` icon-button linking to `/admin/login` after the phone button.
 
-3. **inquiries** - All submitted quote requests
-   - `id` (uuid)
-   - `name`, `phone`, `email` (contact info)
-   - `service_type` (enum: repair, replacement, new_construction, waterproofing, tiles, flat_roof, metal_roof, maintenance, leak_repair, other)
-   - `area_sqm` (numeric, approximate area)
-   - `preferred_material` (enum: tiles, metal, bitumen, pvc_membrane, shingles, other)
-   - `roof_complexity` (enum: single_pitch, gable, hip, complex)
-   - `description` (text, additional notes)
-   - `status` (enum: new, contacted, quote_sent, accepted, rejected)
-   - `assigned_to` (uuid, FK to auth.users, nullable)
-   - `created_at`, `updated_at`
+**Mobile menu:** Add a "Вход за екип" link at the bottom of the menu items list.
 
-4. **inquiry_files** - Uploaded photos/documents per inquiry
-   - `id` (uuid)
-   - `inquiry_id` (FK to inquiries)
-   - `file_url` (text)
-   - `file_name`, `file_type`
-   - `uploaded_at`
+### 2. Database migration -- Create admin user
 
-5. **quotes** - Generated quotes linked to inquiries
-   - `id` (uuid)
-   - `inquiry_id` (FK to inquiries)
-   - `created_by` (FK to auth.users)
-   - `items` (jsonb - array of line items with description, qty, unit_price)
-   - `subtotal`, `discount`, `total` (numeric)
-   - `terms` (text)
-   - `validity_days` (integer, default 30)
-   - `sent_at` (timestamp, nullable)
-   - `status` (enum: draft, sent, accepted, rejected)
-   - `created_at`, `updated_at`
+A migration will use `supabase.auth.admin` API via an edge function to create the user, since SQL migrations cannot directly create auth users. Instead, we will:
 
-**Storage bucket:**
-- `inquiry-attachments` - for client file uploads (public read for admin)
+- Create a **one-time edge function** `create-admin` that:
+  1. Signs up the user with the provided credentials
+  2. Inserts the profile
+  3. Assigns the admin role
+- Call it once to seed the account, then it can be removed
 
-### Security (RLS)
+**Alternative (simpler):** Use the Supabase Auth admin API to create the user directly via the existing auth system, and a SQL migration to insert the role.
 
-- **inquiries**: Public INSERT (anyone can submit), SELECT/UPDATE only for authenticated users with admin or staff role
-- **inquiry_files**: Public INSERT (tied to inquiry submission), SELECT only for admin/staff
-- **quotes**: Full CRUD only for admin/staff
-- **profiles**: Users can read/update own profile
-- **user_roles**: Read-only for authenticated; managed via security definer functions
+### 3. Auth config
 
-### Edge Functions
+Temporarily enable auto-confirm so the admin account can be created and used immediately.
 
-1. **send-inquiry-notification** - Sends email to admin when new inquiry is submitted
-2. **send-quote-email** - Sends the finalized quote to the client via email
-3. **generate-quote-pdf** - Generates a PDF version of the quote
+## Technical Details
 
-## Frontend Pages & Components
+**Files to modify:**
+- `src/components/Header.tsx` -- Add `LogIn` icon import and login link in both desktop nav and mobile menu
 
-### New Routes
+**Backend actions:**
+- Configure auth to auto-confirm email (temporarily)
+- Create the admin user via signup API
+- Insert admin role via SQL migration
+- Optionally disable auto-confirm after
 
-| Route | Component | Access |
-|-------|-----------|--------|
-| `/admin/login` | AdminLogin | Public |
-| `/admin` | AdminDashboard | Admin/Staff |
-| `/admin/inquiries` | InquiryList | Admin/Staff |
-| `/admin/inquiries/:id` | InquiryDetail | Admin/Staff |
-| `/admin/inquiries/:id/quote` | QuoteEditor | Admin/Staff |
-| `/admin/staff` | StaffManagement | Admin only |
-
-### Enhanced Quote Request Form (Public)
-
-Replace `QuickContactForm` with a multi-step form:
-
-- **Step 1**: Contact Info (name, phone, email)
-- **Step 2**: Service type selection with radio buttons
-- **Step 3**: Technical details (area, material, roof complexity)
-- **Step 4**: File uploads (photos, sketches) + additional notes
-- **Step 5**: Review and submit
-
-### Admin Dashboard
-
-- **Sidebar navigation**: Inbox, Quotes, Staff (admin only)
-- **Inquiry list**: Table with columns for date, name, service, status, assigned to
-- **Filters**: By status, date range, service type
-- **Status pipeline**: Kanban-style or dropdown status updates (New -> Contacted -> Quote Sent -> Accepted/Rejected)
-
-### Inquiry Detail View
-
-- Full client info display
-- Attached files gallery with download
-- Status change dropdown
-- Assign to staff member
-- "Create Quote" button
-- Activity timeline (status changes)
-
-### Quote Editor
-
-- Auto-fills client name and email from inquiry
-- Company header with logo
-- Editable line items table (description, quantity, unit, price)
-- Auto-calculated subtotal and total
-- Discount field
-- Terms and conditions text area
-- Validity period
-- Preview mode (professional document layout)
-- "Send via Email" button
-- "Download PDF" button
-
-## Implementation Phases
-
-### Phase 1: Database & Auth
-- Create all database tables, enums, RLS policies, and helper functions
-- Create storage bucket for file uploads
-- Build login page for admin/staff
-- Auth context and protected route wrapper
-- Seed first admin user
-
-### Phase 2: Enhanced Quote Request Form
-- Build multi-step form component
-- File upload to storage bucket
-- Save inquiry to database
-- Trigger email notification edge function
-
-### Phase 3: Admin Dashboard & Inquiry Management
-- Admin layout with sidebar
-- Inquiry list with filtering and sorting
-- Inquiry detail view with status management
-- File viewing and download
-
-### Phase 4: Quote Generator
-- Quote editor with line items
-- Professional quote template/preview
-- Send quote via email edge function
-- PDF generation
-- Quote status tracking
-
-### Phase 5: Staff Management (Admin only)
-- Add/remove staff users
-- View staff list
-- Role management
-
-## Technical Notes
-
-- Authentication uses Lovable Cloud's built-in auth system
-- Email sending will use an edge function (will need an email service API key like Resend or similar)
-- PDF generation will be done server-side in an edge function
-- File uploads use Lovable Cloud storage buckets
-- All admin routes are protected with role-based access checks
-- The existing public website remains unchanged except for the enhanced contact form
+**No structural changes** to existing auth flow -- the `AdminLoginPage`, `AuthContext`, and `ProtectedRoute` are already fully functional.
 
