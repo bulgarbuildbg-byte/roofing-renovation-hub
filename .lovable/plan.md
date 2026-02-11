@@ -1,103 +1,127 @@
 
-
-# Technical Upgrade: PDF Generation, Email Notifications, CMS & Navigation
+# CRM Upgrade: Branding, PDF, Contracts, Multi-Channel Sharing
 
 ## Overview
 
-Four major features to implement: PDF quote generation with email sending, new inquiry notification emails, a CMS for blog articles in the Admin Panel, and a "Back to Website" navigation button.
+This plan covers 6 areas: About Us branding update, address field in inquiry form, true PDF generation, contract generation, Terms & Conditions in quotes, and multi-channel sharing (Email/Viber/WhatsApp).
 
-## 1. PDF Generation & Email Sending
+---
 
-### Approach
-Create a `generate-quote-pdf` edge function that renders the quote data into a PDF using a lightweight HTML-to-PDF approach (jsPDF or similar via Deno-compatible libraries). Add a `send-quote-email` edge function that uses the Resend email API to send the PDF to clients.
+## 1. Branding & "About Us" Update
 
-### What needs to happen
-- **Edge function `generate-quote-pdf`**: Accepts quote ID, fetches quote + inquiry data server-side, generates a professional PDF with company logo, client details, line items, totals, terms. Returns the PDF as a downloadable blob.
-- **Edge function `send-quote-email`**: Accepts quote ID, generates/fetches the PDF, sends it as an email attachment to the client. Updates the quote status to "sent" and sets `sent_at`.
-- **QuoteEditorPage.tsx**: Add two new buttons in the preview mode -- "Download PDF" and "Send to Client via Email".
-- **API key requirement**: An email service API key (Resend) will be needed. Will prompt for this secret before implementing the email function.
+Update `About.tsx` and `AboutPage.tsx` to reflect the parent company relationship:
 
-### PDF Content
-- Company logo and contact info (header)
-- Quote number and date
-- Client name, email, phone
-- Line items table (description, qty, unit, unit price, total)
-- Subtotal, discount, grand total
-- Terms and conditions
-- Validity period
+- Mention that this roofing site is a specialized subsidiary of **"Bulgari Build EOOD" (България Билд ЕООД)** -- [bulgarbuild.com](https://bulgarbuild.com)
+- Highlight that the parent company is fully certified and licensed
+- Explain this branch was created for focused roofing expertise, higher quality, and better customer service
+- Update the structured data (JSON-LD schema) in AboutPage to include the parent organization
 
-## 2. New Inquiry Notification (Edge Function)
+---
 
-### Approach
-Create a `send-inquiry-notification` edge function that is called from the frontend after a successful inquiry submission.
+## 2. Address Field in Inquiry Form
 
-### What needs to happen
-- **Edge function `send-inquiry-notification`**: Triggered after inquiry insert. Sends an email to the administrator with the client's name, service type, phone, and email.
-- **MultiStepInquiryForm.tsx**: After successful insert, call this edge function.
-- Uses the same Resend API key as the quote email function.
+**Database migration:** Add `address` (text, nullable) column to the `inquiries` table.
 
-## 3. Content Management System (CMS)
+**Frontend changes:**
+- `MultiStepInquiryForm.tsx`: Add a mandatory "Адрес на обекта" (Project Address) field in Step 1 (contact info), making it required alongside name/phone/email
+- `InquiryListPage.tsx`: Add an "Адрес" column to the inquiry table
+- `InquiryDetailPage.tsx`: Display the address in the contact info section
+- The review step (Step 5) will also show the address
 
-### Database Changes
-- Create new `articles` table:
-  - `id` (uuid)
-  - `title` (text)
-  - `slug` (text, unique) -- for SEO-friendly URLs
-  - `content` (text) -- Markdown/HTML content from rich text editor
-  - `excerpt` (text) -- short description
-  - `cover_image_url` (text, nullable) -- stored in a new `article-images` storage bucket
-  - `category` (text)
-  - `tags` (text array)
-  - `published` (boolean, default false)
-  - `author_id` (uuid, FK to auth.users)
-  - `created_at`, `updated_at`, `published_at`
-- RLS: Admin/staff can CRUD, public can SELECT where `published = true`
-- Storage bucket `article-images` for image uploads within articles
+---
 
-### Admin Panel Changes
-- **New sidebar nav item**: "Статии" (Articles) with a `Newspaper` icon
-- **ArticleListPage**: Table of all articles with title, status (draft/published), date, edit/delete actions
-- **ArticleEditorPage**: Rich text editor with:
-  - Title input
-  - Cover image upload
-  - Category and tags
-  - Rich text body using `react-markdown` for rendering and a textarea with Markdown support (or a simple toolbar for bold, italic, links, images)
-  - Hyperlink insertion (for SEO link-building)
-  - Publish/unpublish toggle
-  - SEO preview (slug, meta description)
+## 3. True PDF Generation
 
-### Public Blog Page Changes
-- **BlogPage.tsx**: Fetch articles from the `articles` table (where `published = true`) instead of hardcoded data. Keep the existing hardcoded articles as fallback alongside dynamic ones.
-- **Dynamic article route**: `/blog/:slug` renders content from the database with proper SEO meta tags, schema markup, and styling consistent with existing blog articles.
+The current `generate-quote-pdf` edge function returns HTML. This will be upgraded:
 
-### Routes
-| Route | Component | Access |
-|-------|-----------|--------|
-| `/admin/articles` | ArticleListPage | Admin/Staff |
-| `/admin/articles/new` | ArticleEditorPage | Admin/Staff |
-| `/admin/articles/:id/edit` | ArticleEditorPage | Admin/Staff |
+- Use the browser's built-in `window.print()` / CSS `@media print` approach on the frontend to generate a proper PDF from the styled HTML preview
+- The edge function will continue generating the HTML template, but the frontend download button will use `window.print()` to save as PDF (or use a lightweight library approach via `iframe.contentWindow.print()`)
+- The PDF will include: company logo, company stamp placeholder, client details (including address), line items, totals, terms & conditions, and company legal info
 
-## 4. "Back to Website" Button
+**Alternative approach (more reliable):** Render the HTML in a hidden iframe and trigger `print()` with PDF as the destination. This produces a true static PDF without needing external PDF libraries in Deno.
 
-### What needs to happen
-- **AdminDashboardPage.tsx**: Add an `ExternalLink` icon-link in the sidebar (below the logo area or above the sign-out section) that links to `/` (the public homepage). Also add it to the mobile header.
+---
+
+## 4. Contract Generation
+
+**Database migration:** Create a `contracts` table:
+- `id` (uuid, PK)
+- `quote_id` (uuid, FK to quotes)
+- `inquiry_id` (uuid, FK to inquiries)
+- `created_by` (uuid)
+- `client_name`, `client_address`, `client_phone`, `client_email` (text -- auto-populated from inquiry)
+- `total_price` (numeric)
+- `material_details` (text)
+- `custom_clauses` (text -- editable standard terms)
+- `status` (enum: draft, signed, completed)
+- `created_at`, `updated_at` (timestamps)
+- RLS: Admin/staff only
+
+**New pages:**
+- `ContractEditorPage.tsx` -- auto-populates from quote/inquiry data, loads standard company terms as default, allows admin to edit clauses before finalizing
+- Route: `/admin/inquiries/:id/contract`
+
+**UI additions:**
+- Add a "Генерирай договор" (Generate Contract) button in `InquiryDetailPage.tsx` (visible when a quote exists with "accepted" status)
+- The contract editor will have a "Download PDF" button using the same print-to-PDF approach
+
+**Edge function:** `generate-contract-pdf` -- renders contract HTML with all legal sections
+
+---
+
+## 5. Terms, Conditions & Company Info in Quotes
+
+Update the `generate-quote-pdf` edge function and the frontend quote preview to include:
+- Full company legal info section (България Билд ЕООД, EIK, address, phone, website)
+- Standard Terms & Conditions section with warranty clauses, liability terms, payment conditions
+- The terms field in the quote editor will be pre-populated with the full legal template
+
+---
+
+## 6. Multi-Channel Distribution (Email, Viber, WhatsApp)
+
+**Email (requires Resend API key):**
+- Create `send-quote-email` and `send-contract-email` edge functions
+- Add "Send via Email" button next to PDF downloads
+- **A Resend API key is required** -- will prompt for this during implementation
+
+**Viber & WhatsApp:**
+- Add sharing buttons that open deep links:
+  - WhatsApp: `https://wa.me/{phone}?text={message_with_link}`
+  - Viber: `viber://chat?number={phone}&text={message}`
+- These will share a pre-formatted message with a link to download the document (stored temporarily or as a generated link)
+- Since direct file attachment via deep links is limited, the message will include a link to the quote/contract
+
+**UI:** Add a sharing dropdown/button group next to each PDF download button in the quote and contract editors.
+
+---
+
+## 7. Admin Panel UI Updates
+
+- `InquiryListPage.tsx`: Add "Адрес" column to the table
+- `QuoteListPage.tsx`: The "Дата" column already exists; ensure it's clearly labeled
+- Search filter in InquiryListPage will also search by address
+
+---
 
 ## Implementation Sequence
 
-1. **Database migration**: Create `articles` table, `article-images` storage bucket, and RLS policies
-2. **Admin navigation**: Add "Back to Website" link and "Статии" nav item to sidebar
-3. **CMS pages**: ArticleListPage and ArticleEditorPage with image uploads and Markdown editor
-4. **Public blog update**: Fetch dynamic articles alongside hardcoded ones
-5. **Prompt for Resend API key**: Required for email features
-6. **Edge functions**: `generate-quote-pdf`, `send-quote-email`, `send-inquiry-notification`
-7. **Quote page updates**: Add PDF download and email send buttons
+1. **Database migration** -- Add `address` to inquiries, create `contracts` table and enum
+2. **Inquiry form** -- Add address field to MultiStepInquiryForm
+3. **About Us** -- Update branding text in About.tsx and AboutPage.tsx
+4. **PDF upgrade** -- Rewrite generate-quote-pdf to produce printable HTML, update frontend to use print-to-PDF
+5. **Terms template** -- Add full legal terms to quote editor defaults and PDF
+6. **Contract system** -- ContractEditorPage, generate-contract-pdf edge function
+7. **Admin UI** -- Add address column to tables
+8. **Prompt for Resend API key** -- Required for email sending
+9. **Email edge functions** -- send-quote-email, send-contract-email
+10. **Viber/WhatsApp sharing** -- Deep link buttons
 
 ## Technical Notes
 
-- PDF generation will use HTML string rendering converted to PDF in the edge function
-- Email sending requires a **Resend API key** -- will ask for this during implementation
-- The rich text editor will use Markdown with a preview, leveraging the already-installed `react-markdown` package
-- Image uploads for articles will use a dedicated storage bucket with public read access
-- All new admin routes are protected by the existing `ProtectedRoute` wrapper
-- SEO: Dynamic articles will include proper `Helmet` meta tags, Open Graph data, and JSON-LD schema markup
-
+- No external PDF library needed -- using browser print-to-PDF for true PDF output
+- Contracts table has its own status enum (draft/signed/completed)
+- Viber and WhatsApp sharing use native deep links, no API keys needed
+- Email functionality requires a **Resend API key** -- will ask before implementing
+- All new admin routes protected by existing ProtectedRoute wrapper
+- The address field is added as nullable in the DB to avoid breaking existing data, but marked as required in the form going forward
