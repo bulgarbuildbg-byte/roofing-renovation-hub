@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Inbox, FileText, Users, LogOut, Menu, X } from "lucide-react";
+import { Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const AdminDashboardPage = () => {
@@ -14,6 +14,7 @@ const AdminDashboardPage = () => {
   const navItems = [
     { to: "/admin/inquiries", label: "Запитвания", icon: Inbox },
     { to: "/admin/quotes", label: "Оферти", icon: FileText },
+    { to: "/admin/articles", label: "Статии", icon: Newspaper },
     ...(isAdmin ? [{ to: "/admin/staff", label: "Екип", icon: Users }] : []),
   ];
 
@@ -73,8 +74,15 @@ const AdminDashboardPage = () => {
             ))}
           </nav>
 
-          <div className="p-3 border-t border-border">
-            <p className="text-xs text-muted-foreground px-3 mb-2 truncate">{user?.email}</p>
+          <div className="p-3 border-t border-border space-y-1">
+            <Link
+              to="/"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Към сайта
+            </Link>
+            <p className="text-xs text-muted-foreground px-3 mb-1 truncate">{user?.email}</p>
             <Button variant="ghost" className="w-full justify-start text-sm" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Изход
@@ -89,7 +97,10 @@ const AdminDashboardPage = () => {
           <button onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />
           </button>
-          <span className="ml-3 font-semibold text-foreground">Админ панел</span>
+          <span className="ml-3 font-semibold text-foreground flex-1">Админ панел</span>
+          <Link to="/" className="text-muted-foreground hover:text-foreground">
+            <ExternalLink className="h-5 w-5" />
+          </Link>
         </header>
 
         <main className="flex-1 p-4 md:p-6 overflow-auto">

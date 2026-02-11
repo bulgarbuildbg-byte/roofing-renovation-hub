@@ -2,3 +2,6 @@ project_id = "vpsbqrxrjrwjmttnptfr"
 
 [functions.chat]
 verify_jwt = false
+
+[functions.generate-quote-pdf]
+verify_jwt = false

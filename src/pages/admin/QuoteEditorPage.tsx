@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowLeft, Plus, Trash2, Save, Eye } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Save, Eye, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.png";
 
@@ -91,9 +91,30 @@ const QuoteEditorPage = () => {
   if (preview) {
     return (
       <div>
-        <Button variant="ghost" onClick={() => setPreview(false)} className="mb-4">
+      <div className="flex gap-3 mb-4">
+        <Button variant="ghost" onClick={() => setPreview(false)}>
           <ArrowLeft className="h-4 w-4 mr-2" /> Обратно към редакция
         </Button>
+        <Button variant="outline" onClick={async () => {
+          const { data, error } = await supabase.functions.invoke("generate-quote-pdf", {
+            body: { quote_id: existingQuote?.id },
+          });
+          if (error || !data?.html) {
+            toast({ title: "Грешка при генериране на PDF", variant: "destructive" });
+            return;
+          }
+          const blob = new Blob([data.html], { type: "text/html" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `оферта-${inquiry.name}.html`;
+          a.click();
+          URL.revokeObjectURL(url);
+          toast({ title: "Офертата е изтеглена" });
+        }} disabled={!existingQuote}>
+          <Download className="h-4 w-4 mr-2" /> Изтегли
+        </Button>
+      </div>
         <div className="bg-white text-black rounded-xl border p-8 max-w-3xl mx-auto print:shadow-none" id="quote-preview">
           <div className="flex items-start justify-between mb-8">
             <div>

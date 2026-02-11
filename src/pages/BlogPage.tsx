@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
@@ -6,6 +7,7 @@ import { Helmet } from "react-helmet";
 import { Calendar, Clock, ArrowRight, Tag } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { supabase } from "@/integrations/supabase/client";
 
 // Import blog images
 import winterPreparation from "@/assets/blog/winter-preparation.jpg";
@@ -81,6 +83,34 @@ const blogPosts = [
 const categories = ["Всички", "Сезонна поддръжка", "Ремонт", "Хидроизолация", "Нов покрив"];
 
 const BlogPage = () => {
+  const [dynamicPosts, setDynamicPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("articles")
+      .select("*")
+      .eq("published", true)
+      .order("published_at", { ascending: false })
+      .then(({ data }) => {
+        if (data) {
+          setDynamicPosts(
+            data.map((a) => ({
+              id: a.slug,
+              title: a.title,
+              excerpt: a.excerpt || "",
+              image: a.cover_image_url || "",
+              date: a.published_at || a.created_at,
+              readTime: `${Math.max(3, Math.ceil((a.content?.length || 0) / 1000))} мин`,
+              category: a.category,
+              tags: a.tags || [],
+            }))
+          );
+        }
+      });
+  }, []);
+
+  const allPosts = [...blogPosts, ...dynamicPosts];
+
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -97,7 +127,7 @@ const BlogPage = () => {
         "addressCountry": "BG"
       }
     },
-    "blogPost": blogPosts.map(post => ({
+    "blogPost": allPosts.map(post => ({
       "@type": "BlogPosting",
       "headline": post.title,
       "description": post.excerpt,
@@ -173,24 +203,24 @@ const BlogPage = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-foreground mb-8">Препоръчана Статия за Покриви</h2>
             
-            <Link to={`/блог/${blogPosts[0].id}`} className="block">
+            <Link to={`/блог/${allPosts[0].id}`} className="block">
               <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="relative h-64 md:h-auto">
                     <img 
-                      src={blogPosts[0].image} 
-                      alt={blogPosts[0].title}
+                      src={allPosts[0].image} 
+                      alt={allPosts[0].title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">
-                      {blogPosts[0].category}
+                      {allPosts[0].category}
                     </Badge>
                   </div>
                   <CardContent className="p-8 flex flex-col justify-center">
                     <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
-                        {new Date(blogPosts[0].date).toLocaleDateString('bg-BG', { 
+                        {new Date(allPosts[0].date).toLocaleDateString('bg-BG', { 
                           day: 'numeric', 
                           month: 'long', 
                           year: 'numeric' 
@@ -198,13 +228,13 @@ const BlogPage = () => {
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        {blogPosts[0].readTime}
+                        {allPosts[0].readTime}
                       </span>
                     </div>
                     <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
-                      {blogPosts[0].title}
+                      {allPosts[0].title}
                     </h3>
-                    <p className="text-muted-foreground mb-6">{blogPosts[0].excerpt}</p>
+                    <p className="text-muted-foreground mb-6">{allPosts[0].excerpt}</p>
                     <div className="flex items-center text-primary font-medium">
                       Прочети повече <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" />
                     </div>
@@ -221,7 +251,7 @@ const BlogPage = () => {
             <h2 className="text-2xl font-bold text-foreground mb-8">Статии за Ремонт и Поддръжка на Покриви</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.slice(1).map((post) => (
+              {allPosts.slice(1).map((post) => (
                 <Link key={post.id} to={`/блог/${post.id}`}>
                   <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group">
                     <div className="relative h-48">

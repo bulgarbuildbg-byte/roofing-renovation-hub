@@ -32,6 +32,8 @@ import InquiryDetailPage from "./pages/admin/InquiryDetailPage";
 import QuoteEditorPage from "./pages/admin/QuoteEditorPage";
 import QuoteListPage from "./pages/admin/QuoteListPage";
 import StaffManagementPage from "./pages/admin/StaffManagementPage";
+import ArticleListPage from "./pages/admin/ArticleListPage";
+import ArticleEditorPage from "./pages/admin/ArticleEditorPage";
 
 const queryClient = new QueryClient();
 
@@ -71,6 +73,9 @@ const App = () => (
               <Route path="inquiries/:id" element={<InquiryDetailPage />} />
               <Route path="inquiries/:id/quote" element={<QuoteEditorPage />} />
               <Route path="quotes" element={<QuoteListPage />} />
+              <Route path="articles" element={<ArticleListPage />} />
+              <Route path="articles/new" element={<ArticleEditorPage />} />
+              <Route path="articles/:id/edit" element={<ArticleEditorPage />} />
               <Route path="staff" element={<ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute>} />
             </Route>
 
