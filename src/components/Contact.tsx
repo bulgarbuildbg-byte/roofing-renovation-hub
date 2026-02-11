@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, CheckCircle, Star } from "lucide-react";
-import QuickContactForm from "./QuickContactForm";
+import MultiStepInquiryForm from "./MultiStepInquiryForm";
 
 const Contact = () => {
   return (
@@ -102,7 +102,7 @@ const Contact = () => {
 
           {/* Quick Contact Form */}
           <div className="order-1 md:order-2">
-            <QuickContactForm />
+            <MultiStepInquiryForm />
           </div>
         </div>
       </div>
