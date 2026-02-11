@@ -14,16 +14,239 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inquiries: {
+        Row: {
+          area_sqm: number | null
+          assigned_to: string | null
+          created_at: string
+          description: string | null
+          email: string
+          id: string
+          name: string
+          phone: string
+          preferred_material:
+            | Database["public"]["Enums"]["material_type"]
+            | null
+          roof_complexity: Database["public"]["Enums"]["roof_complexity"] | null
+          service_type: Database["public"]["Enums"]["service_type"]
+          status: Database["public"]["Enums"]["inquiry_status"]
+          updated_at: string
+        }
+        Insert: {
+          area_sqm?: number | null
+          assigned_to?: string | null
+          created_at?: string
+          description?: string | null
+          email: string
+          id?: string
+          name: string
+          phone: string
+          preferred_material?:
+            | Database["public"]["Enums"]["material_type"]
+            | null
+          roof_complexity?:
+            | Database["public"]["Enums"]["roof_complexity"]
+            | null
+          service_type?: Database["public"]["Enums"]["service_type"]
+          status?: Database["public"]["Enums"]["inquiry_status"]
+          updated_at?: string
+        }
+        Update: {
+          area_sqm?: number | null
+          assigned_to?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string
+          preferred_material?:
+            | Database["public"]["Enums"]["material_type"]
+            | null
+          roof_complexity?:
+            | Database["public"]["Enums"]["roof_complexity"]
+            | null
+          service_type?: Database["public"]["Enums"]["service_type"]
+          status?: Database["public"]["Enums"]["inquiry_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      inquiry_files: {
+        Row: {
+          file_name: string
+          file_type: string | null
+          file_url: string
+          id: string
+          inquiry_id: string
+          uploaded_at: string
+        }
+        Insert: {
+          file_name: string
+          file_type?: string | null
+          file_url: string
+          id?: string
+          inquiry_id: string
+          uploaded_at?: string
+        }
+        Update: {
+          file_name?: string
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          inquiry_id?: string
+          uploaded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiry_files_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      quotes: {
+        Row: {
+          created_at: string
+          created_by: string
+          discount: number
+          id: string
+          inquiry_id: string
+          items: Json
+          sent_at: string | null
+          status: Database["public"]["Enums"]["quote_status"]
+          subtotal: number
+          terms: string | null
+          total: number
+          updated_at: string
+          validity_days: number
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          discount?: number
+          id?: string
+          inquiry_id: string
+          items?: Json
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["quote_status"]
+          subtotal?: number
+          terms?: string | null
+          total?: number
+          updated_at?: string
+          validity_days?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          discount?: number
+          id?: string
+          inquiry_id?: string
+          items?: Json
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["quote_status"]
+          subtotal?: number
+          terms?: string | null
+          total?: number
+          updated_at?: string
+          validity_days?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotes_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin_or_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "staff"
+      inquiry_status:
+        | "new"
+        | "contacted"
+        | "quote_sent"
+        | "accepted"
+        | "rejected"
+      material_type:
+        | "tiles"
+        | "metal"
+        | "bitumen"
+        | "pvc_membrane"
+        | "shingles"
+        | "other"
+      quote_status: "draft" | "sent" | "accepted" | "rejected"
+      roof_complexity: "single_pitch" | "gable" | "hip" | "complex"
+      service_type:
+        | "repair"
+        | "replacement"
+        | "new_construction"
+        | "waterproofing"
+        | "tiles"
+        | "flat_roof"
+        | "metal_roof"
+        | "maintenance"
+        | "leak_repair"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +373,37 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "staff"],
+      inquiry_status: [
+        "new",
+        "contacted",
+        "quote_sent",
+        "accepted",
+        "rejected",
+      ],
+      material_type: [
+        "tiles",
+        "metal",
+        "bitumen",
+        "pvc_membrane",
+        "shingles",
+        "other",
+      ],
+      quote_status: ["draft", "sent", "accepted", "rejected"],
+      roof_complexity: ["single_pitch", "gable", "hip", "complex"],
+      service_type: [
+        "repair",
+        "replacement",
+        "new_construction",
+        "waterproofing",
+        "tiles",
+        "flat_roof",
+        "metal_roof",
+        "maintenance",
+        "leak_repair",
+        "other",
+      ],
+    },
   },
 } as const

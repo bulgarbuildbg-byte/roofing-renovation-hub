@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import Index from "./pages/Index";
 import ServicesPage from "./pages/ServicesPage";
 import AboutPage from "./pages/AboutPage";
@@ -23,6 +25,13 @@ import CalculatorPage from "./pages/CalculatorPage";
 import BlogArticle from "./pages/blog/BlogArticle";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import InquiryListPage from "./pages/admin/InquiryListPage";
+import InquiryDetailPage from "./pages/admin/InquiryDetailPage";
+import QuoteEditorPage from "./pages/admin/QuoteEditorPage";
+import QuoteListPage from "./pages/admin/QuoteListPage";
+import StaffManagementPage from "./pages/admin/StaffManagementPage";
 
 const queryClient = new QueryClient();
 
@@ -32,29 +41,42 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/за-нас" element={<AboutPage />} />
-          <Route path="/проекти" element={<ProjectsPage />} />
-          <Route path="/въпроси" element={<FAQPage />} />
-          <Route path="/контакти" element={<ContactPage />} />
-          <Route path="/отзиви" element={<ReviewsPage />} />
-          <Route path="/ремонт-на-покриви" element={<RoofRepairPage />} />
-          <Route path="/ремонт-течове" element={<RoofLeakRepairPage />} />
-          <Route path="/хидроизолация" element={<WaterproofingPage />} />
-          <Route path="/изграждане-на-покрив" element={<NewRoofPage />} />
-          <Route path="/смяна-керемиди" element={<TileReplacementPage />} />
-          <Route path="/плоски-покриви" element={<FlatRoofPage />} />
-          <Route path="/метални-покриви" element={<MetalRoofPage />} />
-          <Route path="/поддръжка-на-покриви" element={<MaintenancePage />} />
-          <Route path="/блог" element={<BlogPage />} />
-          <Route path="/блог/:slug" element={<BlogArticle />} />
-          <Route path="/калкулатор" element={<CalculatorPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <ScrollToTop />
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<Index />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/за-нас" element={<AboutPage />} />
+            <Route path="/проекти" element={<ProjectsPage />} />
+            <Route path="/въпроси" element={<FAQPage />} />
+            <Route path="/контакти" element={<ContactPage />} />
+            <Route path="/отзиви" element={<ReviewsPage />} />
+            <Route path="/ремонт-на-покриви" element={<RoofRepairPage />} />
+            <Route path="/ремонт-течове" element={<RoofLeakRepairPage />} />
+            <Route path="/хидроизолация" element={<WaterproofingPage />} />
+            <Route path="/изграждане-на-покрив" element={<NewRoofPage />} />
+            <Route path="/смяна-керемиди" element={<TileReplacementPage />} />
+            <Route path="/плоски-покриви" element={<FlatRoofPage />} />
+            <Route path="/метални-покриви" element={<MetalRoofPage />} />
+            <Route path="/поддръжка-на-покриви" element={<MaintenancePage />} />
+            <Route path="/блог" element={<BlogPage />} />
+            <Route path="/блог/:slug" element={<BlogArticle />} />
+            <Route path="/калкулатор" element={<CalculatorPage />} />
+
+            {/* Admin routes */}
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/admin" element={<ProtectedRoute><AdminDashboardPage /></ProtectedRoute>}>
+              <Route path="inquiries" element={<InquiryListPage />} />
+              <Route path="inquiries/:id" element={<InquiryDetailPage />} />
+              <Route path="inquiries/:id/quote" element={<QuoteEditorPage />} />
+              <Route path="quotes" element={<QuoteListPage />} />
+              <Route path="staff" element={<ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute>} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
