@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, Phone, ChevronDown, X } from "lucide-react";
+import { Menu, Phone, ChevronDown, X, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
@@ -71,6 +71,12 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
           </Link>
           <Link to="/контакти" className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>
             Контакти
+          </Link>
+
+          <div className="h-px bg-border my-4" />
+          <Link to="/admin/login" className="text-muted-foreground hover:text-primary transition-colors py-3 text-sm flex items-center gap-2" onClick={onClose}>
+            <LogIn className="w-4 h-4" />
+            Вход за екип
           </Link>
 
           <div className="mt-6 space-y-3">
@@ -246,6 +252,9 @@ const Header = () => {
                   088 499 7659
                 </a>
               </Button>
+              <Link to="/admin/login" className="text-muted-foreground hover:text-muted-foreground/70 transition-colors" title="Вход за екип">
+                <LogIn className="w-5 h-5" />
+              </Link>
             </nav>
           </div>
         </div>
