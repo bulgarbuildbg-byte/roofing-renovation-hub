@@ -253,46 +253,70 @@ export type Database = {
           created_at: string
           created_by: string
           discount: number
+          force_majeure: string | null
           id: string
           inquiry_id: string
+          invoicing_schedule: string | null
           items: Json
+          manual_additions: string | null
+          photo_urls: string[] | null
           sent_at: string | null
           status: Database["public"]["Enums"]["quote_status"]
           subtotal: number
+          technical_notes: string | null
           terms: string | null
           total: number
           updated_at: string
           validity_days: number
+          warranty_text: string | null
+          work_description: string | null
+          work_phases: string | null
         }
         Insert: {
           created_at?: string
           created_by: string
           discount?: number
+          force_majeure?: string | null
           id?: string
           inquiry_id: string
+          invoicing_schedule?: string | null
           items?: Json
+          manual_additions?: string | null
+          photo_urls?: string[] | null
           sent_at?: string | null
           status?: Database["public"]["Enums"]["quote_status"]
           subtotal?: number
+          technical_notes?: string | null
           terms?: string | null
           total?: number
           updated_at?: string
           validity_days?: number
+          warranty_text?: string | null
+          work_description?: string | null
+          work_phases?: string | null
         }
         Update: {
           created_at?: string
           created_by?: string
           discount?: number
+          force_majeure?: string | null
           id?: string
           inquiry_id?: string
+          invoicing_schedule?: string | null
           items?: Json
+          manual_additions?: string | null
+          photo_urls?: string[] | null
           sent_at?: string | null
           status?: Database["public"]["Enums"]["quote_status"]
           subtotal?: number
+          technical_notes?: string | null
           terms?: string | null
           total?: number
           updated_at?: string
           validity_days?: number
+          warranty_text?: string | null
+          work_description?: string | null
+          work_phases?: string | null
         }
         Relationships: [
           {
