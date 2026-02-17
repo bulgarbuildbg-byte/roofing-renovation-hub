@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Phone, CheckCircle, Clock, Shield } from "lucide-react";
-import heroImage from "@/assets/process/tile-roof-construction.jpg";
+import heroImage from "@/assets/hero-roofing.jpg";
 
 const Hero = () => {
   const scrollToContact = () => {
