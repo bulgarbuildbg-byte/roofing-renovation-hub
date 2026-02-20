@@ -25,6 +25,7 @@ import CalculatorPage from "./pages/CalculatorPage";
 import BlogArticle from "./pages/blog/BlogArticle";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import AnalyticsTracker from "./components/AnalyticsTracker";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import InquiryListPage from "./pages/admin/InquiryListPage";
@@ -35,6 +36,7 @@ import StaffManagementPage from "./pages/admin/StaffManagementPage";
 import ArticleListPage from "./pages/admin/ArticleListPage";
 import ArticleEditorPage from "./pages/admin/ArticleEditorPage";
 import ContractEditorPage from "./pages/admin/ContractEditorPage";
+import AnalyticsPage from "./pages/admin/AnalyticsPage";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <ScrollToTop />
+          <AnalyticsTracker />
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Index />} />
@@ -70,6 +73,7 @@ const App = () => (
             {/* Admin routes */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboardPage /></ProtectedRoute>}>
+              <Route path="analytics" element={<AnalyticsPage />} />
               <Route path="inquiries" element={<InquiryListPage />} />
               <Route path="inquiries/:id" element={<InquiryDetailPage />} />
               <Route path="inquiries/:id/quote" element={<QuoteEditorPage />} />

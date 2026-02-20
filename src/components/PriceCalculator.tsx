@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Phone, Calculator, Shield, Eye, Clock, Wrench, Droplets, Home, Layers, SquareStack, HardHat, Settings } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 interface PriceCalculatorProps {
   variant?: "full" | "compact";
@@ -274,7 +275,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                     Обадете се сега
                   </a>
                 </Button>
-                <Button variant="outline" size="lg" className="flex-1" onClick={scrollToContact}>
+                <Button variant="outline" size="lg" className="flex-1" onClick={() => { trackEvent("button_click", "calculator_button"); scrollToContact(); }}>
                   <Eye className="w-5 h-5 mr-2" />
                   Заявете безплатен оглед
                 </Button>
