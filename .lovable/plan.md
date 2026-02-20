@@ -1,142 +1,96 @@
 
-
-# Advanced PDF Engine & Modular Document Generator
+# SEO Cross-Linking: RemontNaPokriviVarna + BulgarBuild
 
 ## Overview
 
-Complete redesign of the Quote (Offer) and Contract PDF system to match the professional multi-page document sample provided. The system will feature modular, editable text blocks in the admin panel, a sophisticated print-to-PDF layout with sidebars, headers/footers, and page numbering, plus photo gallery support.
+Implement a professional, SEO-safe linking structure between the roofing niche site and the parent corporate site. All changes are on the RemontNaPokriviVarna side (this project). The BulgarBuild side (item 4 in the spec) must be done manually on the other website.
 
 ---
 
-## 1. Database Changes
+## 1. Footer Link (All Pages)
 
-Add new columns to the `quotes` table to store the modular content sections:
+**File:** `src/components/Footer.tsx`
 
-- `work_description` (text) -- "Work Project" description
-- `work_phases` (text) -- "First Step / Implementation Priorities" narrative
-- `invoicing_schedule` (text) -- payment stages (30%, 50%, 80%, 100%)
-- `warranty_text` (text) -- warranty clause (default 10 years)
-- `force_majeure` (text) -- force majeure clause
-- `technical_notes` (text) -- technical logic descriptions
-- `manual_additions` (text) -- free-form additional notes
-- `photo_urls` (text array) -- URLs of uploaded project photos for the gallery section
+Add a corporate affiliation line below the copyright notice:
 
-These are all nullable with sensible defaults so existing quotes remain valid.
+> "Ремонт на Покриви Варна е специализирано покривно подразделение на [BulgarBuild Construction Company](https://bulgarbuild.com/)."
 
----
+- Brand anchor text only ("BulgarBuild Construction Company")
+- Clean do-follow link
+- Visible on every page via the global footer
 
-## 2. Admin Panel: Modular Quote Editor (QuoteEditorPage.tsx)
-
-Redesign the editor form to have collapsible/accordion sections for each "block":
-
-| Section | Field Type | Default Content |
-|---------|-----------|----------------|
-| Client Info | Auto-populated inputs | From inquiry |
-| Work Project | Textarea | Project description from inquiry |
-| Work Phases / Priorities | Textarea | Default construction sequence text |
-| Line Items Table | Current table editor | Existing functionality |
-| Invoicing Schedule | Textarea | 30% advance, 50%, 80%, 100% stages |
-| Warranty | Textarea | 10-year installation warranty |
-| Force Majeure | Textarea | Weather/external delays clause |
-| Technical Notes | Textarea | Why certain steps come first |
-| Terms & Conditions | Textarea (existing) | Current terms |
-| Manual Additions | Textarea | Empty -- for one-off notes |
-| Photo Gallery | File upload area | Upload project photos |
-
-Each section is collapsible using the existing Accordion component. All text blocks come pre-populated with professional Bulgarian default text but are fully editable per quote.
+Also add corporate details (EIK, address) to strengthen entity consistency.
 
 ---
 
-## 3. PDF Visual Design (Matching the Sample)
+## 2. About Page Enhancement
 
-The `generatePrintableHtml()` function will be completely rewritten to produce a multi-page professional document:
+**File:** `src/pages/AboutPage.tsx`
 
-**Page 1 -- Cover / Summary:**
-- Header: "Булгар Билд" left, date right, orange underline
-- Large "OFFER" title with company logo
-- "for construction and installation works" subtitle
-- Sidebar-labeled sections: Client, Contractor, Work Project, Work Activities
-- Footer: company name + page number
+Add a new "Corporate Structure" section between the existing "About Content" and "Values" sections:
 
-**Page 2+ -- Work Description & Phases:**
-- "First Step" section with the editable narrative text
-- Implementation priorities and technical logic
-- Styled with the cyan/teal sidebar labels from the sample
-
-**Itemized Table Page:**
-- Professional table with Description, Price EUR, Notes columns
-- Currency displayed in EUR (per project standard)
-- Subtotal, discount, total clearly shown
-- "Total amount: XXX EUR excluding VAT" statement
-
-**Invoicing & Warranty Pages:**
-- Invoicing schedule (30% / 50% / 80% / 100%)
-- 10-year warranty clause
-- Force majeure section
-- Each with colored sidebar labels
-
-**Photo Gallery (Last Page):**
-- Grid layout of uploaded project photos
-- Captions if provided
-
-**Every Page:**
-- Consistent header with "Булгар Билд" branding
-- Page number in footer
-- Professional gray/cyan sidebars for section titles (CSS `@media print` with `@page` rules)
+- Heading: "Корпоративна Структура" (Corporate Structure)
+- Paragraph explaining the division relationship, parent company's full construction capabilities, shared legal entity, EIK number, and years of experience
+- Contextual in-text link to `https://bulgarbuild.com/about` using brand anchor "BulgarBuild" -- not a button, just a natural hyperlink within the paragraph
+- Update the existing `parentOrganization` schema to include the `/about` URL reference
 
 ---
 
-## 4. Offer-to-Contract Conversion
+## 3. Blog Contextual Links (3 Articles)
 
-Update `ContractEditorPage.tsx`:
+Add a subtle contextual paragraph before the "Back to Blog" link in 3 static blog articles:
 
-- Add a modular editor matching the quote structure
-- Auto-populate ALL fields from the source quote (including work phases, invoicing, warranty, etc.)
-- Add a "General Terms" section (legal supplement)
-- Add a "Manual Addition" free-text section for one-off agreements
-- The contract PDF follows the same professional styling as the offer
+**Files:**
+- `src/pages/blog/WinterRoofPreparation.tsx`
+- `src/pages/blog/RoofRepairSigns.tsx`
+- `src/pages/blog/WaterproofingTypes.tsx`
 
----
+Each will get a short, natural sentence such as:
 
-## 5. Photo Upload for Documents
+> "Покривните услуги са част от цялостните строителни решения, предлагани от [BulgarBuild](https://bulgarbuild.com/)."
 
-- Use the existing `inquiry-attachments` storage bucket (or create a `document-photos` bucket) to store project photos
-- Add a drag-and-drop upload area in the quote editor
-- Store photo URLs in the `photo_urls` array column
-- Render photos in a grid in the final PDF
+- Different wording in each article to avoid repetitive patterns
+- Brand anchor text only
+- Placed contextually at the end of the article content
 
 ---
 
-## 6. Currency: EUR
+## 4. Reverse Link from BulgarBuild (Manual -- Outside This Project)
 
-All prices in the PDF will display in EUR (per project-wide standard), with "excluding VAT" disclaimer. The line items table header will show "Price EUR" and "Notes" columns.
-
----
-
-## 7. Sharing (Already Implemented)
-
-The existing Email, WhatsApp, and Viber sharing buttons remain. No changes needed -- they already work on both quotes and contracts.
+This project cannot modify BulgarBuild.com. You will need to manually add a "Specialized Divisions" section on bulgarbuild.com linking to `https://www.remontnapokrivivarna.bg/`. This can go on the homepage or a dedicated divisions page.
 
 ---
 
-## Implementation Sequence
+## 5. Corporate Consistency in Schema + Footer
 
-1. **Database migration** -- Add modular text columns and `photo_urls` to `quotes` table
-2. **Quote Editor redesign** -- Accordion-based modular sections with defaults, photo upload
-3. **PDF engine rewrite** -- Multi-page professional HTML with sidebars, headers/footers, page numbers
-4. **Contract editor update** -- Mirror the modular structure, auto-populate from quote
-5. **Contract PDF** -- Same professional styling for contract documents
-6. **Testing** -- Verify PDF output matches the sample design
+Ensure identical corporate details appear on this site:
+- Company name: "България Билд ЕООД"
+- EIK displayed in footer
+- Same address: ул. Уста Колю Фичето 25 А, Варна
+- Same phone: 088 499 7659
+
+The existing JSON-LD schema on the About page already has `parentOrganization` -- this will be kept and slightly enriched.
 
 ---
 
-## Technical Details
+## 6. Technical SEO Summary
 
-- PDF generation continues using the `iframe.contentWindow.print()` approach (no external libraries needed)
-- Multi-page layout achieved with CSS `page-break-before` / `break-before: page` rules
-- Sidebar labels implemented with CSS `position: relative` blocks with left-border styling in the accent color
-- Page headers/footers use CSS `@page` with `@top-left` / `@bottom-right` or fixed-position elements
-- Photo uploads use the Supabase storage client to upload to a public bucket
-- All new columns are nullable so existing data is unaffected
-- Default text constants defined at the top of the file for easy maintenance
+Total links from RemontNaPokriviVarna to BulgarBuild:
+- 1 footer link (all pages) -- brand anchor
+- 1 About page contextual link -- brand anchor to /about
+- 3 blog article contextual links -- brand anchor to homepage
 
+All do-follow, no `rel="nofollow"`, no `rel="noopener noreferrer"` (since these are trusted corporate links). No sidebar spam, no keyword-stuffed anchors.
+
+---
+
+## Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/components/Footer.tsx` | Add corporate affiliation line with BulgarBuild link + EIK |
+| `src/pages/AboutPage.tsx` | Add "Corporate Structure" section with contextual link to bulgarbuild.com/about |
+| `src/pages/blog/WinterRoofPreparation.tsx` | Add contextual BulgarBuild link before "Back to Blog" |
+| `src/pages/blog/RoofRepairSigns.tsx` | Add contextual BulgarBuild link before "Back to Blog" |
+| `src/pages/blog/WaterproofingTypes.tsx` | Add contextual BulgarBuild link before "Back to Blog" |
+| `src/components/About.tsx` | Remove `rel="noopener noreferrer"` from existing BulgarBuild link (trusted corporate link) |
