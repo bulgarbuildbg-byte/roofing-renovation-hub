@@ -3,18 +3,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-import tileWorkerImg from "@/assets/process/tile-installation-worker.jpg";
-import leakPatchImg from "@/assets/process/leak-patching.jpg";
-import waterproofingTorchImg from "@/assets/process/waterproofing-torch.jpg";
-import roofFrameImg from "@/assets/process/roof-frame-construction.jpg";
-import singleTileImg from "@/assets/process/single-tile-repair.jpg";
-import flatRoofImg from "@/assets/process/flat-roof-waterproofing.jpg";
-import metalInstallImg from "@/assets/process/metal-installation.jpg";
-import roofInspectionImg from "@/assets/process/roof-inspection-pro.jpg";
+import roofRepairImg from "@/assets/services/roof-repair.jpg";
+import leakRepairImg from "@/assets/services/leak-repair.jpg";
+import waterproofingImg from "@/assets/services/waterproofing.jpg";
+import newRoofImg from "@/assets/services/new-roof.jpg";
+import tileReplacementImg from "@/assets/services/tile-replacement.jpg";
+import flatRoofImg from "@/assets/services/flat-roof.jpg";
+import metalRoofImg from "@/assets/services/metal-roof.jpg";
+import maintenanceImg from "@/assets/services/maintenance.jpg";
 
 const services = [
   {
-    image: tileWorkerImg,
+    image: roofRepairImg,
     title: "Ремонт на Покриви",
     problem: "Течове, повредени керемиди или щети от буря?",
     includes: ["Диагностика на проблема", "Смяна на керемиди", "Ремонт на течове", "Покривни улуци"],
@@ -22,7 +22,7 @@ const services = [
     link: "/ремонт-на-покриви"
   },
   {
-    image: leakPatchImg,
+    image: leakRepairImg,
     title: "Ремонт на Течове",
     problem: "Спешен проблем с теч от покрива?",
     includes: ["Бърза реакция", "Точна диагностика", "Временна защита", "Траен ремонт"],
@@ -30,7 +30,7 @@ const services = [
     link: "/ремонт-течове"
   },
   {
-    image: waterproofingTorchImg,
+    image: waterproofingImg,
     title: "Хидроизолация",
     problem: "Влага и течове през покрива или терасата?",
     includes: ["Мембранна хидроизолация", "Битумни покрития", "Течна хидроизолация", "Ремонт на тераси"],
@@ -38,7 +38,7 @@ const services = [
     link: "/хидроизолация"
   },
   {
-    image: roofFrameImg,
+    image: newRoofImg,
     title: "Нов Покрив",
     problem: "Нуждаете се от нов покрив за вашия дом?",
     includes: ["Проектиране", "Дървена конструкция", "Покривно покритие", "Изолация"],
@@ -46,7 +46,7 @@ const services = [
     link: "/изграждане-на-покрив"
   },
   {
-    image: singleTileImg,
+    image: tileReplacementImg,
     title: "Смяна на Керемиди",
     problem: "Счупени или стари керемиди?",
     includes: ["Единични керемиди", "Частична подмяна", "Пълна смяна", "Капаци и ръбове"],
@@ -62,7 +62,7 @@ const services = [
     link: "/плоски-покриви"
   },
   {
-    image: metalInstallImg,
+    image: metalRoofImg,
     title: "Метални Покриви",
     problem: "Искате модерен и издръжлив покрив?",
     includes: ["Метални керемиди", "Ламаринени покриви", "Трапецовидна ламарина", "Боядисване"],
@@ -70,7 +70,7 @@ const services = [
     link: "/метални-покриви"
   },
   {
-    image: roofInspectionImg,
+    image: maintenanceImg,
     title: "Поддръжка",
     problem: "Искате покривът ви да издържи по-дълго?",
     includes: ["Сезонни инспекции", "Почистване", "Превантивен ремонт", "Профилактика"],
