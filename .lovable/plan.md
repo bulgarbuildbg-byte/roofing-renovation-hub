@@ -1,76 +1,118 @@
 
-# Upgrade Services Section with Photorealistic Visuals
+# Admin Analytics Dashboard
 
 ## Overview
 
-Replace the flat Lucide icons in each service card with full-width, high-quality photographs from the existing asset library. Each card will feature a cropped photo header that gives a tangible, real-world feel to the service offering.
+Add a new "Analytics" page in the admin panel that tracks visitor counts, time spent on site, and button click events (offer requests, phone calls, and calculator usage). This requires both frontend tracking and backend storage.
 
-## Design Change
+## Architecture
 
-**Before:** Small 48px circular icon with a flat Lucide icon (Home, Wrench, etc.)
+### 1. Database: New `analytics_events` Table
 
-**After:** Full-width photo banner (aspect ratio ~16:9) at the top of each card showing a real roofing scene relevant to that service, with a subtle dark gradient overlay and the service title overlaid or placed just below.
+Create a table to store all tracked events from the public website:
 
-## Photo Mapping
+| Column | Type | Description |
+|--------|------|-------------|
+| id | uuid | Primary key |
+| event_type | text | "page_view", "button_click", "session_duration" |
+| event_name | text | Specific event: "visit", "offer_button", "call_button", "calculator_button", "session_end" |
+| session_id | text | Anonymous browser session ID (UUID generated client-side) |
+| page_path | text | URL path where event occurred |
+| duration_seconds | integer | For session_duration events, time in seconds |
+| created_at | timestamptz | When the event was recorded |
 
-Each service will use an existing photo from `src/assets/process/`:
+RLS policies:
+- Public INSERT (anyone can submit events anonymously)
+- SELECT restricted to admin/staff only
+- No UPDATE or DELETE for public
 
-| Service | Photo File | Rationale |
-|---------|-----------|-----------|
-| Ремонт на Покриви | `tile-installation-worker.jpg` | Worker on roof, shows active repair |
-| Ремонт на Течове | `leak-patching.jpg` | Leak repair in action |
-| Хидроизолация | `waterproofing-torch.jpg` | Bitumen torch waterproofing |
-| Нов Покрив | `roof-frame-construction.jpg` | New roof frame being built |
-| Смяна на Керемиди | `single-tile-repair.jpg` | Individual tile replacement |
-| Плоски Покриви | `flat-roof-waterproofing.jpg` | Flat roof work |
-| Метални Покриви | `metal-installation.jpg` | Metal roof installation |
-| Поддръжка | `roof-inspection-pro.jpg` | Professional inspection |
+### 2. Frontend Tracking Component
 
-## Card Layout Update
+**New file:** `src/components/AnalyticsTracker.tsx`
 
-Each service card will change from:
+A invisible component added to the main layout that:
+- Generates a session ID (stored in sessionStorage)
+- Sends a "page_view" event on each route change
+- Tracks time spent using a heartbeat (records session duration on page unload via `navigator.sendBeacon`)
+- Listens for specific button clicks via a global analytics helper
 
-```text
-+---------------------------+
-| [icon circle]             |
-| Title                     |
-| Problem text              |
-| - Includes list           |
-| Benefit                   |
-| [Button]                  |
-+---------------------------+
-```
+### 3. Analytics Helper
 
-To:
+**New file:** `src/lib/analytics.ts`
 
-```text
-+---------------------------+
-| [  Full-width photo   ]   |
-| [  with gradient      ]   |
-+---------------------------+
-| Title                     |
-| Problem text              |
-| - Includes list           |
-| Benefit                   |
-| [Button]                  |
-+---------------------------+
-```
+Utility functions:
+- `trackEvent(eventType, eventName, extras)` -- inserts a row into `analytics_events`
+- `getSessionId()` -- creates or retrieves session ID from sessionStorage
+- Called from button click handlers throughout the site
 
-- Photo area: ~160px height with `object-cover` for consistent cropping
-- Subtle bottom gradient overlay for visual polish
-- Rounded top corners matching the card border radius
-- Card padding adjusted so photo is edge-to-edge at top, text content padded below
+### 4. Button Click Tracking
 
-## Technical Details
+Modify these existing components to add `trackEvent` calls:
 
-**File modified:** `src/components/Services.tsx`
+| Component | Event Tracked |
+|-----------|--------------|
+| `src/components/Contact.tsx` | "offer_button" -- when the contact/inquiry form is submitted |
+| `src/components/FloatingCallButton.tsx` | "call_button" -- when the phone link is clicked |
+| `src/components/MobileBottomBar.tsx` | "call_button" and "offer_button" -- for the two mobile buttons |
+| `src/components/PriceCalculator.tsx` | "calculator_button" -- when the calculator form is submitted |
+| `src/components/MultiStepInquiryForm.tsx` | "offer_button" -- when multi-step form is submitted |
 
-Changes:
-1. Add ES6 image imports for all 8 photos at the top of the file
-2. Replace `icon` property in each service object with `image` property pointing to the imported photo
-3. Replace the icon circle `<div>` (lines 100-102) with an `<img>` element wrapped in a container with `overflow-hidden`, `rounded-t-xl`, and a fixed height
-4. Remove unused Lucide icon imports (Home, Wrench, Shield, Hammer, Droplets)
-5. Adjust `CardContent` padding so the image sits flush at the top and text content has normal padding below
-6. Add a subtle overlay gradient on hover for interactivity
+Each tracking call is a single line addition (e.g., `trackEvent("button_click", "call_button")`) -- no UI changes.
 
-No new dependencies required. All photos already exist in the project assets.
+### 5. Admin Analytics Page
+
+**New file:** `src/pages/admin/AnalyticsPage.tsx`
+
+Dashboard with:
+
+**Visitor Cards (top row):**
+- Today's visitors (unique sessions)
+- This week's visitors
+- This month's visitors
+- This year's visitors
+
+**Time Spent Card:**
+- Average session duration (in minutes)
+
+**Button Click Cards (second row):**
+- Total "Offer" button clicks (today / week / month / year)
+- Total "Call" button clicks (today / week / month / year)
+- Total "Calculator" button clicks (today / week / month / year)
+
+Each card shows the count with a small label. Data fetched via Supabase queries with date filters using `date-fns`.
+
+### 6. Route and Navigation
+
+- Add route: `<Route path="analytics" element={<AnalyticsPage />} />` inside the admin layout in `App.tsx`
+- Add nav item in `AdminDashboardPage.tsx` sidebar: "Аналитика" with a BarChart3 icon
+- Redirect `/admin` to `/admin/analytics` instead of `/admin/inquiries` (analytics becomes the landing page)
+
+### 7. Add Tracker to Layout
+
+Add `<AnalyticsTracker />` component inside `App.tsx` so it runs on every public page. It will be placed alongside `<ScrollToTop />`.
+
+---
+
+## Files to Create
+
+| File | Purpose |
+|------|---------|
+| `src/lib/analytics.ts` | trackEvent utility + session ID management |
+| `src/components/AnalyticsTracker.tsx` | Automatic page view + session duration tracking |
+| `src/pages/admin/AnalyticsPage.tsx` | Admin analytics dashboard UI |
+
+## Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/App.tsx` | Add AnalyticsTracker, add analytics admin route |
+| `src/pages/admin/AdminDashboardPage.tsx` | Add "Аналитика" nav item, change default redirect |
+| `src/components/FloatingCallButton.tsx` | Add call_button tracking |
+| `src/components/MobileBottomBar.tsx` | Add call_button + offer_button tracking |
+| `src/components/Contact.tsx` | Add offer_button tracking on form submit |
+| `src/components/PriceCalculator.tsx` | Add calculator_button tracking |
+| `src/components/MultiStepInquiryForm.tsx` | Add offer_button tracking |
+
+## Database Migration
+
+One migration to create the `analytics_events` table with RLS policies (public insert, admin/staff select).
