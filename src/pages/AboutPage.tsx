@@ -64,7 +64,8 @@ const AboutPage = () => {
             "parentOrganization": {
               "@type": "Organization",
               "name": "България Билд ЕООД",
-              "url": "https://bulgarbuild.com"
+              "url": "https://bulgarbuild.com",
+              "sameAs": "https://bulgarbuild.com/about"
             },
             "areaServed": serviceAreas.map(area => ({ "@type": "City", "name": area })),
             "priceRange": "$$"
@@ -117,8 +118,31 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Values Section */}
+        {/* Corporate Structure Section */}
         <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-foreground mb-6">Корпоративна Структура</h2>
+              <p className="text-muted-foreground text-lg mb-6">
+                RemontNaPokriviVarna е специализираното покривно подразделение на{" "}
+                <a href="https://bulgarbuild.com/about" className="text-accent hover:underline font-semibold">
+                  BulgarBuild
+                </a>
+                {" "}(България Билд ЕООД, ЕИК: 207189805) — водеща строителна компания с пълен спектър от 
+                строителни услуги. Компанията-майка изпълнява цялостни строителни проекти — от основи до 
+                довършителни работи, а нашият специализиран бранш се фокусира изцяло върху покривни решения.
+              </p>
+              <p className="text-muted-foreground text-lg">
+                Тази структура ни позволява да комбинираме ресурсите и опита на утвърдена строителна компания 
+                с фокусираната експертиза на специализиран покривен екип. Споделяме единна правна рамка, 
+                сертификати и застраховки, което гарантира максимална надеждност и сигурност за нашите клиенти.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Values Section */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-foreground text-center mb-12">Защо Клиентите Ни Се Доверяват</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -102,9 +102,16 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-primary-foreground/20 pt-8 text-center">
+        <div className="border-t border-primary-foreground/20 pt-8 text-center space-y-3">
           <p className="text-primary-foreground/80">
             © {new Date().getFullYear()} RemontNaPokriviVarna. Всички права запазени.
+          </p>
+          <p className="text-primary-foreground/60 text-sm">
+            Ремонт на Покриви Варна е специализирано покривно подразделение на{" "}
+            <a href="https://bulgarbuild.com/" className="text-primary-foreground/80 hover:text-primary-foreground underline">
+              BulgarBuild Construction Company
+            </a>
+            . България Билд ЕООД · ЕИК: 207189805
           </p>
         </div>
       </div>

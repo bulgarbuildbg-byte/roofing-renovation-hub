@@ -22,7 +22,7 @@ const About = () => {
             </h2>
             <p className="text-lg text-muted-foreground mb-6">
               RemontNaPokriviVarna е специализирано подразделение на{" "}
-              <a href="https://bulgarbuild.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-semibold">
+              <a href="https://bulgarbuild.com" target="_blank" className="text-accent hover:underline font-semibold">
                 България Билд ЕООД (Bulgari Build EOOD)
               </a>{" "}
               — водеща строителна компания, напълно сертифицирана и лицензирана. 

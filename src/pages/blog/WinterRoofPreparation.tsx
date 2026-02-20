@@ -357,6 +357,12 @@ const WinterRoofPreparation = () => {
                 </Button>
               </div>
 
+              {/* Corporate context */}
+              <p className="text-muted-foreground text-sm mt-8">
+                Покривните услуги са част от цялостните строителни решения, предлагани от{" "}
+                <a href="https://bulgarbuild.com/" className="text-accent hover:underline">BulgarBuild</a>.
+              </p>
+
               {/* Back to Blog */}
               <div className="mt-12">
                 <Link to="/блог" className="inline-flex items-center gap-2 text-primary hover:underline">
