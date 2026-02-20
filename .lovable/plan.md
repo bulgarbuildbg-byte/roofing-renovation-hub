@@ -1,96 +1,76 @@
 
-# SEO Cross-Linking: RemontNaPokriviVarna + BulgarBuild
+# Upgrade Services Section with Photorealistic Visuals
 
 ## Overview
 
-Implement a professional, SEO-safe linking structure between the roofing niche site and the parent corporate site. All changes are on the RemontNaPokriviVarna side (this project). The BulgarBuild side (item 4 in the spec) must be done manually on the other website.
+Replace the flat Lucide icons in each service card with full-width, high-quality photographs from the existing asset library. Each card will feature a cropped photo header that gives a tangible, real-world feel to the service offering.
 
----
+## Design Change
 
-## 1. Footer Link (All Pages)
+**Before:** Small 48px circular icon with a flat Lucide icon (Home, Wrench, etc.)
 
-**File:** `src/components/Footer.tsx`
+**After:** Full-width photo banner (aspect ratio ~16:9) at the top of each card showing a real roofing scene relevant to that service, with a subtle dark gradient overlay and the service title overlaid or placed just below.
 
-Add a corporate affiliation line below the copyright notice:
+## Photo Mapping
 
-> "Ремонт на Покриви Варна е специализирано покривно подразделение на [BulgarBuild Construction Company](https://bulgarbuild.com/)."
+Each service will use an existing photo from `src/assets/process/`:
 
-- Brand anchor text only ("BulgarBuild Construction Company")
-- Clean do-follow link
-- Visible on every page via the global footer
+| Service | Photo File | Rationale |
+|---------|-----------|-----------|
+| Ремонт на Покриви | `tile-installation-worker.jpg` | Worker on roof, shows active repair |
+| Ремонт на Течове | `leak-patching.jpg` | Leak repair in action |
+| Хидроизолация | `waterproofing-torch.jpg` | Bitumen torch waterproofing |
+| Нов Покрив | `roof-frame-construction.jpg` | New roof frame being built |
+| Смяна на Керемиди | `single-tile-repair.jpg` | Individual tile replacement |
+| Плоски Покриви | `flat-roof-waterproofing.jpg` | Flat roof work |
+| Метални Покриви | `metal-installation.jpg` | Metal roof installation |
+| Поддръжка | `roof-inspection-pro.jpg` | Professional inspection |
 
-Also add corporate details (EIK, address) to strengthen entity consistency.
+## Card Layout Update
 
----
+Each service card will change from:
 
-## 2. About Page Enhancement
+```text
++---------------------------+
+| [icon circle]             |
+| Title                     |
+| Problem text              |
+| - Includes list           |
+| Benefit                   |
+| [Button]                  |
++---------------------------+
+```
 
-**File:** `src/pages/AboutPage.tsx`
+To:
 
-Add a new "Corporate Structure" section between the existing "About Content" and "Values" sections:
+```text
++---------------------------+
+| [  Full-width photo   ]   |
+| [  with gradient      ]   |
++---------------------------+
+| Title                     |
+| Problem text              |
+| - Includes list           |
+| Benefit                   |
+| [Button]                  |
++---------------------------+
+```
 
-- Heading: "Корпоративна Структура" (Corporate Structure)
-- Paragraph explaining the division relationship, parent company's full construction capabilities, shared legal entity, EIK number, and years of experience
-- Contextual in-text link to `https://bulgarbuild.com/about` using brand anchor "BulgarBuild" -- not a button, just a natural hyperlink within the paragraph
-- Update the existing `parentOrganization` schema to include the `/about` URL reference
+- Photo area: ~160px height with `object-cover` for consistent cropping
+- Subtle bottom gradient overlay for visual polish
+- Rounded top corners matching the card border radius
+- Card padding adjusted so photo is edge-to-edge at top, text content padded below
 
----
+## Technical Details
 
-## 3. Blog Contextual Links (3 Articles)
+**File modified:** `src/components/Services.tsx`
 
-Add a subtle contextual paragraph before the "Back to Blog" link in 3 static blog articles:
+Changes:
+1. Add ES6 image imports for all 8 photos at the top of the file
+2. Replace `icon` property in each service object with `image` property pointing to the imported photo
+3. Replace the icon circle `<div>` (lines 100-102) with an `<img>` element wrapped in a container with `overflow-hidden`, `rounded-t-xl`, and a fixed height
+4. Remove unused Lucide icon imports (Home, Wrench, Shield, Hammer, Droplets)
+5. Adjust `CardContent` padding so the image sits flush at the top and text content has normal padding below
+6. Add a subtle overlay gradient on hover for interactivity
 
-**Files:**
-- `src/pages/blog/WinterRoofPreparation.tsx`
-- `src/pages/blog/RoofRepairSigns.tsx`
-- `src/pages/blog/WaterproofingTypes.tsx`
-
-Each will get a short, natural sentence such as:
-
-> "Покривните услуги са част от цялостните строителни решения, предлагани от [BulgarBuild](https://bulgarbuild.com/)."
-
-- Different wording in each article to avoid repetitive patterns
-- Brand anchor text only
-- Placed contextually at the end of the article content
-
----
-
-## 4. Reverse Link from BulgarBuild (Manual -- Outside This Project)
-
-This project cannot modify BulgarBuild.com. You will need to manually add a "Specialized Divisions" section on bulgarbuild.com linking to `https://www.remontnapokrivivarna.bg/`. This can go on the homepage or a dedicated divisions page.
-
----
-
-## 5. Corporate Consistency in Schema + Footer
-
-Ensure identical corporate details appear on this site:
-- Company name: "България Билд ЕООД"
-- EIK displayed in footer
-- Same address: ул. Уста Колю Фичето 25 А, Варна
-- Same phone: 088 499 7659
-
-The existing JSON-LD schema on the About page already has `parentOrganization` -- this will be kept and slightly enriched.
-
----
-
-## 6. Technical SEO Summary
-
-Total links from RemontNaPokriviVarna to BulgarBuild:
-- 1 footer link (all pages) -- brand anchor
-- 1 About page contextual link -- brand anchor to /about
-- 3 blog article contextual links -- brand anchor to homepage
-
-All do-follow, no `rel="nofollow"`, no `rel="noopener noreferrer"` (since these are trusted corporate links). No sidebar spam, no keyword-stuffed anchors.
-
----
-
-## Files to Modify
-
-| File | Change |
-|------|--------|
-| `src/components/Footer.tsx` | Add corporate affiliation line with BulgarBuild link + EIK |
-| `src/pages/AboutPage.tsx` | Add "Corporate Structure" section with contextual link to bulgarbuild.com/about |
-| `src/pages/blog/WinterRoofPreparation.tsx` | Add contextual BulgarBuild link before "Back to Blog" |
-| `src/pages/blog/RoofRepairSigns.tsx` | Add contextual BulgarBuild link before "Back to Blog" |
-| `src/pages/blog/WaterproofingTypes.tsx` | Add contextual BulgarBuild link before "Back to Blog" |
-| `src/components/About.tsx` | Remove `rel="noopener noreferrer"` from existing BulgarBuild link (trusted corporate link) |
+No new dependencies required. All photos already exist in the project assets.
