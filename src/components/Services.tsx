@@ -1,11 +1,20 @@
-import { Home, Wrench, Shield, Hammer, Droplets, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+import tileWorkerImg from "@/assets/process/tile-installation-worker.jpg";
+import leakPatchImg from "@/assets/process/leak-patching.jpg";
+import waterproofingTorchImg from "@/assets/process/waterproofing-torch.jpg";
+import roofFrameImg from "@/assets/process/roof-frame-construction.jpg";
+import singleTileImg from "@/assets/process/single-tile-repair.jpg";
+import flatRoofImg from "@/assets/process/flat-roof-waterproofing.jpg";
+import metalInstallImg from "@/assets/process/metal-installation.jpg";
+import roofInspectionImg from "@/assets/process/roof-inspection-pro.jpg";
+
 const services = [
   {
-    icon: Home,
+    image: tileWorkerImg,
     title: "Ремонт на Покриви",
     problem: "Течове, повредени керемиди или щети от буря?",
     includes: ["Диагностика на проблема", "Смяна на керемиди", "Ремонт на течове", "Покривни улуци"],
@@ -13,7 +22,7 @@ const services = [
     link: "/ремонт-на-покриви"
   },
   {
-    icon: Droplets,
+    image: leakPatchImg,
     title: "Ремонт на Течове",
     problem: "Спешен проблем с теч от покрива?",
     includes: ["Бърза реакция", "Точна диагностика", "Временна защита", "Траен ремонт"],
@@ -21,7 +30,7 @@ const services = [
     link: "/ремонт-течове"
   },
   {
-    icon: Shield,
+    image: waterproofingTorchImg,
     title: "Хидроизолация",
     problem: "Влага и течове през покрива или терасата?",
     includes: ["Мембранна хидроизолация", "Битумни покрития", "Течна хидроизолация", "Ремонт на тераси"],
@@ -29,7 +38,7 @@ const services = [
     link: "/хидроизолация"
   },
   {
-    icon: Hammer,
+    image: roofFrameImg,
     title: "Нов Покрив",
     problem: "Нуждаете се от нов покрив за вашия дом?",
     includes: ["Проектиране", "Дървена конструкция", "Покривно покритие", "Изолация"],
@@ -37,7 +46,7 @@ const services = [
     link: "/изграждане-на-покрив"
   },
   {
-    icon: Home,
+    image: singleTileImg,
     title: "Смяна на Керемиди",
     problem: "Счупени или стари керемиди?",
     includes: ["Единични керемиди", "Частична подмяна", "Пълна смяна", "Капаци и ръбове"],
@@ -45,7 +54,7 @@ const services = [
     link: "/смяна-керемиди"
   },
   {
-    icon: Home,
+    image: flatRoofImg,
     title: "Плоски Покриви",
     problem: "Проблеми с плоския покрив или терасата?",
     includes: ["Хидроизолация", "PVC мембрани", "Битумни покрития", "Отводняване"],
@@ -53,7 +62,7 @@ const services = [
     link: "/плоски-покриви"
   },
   {
-    icon: Shield,
+    image: metalInstallImg,
     title: "Метални Покриви",
     problem: "Искате модерен и издръжлив покрив?",
     includes: ["Метални керемиди", "Ламаринени покриви", "Трапецовидна ламарина", "Боядисване"],
@@ -61,7 +70,7 @@ const services = [
     link: "/метални-покриви"
   },
   {
-    icon: Wrench,
+    image: roofInspectionImg,
     title: "Поддръжка",
     problem: "Искате покривът ви да издържи по-дълго?",
     includes: ["Сезонни инспекции", "Почистване", "Превантивен ремонт", "Профилактика"],
@@ -94,12 +103,18 @@ const Services = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="bg-background hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border flex flex-col"
+              className="bg-background hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border flex flex-col overflow-hidden"
             >
+              <div className="relative h-40 md:h-44 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              </div>
               <CardContent className="p-4 md:p-6 flex flex-col flex-grow">
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-primary/10 rounded-full flex items-center justify-center mb-3 md:mb-4">
-                  <service.icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
-                </div>
                 <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
                   {service.title}
                 </h3>
