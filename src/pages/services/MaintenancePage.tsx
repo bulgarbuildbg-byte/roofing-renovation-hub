@@ -10,12 +10,13 @@ import { Link } from "react-router-dom";
 import { CheckCircle, Settings, Calendar, Phone, MapPin, Search, Leaf, Snowflake, Sun, CloudRain } from "lucide-react";
 
 // Process images - Roof maintenance and inspection
-import groundInspection from "@/assets/process/roof-inspection-pro.jpg";
-import roofWalkingInspection from "@/assets/process/roof-walking-inspection.jpg";
-import gutterCleaning from "@/assets/process/gutter-cleaning.jpg";
-import mossRemoval from "@/assets/process/moss-removal.jpg";
-import singleTileRepair from "@/assets/process/single-tile-repair.jpg";
-import maintenanceReport from "@/assets/process/maintenance-report.jpg";
+import maintenanceHero from "@/assets/process/roof-maintenance-hero.jpg";
+import groundInspection from "@/assets/process/ground-roof-inspection.jpg";
+import roofWalkingInspection from "@/assets/process/roof-detail-inspection.jpg";
+import gutterCleaning from "@/assets/process/gutter-cleaning-work.jpg";
+import mossRemoval from "@/assets/process/moss-cleaning-roof.jpg";
+import singleTileRepair from "@/assets/process/tile-repair-onsite.jpg";
+import maintenanceReport from "@/assets/process/inspection-report-doc.jpg";
 
 const relatedServices = [
   {
@@ -344,7 +345,7 @@ const MaintenancePage = () => {
         {/* Hero Image */}
         <section className="relative h-[400px] md:h-[500px]">
           <img 
-            src={gutterCleaning} 
+            src={maintenanceHero} 
             alt="Професионална поддръжка на покрив във Варна - почистване на улуци и керемиди"
             className="w-full h-full object-cover"
           />
