@@ -10,12 +10,13 @@ import { Link } from "react-router-dom";
 import { CheckCircle, Droplets, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Layers, Thermometer } from "lucide-react";
 
 // Process images - Bituminous waterproofing
-import roofSurfacePrep from "@/assets/process/flat-roof-waterproofing.jpg";
-import waterproofingPrimer from "@/assets/process/waterproofing-membrane.jpg";
-import waterproofingTorch from "@/assets/process/bitumen-torch-application.jpg";
-import waterproofingDetail from "@/assets/process/roof-chimney-detail.jpg";
-import waterproofingSecondLayer from "@/assets/process/flat-roof-overview.jpg";
-import completedFlatRoof from "@/assets/portfolio/apartment-building.jpg";
+import waterproofingHero from "@/assets/process/waterproofing-hero.jpg";
+import roofSurfacePrep from "@/assets/process/surface-prep-cleaning.jpg";
+import waterproofingPrimer from "@/assets/process/primer-application.jpg";
+import waterproofingTorch from "@/assets/process/torch-membrane-apply.jpg";
+import waterproofingDetail from "@/assets/process/waterproofing-sealing-detail.jpg";
+import waterproofingSecondLayer from "@/assets/process/second-layer-waterproofing.jpg";
+import completedFlatRoof from "@/assets/process/completed-waterproofing.jpg";
 
 const relatedServices = [
   {
@@ -312,7 +313,7 @@ const WaterproofingPage = () => {
         {/* Hero Image */}
         <section className="relative h-[400px] md:h-[500px]">
           <img 
-            src={waterproofingTorch} 
+            src={waterproofingHero} 
             alt="Професионално полагане на хидроизолация на плосък покрив във Варна - работник с газова горелка"
             className="w-full h-full object-cover"
           />

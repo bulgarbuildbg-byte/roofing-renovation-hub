@@ -12,9 +12,9 @@ import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Searc
 // Process images - Ceramic tile roof repair
 import roofInspection from "@/assets/process/roof-measuring.jpg";
 import roofAssessment from "@/assets/process/cost-calculation.jpg";
-import roofScaffolding from "@/assets/process/roof-frame-work.jpg";
-import tileRemoval from "@/assets/process/old-roof-removal.jpg";
-import tileInstallation from "@/assets/process/tile-roof-construction.jpg";
+import roofScaffolding from "@/assets/process/roof-scaffolding-setup.jpg";
+import tileRemoval from "@/assets/process/roof-tile-removal-repair.jpg";
+import tileInstallation from "@/assets/process/roof-tile-install-repair.jpg";
 import completedTileRoof from "@/assets/portfolio/residential-tile-roof.jpg";
 
 const relatedServices = [
