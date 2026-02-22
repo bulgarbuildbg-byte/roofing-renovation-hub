@@ -22,7 +22,8 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
     "name": "Ремонт на Покриви Варна",
-    "image": "https://www.remontnapokrivivarna.bg/favicon.png",
+    "image": "https://www.remontnapokrivivarna.bg/og-image.jpg",
+    "logo": "https://www.remontnapokrivivarna.bg/favicon.png",
     "description": "Професионален ремонт на покриви и хидроизолация във Варна. Над 15 години опит, безплатен оглед и писмена гаранция.",
     "address": {
       "@type": "PostalAddress",
@@ -138,6 +139,22 @@ const Index = () => {
     }
   };
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ремонт на Покриви Варна",
+    "url": "https://www.remontnapokrivivarna.bg",
+    "description": "Професионален ремонт на покриви и хидроизолация във Варна.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Ремонт на Покриви Варна",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.remontnapokrivivarna.bg/favicon.png"
+      }
+    }
+  };
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -183,13 +200,22 @@ const Index = () => {
         <title>Ремонт на Покриви Варна - Безплатен Оглед 24ч</title>
         <meta name="description" content="Професионален ремонт на покриви във Варна. 15+ години опит, до 10г гаранция, безплатен оглед. Обадете се: 088 499 7659" />
         <meta name="keywords" content="ремонт на покриви Варна, хидроизолация Варна, покривни услуги, течове покрив, нов покрив Варна, керемиди Варна" />
-        <meta property="og:title" content="Ремонт на Покриви Варна - Безплатен Оглед" />
-        <meta property="og:description" content="Професионален ремонт на покриви във Варна. 15+ години опит, безплатен оглед и писмена гаранция." />
+        <meta property="og:title" content="Ремонт на Покриви Варна - Безплатен Оглед 24ч" />
+        <meta property="og:description" content="Професионален ремонт на покриви във Варна. 15+ години опит, до 10г гаранция, безплатен оглед." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/" />
         <script type="application/ld+json">
           {JSON.stringify(localBusinessSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(websiteSchema)}
         </script>
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}
