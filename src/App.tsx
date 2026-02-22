@@ -37,6 +37,10 @@ import ArticleListPage from "./pages/admin/ArticleListPage";
 import ArticleEditorPage from "./pages/admin/ArticleEditorPage";
 import ContractEditorPage from "./pages/admin/ContractEditorPage";
 import AnalyticsPage from "./pages/admin/AnalyticsPage";
+import CampaignListPage from "./pages/admin/CampaignListPage";
+import CampaignEditorPage from "./pages/admin/CampaignEditorPage";
+import CommentsModPage from "./pages/admin/CommentsModPage";
+import LeadDatabasePage from "./pages/admin/LeadDatabasePage";
 
 const queryClient = new QueryClient();
 
@@ -74,14 +78,19 @@ const App = () => (
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboardPage /></ProtectedRoute>}>
               <Route path="analytics" element={<AnalyticsPage />} />
+              <Route path="leads" element={<LeadDatabasePage />} />
               <Route path="inquiries" element={<InquiryListPage />} />
               <Route path="inquiries/:id" element={<InquiryDetailPage />} />
               <Route path="inquiries/:id/quote" element={<QuoteEditorPage />} />
               <Route path="inquiries/:id/contract" element={<ContractEditorPage />} />
               <Route path="quotes" element={<QuoteListPage />} />
+              <Route path="campaigns" element={<CampaignListPage />} />
+              <Route path="campaigns/new" element={<CampaignEditorPage />} />
+              <Route path="campaigns/:id/edit" element={<CampaignEditorPage />} />
               <Route path="articles" element={<ArticleListPage />} />
               <Route path="articles/new" element={<ArticleEditorPage />} />
               <Route path="articles/:id/edit" element={<ArticleEditorPage />} />
+              <Route path="comments" element={<CommentsModPage />} />
               <Route path="staff" element={<ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute>} />
             </Route>
 

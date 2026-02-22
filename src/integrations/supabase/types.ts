@@ -92,6 +92,96 @@ export type Database = {
         }
         Relationships: []
       }
+      campaigns: {
+        Row: {
+          budget: number
+          created_at: string
+          created_by: string
+          end_date: string | null
+          id: string
+          name: string
+          notes: string | null
+          platform: string
+          start_date: string
+          updated_at: string
+        }
+        Insert: {
+          budget?: number
+          created_at?: string
+          created_by: string
+          end_date?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          platform?: string
+          start_date: string
+          updated_at?: string
+        }
+        Update: {
+          budget?: number
+          created_at?: string
+          created_by?: string
+          end_date?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          platform?: string
+          start_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      comments: {
+        Row: {
+          article_id: string
+          author_email: string
+          author_name: string
+          content: string
+          created_at: string
+          id: string
+          parent_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          article_id: string
+          author_email: string
+          author_name: string
+          content: string
+          created_at?: string
+          id?: string
+          parent_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          article_id?: string
+          author_email?: string
+          author_name?: string
+          content?: string
+          created_at?: string
+          id?: string
+          parent_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contracts: {
         Row: {
           client_address: string | null
@@ -161,8 +251,10 @@ export type Database = {
       inquiries: {
         Row: {
           address: string | null
+          admin_notes: string | null
           area_sqm: number | null
           assigned_to: string | null
+          campaign_id: string | null
           created_at: string
           description: string | null
           email: string
@@ -179,8 +271,10 @@ export type Database = {
         }
         Insert: {
           address?: string | null
+          admin_notes?: string | null
           area_sqm?: number | null
           assigned_to?: string | null
+          campaign_id?: string | null
           created_at?: string
           description?: string | null
           email: string
@@ -199,8 +293,10 @@ export type Database = {
         }
         Update: {
           address?: string | null
+          admin_notes?: string | null
           area_sqm?: number | null
           assigned_to?: string | null
+          campaign_id?: string | null
           created_at?: string
           description?: string | null
           email?: string
@@ -217,7 +313,15 @@ export type Database = {
           status?: Database["public"]["Enums"]["inquiry_status"]
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "inquiries_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       inquiry_files: {
         Row: {
