@@ -41,6 +41,9 @@ import CampaignListPage from "./pages/admin/CampaignListPage";
 import CampaignEditorPage from "./pages/admin/CampaignEditorPage";
 import CommentsModPage from "./pages/admin/CommentsModPage";
 import LeadDatabasePage from "./pages/admin/LeadDatabasePage";
+import BacklinksPage from "./pages/admin/BacklinksPage";
+import EmailCampaignListPage from "./pages/admin/EmailCampaignListPage";
+import EmailCampaignEditorPage from "./pages/admin/EmailCampaignEditorPage";
 
 const queryClient = new QueryClient();
 
@@ -91,6 +94,10 @@ const App = () => (
               <Route path="articles/new" element={<ArticleEditorPage />} />
               <Route path="articles/:id/edit" element={<ArticleEditorPage />} />
               <Route path="comments" element={<CommentsModPage />} />
+              <Route path="backlinks" element={<BacklinksPage />} />
+              <Route path="email-campaigns" element={<EmailCampaignListPage />} />
+              <Route path="email-campaigns/new" element={<EmailCampaignEditorPage />} />
+              <Route path="email-campaigns/:id/edit" element={<EmailCampaignEditorPage />} />
               <Route path="staff" element={<ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute>} />
             </Route>
 

@@ -44,6 +44,38 @@ export type Database = {
         }
         Relationships: []
       }
+      article_views: {
+        Row: {
+          article_id: string
+          id: string
+          reading_time_seconds: number | null
+          session_id: string
+          viewed_at: string
+        }
+        Insert: {
+          article_id: string
+          id?: string
+          reading_time_seconds?: number | null
+          session_id: string
+          viewed_at?: string
+        }
+        Update: {
+          article_id?: string
+          id?: string
+          reading_time_seconds?: number | null
+          session_id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_views_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       articles: {
         Row: {
           author_id: string
@@ -89,6 +121,51 @@ export type Database = {
           tags?: string[] | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      backlinks: {
+        Row: {
+          anchor_text: string | null
+          created_at: string
+          discovered_at: string
+          follow_type: string
+          id: string
+          link_type: string
+          notes: string | null
+          referring_domain: string
+          status: string
+          target_page: string | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          anchor_text?: string | null
+          created_at?: string
+          discovered_at?: string
+          follow_type?: string
+          id?: string
+          link_type?: string
+          notes?: string | null
+          referring_domain: string
+          status?: string
+          target_page?: string | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          anchor_text?: string | null
+          created_at?: string
+          discovered_at?: string
+          follow_type?: string
+          id?: string
+          link_type?: string
+          notes?: string | null
+          referring_domain?: string
+          status?: string
+          target_page?: string | null
+          updated_at?: string
+          url?: string
         }
         Relationships: []
       }
@@ -248,6 +325,66 @@ export type Database = {
           },
         ]
       }
+      email_campaigns: {
+        Row: {
+          body_html: string
+          body_text: string | null
+          created_at: string
+          created_by: string
+          id: string
+          name: string
+          scheduled_at: string | null
+          segment_filter: Json | null
+          sent_at: string | null
+          status: string
+          subject: string
+          total_clicked: number | null
+          total_opened: number | null
+          total_recipients: number | null
+          total_sent: number | null
+          total_unsubscribed: number | null
+          updated_at: string
+        }
+        Insert: {
+          body_html?: string
+          body_text?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          name: string
+          scheduled_at?: string | null
+          segment_filter?: Json | null
+          sent_at?: string | null
+          status?: string
+          subject: string
+          total_clicked?: number | null
+          total_opened?: number | null
+          total_recipients?: number | null
+          total_sent?: number | null
+          total_unsubscribed?: number | null
+          updated_at?: string
+        }
+        Update: {
+          body_html?: string
+          body_text?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          name?: string
+          scheduled_at?: string | null
+          segment_filter?: Json | null
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          total_clicked?: number | null
+          total_opened?: number | null
+          total_recipients?: number | null
+          total_sent?: number | null
+          total_unsubscribed?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       inquiries: {
         Row: {
           address: string | null
@@ -258,6 +395,7 @@ export type Database = {
           created_at: string
           description: string | null
           email: string
+          email_consent: boolean | null
           id: string
           name: string
           phone: string
@@ -266,7 +404,9 @@ export type Database = {
             | null
           roof_complexity: Database["public"]["Enums"]["roof_complexity"] | null
           service_type: Database["public"]["Enums"]["service_type"]
+          sms_consent: boolean | null
           status: Database["public"]["Enums"]["inquiry_status"]
+          unsubscribed_at: string | null
           updated_at: string
         }
         Insert: {
@@ -278,6 +418,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email: string
+          email_consent?: boolean | null
           id?: string
           name: string
           phone: string
@@ -288,7 +429,9 @@ export type Database = {
             | Database["public"]["Enums"]["roof_complexity"]
             | null
           service_type?: Database["public"]["Enums"]["service_type"]
+          sms_consent?: boolean | null
           status?: Database["public"]["Enums"]["inquiry_status"]
+          unsubscribed_at?: string | null
           updated_at?: string
         }
         Update: {
@@ -300,6 +443,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string
+          email_consent?: boolean | null
           id?: string
           name?: string
           phone?: string
@@ -310,7 +454,9 @@ export type Database = {
             | Database["public"]["Enums"]["roof_complexity"]
             | null
           service_type?: Database["public"]["Enums"]["service_type"]
+          sms_consent?: boolean | null
           status?: Database["public"]["Enums"]["inquiry_status"]
+          unsubscribed_at?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -364,6 +510,7 @@ export type Database = {
           email: string | null
           full_name: string | null
           id: string
+          last_login: string | null
           phone: string | null
         }
         Insert: {
@@ -371,6 +518,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id: string
+          last_login?: string | null
           phone?: string | null
         }
         Update: {
@@ -378,6 +526,7 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          last_login?: string | null
           phone?: string | null
         }
         Relationships: []
@@ -495,7 +644,7 @@ export type Database = {
       is_admin_or_staff: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      app_role: "admin" | "staff"
+      app_role: "admin" | "staff" | "editor" | "marketing" | "support" | "seo"
       contract_status: "draft" | "signed" | "completed"
       inquiry_status:
         | "new"
@@ -650,7 +799,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "staff"],
+      app_role: ["admin", "staff", "editor", "marketing", "support", "seo"],
       contract_status: ["draft", "signed", "completed"],
       inquiry_status: [
         "new",
