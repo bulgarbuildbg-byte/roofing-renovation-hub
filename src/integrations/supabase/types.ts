@@ -611,6 +611,57 @@ export type Database = {
           },
         ]
       }
+      testimonials: {
+        Row: {
+          author_name: string
+          avatar_url: string | null
+          consent_received: boolean
+          created_at: string
+          id: string
+          is_active: boolean
+          is_verified: boolean
+          location: string
+          rating: number
+          review_date: string | null
+          service_type: string | null
+          sort_order: number
+          text: string
+          updated_at: string
+        }
+        Insert: {
+          author_name: string
+          avatar_url?: string | null
+          consent_received?: boolean
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          is_verified?: boolean
+          location: string
+          rating?: number
+          review_date?: string | null
+          service_type?: string | null
+          sort_order?: number
+          text: string
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          avatar_url?: string | null
+          consent_received?: boolean
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          is_verified?: boolean
+          location?: string
+          rating?: number
+          review_date?: string | null
+          service_type?: string | null
+          sort_order?: number
+          text?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
