@@ -7,66 +7,75 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { UserPlus, Trash2 } from "lucide-react";
+import { UserPlus, Trash2, Shield } from "lucide-react";
+
+const ROLE_LABELS: Record<string, string> = {
+  admin: "Администратор",
+  staff: "Работник",
+  editor: "Редактор",
+  marketing: "Маркетинг",
+  support: "Поддръжка",
+  seo: "SEO",
+};
 
 const StaffManagementPage = () => {
   const { toast } = useToast();
-  const [roles, setRoles] = useState<any[]>([]);
+  const [members, setMembers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<string>("staff");
+  const [role, setRole] = useState("staff");
   const [adding, setAdding] = useState(false);
 
-  const fetchRoles = async () => {
-    const { data } = await supabase.from("user_roles").select("*, profiles(full_name, email)");
-    setRoles(data || []);
+  const fetchMembers = async () => {
+    const { data } = await supabase
+      .from("user_roles")
+      .select("id, user_id, role, profiles(full_name, email, last_login)");
+    setMembers(data || []);
     setLoading(false);
   };
 
-  useEffect(() => { fetchRoles(); }, []);
+  useEffect(() => { fetchMembers(); }, []);
 
-  const handleAddStaff = async (e: React.FormEvent) => {
+  const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     setAdding(true);
 
-    // Sign up the user
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: window.location.origin },
+    const { data, error } = await supabase.functions.invoke("create-team-member", {
+      body: { email, password, role, full_name: fullName },
     });
 
-    if (signUpError || !signUpData.user) {
-      toast({ title: "Грешка", description: signUpError?.message || "Неуспешно създаване", variant: "destructive" });
-      setAdding(false);
-      return;
-    }
-
-    // Add role - needs service role or admin policy; for now we insert directly
-    const { error: roleError } = await supabase.from("user_roles").insert({
-      user_id: signUpData.user.id,
-      role: role as any,
-    });
-
-    if (roleError) {
-      toast({ title: "Грешка при задаване на роля", description: roleError.message, variant: "destructive" });
+    if (error || data?.error) {
+      toast({ title: "Грешка", description: data?.error || error?.message, variant: "destructive" });
     } else {
-      toast({ title: "Потребителят е добавен" });
-      setEmail("");
-      setPassword("");
-      fetchRoles();
+      toast({ title: "Потребителят е добавен успешно" });
+      setFullName(""); setEmail(""); setPassword("");
+      fetchMembers();
     }
     setAdding(false);
   };
 
+  const handleDelete = async (userId: string, roleId: string) => {
+    if (!confirm("Сигурни ли сте, че искате да премахнете този потребител?")) return;
+    await supabase.from("user_roles").delete().eq("id", roleId);
+    toast({ title: "Ролята е премахната" });
+    fetchMembers();
+  };
+
   return (
     <div>
-      <h1 className="text-2xl font-bold text-foreground mb-6">Управление на екипа</h1>
+      <h1 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+        <Shield className="h-6 w-6" /> Управление на екипа
+      </h1>
 
       <div className="bg-card rounded-xl border border-border p-6 mb-6">
-        <h2 className="font-semibold mb-4">Добави нов потребител</h2>
-        <form onSubmit={handleAddStaff} className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
+        <h2 className="font-semibold mb-4">Добави нов член на екипа</h2>
+        <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
+          <div>
+            <Label>Име</Label>
+            <Input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Иван Иванов" required />
+          </div>
           <div>
             <Label>Имейл</Label>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -80,8 +89,9 @@ const StaffManagementPage = () => {
             <Select value={role} onValueChange={setRole}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="staff">Работник</SelectItem>
-                <SelectItem value="admin">Администратор</SelectItem>
+                {Object.entries(ROLE_LABELS).map(([val, label]) => (
+                  <SelectItem key={val} value={val}>{label}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -98,16 +108,32 @@ const StaffManagementPage = () => {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Име</TableHead>
                 <TableHead>Имейл</TableHead>
                 <TableHead>Роля</TableHead>
+                <TableHead>Последен вход</TableHead>
+                <TableHead className="w-16" />
               </TableRow>
             </TableHeader>
             <TableBody>
-              {roles.map((r) => (
-                <TableRow key={r.id}>
-                  <TableCell>{(r as any).profiles?.email || r.user_id}</TableCell>
+              {members.length === 0 ? (
+                <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground py-8">Няма добавени членове</TableCell></TableRow>
+              ) : members.map((m) => (
+                <TableRow key={m.id}>
+                  <TableCell className="font-medium">{(m as any).profiles?.full_name || "—"}</TableCell>
+                  <TableCell>{(m as any).profiles?.email || m.user_id}</TableCell>
                   <TableCell>
-                    <Badge variant="secondary">{r.role === "admin" ? "Администратор" : "Работник"}</Badge>
+                    <Badge variant="secondary">{ROLE_LABELS[m.role] || m.role}</Badge>
+                  </TableCell>
+                  <TableCell className="text-sm text-muted-foreground">
+                    {(m as any).profiles?.last_login
+                      ? new Date((m as any).profiles.last_login).toLocaleDateString("bg-BG")
+                      : "—"}
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="ghost" size="icon" onClick={() => handleDelete(m.user_id, m.id)}>
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -115,6 +141,36 @@ const StaffManagementPage = () => {
           </Table>
         </div>
       )}
+
+      <div className="mt-6 bg-card rounded-xl border border-border p-6">
+        <h3 className="font-semibold mb-3">Права по роли</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
+          <div className="p-3 bg-muted rounded-lg">
+            <span className="font-medium">Администратор</span>
+            <p className="text-muted-foreground">Пълен достъп до всички секции</p>
+          </div>
+          <div className="p-3 bg-muted rounded-lg">
+            <span className="font-medium">Работник</span>
+            <p className="text-muted-foreground">Запитвания, оферти, лийдове</p>
+          </div>
+          <div className="p-3 bg-muted rounded-lg">
+            <span className="font-medium">Редактор</span>
+            <p className="text-muted-foreground">Статии, дискусии</p>
+          </div>
+          <div className="p-3 bg-muted rounded-lg">
+            <span className="font-medium">Маркетинг</span>
+            <p className="text-muted-foreground">Кампании, лийдове, имейл маркетинг</p>
+          </div>
+          <div className="p-3 bg-muted rounded-lg">
+            <span className="font-medium">SEO</span>
+            <p className="text-muted-foreground">Бекликове, аналитика</p>
+          </div>
+          <div className="p-3 bg-muted rounded-lg">
+            <span className="font-medium">Поддръжка</span>
+            <p className="text-muted-foreground">Лийдове, чатове</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

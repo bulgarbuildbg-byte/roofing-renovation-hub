@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink, BarChart3, Megaphone, MessageSquare, Database } from "lucide-react";
+import { Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink, BarChart3, Megaphone, MessageSquare, Database, Link2, Mail } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const AdminDashboardPage = () => {
@@ -17,6 +17,8 @@ const AdminDashboardPage = () => {
     { to: "/admin/inquiries", label: "Запитвания", icon: Inbox },
     { to: "/admin/quotes", label: "Оферти", icon: FileText },
     { to: "/admin/campaigns", label: "Маркетинг", icon: Megaphone },
+    { to: "/admin/email-campaigns", label: "Имейл маркетинг", icon: Mail },
+    { to: "/admin/backlinks", label: "SEO & Бекликове", icon: Link2 },
     { to: "/admin/articles", label: "Статии", icon: Newspaper },
     { to: "/admin/comments", label: "Дискусии", icon: MessageSquare },
     ...(isAdmin ? [{ to: "/admin/staff", label: "Екип", icon: Users }] : []),
