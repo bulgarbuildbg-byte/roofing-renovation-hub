@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Phone, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface CTASectionProps {
   variant?: "primary" | "accent" | "emergency";
@@ -16,6 +17,8 @@ const CTASection = ({
   showPhone = true, 
   showContact = true 
 }: CTASectionProps) => {
+  const { t } = useTranslation();
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -47,9 +50,8 @@ const CTASection = ({
           </p>
         )}
         
-        {/* Urgency indicator */}
         <p className={`text-sm ${textClasses[variant]}/80 mb-6`}>
-          ⏰ Отговаряме в рамките на 24 часа
+          {t('cta.responseTime')}
         </p>
         
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center max-w-lg mx-auto">
@@ -72,7 +74,7 @@ const CTASection = ({
               variant="ghost"
               className="w-full sm:w-auto h-14 md:h-16 !border-2 !border-white !text-white !bg-transparent hover:!bg-white/20 text-base md:text-lg font-bold px-6 md:px-8"
             >
-              Изпратете запитване
+              {t('cta.sendInquiry')}
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           )}

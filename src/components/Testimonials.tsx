@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 
 interface Testimonial {
   id: string;
@@ -34,6 +35,8 @@ const fallbackTestimonials: Testimonial[] = [
 ];
 
 const Testimonials = () => {
+  const { t } = useTranslation();
+
   const { data: testimonials } = useQuery({
     queryKey: ["testimonials-public"],
     queryFn: async () => {
@@ -68,14 +71,14 @@ const Testimonials = () => {
               ))}
             </div>
             <span className="text-lg font-bold text-foreground">4.9/5</span>
-            <span className="text-muted-foreground">от 127 отзива</span>
+            <span className="text-muted-foreground">{t('testimonials.fromReviews')}</span>
           </div>
           
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4">
-            Какво Казват Нашите Клиенти
+            {t('testimonials.title')}
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Над 500 доволни клиенти във Варна и региона
+            {t('testimonials.subtitle')}
           </p>
         </div>
 
@@ -109,7 +112,7 @@ const Testimonials = () => {
                     <div className="flex items-center gap-1.5">
                       <p className="font-bold text-foreground truncate">{testimonial.author_name}</p>
                       {testimonial.is_verified && (
-                        <BadgeCheck className="w-4 h-4 text-accent shrink-0" aria-label="Верифициран клиент" />
+                        <BadgeCheck className="w-4 h-4 text-accent shrink-0" aria-label={t('testimonials.verified')} />
                       )}
                     </div>
                     <p className="text-sm text-muted-foreground">{testimonial.location}</p>
@@ -122,9 +125,7 @@ const Testimonials = () => {
 
         {/* Section CTA */}
         <div className="mt-10 md:mt-12 text-center">
-          <p className="text-lg text-foreground font-medium mb-4">
-            Станете следващият доволен клиент
-          </p>
+          <p className="text-lg text-foreground font-medium mb-4">{t('testimonials.beNext')}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button 
               asChild
@@ -133,7 +134,7 @@ const Testimonials = () => {
             >
               <a href="tel:0884997659" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
-                Обадете се сега
+                {t('testimonials.callNow')}
               </a>
             </Button>
             <Button 
@@ -142,7 +143,7 @@ const Testimonials = () => {
               variant="outline"
               className="h-14 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground text-lg font-bold px-8"
             >
-              Заявете оглед
+              {t('testimonials.requestInspection')}
             </Button>
           </div>
         </div>

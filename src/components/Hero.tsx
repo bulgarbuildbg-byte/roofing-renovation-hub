@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Phone, CheckCircle, Clock, Shield } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import heroImage from "@/assets/hero-roofing-new.png";
 
 const Hero = () => {
+  const { t } = useTranslation();
+
   const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) {
@@ -21,38 +24,36 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 py-12 md:py-20 relative z-10">
         <div className="max-w-4xl">
-          {/* Trust badges - Mobile optimized */}
           <div className="flex flex-wrap gap-2 md:gap-4 mb-6 md:mb-8">
             <span className="inline-flex items-center gap-1.5 bg-accent/20 backdrop-blur-sm text-accent px-3 py-1.5 rounded-full text-sm font-medium">
               <CheckCircle className="w-4 h-4" />
-              15+ години опит
+              {t('hero.badge1')}
             </span>
             <span className="inline-flex items-center gap-1.5 bg-accent/20 backdrop-blur-sm text-accent px-3 py-1.5 rounded-full text-sm font-medium">
               <Shield className="w-4 h-4" />
-              До 10г гаранция
+              {t('hero.badge2')}
             </span>
             <span className="inline-flex items-center gap-1.5 bg-accent/20 backdrop-blur-sm text-accent px-3 py-1.5 rounded-full text-sm font-medium">
               <Clock className="w-4 h-4" />
-              Оглед до 24ч
+              {t('hero.badge3')}
             </span>
           </div>
 
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 md:mb-6 animate-fade-in leading-tight">
-            Професионален Ремонт на Покриви във Варна
+            {t('hero.title')}
           </h1>
           
           <p className="text-lg md:text-xl lg:text-2xl text-primary-foreground/90 mb-6 md:mb-8 animate-fade-in max-w-2xl">
-            Спрете течовете завинаги. Качествен ремонт и хидроизолация с писмена гаранция.
+            {t('hero.subtitle')}
           </p>
           
-          {/* CTA Buttons - Mobile first, stacked */}
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 animate-fade-in">
             <Button 
               onClick={scrollToContact}
               size="lg" 
               className="w-full sm:w-auto h-14 md:h-16 bg-accent hover:bg-accent/90 text-accent-foreground text-base md:text-lg font-bold px-6 md:px-8"
             >
-              Заявете Безплатен Оглед
+              {t('hero.ctaPrimary')}
             </Button>
             <Button 
               asChild
@@ -62,19 +63,17 @@ const Hero = () => {
             >
               <a href="tel:0884997659" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
-                088 499 7659
+                {t('hero.ctaPhone')}
               </a>
             </Button>
           </div>
           
-          {/* Urgency text */}
           <p className="mt-6 text-primary-foreground/80 text-sm md:text-base">
-            ⚡ Аварийни случаи: Реагираме в рамките на часове
+            {t('hero.urgency')}
           </p>
         </div>
       </div>
       
-      {/* Bottom gradient for smooth transition */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-10" />
     </section>
   );
