@@ -2,27 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
-import Index from "./pages/Index";
-import ServicesPage from "./pages/ServicesPage";
-import AboutPage from "./pages/AboutPage";
-import ProjectsPage from "./pages/ProjectsPage";
-import FAQPage from "./pages/FAQPage";
-import ContactPage from "./pages/ContactPage";
-import ReviewsPage from "./pages/ReviewsPage";
-import RoofRepairPage from "./pages/services/RoofRepairPage";
-import WaterproofingPage from "./pages/services/WaterproofingPage";
-import NewRoofPage from "./pages/services/NewRoofPage";
-import MaintenancePage from "./pages/services/MaintenancePage";
-import RoofLeakRepairPage from "./pages/services/RoofLeakRepairPage";
-import TileReplacementPage from "./pages/services/TileReplacementPage";
-import FlatRoofPage from "./pages/services/FlatRoofPage";
-import MetalRoofPage from "./pages/services/MetalRoofPage";
-import BlogPage from "./pages/BlogPage";
-import CalculatorPage from "./pages/CalculatorPage";
-import BlogArticle from "./pages/blog/BlogArticle";
+import LanguageLayout from "@/components/LanguageLayout";
+import LanguageRedirect from "@/components/LanguageRedirect";
+import LocalizedPageRouter from "@/components/LocalizedPageRouter";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
@@ -58,27 +43,34 @@ const App = () => (
           <ScrollToTop />
           <AnalyticsTracker />
           <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/за-нас" element={<AboutPage />} />
-            <Route path="/проекти" element={<ProjectsPage />} />
-            <Route path="/въпроси" element={<FAQPage />} />
-            <Route path="/контакти" element={<ContactPage />} />
-            <Route path="/отзиви" element={<ReviewsPage />} />
-            <Route path="/ремонт-на-покриви" element={<RoofRepairPage />} />
-            <Route path="/ремонт-течове" element={<RoofLeakRepairPage />} />
-            <Route path="/хидроизолация" element={<WaterproofingPage />} />
-            <Route path="/изграждане-на-покрив" element={<NewRoofPage />} />
-            <Route path="/смяна-керемиди" element={<TileReplacementPage />} />
-            <Route path="/плоски-покриви" element={<FlatRoofPage />} />
-            <Route path="/метални-покриви" element={<MetalRoofPage />} />
-            <Route path="/поддръжка-на-покриви" element={<MaintenancePage />} />
-            <Route path="/блог" element={<BlogPage />} />
-            <Route path="/блог/:slug" element={<BlogArticle />} />
-            <Route path="/калкулатор" element={<CalculatorPage />} />
+            {/* Root: detect language and redirect */}
+            <Route path="/" element={<LanguageRedirect />} />
 
-            {/* Admin routes */}
+            {/* Old Bulgarian URLs: redirect to /bg/... for backward compat */}
+            <Route path="/services" element={<Navigate to="/bg/services" replace />} />
+            <Route path="/за-нас" element={<Navigate to="/bg/за-нас" replace />} />
+            <Route path="/проекти" element={<Navigate to="/bg/проекти" replace />} />
+            <Route path="/въпроси" element={<Navigate to="/bg/въпроси" replace />} />
+            <Route path="/контакти" element={<Navigate to="/bg/контакти" replace />} />
+            <Route path="/отзиви" element={<Navigate to="/bg/отзиви" replace />} />
+            <Route path="/ремонт-на-покриви" element={<Navigate to="/bg/ремонт-на-покриви" replace />} />
+            <Route path="/ремонт-течове" element={<Navigate to="/bg/ремонт-течове" replace />} />
+            <Route path="/хидроизолация" element={<Navigate to="/bg/хидроизолация" replace />} />
+            <Route path="/изграждане-на-покрив" element={<Navigate to="/bg/изграждане-на-покрив" replace />} />
+            <Route path="/смяна-керемиди" element={<Navigate to="/bg/смяна-керемиди" replace />} />
+            <Route path="/плоски-покриви" element={<Navigate to="/bg/плоски-покриви" replace />} />
+            <Route path="/метални-покриви" element={<Navigate to="/bg/метални-покриви" replace />} />
+            <Route path="/поддръжка-на-покриви" element={<Navigate to="/bg/поддръжка-на-покриви" replace />} />
+            <Route path="/блог" element={<Navigate to="/bg/блог" replace />} />
+            <Route path="/блог/:slug" element={<Navigate to="/bg/блог" replace />} />
+            <Route path="/калкулатор" element={<Navigate to="/bg/калкулатор" replace />} />
+
+            {/* Language-prefixed public routes */}
+            <Route path="/:lang/*" element={<LanguageLayout />}>
+              <Route path="*" element={<LocalizedPageRouter />} />
+            </Route>
+
+            {/* Admin routes (no language prefix) */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboardPage /></ProtectedRoute>}>
               <Route path="analytics" element={<AnalyticsPage />} />
