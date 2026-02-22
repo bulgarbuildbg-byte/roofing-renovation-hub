@@ -1,42 +1,39 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, CheckCircle, Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import MultiStepInquiryForm from "./MultiStepInquiryForm";
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="contact" className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4">
-            Свържете се с нас
+            {t('contact.title')}
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Готови сме да ви помогнем с всеки покривен проблем
+            {t('contact.subtitle')}
           </p>
           
-          {/* Rating badge */}
           <div className="inline-flex items-center gap-2 mt-4 bg-accent/10 px-4 py-2 rounded-full">
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-accent text-accent" />
               ))}
             </div>
-            <span className="text-sm font-medium text-foreground">4.9/5 от 127 отзива</span>
+            <span className="text-sm font-medium text-foreground">{t('contact.ratingText')}</span>
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-          {/* Contact Info - Mobile optimized */}
           <div className="space-y-4 md:space-y-6 order-2 md:order-1">
-            {/* Response guarantee */}
             <div className="bg-accent/10 border border-accent/20 rounded-xl p-4 flex items-center gap-3">
               <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
-              <p className="text-foreground font-medium">
-                Отговаряме в рамките на 24 часа
-              </p>
+              <p className="text-foreground font-medium">{t('contact.responseGuarantee')}</p>
             </div>
 
-            {/* Phone - Prominent */}
             <Card className="border-border bg-card hover:shadow-lg transition-shadow">
               <CardContent className="p-4 md:p-6">
                 <a href="tel:0884997659" className="flex items-center gap-4">
@@ -44,7 +41,7 @@ const Contact = () => {
                     <Phone className="w-7 h-7 text-accent" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Телефон</p>
+                    <p className="text-sm text-muted-foreground">{t('contact.phone')}</p>
                     <p className="text-xl md:text-2xl font-bold text-accent">088 499 7659</p>
                   </div>
                 </a>
@@ -57,7 +54,7 @@ const Contact = () => {
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-card-foreground mb-1">Email</h3>
+                  <h3 className="font-bold text-card-foreground mb-1">{t('contact.email')}</h3>
                   <a href="mailto:remontnapokrivivarna@abv.bg" className="text-muted-foreground hover:text-primary transition-colors text-sm md:text-base break-all">
                     remontnapokrivivarna@abv.bg
                   </a>
@@ -71,13 +68,9 @@ const Contact = () => {
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-card-foreground mb-1">Адрес</h3>
-                  <p className="text-muted-foreground text-sm md:text-base">
-                    ул. Уста Колю Фичето 25 А, Варна
-                  </p>
-                  <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                    Обслужваме Варна и региона в радиус от 50 км
-                  </p>
+                  <h3 className="font-bold text-card-foreground mb-1">{t('contact.address')}</h3>
+                  <p className="text-muted-foreground text-sm md:text-base">{t('contact.addressText')}</p>
+                  <p className="text-xs md:text-sm text-muted-foreground mt-1">{t('contact.serviceArea')}</p>
                 </div>
               </CardContent>
             </Card>
@@ -88,19 +81,14 @@ const Contact = () => {
                   <Clock className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-card-foreground mb-1">Работно Време</h3>
-                  <p className="text-muted-foreground text-sm md:text-base">
-                    Понеделник - Събота: 08:00 - 18:00
-                  </p>
-                  <p className="text-sm text-accent font-medium mt-1">
-                    🚨 Аварийни случаи: 24/7
-                  </p>
+                  <h3 className="font-bold text-card-foreground mb-1">{t('contact.workHours')}</h3>
+                  <p className="text-muted-foreground text-sm md:text-base">{t('contact.workHoursText')}</p>
+                  <p className="text-sm text-accent font-medium mt-1">{t('contact.emergency')}</p>
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Quick Contact Form */}
           <div className="order-1 md:order-2">
             <MultiStepInquiryForm />
           </div>
