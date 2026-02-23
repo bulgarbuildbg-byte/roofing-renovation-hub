@@ -40,7 +40,7 @@ const LanguageSwitcher = () => {
         <Globe className="w-4 h-4" />
         <span className="text-sm">{LANGUAGE_FLAGS[currentLang]} {currentLang.toUpperCase()}</span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" sideOffset={8} className="w-48 z-[70]">
+      <DropdownMenuContent align="end" sideOffset={8} className="w-48 z-[130]">
         {SUPPORTED_LANGUAGES.map((l) => (
           <DropdownMenuItem
             key={l}
