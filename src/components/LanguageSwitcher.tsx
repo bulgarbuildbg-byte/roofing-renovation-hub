@@ -36,20 +36,26 @@ const LanguageSwitcher = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-1.5 text-foreground hover:text-primary transition-colors font-medium px-2 py-1 rounded-md hover:bg-muted">
+      <DropdownMenuTrigger className="flex items-center gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-all font-semibold px-3 py-2 rounded-full shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 min-h-0 min-w-0 h-auto">
         <Globe className="w-4 h-4" />
-        <span className="text-sm">{LANGUAGE_FLAGS[currentLang]} {currentLang.toUpperCase()}</span>
+        <span className="text-sm tracking-wide">{LANGUAGE_FLAGS[currentLang]} {currentLang.toUpperCase()}</span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" sideOffset={8} className="w-48 z-[130]">
+      <DropdownMenuContent align="end" sideOffset={8} className="w-52 z-[130] rounded-xl shadow-xl border border-border/50 backdrop-blur-sm p-1.5">
         {SUPPORTED_LANGUAGES.map((l) => (
           <DropdownMenuItem
             key={l}
             onClick={() => switchLanguage(l)}
-            className={`cursor-pointer ${l === currentLang ? 'bg-muted font-bold' : ''}`}
+            className={`cursor-pointer rounded-lg px-3 py-2.5 transition-all ${
+              l === currentLang
+                ? 'bg-primary text-primary-foreground font-bold shadow-sm'
+                : 'hover:bg-muted'
+            }`}
           >
-            <span className="mr-2">{LANGUAGE_FLAGS[l]}</span>
-            {LANGUAGE_NAMES[l]}
-            <span className="ml-auto text-xs text-muted-foreground">{l.toUpperCase()}</span>
+            <span className="mr-2.5 text-base">{LANGUAGE_FLAGS[l]}</span>
+            <span className="flex-1">{LANGUAGE_NAMES[l]}</span>
+            <span className={`text-xs font-mono ${l === currentLang ? 'text-primary-foreground/70' : 'text-muted-foreground'}`}>
+              {l.toUpperCase()}
+            </span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
