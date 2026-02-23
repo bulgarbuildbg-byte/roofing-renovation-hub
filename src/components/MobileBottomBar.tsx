@@ -2,6 +2,7 @@ import { Phone, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const MobileBottomBar = () => {
   const { t } = useTranslation();
@@ -14,8 +15,11 @@ const MobileBottomBar = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-md border-t border-border safe-area-bottom">
-      <div className="flex gap-2 p-3">
+    <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-background/95 backdrop-blur-md border-t border-border safe-area-bottom">
+      <div className="flex gap-2 p-3 items-stretch">
+        <div className="flex items-center">
+          <LanguageSwitcher />
+        </div>
         <Button asChild className="flex-1 h-14 bg-accent hover:bg-accent/90 text-accent-foreground text-base font-bold shadow-lg">
           <a href="tel:0884997659" onClick={() => trackEvent("button_click", "call_button")} className="flex items-center justify-center gap-2">
             <Phone className="w-5 h-5" />

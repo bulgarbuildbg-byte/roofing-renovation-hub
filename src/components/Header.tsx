@@ -34,7 +34,7 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <div 
         className="fixed inset-0 bg-black/30 z-[100]"
         onClick={onClose}
@@ -160,7 +160,7 @@ const Header = () => {
               />
             </Link>
             
-            <div className="flex items-center gap-2 md:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground h-10 px-3">
                 <a href="tel:0884997659" className="flex items-center gap-1">
                   <Phone className="w-4 h-4" />
@@ -178,7 +178,7 @@ const Header = () => {
               </button>
             </div>
 
-            <nav className="hidden md:flex items-center gap-5 lg:gap-6">
+            <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
                   {t('nav.services')}
