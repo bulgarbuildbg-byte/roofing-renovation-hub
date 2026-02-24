@@ -103,6 +103,10 @@ const en = {
     subtitle: "See the transformations we achieve with our repairs. Slide to compare.",
     before: "Before", after: "After",
   },
+  brands: {
+    title: "We Work With Proven German & European Roofing Brands",
+    subtitle: "We use only certified, high-quality materials from leading German and European manufacturers to guarantee long-lasting and reliable roof systems.",
+  },
   meta: {
     homeTitle: "Roof Repair Varna Bulgaria - Free Inspection 24h",
     homeDesc: "Professional roof repair in Varna, Bulgaria. 15+ years experience, up to 10yr warranty, free inspection. Call: 088 499 7659",
