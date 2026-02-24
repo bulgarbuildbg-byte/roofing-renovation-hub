@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import TrustIndicators from "@/components/TrustIndicators";
+import BrandCarousel from "@/components/BrandCarousel";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import MobileBottomBar from "@/components/MobileBottomBar";
 import ChatBot from "@/components/ChatBot";
@@ -62,6 +63,7 @@ const Index = () => {
       <Header />
       <Hero />
       <TrustIndicators />
+      <BrandCarousel />
       <Services />
       <PriceCalculator />
       <CTASection 
