@@ -1,29 +1,51 @@
 import { useTranslation } from "react-i18next";
+import bramacLogo from "@/assets/brands/bramac.svg";
+import tondachLogo from "@/assets/brands/tondach.svg";
+import creatonLogo from "@/assets/brands/creaton.svg";
+import bmiLogo from "@/assets/brands/bmi.svg";
+import bauderLogo from "@/assets/brands/bauder.svg";
+import sikaLogo from "@/assets/brands/sika.svg";
+import icopalLogo from "@/assets/brands/icopal.svg";
+import vedagLogo from "@/assets/brands/vedag.svg";
+import dorkenLogo from "@/assets/brands/dorken.svg";
+import ondulineLogo from "@/assets/brands/onduline.svg";
+import braasLogo from "@/assets/brands/braas.svg";
+import fakroLogo from "@/assets/brands/fakro.svg";
 
 const brands = [
-  { name: "Bramac", category: "Roof Tiles" },
-  { name: "Tondach", category: "Roof Tiles" },
-  { name: "Creaton", category: "Roof Tiles" },
-  { name: "BMI Group", category: "Roofing Systems" },
-  { name: "Bauder", category: "Waterproofing" },
-  { name: "Sika", category: "Construction Chemicals" },
-  { name: "Icopal", category: "Waterproofing" },
-  { name: "Vedag", category: "Waterproofing" },
-  { name: "Dörken Delta", category: "Membranes" },
-  { name: "Onduline", category: "Roofing" },
-  { name: "Braas", category: "Roof Tiles" },
-  { name: "Fakro", category: "Roof Windows" },
+  { name: "Bramac", category: "Roof Tiles", logo: bramacLogo },
+  { name: "Tondach", category: "Roof Tiles", logo: tondachLogo },
+  { name: "Creaton", category: "Roof Tiles", logo: creatonLogo },
+  { name: "BMI Group", category: "Roofing Systems", logo: bmiLogo },
+  { name: "Bauder", category: "Waterproofing", logo: bauderLogo },
+  { name: "Sika", category: "Construction Chemicals", logo: sikaLogo },
+  { name: "Icopal", category: "Waterproofing", logo: icopalLogo },
+  { name: "Vedag", category: "Waterproofing", logo: vedagLogo },
+  { name: "Dörken Delta", category: "Membranes", logo: dorkenLogo },
+  { name: "Onduline", category: "Roofing", logo: ondulineLogo },
+  { name: "Braas", category: "Roof Tiles", logo: braasLogo },
+  { name: "Fakro", category: "Roof Windows", logo: fakroLogo },
 ];
 
-const BrandLogo = ({ name, category }: { name: string; category: string }) => (
+const BrandLogo = ({ name, category, logo }: { name: string; category: string; logo: string }) => (
   <div className="flex-shrink-0 group cursor-default px-6 md:px-10">
-    <div className="flex flex-col items-center gap-1.5 transition-transform duration-300 group-hover:scale-110">
-      <span className="text-lg md:text-xl font-bold tracking-tight text-foreground/70 group-hover:text-primary transition-colors duration-300 whitespace-nowrap">
-        {name}
-      </span>
-      <span className="text-[10px] md:text-xs uppercase tracking-[0.15em] text-muted-foreground/60 font-medium">
-        {category}
-      </span>
+    <div className="flex flex-col items-center gap-2 transition-transform duration-300 group-hover:scale-110">
+      <div className="h-12 md:h-16 w-28 md:w-36 flex items-center justify-center">
+        <img
+          src={logo}
+          alt={`${name} logo`}
+          className="max-h-full max-w-full object-contain transition-opacity duration-300 group-hover:opacity-100 opacity-75"
+          loading="lazy"
+        />
+      </div>
+      <div className="flex flex-col items-center gap-0.5">
+        <span className="text-sm md:text-base font-semibold tracking-tight text-foreground/80 group-hover:text-primary transition-colors duration-300 whitespace-nowrap">
+          {name}
+        </span>
+        <span className="text-[9px] md:text-[10px] uppercase tracking-[0.15em] text-muted-foreground/60 font-medium">
+          {category}
+        </span>
+      </div>
     </div>
   </div>
 );
@@ -49,9 +71,8 @@ const BrandCarousel = () => {
         <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
 
         <div className="flex animate-scroll-brands">
-          {/* Double the brands for seamless loop */}
           {[...brands, ...brands].map((brand, i) => (
-            <BrandLogo key={`${brand.name}-${i}`} name={brand.name} category={brand.category} />
+            <BrandLogo key={`${brand.name}-${i}`} name={brand.name} category={brand.category} logo={brand.logo} />
           ))}
         </div>
       </div>
