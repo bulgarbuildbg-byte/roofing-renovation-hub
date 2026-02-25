@@ -8,6 +8,9 @@ import SpringInspection from "./SpringInspection";
 import CommonMistakes from "./CommonMistakes";
 import ChoosingTiles from "./ChoosingTiles";
 import DynamicArticle from "./DynamicArticle";
+import WhenToReplaceRoof from "./WhenToReplaceRoof";
+import RoofRenovationStepByStep from "./RoofRenovationStepByStep";
+import GermanMaterialsQuality from "./GermanMaterialsQuality";
 
 const staticArticles: Record<string, React.ComponentType> = {
   "как-да-подготвим-покрива-за-зимата": WinterRoofPreparation,
@@ -16,6 +19,9 @@ const staticArticles: Record<string, React.ComponentType> = {
   "пролетна-инспекция-на-покрива": SpringInspection,
   "най-честите-грешки-при-покривни-ремонти": CommonMistakes,
   "избор-на-керемиди-за-нов-покрив": ChoosingTiles,
+  "кога-да-смените-покрива": WhenToReplaceRoof,
+  "пълна-реконструкция-на-покрива": RoofRenovationStepByStep,
+  "немски-покривни-материали-качество": GermanMaterialsQuality,
 };
 
 const BlogArticle = () => {
