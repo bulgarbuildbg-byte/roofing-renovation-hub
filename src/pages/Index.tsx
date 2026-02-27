@@ -65,7 +65,6 @@ const Index = () => {
       <TrustIndicators />
       <BrandCarousel />
       <Services />
-      <Testimonials />
       <PriceCalculator />
       <CTASection 
         title={t('cta.inspectionTitle')}
@@ -75,6 +74,7 @@ const Index = () => {
       <About />
       <Gallery />
       <BeforeAfterGallery />
+      <Testimonials />
       <CTASection 
         variant="accent"
         title={t('cta.offerTitle')}

@@ -16,9 +16,6 @@ import waterproofingTypes from "@/assets/blog/waterproofing-types.jpg";
 import springInspection from "@/assets/blog/spring-inspection.jpg";
 import commonMistakes from "@/assets/blog/common-mistakes.jpg";
 import choosingTiles from "@/assets/blog/choosing-tiles.jpg";
-import tileInstallImg from "@/assets/process/tile-laying-new.jpg";
-import roofFrameImg from "@/assets/process/roof-frame-construction-new.jpg";
-import bramacTileImg from "@/assets/process/clay-tiles-closeup-install.jpg";
 
 const blogPosts = [
   {
@@ -80,40 +77,10 @@ const blogPosts = [
     readTime: "11 мин",
     category: "Нов покрив",
     tags: ["керемиди", "материали", "нов покрив"]
-  },
-  {
-    id: "кога-да-смените-покрива",
-    title: "Кога трябва да смените покрива? 7 Предупредителни знака, които всеки собственик трябва да знае",
-    excerpt: "Разпознайте 7-те основни предупредителни признака, че покривът ви се нуждае от подмяна. Научете кога ремонтът вече не е достатъчен и е нужна пълна реконструкция.",
-    image: tileInstallImg,
-    date: "2025-02-01",
-    readTime: "8 мин",
-    category: "Ремонт",
-    tags: ["подмяна", "признаци", "реконструкция"]
-  },
-  {
-    id: "пълна-реконструкция-на-покрива",
-    title: "Как се прави пълна реконструкция на покрив — 8 стъпки от оглед до гаранция",
-    excerpt: "Пълно ръководство за процеса на реконструкция на покрив. Разгледайте всяка стъпка — от безплатния оглед до издаването на писмена гаранция с немски материали.",
-    image: roofFrameImg,
-    date: "2025-02-10",
-    readTime: "10 мин",
-    category: "Нов покрив",
-    tags: ["реконструкция", "процес", "нов покрив"]
-  },
-  {
-    id: "немски-покривни-материали-качество",
-    title: "Защо немските покривни материали издържат по-дълго — Ръководство за качество",
-    excerpt: "Сравнителен анализ на немски (Bramac, Tondach, Bauder) срещу стандартни покривни материали. Разберете защо немското качество е най-умната инвестиция за покрива ви.",
-    image: bramacTileImg,
-    date: "2025-02-20",
-    readTime: "9 мин",
-    category: "Материали",
-    tags: ["немски материали", "качество", "Bramac", "Bauder"]
   }
 ];
 
-const categories = ["Всички", "Сезонна поддръжка", "Ремонт", "Хидроизолация", "Нов покрив", "Материали"];
+const categories = ["Всички", "Сезонна поддръжка", "Ремонт", "Хидроизолация", "Нов покрив"];
 
 const BlogPage = () => {
   const [dynamicPosts, setDynamicPosts] = useState<any[]>([]);
