@@ -99,7 +99,6 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
   );
 };
 
-// Full-screen menu panel for desktop
 interface FullMenuPanelProps {
   isOpen: boolean;
   onClose: () => void;
@@ -109,7 +108,7 @@ interface FullMenuPanelProps {
   currentLang: string;
 }
 
-const FullMenuPanel = ({ isOpen, onClose, serviceLinks, t, getPath, currentLang }: FullMenuPanelProps) => {
+const FullMenuPanel = ({ isOpen, onClose, serviceLinks, t, getPath }: FullMenuPanelProps) => {
   if (!isOpen) return null;
 
   return createPortal(
@@ -209,6 +208,7 @@ const Header = () => {
       <header className={`fixed top-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-md border-b border-border transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3 md:py-4'}`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
+
             {/* Logo */}
             <Link to={getPath('home')} className="flex items-center flex-shrink-0">
               <img
@@ -218,14 +218,15 @@ const Header = () => {
               />
             </Link>
 
-            {/* Mobile right buttons */}
+            {/* Mobile: phone number as tap-to-call + hamburger */}
             <div className="flex items-center gap-2 lg:hidden">
-              <Button asChild size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground h-10 px-3">
-                <a href="tel:0884997659" className="flex items-center gap-1">
-                  <Phone className="w-4 h-4" />
-                  <span className="text-sm font-bold">{t('nav.callUs')}</span>
-                </a>
-              </Button>
+              <a
+                href="tel:0884997659"
+                className="flex items-center gap-1.5 bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 rounded-lg px-3 h-10 font-bold text-sm transition-colors"
+              >
+                <Phone className="w-4 h-4 flex-shrink-0" />
+                <span>088 499 7659</span>
+              </a>
               <button
                 className="text-foreground p-2 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md hover:bg-muted transition-colors relative z-[120]"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -237,11 +238,11 @@ const Header = () => {
               </button>
             </div>
 
-            {/* Desktop nav — simplified */}
+            {/* Desktop nav — simplified, all items vertically centered at same height */}
             <nav className="hidden lg:flex items-center gap-3 xl:gap-4">
               {/* Services dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium">
+                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium h-11">
                   {t('nav.services')}
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
@@ -257,21 +258,27 @@ const Header = () => {
               </DropdownMenu>
 
               {/* Contact link */}
-              <Link to={getPath('contact')} className="text-foreground hover:text-primary transition-colors font-medium">
+              <Link
+                to={getPath('contact')}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium h-11"
+              >
                 {t('nav.contact')}
               </Link>
 
-              <div className="w-px h-5 bg-border mx-1" />
+              <div className="w-px h-6 bg-border mx-1" />
 
-              {/* Phone */}
-              <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold" size="lg">
+              {/* Phone button */}
+              <Button
+                asChild
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold h-11 px-5"
+              >
                 <a href="tel:0884997659" className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  088 499 7659
+                  <Phone className="w-4 h-4 flex-shrink-0" />
+                  <span>088 499 7659</span>
                 </a>
               </Button>
 
-              {/* Free Inspection */}
+              {/* Free Inspection button */}
               <Button
                 onClick={() => {
                   const element = document.getElementById("contact");
@@ -281,8 +288,7 @@ const Header = () => {
                     window.location.href = `/${currentLang}#contact`;
                   }
                 }}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
-                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 px-5"
               >
                 {t('nav.freeInspection')}
               </Button>
@@ -290,9 +296,9 @@ const Header = () => {
               {/* Language switcher */}
               <LanguageSwitcher />
 
-              {/* Hamburger for all other pages */}
+              {/* Hamburger for full panel */}
               <button
-                className="p-2 rounded-md hover:bg-muted transition-colors text-foreground relative z-[120]"
+                className="p-2 h-11 w-11 rounded-md hover:bg-muted transition-colors text-foreground flex items-center justify-center relative z-[120]"
                 onClick={() => setIsFullMenuOpen(!isFullMenuOpen)}
                 aria-label="Open full menu"
                 type="button"
