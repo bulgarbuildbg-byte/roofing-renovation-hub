@@ -113,14 +113,25 @@ const Index = () => {
         <title>{t('meta.homeTitle')}</title>
         <meta name="description" content={t('meta.homeDesc')} />
         <meta name="keywords" content={t('meta.homeKeywords')} />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content={t('meta.homeTitle')} />
         <meta property="og:description" content={t('meta.homeDesc')} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/" />
-        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/" />
+        <meta property="og:url" content={`${BASE_URL}/bg`} />
+        <meta property="og:image" content={`${BASE_URL}/og-image.jpg`} />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t('meta.homeTitle')} />
+        <meta name="twitter:description" content={t('meta.homeDesc')} />
+        <meta name="twitter:image" content={`${BASE_URL}/og-image.jpg`} />
+        <link rel="canonical" href={`${BASE_URL}/bg`} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <Header />
