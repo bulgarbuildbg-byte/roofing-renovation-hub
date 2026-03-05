@@ -15,5 +15,10 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 Sitemap: https://www.remontnapokrivivarna.bg/sitemap.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-bg.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-en.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-de.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-ru.xml
