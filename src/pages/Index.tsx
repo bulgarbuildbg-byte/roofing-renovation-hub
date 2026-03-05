@@ -22,26 +22,89 @@ import PriceCalculator from "@/components/PriceCalculator";
 const Index = () => {
   const { t } = useTranslation();
 
+  const BASE_URL = "https://www.remontnapokrivivarna.bg";
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
     "name": "Ремонт на Покриви Варна",
-    "image": "https://www.remontnapokrivivarna.bg/og-image.jpg",
-    "logo": "https://www.remontnapokrivivarna.bg/favicon.png",
-    "description": "Професионален ремонт на покриви и хидроизолация във Варна.",
-    "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressRegion": "Варна", "postalCode": "9000", "addressCountry": "BG" },
+    "legalName": "България Билд ЕООД",
+    "image": `${BASE_URL}/og-image.jpg`,
+    "logo": { "@type": "ImageObject", "url": `${BASE_URL}/favicon.png` },
+    "description": "Професионален ремонт на покриви, хидроизолация и изграждане на нови покриви във Варна и региона. Над 15 години опит, писмена гаранция до 10 години.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ул. Уста Колю Фичето 25 А",
+      "addressLocality": "Варна",
+      "addressRegion": "Варна",
+      "postalCode": "9000",
+      "addressCountry": "BG"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 43.2141, "longitude": 27.9147 },
     "telephone": "+359884997659",
     "email": "remontnapokrivivarna@abv.bg",
-    "url": "https://www.remontnapokrivivarna.bg",
-    "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "18:00" }],
-    "areaServed": { "@type": "GeoCircle", "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 43.2141, "longitude": 27.9147 }, "geoRadius": "50000" },
+    "url": BASE_URL,
+    "sameAs": ["https://bulgarbuild.com/"],
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:00", "closes": "18:00" }
+    ],
+    "areaServed": [
+      { "@type": "City", "name": "Варна" },
+      { "@type": "City", "name": "Аксаково" },
+      { "@type": "City", "name": "Долен Чифлик" },
+      { "@type": "City", "name": "Провадия" }
+    ],
     "priceRange": "$$",
+    "currenciesAccepted": "BGN",
+    "paymentAccepted": "Cash, Bank Transfer",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "127" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Покривни Услуги",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ремонт на покриви Варна" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Хидроизолация Варна" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Изграждане на покриви Варна" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Метални покриви Варна" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Плоски покриви Варна" } }
+      ]
+    }
   };
 
   const websiteSchema = {
-    "@context": "https://schema.org", "@type": "WebSite",
-    "name": "Ремонт на Покриви Варна", "url": "https://www.remontnapokrivivarna.bg",
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ремонт на Покриви Варна",
+    "url": BASE_URL,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": { "@type": "EntryPoint", "urlTemplate": `${BASE_URL}/bg/блог?q={search_term_string}` },
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "България Билд ЕООД",
+    "alternateName": "Ремонт на Покриви Варна",
+    "url": BASE_URL,
+    "logo": `${BASE_URL}/favicon.png`,
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+359-88-499-7659",
+      "contactType": "customer service",
+      "areaServed": "BG",
+      "availableLanguage": ["Bulgarian", "Russian", "English"]
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": BASE_URL }
+    ]
   };
 
   return (
