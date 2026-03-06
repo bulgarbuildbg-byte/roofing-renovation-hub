@@ -270,6 +270,20 @@ const MetalRoofPage = () => {
       <Helmet>
         <title>Метални Покриви Варна - от 6 €/кв.м | 50г</title>
         <meta name="description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 088 499 7659" />
+        <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м | 50г Гаранция" />
+        <meta property="og:description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 088 499 7659" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/метални-покриви" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Метални Покриви Варна - от 6 €/кв.м | 50г Гаранция" />
+        <meta name="twitter:description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/метални-покриви" />
         <meta name="keywords" content="метални покриви варна, метални керемиди варна, ламаринен покрив, трапецовидна ламарина варна, монтаж метален покрив" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/метални-покриви" />
         <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м" />

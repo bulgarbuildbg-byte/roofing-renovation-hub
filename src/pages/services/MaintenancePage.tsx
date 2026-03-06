@@ -296,6 +296,20 @@ const MaintenancePage = () => {
       <Helmet>
         <title>Поддръжка Покриви Варна - от 30 € | Годишни</title>
         <meta name="description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка. ☎ 088 499 7659" />
+        <meta property="og:title" content="Поддръжка на Покриви Варна - от 30 € | Годишни Договори" />
+        <meta property="og:description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка. ☎ 088 499 7659" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/поддръжка-на-покриви" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Поддръжка на Покриви Варна - от 30 € | Годишни Договори" />
+        <meta name="twitter:description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/поддръжка-на-покриви" />
         <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/поддръжка-на-покриви" />
         <meta property="og:title" content="Поддръжка Покриви Варна - от 30 €" />

@@ -55,7 +55,21 @@ const WinterRoofPreparation = () => {
         <title>Как да подготвим покрива за зимата | Пълно ръководство | Варна</title>
         <meta name="description" content="Научете как да подготвите покрива си за студените месеци. Експертни съвети за инспекция, почистване на улуци, проверка за течове и превантивни мерки." />
         <meta name="keywords" content="подготовка покрив зима, зимна поддръжка покрив, почистване улуци, предотвратяване течове, Варна" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог/как-да-подготвим-покрива-за-зимата" />
+        <meta property="og:title" content="Как да подготвим покрива за зимата: Пълно ръководство | Варна" />
+        <meta property="og:description" content="Научете как да подготвите покрива си за студените месеци с нашите експертни съвети. От инспекция до превантивни мерки." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/как-да-подготвим-покрива-за-зимата" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta property="article:published_time" content="2024-12-01" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Как да подготвим покрива за зимата: Пълно ръководство" />
+        <meta name="twitter:description" content="Научете как да подготвите покрива си за студените месеци с нашите експертни съвети." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/как-да-подготвим-покрива-за-зимата" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>

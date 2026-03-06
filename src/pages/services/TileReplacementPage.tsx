@@ -270,6 +270,20 @@ const TileReplacementPage = () => {
       <Helmet>
         <title>Смяна Керемиди Варна - от 8лв/бр | 5г Гаранция</title>
         <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция. ☎ 088 499 7659" />
+        <meta property="og:title" content="Смяна на Керемиди Варна - от 8лв/бр | 5г Гаранция" />
+        <meta property="og:description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция. ☎ 088 499 7659" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/смяна-керемиди" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Смяна на Керемиди Варна - от 8лв/бр | 5г Гаранция" />
+        <meta name="twitter:description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/смяна-керемиди" />
         <meta name="keywords" content="смяна керемиди варна, подмяна керемиди варна, керемиди цена варна, ремонт керемиден покрив, счупени керемиди" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/смяна-керемиди" />
         <meta property="og:title" content="Смяна Керемиди Варна - от 8лв/бр" />

@@ -126,6 +126,20 @@ const NewRoofPage = () => {
       <Helmet>
         <title>Изграждане на Покриви Варна | Професионален Монтаж & Ремонт</title>
         <meta name="description" content="Професионално изграждане на покриви във Варна и региона. Дървени конструкции, нови покриви, хидроизолация. Над 15г опит. Безплатен оглед: 088 499 7659" />
+        <meta property="og:title" content="Изграждане на Нов Покрив Варна | Професионален Монтаж" />
+        <meta property="og:description" content="Професионално изграждане на покриви. Дървени конструкции, всички материали, хидроизолация. Над 15г опит. Безплатен оглед: 088 499 7659" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/изграждане-на-покрив" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Изграждане на Нов Покрив Варна | Професионален Монтаж" />
+        <meta name="twitter:description" content="Професионално изграждане на покриви. Дървени конструкции, всички материали, хидроизолация. Над 15г опит." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/изграждане-на-покрив" />
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>

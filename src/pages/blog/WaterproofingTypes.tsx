@@ -31,7 +31,21 @@ const WaterproofingTypes = () => {
         <title>Видове хидроизолация - Битумна, PVC, Течна | Ръководство | Варна</title>
         <meta name="description" content="Пълен наръчник за хидроизолационни материали. Научете коя хидроизолация е най-подходяща - битумна, PVC мембрана или течна хидроизолация." />
         <meta name="keywords" content="видове хидроизолация, битумна хидроизолация, PVC мембрана, течна хидроизолация, Варна" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог/видове-хидроизолация-и-кога-да-изберем-всяка" />
+        <meta property="og:title" content="Видове хидроизолация: Битумна, PVC и Течна | Пълен Наръчник" />
+        <meta property="og:description" content="Пълен наръчник за хидроизолационни материали. Научете коя хидроизолация е най-подходяща за вашия покрив." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/видове-хидроизолация-и-кога-да-изберем-всяка" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta property="article:published_time" content="2024-11-01" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Видове хидроизолация: Битумна, PVC и Течна | Наръчник" />
+        <meta name="twitter:description" content="Научете коя хидроизолация е най-подходяща - битумна, PVC мембрана или течна хидроизолация." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/видове-хидроизолация-и-кога-да-изберем-всяка" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </Helmet>
 

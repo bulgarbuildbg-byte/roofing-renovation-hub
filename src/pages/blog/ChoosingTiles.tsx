@@ -17,6 +17,20 @@ const ChoosingTiles = () => {
       <Helmet>
         <title>Как да изберем керемиди за нов покрив | Ръководство | Варна</title>
         <meta name="description" content="Керамични, бетонни или метални керемиди? Разгледайте предимствата и недостатъците на всеки тип и направете правилния избор за вашия дом." />
+        <meta property="og:title" content="Как да изберем керемиди за нов покрив | Пълен Наръчник" />
+        <meta property="og:description" content="Керамични, бетонни или метални керемиди? Разгледайте предимствата и недостатъците и направете правилния избор." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/избор-на-керемиди-за-нов-покрив" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Как да изберем керемиди за нов покрив" />
+        <meta name="twitter:description" content="Керамични, бетонни или метални керемиди? Намерете правилния избор за вашия дом." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/избор-на-керемиди-за-нов-покрив" />
       </Helmet>
 
       <Header />

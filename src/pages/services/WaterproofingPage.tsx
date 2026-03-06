@@ -264,6 +264,20 @@ const WaterproofingPage = () => {
       <Helmet>
         <title>Хидроизолация Покрив Варна - от 28лв | 10г</title>
         <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
+        <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв/кв.м | 10г Гаранция" />
+        <meta property="og:description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/хидроизолация" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Хидроизолация Покрив Варна - от 28лв/кв.м | 10г Гаранция" />
+        <meta name="twitter:description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/хидроизолация" />
         <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/хидроизолация" />
         <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв" />
