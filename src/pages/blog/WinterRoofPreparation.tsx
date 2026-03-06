@@ -52,6 +52,9 @@ const WinterRoofPreparation = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
+        <title>Как да подготвим покрива за зимата | Пълно ръководство | Варна</title>
+        <meta name="description" content="Научете как да подготвите покрива си за студените месеци. Експертни съвети за инспекция, почистване на улуци, проверка за течове и превантивни мерки." />
+        <meta name="keywords" content="подготовка покрив зима, зимна поддръжка покрив, почистване улуци, предотвратяване течове, Варна" />
         <meta property="og:title" content="Как да подготвим покрива за зимата: Пълно ръководство | Варна" />
         <meta property="og:description" content="Научете как да подготвите покрива си за студените месеци с нашите експертни съвети. От инспекция до превантивни мерки." />
         <meta property="og:type" content="article" />
@@ -67,10 +70,6 @@ const WinterRoofPreparation = () => {
         <meta name="twitter:description" content="Научете как да подготвите покрива си за студените месеци с нашите експертни съвети." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/как-да-подготвим-покрива-за-зимата" />
-        <title>Как да подготвим покрива за зимата | Пълно ръководство | Варна</title>
-        <meta name="description" content="Научете как да подготвите покрива си за студените месеци. Експертни съвети за инспекция, почистване на улуци, проверка за течове и превантивни мерки." />
-        <meta name="keywords" content="подготовка покрив зима, зимна поддръжка покрив, почистване улуци, предотвратяване течове, Варна" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог/как-да-подготвим-покрива-за-зимата" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>

@@ -15,6 +15,20 @@ const SpringInspection = () => {
       <Helmet>
         <title>Пролетна инспекция на покрива | Какво да проверите след зимата | Варна</title>
         <meta name="description" content="След тежката зима покривът ви може да е претърпял щети. Ето какво трябва да проверите и как да предотвратите скъпи ремонти." />
+        <meta property="og:title" content="Пролетна инспекция на покрива | Какво да проверите след зимата" />
+        <meta property="og:description" content="След тежката зима покривът ви може да е претърпял щети. Ето какво трябва да проверите и как да предотвратите скъпи ремонти." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/пролетна-инспекция-на-покрива" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Пролетна инспекция на покрива | Варна" />
+        <meta name="twitter:description" content="Ето какво трябва да проверите след зимата и как да предотвратите скъпи ремонти." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/пролетна-инспекция-на-покрива" />
       </Helmet>
 
       <Header />

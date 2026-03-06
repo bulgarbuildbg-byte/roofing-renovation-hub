@@ -16,6 +16,20 @@ const CommonMistakes = () => {
       <Helmet>
         <title>Най-честите грешки при покривни ремонти | Как да ги избегнете | Варна</title>
         <meta name="description" content="Избягвайте скъпите грешки при ремонт на покрив. Научете какви са най-честите проблеми и как професионалистите ги решават правилно." />
+        <meta property="og:title" content="Най-честите грешки при покривни ремонти | Как да ги избегнете" />
+        <meta property="og:description" content="Избягвайте скъпите грешки при ремонт на покрив. Научете как професионалистите решават проблемите правилно." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/най-честите-грешки-при-покривни-ремонти" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Най-честите грешки при покривни ремонти" />
+        <meta name="twitter:description" content="Избягвайте скъпите грешки при ремонт на покрив. Как професионалистите решават проблемите правилно." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/най-честите-грешки-при-покривни-ремонти" />
       </Helmet>
 
       <Header />

@@ -59,10 +59,21 @@ const DynamicArticle = () => {
       <Helmet>
         <title>{article.title} | Ремонт на Покриви Варна</title>
         <meta name="description" content={article.excerpt || article.title} />
-        <link rel="canonical" href={`https://www.remontnapokrivivarna.bg/блог/${article.slug}`} />
         <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={article.excerpt || ""} />
-        {article.cover_image_url && <meta property="og:image" content={article.cover_image_url} />}
+        <meta property="og:description" content={article.excerpt || article.title} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://www.remontnapokrivivarna.bg/bg/блог/${article.slug}`} />
+        <meta property="og:image" content={article.cover_image_url || "https://www.remontnapokrivivarna.bg/og-image.jpg"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        {article.published_at && <meta property="article:published_time" content={article.published_at} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={article.title} />
+        <meta name="twitter:description" content={article.excerpt || article.title} />
+        <meta name="twitter:image" content={article.cover_image_url || "https://www.remontnapokrivivarna.bg/og-image.jpg"} />
+        <link rel="canonical" href={`https://www.remontnapokrivivarna.bg/bg/блог/${article.slug}`} />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </Helmet>
 
