@@ -272,6 +272,20 @@ const RoofLeakRepairPage = () => {
       <Helmet>
         <title>Ремонт Течове Покрив Варна - 24/7 | от 40 €</title>
         <meta name="description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция. ☎ 088 499 7659" />
+        <meta property="og:title" content="Спешен Ремонт Течове Покрив Варна - 24/7 | от 40 €" />
+        <meta property="og:description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция. ☎ 088 499 7659" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/ремонт-течове" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Спешен Ремонт Течове Покрив Варна - 24/7 | от 40 €" />
+        <meta name="twitter:description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/ремонт-течове" />
         <meta name="keywords" content="ремонт теч покрив варна, теч покрив спешен ремонт, течове покрив варна, ремонт течове комин, аварийни ремонти покрив" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/ремонт-течове" />
         <meta property="og:title" content="Ремонт Течове Покрив Варна - 24/7 | от 40 €" />

@@ -242,6 +242,20 @@ const RoofRepairPage = () => {
       <Helmet>
         <title>Ремонт на Покриви Варна - от 13 €/кв.м | 5г</title>
         <meta name="description" content="Професионален ремонт на покриви. Отстраняване на течове, подмяна на керемиди, 5г гаранция. Безплатен оглед 24ч. ☎ 088 499 7659" />
+        <meta property="og:title" content="Ремонт на Покриви Варна - от 13 €/кв.м | 5г Гаранция" />
+        <meta property="og:description" content="Професионален ремонт на покриви. Отстраняване на течове, подмяна на керемиди, 5г гаранция. Безплатен оглед 24ч. ☎ 088 499 7659" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/ремонт-на-покриви" />
+        <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:site_name" content="Ремонт на Покриви Варна" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Ремонт на Покриви Варна - от 13 €/кв.м | 5г Гаранция" />
+        <meta name="twitter:description" content="Професионален ремонт на покриви. Отстраняване на течове, подмяна на керемиди, 5г гаранция. Безплатен оглед 24ч." />
+        <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
+        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/ремонт-на-покриви" />
         <meta name="keywords" content="ремонт на покриви варна, ремонт покрив цена варна, течове покрив варна, подмяна керемиди варна, аварийни ремонти покриви" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/ремонт-на-покриви" />
         <meta property="og:title" content="Ремонт на Покриви Варна - от 13 €/кв.м" />
