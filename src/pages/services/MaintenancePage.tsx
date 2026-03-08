@@ -623,17 +623,22 @@ const MaintenancePage = () => {
               <p className="text-muted-foreground text-center mb-12">
                 Отговори на най-честите въпроси за поддръжка на покриви
               </p>
-              <div className="space-y-6">
+              <Accordion type="single" collapsible className="space-y-3">
                 {faqs.map((faq, index) => (
-                  <div key={index} className="bg-card rounded-lg p-6 border border-border">
-                    <h3 className="text-lg font-semibold text-card-foreground mb-3 flex items-start gap-2">
-                      <Search className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <AccordionItem
+                    key={index}
+                    value={`faq-${index}`}
+                    className="bg-card border border-border rounded-xl px-6"
+                  >
+                    <AccordionTrigger className="text-left text-base font-semibold text-card-foreground hover:text-primary hover:no-underline py-5">
                       {faq.question}
-                    </h3>
-                    <p className="text-muted-foreground pl-7">{faq.answer}</p>
-                  </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5 text-sm leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
+              </Accordion>
             </div>
           </div>
         </section>
