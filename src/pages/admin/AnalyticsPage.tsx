@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download, ArrowUpDown, TrendingUp, TrendingDown, Minus } from "lucide-react";
-import { format, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfDay, endOfWeek, endOfMonth, endOfYear, subWeeks, subMonths, isWithinInterval, eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval, parseISO } from "date-fns";
+import { Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download, ArrowUpDown, TrendingUp, TrendingDown, Minus, Globe } from "lucide-react";
+import { format, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfDay, endOfWeek, endOfMonth, endOfYear } from "date-fns";
 import { bg } from "date-fns/locale";
-import { cn } from "@/lib/utils";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import type { DateRange } from "react-day-picker";
 
 type PresetKey = "today" | "this_week" | "this_month" | "this_year" | "custom";
@@ -19,6 +18,15 @@ const presets: { key: PresetKey; label: string; getRange: () => { from: Date; to
   { key: "this_month", label: "Този месец", getRange: () => ({ from: startOfMonth(new Date()), to: endOfMonth(new Date()) }) },
   { key: "this_year", label: "Тази година", getRange: () => ({ from: startOfYear(new Date()), to: endOfYear(new Date()) }) },
 ];
+
+const SOURCE_CONFIG: Record<string, { label: string; color: string }> = {
+  organic:  { label: "Органично търсене", color: "hsl(var(--primary))" },
+  direct:   { label: "Директен достъп",   color: "hsl(var(--muted-foreground))" },
+  referral: { label: "Препращане",         color: "#f59e0b" },
+  social:   { label: "Социални мрежи",     color: "#8b5cf6" },
+  email:    { label: "Имейл",              color: "#06b6d4" },
+  unknown:  { label: "Непознат",           color: "hsl(var(--border))" },
+};
 
 const AnalyticsPage = () => {
   const [activePreset, setActivePreset] = useState<PresetKey>("this_month");
@@ -51,8 +59,8 @@ const AnalyticsPage = () => {
     const earliest = compRange ? compRange.from : from!;
     const latest = to || from!;
     const { data } = await supabase
-      .from("analytics_events")
-      .select("event_type, event_name, session_id, duration_seconds, created_at, page_path")
+      .from("analytics_events" as any)
+      .select("event_type, event_name, session_id, duration_seconds, created_at, page_path, referrer_source, referrer")
       .gte("created_at", earliest.toISOString())
       .lte("created_at", endOfDay(latest).toISOString());
     setEvents(data || []);
@@ -84,7 +92,12 @@ const AnalyticsPage = () => {
   // Daily chart data
   const chartData = useMemo(() => {
     if (!from || !to) return [];
-    const days = eachDayOfInterval({ start: from, end: to });
+    const days: Date[] = [];
+    const d = new Date(from);
+    while (d <= to) {
+      days.push(new Date(d));
+      d.setDate(d.getDate() + 1);
+    }
     return days.map(day => {
       const dayStart = startOfDay(day);
       const dayEnd = endOfDay(day);
@@ -108,6 +121,34 @@ const AnalyticsPage = () => {
     return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([path, views]) => ({ path, views }));
   }, [currentEvents]);
 
+  // Traffic sources — first-touch attribution per session
+  const trafficSources = useMemo(() => {
+    const pageViews = currentEvents.filter(e => e.event_type === "page_view");
+    // Build first-touch source per session (earliest event wins)
+    const sessionSource: Record<string, string> = {};
+    const sorted = [...pageViews].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+    for (const e of sorted) {
+      if (!sessionSource[e.session_id]) {
+        sessionSource[e.session_id] = e.referrer_source || "unknown";
+      }
+    }
+    // Count sessions per source
+    const counts: Record<string, number> = {};
+    for (const src of Object.values(sessionSource)) {
+      counts[src] = (counts[src] || 0) + 1;
+    }
+    const total = Object.values(counts).reduce((s, v) => s + v, 0);
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([source, sessions]) => ({
+        source,
+        sessions,
+        pct: total > 0 ? Math.round((sessions / total) * 100) : 0,
+        label: SOURCE_CONFIG[source]?.label ?? source,
+        color: SOURCE_CONFIG[source]?.color ?? "hsl(var(--border))",
+      }));
+  }, [currentEvents]);
+
   const handlePreset = (key: PresetKey) => {
     const p = presets.find(p => p.key === key)!;
     const r = p.getRange();
@@ -116,12 +157,13 @@ const AnalyticsPage = () => {
   };
 
   const exportCSV = () => {
-    const headers = ["Дата", "Тип", "Име", "Страница", "Сесия", "Продължителност (сек)"];
+    const headers = ["Дата", "Тип", "Име", "Страница", "Сесия", "Продължителност (сек)", "Източник", "Препращач"];
     const rows = currentEvents.map(e => [
       format(new Date(e.created_at), "yyyy-MM-dd HH:mm:ss"),
-      e.event_type, e.event_name, e.page_path || "", e.session_id, e.duration_seconds || ""
+      e.event_type, e.event_name, e.page_path || "", e.session_id, e.duration_seconds || "",
+      e.referrer_source || "", e.referrer || ""
     ]);
-    const csv = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const csv = [headers.join(","), ...rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(","))].join("\n");
     const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -266,7 +308,7 @@ const AnalyticsPage = () => {
             </Card>
           </div>
 
-          {/* Chart */}
+          {/* Daily activity chart */}
           <Card>
             <CardHeader>
               <CardTitle className="text-sm">Дневна активност</CardTitle>
@@ -279,7 +321,6 @@ const AnalyticsPage = () => {
                     <XAxis dataKey="date" className="text-xs" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
                     <YAxis className="text-xs" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
                     <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
-                    <Legend />
                     <Bar dataKey="visitors" name="Посетители" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="leads" name="Оферти" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="calls" name="Обаждания" fill="#22c55e" radius={[4, 4, 0, 0]} />
@@ -288,6 +329,65 @@ const AnalyticsPage = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Traffic Sources */}
+          {trafficSources.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Globe className="h-4 w-4 text-primary" />
+                  Трафик по източници
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[220px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={trafficSources}
+                      layout="vertical"
+                      margin={{ top: 0, right: 40, left: 0, bottom: 0 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" horizontal={false} className="stroke-border" />
+                      <XAxis
+                        type="number"
+                        tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
+                        allowDecimals={false}
+                      />
+                      <YAxis
+                        type="category"
+                        dataKey="label"
+                        width={130}
+                        tick={{ fill: 'hsl(var(--foreground))', fontSize: 12 }}
+                      />
+                      <Tooltip
+                        contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }}
+                        formatter={(value: number, _name: string, entry: any) => [
+                          `${value} сесии (${entry.payload.pct}%)`,
+                          entry.payload.label,
+                        ]}
+                      />
+                      <Bar dataKey="sessions" radius={[0, 4, 4, 0]} maxBarSize={28}>
+                        {trafficSources.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                {/* Legend row */}
+                <div className="flex flex-wrap gap-x-5 gap-y-2 mt-3 pt-3 border-t border-border">
+                  {trafficSources.map(s => (
+                    <div key={s.source} className="flex items-center gap-1.5 text-xs">
+                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
+                      <span className="text-muted-foreground">{s.label}</span>
+                      <span className="font-semibold text-foreground">{s.sessions}</span>
+                      <span className="text-muted-foreground">({s.pct}%)</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Top Pages */}
           <Card>
