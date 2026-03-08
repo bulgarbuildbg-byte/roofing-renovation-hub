@@ -1,17 +1,24 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { trackEvent, getSessionId } from "@/lib/analytics";
-import { supabase } from "@/integrations/supabase/client";
+import { trackEvent, getSessionId, classifyReferrer } from "@/lib/analytics";
 
 const AnalyticsTracker = () => {
   const location = useLocation();
   const startTime = useRef(Date.now());
 
-  // Track page views on route change
+  // Track page views on route change, including referrer classification
   useEffect(() => {
     // Don't track admin pages
     if (location.pathname.startsWith("/admin")) return;
-    trackEvent("page_view", "visit", { page_path: location.pathname });
+
+    const referrer = document.referrer || "";
+    const source = classifyReferrer(referrer);
+
+    trackEvent("page_view", "visit", {
+      page_path: location.pathname,
+      referrer_source: source,
+      referrer: referrer || null,
+    });
   }, [location.pathname]);
 
   // Track session duration on unload
