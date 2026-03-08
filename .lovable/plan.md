@@ -1,78 +1,43 @@
 
-## Plan: Traffic Source Breakdown in Analytics Dashboard
+## Fix Tablet Layout and Add Language Switcher to Bottom Bar
 
-### Overview
-3 parts: (1) add a `referrer_source` column to the database, (2) capture & classify `document.referrer` on every page_view event, (3) display a "Трафик по източници" card in the Analytics dashboard.
+### Problems Identified
+1. **Tablet (768-1024px)**: The desktop nav is displayed but overflows -- nav links wrap awkwardly, CTA buttons and language switcher get cut off on the right side.
+2. **No language switcher on mobile/tablet bottom bar**: Users on phones and tablets cannot easily switch language without opening the hamburger menu.
 
----
+### Changes
 
-### Part 1 — Database Migration
-Add a `referrer_source` text column (nullable) to `analytics_events`. Also add a `referrer` text column to store the raw referrer URL for debugging. No existing data is broken — both columns default to NULL.
+#### 1. Extend the mobile breakpoint to include tablets (`src/components/Header.tsx`)
+- Change the desktop nav from `md:flex` (768px) to `lg:flex` (1024px)
+- Change mobile controls from `md:hidden` to `lg:hidden`
+- Change mobile menu from `md:hidden` to `lg:hidden`
+- This means phones AND tablets will get the mobile-style layout (hamburger menu + bottom bar)
 
-```sql
-ALTER TABLE public.analytics_events
-  ADD COLUMN IF NOT EXISTS referrer_source text,
-  ADD COLUMN IF NOT EXISTS referrer        text;
+#### 2. Update `src/components/MobileBottomBar.tsx`
+- Change visibility from `md:hidden` to `lg:hidden` so it shows on tablets too
+- Add a compact language switcher button alongside the Call and Free Inspection buttons
+- The language button will be a small globe icon that opens the language dropdown
+- Layout: three buttons in a row -- Language (small), Call (flex), Free Inspection (flex)
+
+#### 3. Update `src/components/FloatingCallButton.tsx`
+- If it uses `md:hidden` or similar breakpoints, update to `lg:hidden` for consistency
+
+### Technical Details
+
+**MobileBottomBar new layout:**
 ```
-
----
-
-### Part 2 — Source Classification Logic
-
-A pure function `classifyReferrer(referrer: string): string` maps `document.referrer` to one of 5 categories:
-
-```text
-"organic"  — Google, Bing, Yahoo, DuckDuckGo, Yandex, Baidu
-"social"   — Facebook, Instagram, YouTube, TikTok, LinkedIn, Twitter/X
-"referral" — any other non-empty referrer domain
-"direct"   — empty referrer (typed URL, bookmarks, dark social)
-"email"    — Mailchimp, Sendinblue, email client fingerprints
+[Globe/Lang] [   Call   ] [ Free Inspection ]
 ```
+- The language button is compact (icon + 2-letter code like "BG")
+- Uses the same LanguageSwitcher dropdown but triggered from a smaller button
+- The bottom bar will be visible below 1024px (phones + tablets)
 
-**Files changed:**
-- `src/lib/analytics.ts` — add `classifyReferrer()`, extend `trackEvent()` extras to accept `referrer_source` + `referrer`, and pass them in the insert payload
-- `src/components/AnalyticsTracker.tsx` — on `page_view` events, read `document.referrer`, classify it, and pass both raw + classified values to `trackEvent()`
-- `src/integrations/supabase/types.ts` is auto-generated so the `as any` cast already in use avoids needing a types update
+**Header nav breakpoint changes:**
+- `md:hidden` becomes `lg:hidden` (mobile controls)
+- `hidden md:flex` becomes `hidden lg:flex` (desktop nav)
+- Mobile menu portal `md:hidden` becomes `lg:hidden`
 
----
-
-### Part 3 — Dashboard UI Card
-
-A new "Трафик по източници" (Traffic Sources) card added to `AnalyticsPage.tsx` between "Топ страници" and "Конверсии".
-
-It shows:
-- A horizontal bar chart (Recharts `BarChart` horizontal layout) with source labels on the Y-axis and session counts on the X-axis
-- A legend row below with icons and exact numbers + percentage of total
-
-The data is derived client-side from `currentEvents` filtered to `event_type === "page_view"`, de-duped by `session_id` per source (first-touch attribution per session).
-
-The `fetchEvents` query is extended to also `select` the new `referrer_source` column.
-
-Sources shown with colors:
-```text
-organic  → hsl(var(--primary))   — green/brand color
-direct   → hsl(var(--muted))
-referral → #f59e0b (amber)
-social   → #8b5cf6 (purple)
-email    → #06b6d4 (cyan)
-```
-
-Labels in Bulgarian:
-- Органично търсене
-- Директен достъп
-- Препращане (Referral)
-- Социални мрежи
-- Имейл
-
----
-
-### Files Changed
-
-```text
-supabase/migrations/         — ADD COLUMN referrer_source, referrer
-src/lib/analytics.ts         — classifyReferrer() + pass source to insert
-src/components/AnalyticsTracker.tsx — capture document.referrer on page_view
-src/pages/admin/AnalyticsPage.tsx   — new Traffic Sources card + select referrer_source
-```
-
-No new packages. No SEO impact. No visible change to the public-facing site.
+**Files to modify:**
+- `src/components/Header.tsx` -- change breakpoints from `md` to `lg`
+- `src/components/MobileBottomBar.tsx` -- change breakpoint + add language switcher button
+- `src/components/FloatingCallButton.tsx` -- update breakpoint if needed
