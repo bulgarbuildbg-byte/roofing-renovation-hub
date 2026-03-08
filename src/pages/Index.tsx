@@ -1,23 +1,26 @@
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import TrustIndicators from "@/components/TrustIndicators";
 import BrandCarousel from "@/components/BrandCarousel";
-import FloatingCallButton from "@/components/FloatingCallButton";
-import MobileBottomBar from "@/components/MobileBottomBar";
-import ChatBot from "@/components/ChatBot";
 import Services from "@/components/Services";
 import CTASection from "@/components/CTASection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import About from "@/components/About";
-import Gallery from "@/components/Gallery";
-import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import Testimonials from "@/components/Testimonials";
-import HomeFAQ from "@/components/HomeFAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import PriceCalculator from "@/components/PriceCalculator";
+import FloatingCallButton from "@/components/FloatingCallButton";
+import MobileBottomBar from "@/components/MobileBottomBar";
+
+// Below-the-fold sections — lazy loaded to keep initial bundle small
+const Gallery = lazy(() => import("@/components/Gallery"));
+const BeforeAfterGallery = lazy(() => import("@/components/BeforeAfterGallery"));
+const PriceCalculator = lazy(() => import("@/components/PriceCalculator"));
+const HomeFAQ = lazy(() => import("@/components/HomeFAQ"));
+const ChatBot = lazy(() => import("@/components/ChatBot"));
 
 const Index = () => {
   const { t } = useTranslation();
@@ -140,21 +143,31 @@ const Index = () => {
       <BrandCarousel />
       <Services />
       <Testimonials />
-      <PriceCalculator />
+
+      {/* Below-the-fold — lazy loaded */}
+      <Suspense fallback={<div className="h-96" />}>
+        <PriceCalculator />
+      </Suspense>
       <CTASection 
         title={t('cta.inspectionTitle')}
         subtitle={t('cta.inspectionSubtitle')}
       />
       <WhyChooseUs />
       <About />
-      <Gallery />
-      <BeforeAfterGallery />
+      <Suspense fallback={<div className="h-96" />}>
+        <Gallery />
+      </Suspense>
+      <Suspense fallback={<div className="h-96" />}>
+        <BeforeAfterGallery />
+      </Suspense>
       <CTASection 
         variant="accent"
         title={t('cta.offerTitle')}
         subtitle={t('cta.offerSubtitle')}
       />
-      <HomeFAQ />
+      <Suspense fallback={<div className="h-64" />}>
+        <HomeFAQ />
+      </Suspense>
       <Contact />
       <CTASection 
         variant="emergency"
@@ -164,7 +177,9 @@ const Index = () => {
       <Footer />
       <FloatingCallButton />
       <MobileBottomBar />
-      <ChatBot />
+      <Suspense fallback={null}>
+        <ChatBot />
+      </Suspense>
       <div className="h-20 md:hidden" />
     </div>
   );

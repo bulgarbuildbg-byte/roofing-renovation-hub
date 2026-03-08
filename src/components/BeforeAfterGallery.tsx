@@ -77,7 +77,7 @@ const BeforeAfterGallery = () => {
             {transformations.map((item, index) => (
               <button key={item.id} onClick={() => { setCurrentIndex(index); setSliderPosition(50); }}
                 className={`relative w-24 h-16 rounded-lg overflow-hidden transition-all duration-300 ${index === currentIndex ? "ring-2 ring-primary ring-offset-2 ring-offset-muted scale-105" : "opacity-60 hover:opacity-100"}`}>
-                <img src={item.afterImage} alt={item.title} className="w-full h-full object-cover" />
+                <img src={item.afterImage} alt={item.title} loading="lazy" decoding="async" width={96} height={64} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>
