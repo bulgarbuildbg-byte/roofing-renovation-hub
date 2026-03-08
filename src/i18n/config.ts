@@ -75,10 +75,9 @@ i18n
     },
   });
 
-// Patch changeLanguage to lazy-load locale bundles on demand
-const originalChangeLanguage = i18n.changeLanguage.bind(i18n);
-i18n.changeLanguage = async (lng?: string, callback?: (err: unknown, t: unknown) => void) => {
-  if (lng && lng !== 'bg' && lng in localeLoaders && !i18n.hasResourceBundle(lng, 'translation')) {
+// Helper to ensure a locale bundle is loaded before switching
+async function ensureLocaleLoaded(lng: string): Promise<void> {
+  if (lng !== 'bg' && lng in localeLoaders && !i18n.hasResourceBundle(lng, 'translation')) {
     try {
       const mod = await localeLoaders[lng as Exclude<SupportedLanguage, 'bg'>]();
       i18n.addResourceBundle(lng, 'translation', mod.default, true, true);
@@ -86,6 +85,13 @@ i18n.changeLanguage = async (lng?: string, callback?: (err: unknown, t: unknown)
       console.warn(`Failed to load locale: ${lng}`, e);
     }
   }
+}
+
+// Patch changeLanguage to lazy-load locale bundles on demand
+const originalChangeLanguage = i18n.changeLanguage.bind(i18n);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(i18n as any).changeLanguage = async (lng?: string, callback?: Parameters<typeof originalChangeLanguage>[1]) => {
+  if (lng) await ensureLocaleLoaded(lng);
   return originalChangeLanguage(lng, callback);
 };
 
