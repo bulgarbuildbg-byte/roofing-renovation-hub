@@ -121,6 +121,29 @@ const NewRoofPage = () => {
     }
   ];
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqData.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
+      { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/услуги" },
+      { "@type": "ListItem", "position": 3, "name": "Изграждане на покриви", "item": "https://www.remontnapokrivivarna.bg/bg/изграждане-на-покрив" }
+    ]
+  };
+
   return (
     <>
       <Helmet>
@@ -140,9 +163,9 @@ const NewRoofPage = () => {
         <meta name="twitter:description" content="Професионално изграждане на покриви. Дървени конструкции, всички материали, хидроизолация. Над 15г опит." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/изграждане-на-покрив" />
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <Header />
