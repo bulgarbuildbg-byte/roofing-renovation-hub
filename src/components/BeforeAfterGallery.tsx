@@ -41,9 +41,9 @@ const BeforeAfterGallery = () => {
         <div className="max-w-4xl mx-auto">
           <div className="relative rounded-2xl overflow-hidden shadow-2xl">
             <div className="relative aspect-[16/10] select-none">
-              <img src={current.afterImage} alt={`${current.title} - ${t('beforeAfter.after')}`} className="absolute inset-0 w-full h-full object-cover" />
+              <img src={current.afterImage} alt={`${current.title} - ${t('beforeAfter.after')}`} loading="lazy" decoding="async" width={900} height={562} className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPosition}%` }}>
-                <img src={current.beforeImage} alt={`${current.title} - ${t('beforeAfter.before')}`} className="absolute inset-0 w-full h-full object-cover" style={{ width: `${100 / (sliderPosition / 100)}%`, maxWidth: "none" }} />
+                <img src={current.beforeImage} alt={`${current.title} - ${t('beforeAfter.before')}`} loading="lazy" decoding="async" width={900} height={562} className="absolute inset-0 w-full h-full object-cover" style={{ width: `${100 / (sliderPosition / 100)}%`, maxWidth: "none" }} />
               </div>
               <div className="absolute top-0 bottom-0 w-1 bg-primary-foreground shadow-lg" style={{ left: `${sliderPosition}%`, transform: "translateX(-50%)" }}>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg">
@@ -77,7 +77,7 @@ const BeforeAfterGallery = () => {
             {transformations.map((item, index) => (
               <button key={item.id} onClick={() => { setCurrentIndex(index); setSliderPosition(50); }}
                 className={`relative w-24 h-16 rounded-lg overflow-hidden transition-all duration-300 ${index === currentIndex ? "ring-2 ring-primary ring-offset-2 ring-offset-muted scale-105" : "opacity-60 hover:opacity-100"}`}>
-                <img src={item.afterImage} alt={item.title} className="w-full h-full object-cover" />
+                <img src={item.afterImage} alt={item.title} loading="lazy" decoding="async" width={96} height={64} className="w-full h-full object-cover" />
               </button>
             ))}
           </div>

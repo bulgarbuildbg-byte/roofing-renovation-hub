@@ -2,15 +2,6 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import bg from './locales/bg';
-import en from './locales/en';
-import de from './locales/de';
-import fi from './locales/fi';
-import sv from './locales/sv';
-import no from './locales/no';
-import fr from './locales/fr';
-import nl from './locales/nl';
-import ru from './locales/ru';
-import ua from './locales/ua';
 
 export const SUPPORTED_LANGUAGES = ['bg', 'en', 'de', 'fi', 'sv', 'no', 'fr', 'nl', 'ru', 'ua'] as const;
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
@@ -53,15 +44,25 @@ export const COUNTRY_LANG_MAP: Record<string, SupportedLanguage> = {
   NO: 'no', FR: 'fr', BE: 'fr', NL: 'nl', RU: 'ru', UA: 'ua',
 };
 
+// Dynamic locale loaders — only imported when language is actually requested
+const localeLoaders: Record<Exclude<SupportedLanguage, 'bg'>, () => Promise<{ default: Record<string, unknown> }>> = {
+  en: () => import('./locales/en'),
+  de: () => import('./locales/de'),
+  fi: () => import('./locales/fi'),
+  sv: () => import('./locales/sv'),
+  no: () => import('./locales/no'),
+  fr: () => import('./locales/fr'),
+  nl: () => import('./locales/nl'),
+  ru: () => import('./locales/ru'),
+  ua: () => import('./locales/ua'),
+};
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
-      bg: { translation: bg }, en: { translation: en }, de: { translation: de },
-      fi: { translation: fi }, sv: { translation: sv }, no: { translation: no },
-      fr: { translation: fr }, nl: { translation: nl }, ru: { translation: ru },
-      ua: { translation: ua },
+      bg: { translation: bg },
     },
     fallbackLng: 'bg',
     interpolation: { escapeValue: false },
@@ -73,5 +74,31 @@ i18n
       cookieMinutes: 525600, // 1 year
     },
   });
+
+// Helper to ensure a locale bundle is loaded before switching
+async function ensureLocaleLoaded(lng: string): Promise<void> {
+  if (lng !== 'bg' && lng in localeLoaders && !i18n.hasResourceBundle(lng, 'translation')) {
+    try {
+      const mod = await localeLoaders[lng as Exclude<SupportedLanguage, 'bg'>]();
+      i18n.addResourceBundle(lng, 'translation', mod.default, true, true);
+    } catch (e) {
+      console.warn(`Failed to load locale: ${lng}`, e);
+    }
+  }
+}
+
+// Patch changeLanguage to lazy-load locale bundles on demand
+const originalChangeLanguage = i18n.changeLanguage.bind(i18n);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(i18n as any).changeLanguage = async (lng?: string, callback?: Parameters<typeof originalChangeLanguage>[1]) => {
+  if (lng) await ensureLocaleLoaded(lng);
+  return originalChangeLanguage(lng, callback);
+};
+
+// Pre-load locale for the current detected language (if non-bg)
+const detectedLang = i18n.language?.split('-')[0] as SupportedLanguage;
+if (detectedLang && detectedLang !== 'bg' && detectedLang in localeLoaders) {
+  i18n.changeLanguage(detectedLang);
+}
 
 export default i18n;

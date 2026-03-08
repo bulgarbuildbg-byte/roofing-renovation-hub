@@ -37,7 +37,7 @@ const Gallery = () => {
           {projects.map((project, index) => (
             <div key={index} className="group bg-background rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
               <div className="relative overflow-hidden">
-                <img src={project.image} alt={`${project.title} - ${project.type}`} className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img src={project.image} alt={`${project.title} - ${project.type}`} loading="lazy" decoding="async" width={600} height={400} className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
                 <div className="absolute top-4 left-4 bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium">{project.type}</div>
               </div>
               <div className="p-6">

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,25 +12,27 @@ import LocalizedPageRouter from "@/components/LocalizedPageRouter";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
-import AdminLoginPage from "./pages/admin/AdminLoginPage";
-import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
-import InquiryListPage from "./pages/admin/InquiryListPage";
-import InquiryDetailPage from "./pages/admin/InquiryDetailPage";
-import QuoteEditorPage from "./pages/admin/QuoteEditorPage";
-import QuoteListPage from "./pages/admin/QuoteListPage";
-import StaffManagementPage from "./pages/admin/StaffManagementPage";
-import ArticleListPage from "./pages/admin/ArticleListPage";
-import ArticleEditorPage from "./pages/admin/ArticleEditorPage";
-import ContractEditorPage from "./pages/admin/ContractEditorPage";
-import AnalyticsPage from "./pages/admin/AnalyticsPage";
-import CampaignListPage from "./pages/admin/CampaignListPage";
-import CampaignEditorPage from "./pages/admin/CampaignEditorPage";
-import CommentsModPage from "./pages/admin/CommentsModPage";
-import LeadDatabasePage from "./pages/admin/LeadDatabasePage";
-import BacklinksPage from "./pages/admin/BacklinksPage";
-import EmailCampaignListPage from "./pages/admin/EmailCampaignListPage";
-import EmailCampaignEditorPage from "./pages/admin/EmailCampaignEditorPage";
-import TestimonialsManagementPage from "./pages/admin/TestimonialsManagementPage";
+
+// Admin pages — lazy loaded (never needed by public visitors)
+const AdminLoginPage = lazy(() => import("./pages/admin/AdminLoginPage"));
+const AdminDashboardPage = lazy(() => import("./pages/admin/AdminDashboardPage"));
+const InquiryListPage = lazy(() => import("./pages/admin/InquiryListPage"));
+const InquiryDetailPage = lazy(() => import("./pages/admin/InquiryDetailPage"));
+const QuoteEditorPage = lazy(() => import("./pages/admin/QuoteEditorPage"));
+const QuoteListPage = lazy(() => import("./pages/admin/QuoteListPage"));
+const StaffManagementPage = lazy(() => import("./pages/admin/StaffManagementPage"));
+const ArticleListPage = lazy(() => import("./pages/admin/ArticleListPage"));
+const ArticleEditorPage = lazy(() => import("./pages/admin/ArticleEditorPage"));
+const ContractEditorPage = lazy(() => import("./pages/admin/ContractEditorPage"));
+const AnalyticsPage = lazy(() => import("./pages/admin/AnalyticsPage"));
+const CampaignListPage = lazy(() => import("./pages/admin/CampaignListPage"));
+const CampaignEditorPage = lazy(() => import("./pages/admin/CampaignEditorPage"));
+const CommentsModPage = lazy(() => import("./pages/admin/CommentsModPage"));
+const LeadDatabasePage = lazy(() => import("./pages/admin/LeadDatabasePage"));
+const BacklinksPage = lazy(() => import("./pages/admin/BacklinksPage"));
+const EmailCampaignListPage = lazy(() => import("./pages/admin/EmailCampaignListPage"));
+const EmailCampaignEditorPage = lazy(() => import("./pages/admin/EmailCampaignEditorPage"));
+const TestimonialsManagementPage = lazy(() => import("./pages/admin/TestimonialsManagementPage"));
 
 const queryClient = new QueryClient();
 
@@ -70,29 +73,29 @@ const App = () => (
               <Route path="*" element={<LocalizedPageRouter />} />
             </Route>
 
-            {/* Admin routes (no language prefix) */}
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin" element={<ProtectedRoute><AdminDashboardPage /></ProtectedRoute>}>
-              <Route path="analytics" element={<AnalyticsPage />} />
-              <Route path="leads" element={<LeadDatabasePage />} />
-              <Route path="inquiries" element={<InquiryListPage />} />
-              <Route path="inquiries/:id" element={<InquiryDetailPage />} />
-              <Route path="inquiries/:id/quote" element={<QuoteEditorPage />} />
-              <Route path="inquiries/:id/contract" element={<ContractEditorPage />} />
-              <Route path="quotes" element={<QuoteListPage />} />
-              <Route path="campaigns" element={<CampaignListPage />} />
-              <Route path="campaigns/new" element={<CampaignEditorPage />} />
-              <Route path="campaigns/:id/edit" element={<CampaignEditorPage />} />
-              <Route path="articles" element={<ArticleListPage />} />
-              <Route path="articles/new" element={<ArticleEditorPage />} />
-              <Route path="articles/:id/edit" element={<ArticleEditorPage />} />
-              <Route path="comments" element={<CommentsModPage />} />
-              <Route path="backlinks" element={<BacklinksPage />} />
-              <Route path="testimonials" element={<TestimonialsManagementPage />} />
-              <Route path="email-campaigns" element={<EmailCampaignListPage />} />
-              <Route path="email-campaigns/new" element={<EmailCampaignEditorPage />} />
-              <Route path="email-campaigns/:id/edit" element={<EmailCampaignEditorPage />} />
-              <Route path="staff" element={<ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute>} />
+            {/* Admin routes (no language prefix) — all lazy loaded */}
+            <Route path="/admin/login" element={<Suspense fallback={null}><AdminLoginPage /></Suspense>} />
+            <Route path="/admin" element={<Suspense fallback={null}><ProtectedRoute><AdminDashboardPage /></ProtectedRoute></Suspense>}>
+              <Route path="analytics" element={<Suspense fallback={null}><AnalyticsPage /></Suspense>} />
+              <Route path="leads" element={<Suspense fallback={null}><LeadDatabasePage /></Suspense>} />
+              <Route path="inquiries" element={<Suspense fallback={null}><InquiryListPage /></Suspense>} />
+              <Route path="inquiries/:id" element={<Suspense fallback={null}><InquiryDetailPage /></Suspense>} />
+              <Route path="inquiries/:id/quote" element={<Suspense fallback={null}><QuoteEditorPage /></Suspense>} />
+              <Route path="inquiries/:id/contract" element={<Suspense fallback={null}><ContractEditorPage /></Suspense>} />
+              <Route path="quotes" element={<Suspense fallback={null}><QuoteListPage /></Suspense>} />
+              <Route path="campaigns" element={<Suspense fallback={null}><CampaignListPage /></Suspense>} />
+              <Route path="campaigns/new" element={<Suspense fallback={null}><CampaignEditorPage /></Suspense>} />
+              <Route path="campaigns/:id/edit" element={<Suspense fallback={null}><CampaignEditorPage /></Suspense>} />
+              <Route path="articles" element={<Suspense fallback={null}><ArticleListPage /></Suspense>} />
+              <Route path="articles/new" element={<Suspense fallback={null}><ArticleEditorPage /></Suspense>} />
+              <Route path="articles/:id/edit" element={<Suspense fallback={null}><ArticleEditorPage /></Suspense>} />
+              <Route path="comments" element={<Suspense fallback={null}><CommentsModPage /></Suspense>} />
+              <Route path="backlinks" element={<Suspense fallback={null}><BacklinksPage /></Suspense>} />
+              <Route path="testimonials" element={<Suspense fallback={null}><TestimonialsManagementPage /></Suspense>} />
+              <Route path="email-campaigns" element={<Suspense fallback={null}><EmailCampaignListPage /></Suspense>} />
+              <Route path="email-campaigns/new" element={<Suspense fallback={null}><EmailCampaignEditorPage /></Suspense>} />
+              <Route path="email-campaigns/:id/edit" element={<Suspense fallback={null}><EmailCampaignEditorPage /></Suspense>} />
+              <Route path="staff" element={<Suspense fallback={null}><ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute></Suspense>} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

@@ -1,77 +1,43 @@
 
-## Performance Optimization Plan
+## Fix Tablet Layout and Add Language Switcher to Bottom Bar
 
-### What's Slow — Root Cause Analysis
+### Problems Identified
+1. **Tablet (768-1024px)**: The desktop nav is displayed but overflows -- nav links wrap awkwardly, CTA buttons and language switcher get cut off on the right side.
+2. **No language switcher on mobile/tablet bottom bar**: Users on phones and tablets cannot easily switch language without opening the hamburger menu.
 
-After reviewing the full codebase, here are the main bottlenecks:
+### Changes
 
-**1. All 10 language bundles loaded eagerly on every page visit**
-`src/i18n/config.ts` imports all 10 locale files (bg, en, de, fi, sv, no, fr, nl, ru, ua) synchronously at app startup. 95%+ of visitors only need Bulgarian (bg). Every visitor downloads all 10 translations unnecessarily.
+#### 1. Extend the mobile breakpoint to include tablets (`src/components/Header.tsx`)
+- Change the desktop nav from `md:flex` (768px) to `lg:flex` (1024px)
+- Change mobile controls from `md:hidden` to `lg:hidden`
+- Change mobile menu from `md:hidden` to `lg:hidden`
+- This means phones AND tablets will get the mobile-style layout (hamburger menu + bottom bar)
 
-**2. No code splitting — entire app in one JS chunk**
-`src/App.tsx` imports 20+ admin pages, all service pages, and all blog pages as static imports. Vite will bundle everything together, so even a visitor to the homepage downloads the ArticleEditorPage, ContractEditorPage, AdminDashboardPage, etc.
+#### 2. Update `src/components/MobileBottomBar.tsx`
+- Change visibility from `md:hidden` to `lg:hidden` so it shows on tablets too
+- Add a compact language switcher button alongside the Call and Free Inspection buttons
+- The language button will be a small globe icon that opens the language dropdown
+- Layout: three buttons in a row -- Language (small), Call (flex), Free Inspection (flex)
 
-**3. Homepage loads too many components eagerly**
-`src/pages/Index.tsx` renders 15+ heavy sections all at once: Gallery (6 images), BeforeAfterGallery, PriceCalculator, HomeFAQ, Testimonials, BrandCarousel, WhyChooseUs — none deferred with `React.lazy` or intersection observer.
+#### 3. Update `src/components/FloatingCallButton.tsx`
+- If it uses `md:hidden` or similar breakpoints, update to `lg:hidden` for consistency
 
-**4. Hero image not preloaded**
-`hero-roofing-new.png` is set as a CSS `backgroundImage` inside inline style, which means the browser only discovers it during CSS parsing, not during initial HTML scan. The hero is the LCP element — this is a critical delay.
+### Technical Details
 
-**5. All service/blog page images imported eagerly**
-Service pages like `NewRoofPage.tsx` import 6 local images at the top of the file even when users aren't on that page.
-
-**6. No font preloading / no resource hints**
-`index.html` has no `<link rel="preconnect">` or `<link rel="preload">` for fonts and critical assets.
-
-**7. `scroll-behavior: smooth` on `html` element**
-Global smooth scroll set in CSS causes jank on low-end mobile devices during navigation.
-
----
-
-### What Will Be Changed (Zero SEO Compromise)
-
-**A. Lazy-load all routes in App.tsx with React.lazy + Suspense**
-Convert all `import X from "..."` to `const X = lazy(() => import(...))` for every page EXCEPT `Index`, `NotFound`, `AdminLoginPage`, and `ProtectedRoute`. This is pure code-splitting — no SEO impact since the HTML content is still server-renderable and all routes are still accessible. Admin pages (~40% of the bundle) deferred entirely.
-
-**B. Lazy-load i18n locales — only load `bg` eagerly, others on demand**
-Restructure `src/i18n/config.ts` to eager-load only `bg`, then use dynamic `import()` for the other 9 languages triggered by `i18n.changeLanguage()`. This uses i18next's `backend` pattern with a custom backend resolver (no new package needed — just dynamic imports). Saves ~60-80KB on initial load for Bulgarian users.
-
-**C. Lazy-load below-the-fold homepage sections**
-Wrap the following sections in `React.lazy` + `Suspense` in `Index.tsx`:
-- `Gallery`, `BeforeAfterGallery`, `PriceCalculator`, `HomeFAQ`, `ChatBot`
-
-Above-fold sections (Header, Hero, TrustIndicators, Services, BrandCarousel, Testimonials, CTASection) stay eagerly loaded to ensure fast LCP.
-
-**D. Preload the hero image in index.html**
-Add `<link rel="preload" as="image" href="/src/assets/hero-roofing-new.png">` — or better, move the hero image reference to a proper `<img>` tag with `fetchpriority="high"` in `Hero.tsx`. This directly improves LCP score.
-
-**E. Add resource hints to index.html**
-Add `<link rel="preconnect" href="https://vpsbqrxrjrwjmttnptfr.supabase.co">` and `<link rel="dns-prefetch">` for the Supabase domain. This reduces connection latency for the first Supabase request (testimonials, analytics).
-
-**F. Add `loading="lazy"` and explicit `width`/`height` to all gallery images**
-Gallery.tsx, BeforeAfterGallery.tsx — images currently have no `loading="lazy"` and no explicit dimensions, causing layout shift (CLS).
-
-**G. Remove global `scroll-behavior: smooth` from html in CSS**
-Replace with JS-only smooth scroll (already used in components). Global CSS smooth scroll causes input lag on mobile.
-
----
-
-### Files to Change
-
-```text
-src/App.tsx                    — lazy() all page imports
-src/i18n/config.ts             — lazy-load non-bg locales
-src/pages/Index.tsx            — lazy() below-fold sections
-src/components/Hero.tsx        — use <img fetchpriority="high"> instead of CSS background
-src/components/Gallery.tsx     — add loading="lazy" + dimensions
-src/components/BeforeAfterGallery.tsx — add loading="lazy"
-index.html                     — preconnect + dns-prefetch hints
-src/index.css                  — remove scroll-behavior: smooth from html
+**MobileBottomBar new layout:**
 ```
+[Globe/Lang] [   Call   ] [ Free Inspection ]
+```
+- The language button is compact (icon + 2-letter code like "BG")
+- Uses the same LanguageSwitcher dropdown but triggered from a smaller button
+- The bottom bar will be visible below 1024px (phones + tablets)
 
-### What is NOT changed
-- All Helmet meta tags, JSON-LD schemas, canonical URLs — untouched
-- All visible content and UI — untouched
-- All service page content — untouched
-- SEO heading structure — untouched
-- No new dependencies added
+**Header nav breakpoint changes:**
+- `md:hidden` becomes `lg:hidden` (mobile controls)
+- `hidden md:flex` becomes `hidden lg:flex` (desktop nav)
+- Mobile menu portal `md:hidden` becomes `lg:hidden`
+
+**Files to modify:**
+- `src/components/Header.tsx` -- change breakpoints from `md` to `lg`
+- `src/components/MobileBottomBar.tsx` -- change breakpoint + add language switcher button
+- `src/components/FloatingCallButton.tsx` -- update breakpoint if needed
