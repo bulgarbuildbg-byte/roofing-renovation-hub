@@ -25,6 +25,9 @@ const AnalyticsTracker = () => {
 
   // Track session duration on unload
   useEffect(() => {
+    // Only track on the real production domain
+    if (window.location.hostname !== "remontnapokrivivarna.bg") return;
+
     const handleUnload = () => {
       const seconds = Math.round((Date.now() - startTime.current) / 1000);
       if (seconds < 2) return;
