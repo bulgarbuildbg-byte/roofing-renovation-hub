@@ -59,6 +59,7 @@ const App = () => (
             <Route path="/ремонт-на-покриви" element={<Navigate to="/bg/ремонт-на-покриви" replace />} />
             <Route path="/ремонт-течове" element={<Navigate to="/bg/ремонт-течове" replace />} />
             <Route path="/хидроизолация" element={<Navigate to="/bg/хидроизолация" replace />} />
+            <Route path="/хидроизолация-варна" element={<Navigate to="/bg/хидроизолация-варна" replace />} />
             <Route path="/изграждане-на-покрив" element={<Navigate to="/bg/изграждане-на-покрив" replace />} />
             <Route path="/смяна-керемиди" element={<Navigate to="/bg/смяна-керемиди" replace />} />
             <Route path="/плоски-покриви" element={<Navigate to="/bg/плоски-покриви" replace />} />

@@ -1,77 +1,87 @@
 import { SupportedLanguage } from './config';
 
 export type RouteKey =
-  | 'home' | 'services' | 'roofRepair' | 'leakRepair' | 'waterproofing'
+  | 'home' | 'services' | 'roofRepair' | 'leakRepair' | 'waterproofing' | 'waterproofingVarna'
   | 'newRoof' | 'tileReplacement' | 'flatRoof' | 'metalRoof' | 'maintenance'
   | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact';
 
 export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>> = {
   bg: {
     home: '', services: 'services', roofRepair: 'ремонт-на-покриви', leakRepair: 'ремонт-течове',
-    waterproofing: 'хидроизолация', newRoof: 'изграждане-на-покрив', tileReplacement: 'смяна-керемиди',
+    waterproofing: 'хидроизолация', waterproofingVarna: 'хидроизолация-варна',
+    newRoof: 'изграждане-на-покрив', tileReplacement: 'смяна-керемиди',
     flatRoof: 'плоски-покриви', metalRoof: 'метални-покриви', maintenance: 'поддръжка-на-покриви',
     about: 'за-нас', projects: 'проекти', reviews: 'отзиви', calculator: 'калкулатор',
     blog: 'блог', faq: 'въпроси', contact: 'контакти',
   },
   en: {
     home: '', services: 'services', roofRepair: 'roof-repair-varna', leakRepair: 'leak-repair-varna',
-    waterproofing: 'waterproofing-varna', newRoof: 'new-roof-varna', tileReplacement: 'tile-replacement-varna',
+    waterproofing: 'waterproofing-varna', waterproofingVarna: 'waterproofing-varna-bg',
+    newRoof: 'new-roof-varna', tileReplacement: 'tile-replacement-varna',
     flatRoof: 'flat-roofs-varna', metalRoof: 'metal-roofs-varna', maintenance: 'roof-maintenance-varna',
     about: 'about', projects: 'projects', reviews: 'reviews', calculator: 'calculator',
     blog: 'blog', faq: 'faq', contact: 'contact',
   },
   de: {
     home: '', services: 'dienstleistungen', roofRepair: 'dachreparatur-varna', leakRepair: 'leckage-reparatur-varna',
-    waterproofing: 'abdichtung-varna', newRoof: 'neues-dach-varna', tileReplacement: 'ziegelaustausch-varna',
+    waterproofing: 'abdichtung-varna', waterproofingVarna: 'abdichtung-varna-bg',
+    newRoof: 'neues-dach-varna', tileReplacement: 'ziegelaustausch-varna',
     flatRoof: 'flachdaecher-varna', metalRoof: 'metalldaecher-varna', maintenance: 'dachpflege-varna',
     about: 'ueber-uns', projects: 'projekte', reviews: 'bewertungen', calculator: 'kalkulator',
     blog: 'blog', faq: 'faq', contact: 'kontakt',
   },
   fi: {
     home: '', services: 'palvelut', roofRepair: 'kattokorjaus-varna', leakRepair: 'vuotokorjaus-varna',
-    waterproofing: 'vedeneristys-varna', newRoof: 'uusi-katto-varna', tileReplacement: 'tiilien-vaihto-varna',
+    waterproofing: 'vedeneristys-varna', waterproofingVarna: 'vedeneristys-varna-bg',
+    newRoof: 'uusi-katto-varna', tileReplacement: 'tiilien-vaihto-varna',
     flatRoof: 'tasakatot-varna', metalRoof: 'metallikatot-varna', maintenance: 'katon-huolto-varna',
     about: 'meista', projects: 'projektit', reviews: 'arvostelut', calculator: 'laskin',
     blog: 'blogi', faq: 'ukk', contact: 'yhteystiedot',
   },
   sv: {
     home: '', services: 'tjanster', roofRepair: 'takreparation-varna', leakRepair: 'lackage-reparation-varna',
-    waterproofing: 'tatning-varna', newRoof: 'nytt-tak-varna', tileReplacement: 'tegelbyte-varna',
+    waterproofing: 'tatning-varna', waterproofingVarna: 'tatning-varna-bg',
+    newRoof: 'nytt-tak-varna', tileReplacement: 'tegelbyte-varna',
     flatRoof: 'platta-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takunderhall-varna',
     about: 'om-oss', projects: 'projekt', reviews: 'omdomen', calculator: 'kalkylator',
     blog: 'blogg', faq: 'vanliga-fragor', contact: 'kontakt',
   },
   no: {
     home: '', services: 'tjenester', roofRepair: 'takreparasjon-varna', leakRepair: 'lekkasje-reparasjon-varna',
-    waterproofing: 'vanntetting-varna', newRoof: 'nytt-tak-varna', tileReplacement: 'teglstein-bytte-varna',
+    waterproofing: 'vanntetting-varna', waterproofingVarna: 'vanntetting-varna-bg',
+    newRoof: 'nytt-tak-varna', tileReplacement: 'teglstein-bytte-varna',
     flatRoof: 'flate-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takvedlikehold-varna',
     about: 'om-oss', projects: 'prosjekter', reviews: 'anmeldelser', calculator: 'kalkulator',
     blog: 'blogg', faq: 'vanlige-sporsmal', contact: 'kontakt',
   },
   fr: {
     home: '', services: 'services', roofRepair: 'reparation-toiture-varna', leakRepair: 'reparation-fuite-varna',
-    waterproofing: 'etancheite-varna', newRoof: 'nouvelle-toiture-varna', tileReplacement: 'remplacement-tuiles-varna',
+    waterproofing: 'etancheite-varna', waterproofingVarna: 'etancheite-varna-bg',
+    newRoof: 'nouvelle-toiture-varna', tileReplacement: 'remplacement-tuiles-varna',
     flatRoof: 'toits-plats-varna', metalRoof: 'toits-metalliques-varna', maintenance: 'entretien-toiture-varna',
     about: 'a-propos', projects: 'projets', reviews: 'avis', calculator: 'calculateur',
     blog: 'blog', faq: 'faq', contact: 'contact',
   },
   nl: {
     home: '', services: 'diensten', roofRepair: 'dakreparatie-varna', leakRepair: 'lekkage-reparatie-varna',
-    waterproofing: 'waterdichting-varna', newRoof: 'nieuw-dak-varna', tileReplacement: 'dakpannen-vervangen-varna',
+    waterproofing: 'waterdichting-varna', waterproofingVarna: 'waterdichting-varna-bg',
+    newRoof: 'nieuw-dak-varna', tileReplacement: 'dakpannen-vervangen-varna',
     flatRoof: 'platte-daken-varna', metalRoof: 'metalen-daken-varna', maintenance: 'dakonderhoud-varna',
     about: 'over-ons', projects: 'projecten', reviews: 'beoordelingen', calculator: 'calculator',
     blog: 'blog', faq: 'veelgestelde-vragen', contact: 'contact',
   },
   ru: {
     home: '', services: 'uslugi', roofRepair: 'remont-kryshi-varna', leakRepair: 'remont-protechek-varna',
-    waterproofing: 'gidroizolyatsiya-varna', newRoof: 'novaya-krysha-varna', tileReplacement: 'zamena-cherepitsy-varna',
+    waterproofing: 'gidroizolyatsiya-varna', waterproofingVarna: 'gidroizolyatsiya-varna-bg',
+    newRoof: 'novaya-krysha-varna', tileReplacement: 'zamena-cherepitsy-varna',
     flatRoof: 'ploskie-kryshi-varna', metalRoof: 'metallicheskie-kryshi-varna', maintenance: 'obsluzhivanie-kryshi-varna',
     about: 'o-nas', projects: 'proekty', reviews: 'otzyvy', calculator: 'kalkulyator',
     blog: 'blog', faq: 'voprosy', contact: 'kontakty',
   },
   ua: {
     home: '', services: 'poslugy', roofRepair: 'remont-dahu-varna', leakRepair: 'remont-protikan-varna',
-    waterproofing: 'gidroizolyatsiya-varna', newRoof: 'novyj-dah-varna', tileReplacement: 'zamina-cherepytsi-varna',
+    waterproofing: 'gidroizolyatsiya-varna', waterproofingVarna: 'gidroizolyatsiya-varna-bg',
+    newRoof: 'novyj-dah-varna', tileReplacement: 'zamina-cherepytsi-varna',
     flatRoof: 'ploski-dahy-varna', metalRoof: 'metalevi-dahy-varna', maintenance: 'obslugovuvannya-dahu-varna',
     about: 'pro-nas', projects: 'proekty', reviews: 'vidguky', calculator: 'kalkulyator',
     blog: 'blog', faq: 'pytannya', contact: 'kontakty',

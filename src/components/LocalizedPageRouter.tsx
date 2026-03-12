@@ -11,6 +11,7 @@ import ReviewsPage from "@/pages/ReviewsPage";
 import RoofRepairPage from "@/pages/services/RoofRepairPage";
 import RoofLeakRepairPage from "@/pages/services/RoofLeakRepairPage";
 import WaterproofingPage from "@/pages/services/WaterproofingPage";
+import WaterproofingVarnaPage from "@/pages/services/WaterproofingVarnaPage";
 import NewRoofPage from "@/pages/services/NewRoofPage";
 import TileReplacementPage from "@/pages/services/TileReplacementPage";
 import FlatRoofPage from "@/pages/services/FlatRoofPage";
@@ -32,6 +33,7 @@ const PAGE_MAP: Record<RouteKey, React.ComponentType> = {
   roofRepair: RoofRepairPage,
   leakRepair: RoofLeakRepairPage,
   waterproofing: WaterproofingPage,
+  waterproofingVarna: WaterproofingVarnaPage,
   newRoof: NewRoofPage,
   tileReplacement: TileReplacementPage,
   flatRoof: FlatRoofPage,
