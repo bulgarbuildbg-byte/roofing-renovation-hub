@@ -776,7 +776,10 @@ const WaterproofingVarnaPage = () => {
       </section>
 
       {/* ── CTA ──────────────────────────────────────────── */}
-      <CTASection />
+      <CTASection
+        title="Нуждаете се от хидроизолация в Варна?"
+        subtitle="Обадете се за безплатен оглед и получете точна оферта в рамките на 24 часа. Над 15 години опит, писмена гаранция."
+      />
 
       {/* ── RELATED SERVICES ─────────────────────────────── */}
       <RelatedServices services={relatedServices} />
