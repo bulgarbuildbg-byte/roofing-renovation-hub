@@ -1,7 +1,7 @@
 import { SupportedLanguage } from './config';
 
 export type RouteKey =
-  | 'home' | 'services' | 'roofRepair' | 'leakRepair' | 'waterproofing'
+  | 'home' | 'services' | 'roofRepair' | 'leakRepair' | 'waterproofing' | 'waterproofingVarna'
   | 'newRoof' | 'tileReplacement' | 'flatRoof' | 'metalRoof' | 'maintenance'
   | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact';
 
