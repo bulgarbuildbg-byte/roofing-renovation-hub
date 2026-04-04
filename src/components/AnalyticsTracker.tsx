@@ -9,7 +9,7 @@ const AnalyticsTracker = () => {
   // Track page views on route change, including referrer classification
   useEffect(() => {
     // Only track on the real production domain — skip Lovable preview, editor, and localhost sessions
-    if (window.location.hostname !== "remontnapokrivivarna.bg") return;
+    if (!window.location.hostname.endsWith("remontnapokrivivarna.bg")) return;
     // Don't track admin pages
     if (location.pathname.startsWith("/admin")) return;
 
@@ -26,12 +26,13 @@ const AnalyticsTracker = () => {
   // Track session duration on unload
   useEffect(() => {
     // Only track on the real production domain
-    if (window.location.hostname !== "remontnapokrivivarna.bg") return;
+    if (!window.location.hostname.endsWith("remontnapokrivivarna.bg")) return;
 
     const handleUnload = () => {
       const seconds = Math.round((Date.now() - startTime.current) / 1000);
       if (seconds < 2) return;
 
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/analytics_events`;
       const body = JSON.stringify({
         event_type: "session_duration",
         event_name: "session_end",
@@ -40,11 +41,17 @@ const AnalyticsTracker = () => {
         duration_seconds: seconds,
       });
 
-      const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/analytics_events`;
-      navigator.sendBeacon(
-        url + `?apikey=${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        new Blob([body], { type: "application/json" })
-      );
+      fetch(url, {
+        method: "POST",
+        keepalive: true,
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          "Prefer": "return=minimal",
+        },
+        body,
+      }).catch(() => {});
     };
 
     window.addEventListener("beforeunload", handleUnload);
