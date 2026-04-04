@@ -1,37 +1,61 @@
 
 
-## Fix Analytics Tracking
+## Fix: Multilingual hreflang and canonical tags
 
-### Root Causes
+### Problem
+Google is flagging 84 translated pages as duplicates because:
 
-1. **Hostname filter too strict** — checks `=== "remontnapokrivivarna.bg"` but the primary domain is `www.remontnapokrivivarna.bg`. Visitors on the `www` subdomain (most traffic) are silently skipped.
+1. **Hardcoded canonical URLs in every page** — All 25+ page components include their own `<link rel="canonical" href="...bg/...">` via `<Helmet>`, always pointing to the Bulgarian URL. When a Dutch user visits `/nl/diensten`, the canonical still says `remontnapokrivivarna.bg/bg/services` (or similar), telling Google "this is a duplicate of the BG page."
 
-2. **sendBeacon missing required headers** — The session duration beacon sends JSON to the Supabase REST API with only `apikey` as a query parameter. Supabase REST requires `apikey` in the `Authorization` or `apikey` header, plus `Content-Type: application/json` and `Prefer: return=minimal`. The `Blob` approach doesn't set these headers, so inserts fail with 401/400.
+2. **Some pages have duplicate canonical tags** — e.g. `RoofRepairPage`, `MaintenancePage`, `MetalRoofPage` each emit TWO canonical links (one with `/bg/` prefix, one without), confusing Google further.
 
-### Fix
+3. **The `HreflangTags` component works correctly** — it already generates proper hreflang alternates for all 10 languages. But the page-level hardcoded canonicals override its dynamic canonical, breaking the signal.
 
-**File: `src/components/AnalyticsTracker.tsx`**
+### Solution
 
-1. Change hostname check from exact match to `.endsWith("remontnapokrivivarna.bg")` — this covers both `remontnapokrivivarna.bg` and `www.remontnapokrivivarna.bg`.
+**Remove all hardcoded `<link rel="canonical">` tags from individual page components.** The `HreflangTags` component (rendered by `LanguageLayout` on every page) already sets the correct canonical dynamically based on the current URL. Having page-level canonicals override it is the root cause.
 
-2. Replace `navigator.sendBeacon` with a proper fetch using `keepalive: true` (same reliability as sendBeacon but supports headers):
+Additionally, update the `Index.tsx` canonical which hardcodes `/bg` regardless of language.
 
-```typescript
-fetch(url, {
-  method: "POST",
-  keepalive: true,
-  headers: {
-    "Content-Type": "application/json",
-    "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-    "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-    "Prefer": "return=minimal",
-  },
-  body: JSON.stringify({ ... }),
-});
-```
+### Files to Edit (remove `<link rel="canonical" .../>` lines)
 
-### Files Changed
-- `src/components/AnalyticsTracker.tsx` — fix hostname check + fix sendBeacon
+All 25 files containing hardcoded canonicals:
 
-No database changes needed. No SEO impact. No visible UI changes.
+- `src/pages/Index.tsx` — remove hardcoded canonical
+- `src/pages/AboutPage.tsx`
+- `src/pages/BlogPage.tsx`
+- `src/pages/ContactPage.tsx`
+- `src/pages/FAQPage.tsx`
+- `src/pages/ProjectsPage.tsx`
+- `src/pages/ReviewsPage.tsx`
+- `src/pages/CalculatorPage.tsx`
+- `src/pages/ServicesPage.tsx`
+- `src/pages/services/RoofRepairPage.tsx` — also remove duplicate canonical
+- `src/pages/services/RoofLeakRepairPage.tsx`
+- `src/pages/services/WaterproofingPage.tsx`
+- `src/pages/services/WaterproofingVarnaPage.tsx`
+- `src/pages/services/NewRoofPage.tsx`
+- `src/pages/services/TileReplacementPage.tsx`
+- `src/pages/services/FlatRoofPage.tsx`
+- `src/pages/services/MetalRoofPage.tsx` — also remove duplicate canonical
+- `src/pages/services/MaintenancePage.tsx` — also remove duplicate canonical
+- `src/pages/blog/SpringInspection.tsx`
+- `src/pages/blog/CommonMistakes.tsx`
+- `src/pages/blog/WaterproofingTypes.tsx`
+- `src/pages/blog/WinterRoofPreparation.tsx`
+- `src/pages/blog/RoofRepairSigns.tsx`
+- `src/pages/blog/ChoosingTiles.tsx`
+- `src/pages/blog/DynamicArticle.tsx`
+
+### What stays unchanged
+- `src/components/HreflangTags.tsx` — already correct: dynamically sets canonical to current URL and generates all 10 hreflang alternates + x-default
+- `src/components/LanguageLayout.tsx` — already renders `HreflangTags` on every page
+
+### Result
+After this change, every page in every language will have:
+- A canonical pointing to itself (e.g. `/nl/diensten` canonical = `https://www.remontnapokrivivarna.bg/nl/diensten`)
+- hreflang alternates for all 10 languages
+- `x-default` pointing to `/bg`
+
+Google will recognize all translations as valid alternates rather than duplicates.
 
