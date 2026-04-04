@@ -28,7 +28,6 @@ const SpringInspection = () => {
         <meta name="twitter:title" content="Пролетна инспекция на покрива | Варна" />
         <meta name="twitter:description" content="Ето какво трябва да проверите след зимата и как да предотвратите скъпи ремонти." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/пролетна-инспекция-на-покрива" />
       </Helmet>
 
       <Header />

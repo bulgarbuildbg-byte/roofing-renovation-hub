@@ -111,7 +111,6 @@ const ServicesPage = () => {
         <meta property="og:title" content="Покривни Услуги Варна - Цени от 8 €/кв.м" />
         <meta property="og:description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/services" />
       </Helmet>
 
       <div className="min-h-screen">

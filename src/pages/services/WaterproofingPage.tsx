@@ -290,9 +290,7 @@ const WaterproofingPage = () => {
         <meta name="twitter:title" content="Хидроизолация Покрив Варна - от 28лв/кв.м | 10г Гаранция" />
         <meta name="twitter:description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/хидроизолация" />
         <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/хидроизолация" />
         <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв" />
         <meta property="og:description" content="Битумна, PVC, течна хидроизолация. 10г гаранция." />
         <meta property="og:type" content="website" />

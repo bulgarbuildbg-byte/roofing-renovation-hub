@@ -268,9 +268,7 @@ const RoofRepairPage = () => {
         <meta name="twitter:title" content="Ремонт на Покриви Варна - от 13 €/кв.м | 5г Гаранция" />
         <meta name="twitter:description" content="Професионален ремонт на покриви. Отстраняване на течове, подмяна на керемиди, 5г гаранция. Безплатен оглед 24ч." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/ремонт-на-покриви" />
         <meta name="keywords" content="ремонт на покриви варна, ремонт покрив цена варна, течове покрив варна, подмяна керемиди варна, аварийни ремонти покриви" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/ремонт-на-покриви" />
         <meta property="og:title" content="Ремонт на Покриви Варна - от 13 €/кв.м" />
         <meta property="og:description" content="Професионален ремонт. Течове, керемиди, комини. 5г гаранция." />
         <meta property="og:type" content="website" />

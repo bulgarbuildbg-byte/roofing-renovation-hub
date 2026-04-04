@@ -285,9 +285,7 @@ const RoofLeakRepairPage = () => {
         <meta name="twitter:title" content="Спешен Ремонт Течове Покрив Варна - 24/7 | от 40 €" />
         <meta name="twitter:description" content="Спешен ремонт на течове от покрив. Бърза реакция 24/7, диагностика с термокамера, 5г гаранция." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/ремонт-течове" />
         <meta name="keywords" content="ремонт теч покрив варна, теч покрив спешен ремонт, течове покрив варна, ремонт течове комин, аварийни ремонти покрив" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/ремонт-течове" />
         <meta property="og:title" content="Ремонт Течове Покрив Варна - 24/7 | от 40 €" />
         <meta property="og:description" content="Спешен ремонт. Бърза реакция, гаранция до 5 години." />
         <meta property="og:type" content="website" />

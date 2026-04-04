@@ -283,9 +283,7 @@ const MetalRoofPage = () => {
         <meta name="twitter:title" content="Метални Покриви Варна - от 6 €/кв.м | 50г Гаранция" />
         <meta name="twitter:description" content="Монтаж на метални покриви - керемиди, ламарина, стоящ фалц. До 50 години гаранция." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/метални-покриви" />
         <meta name="keywords" content="метални покриви варна, метални керемиди варна, ламаринен покрив, трапецовидна ламарина варна, монтаж метален покрив" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/метални-покриви" />
         <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м" />
         <meta property="og:description" content="Керемиди, ламарина, стоящ фалц. До 50г гаранция." />
         <meta property="og:type" content="website" />

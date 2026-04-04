@@ -45,7 +45,6 @@ const WaterproofingTypes = () => {
         <meta name="twitter:title" content="Видове хидроизолация: Битумна, PVC и Течна | Наръчник" />
         <meta name="twitter:description" content="Научете коя хидроизолация е най-подходяща - битумна, PVC мембрана или течна хидроизолация." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/видове-хидроизолация-и-кога-да-изберем-всяка" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </Helmet>
 

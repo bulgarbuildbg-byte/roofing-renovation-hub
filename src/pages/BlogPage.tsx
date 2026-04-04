@@ -151,7 +151,6 @@ const BlogPage = () => {
         <title>Блог за Покриви Варна - Съвети и Ръководства</title>
         <meta name="description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви. Експертни съвети от професионалисти." />
         <meta name="keywords" content="блог покриви, съвети за покриви, ремонт покрив, хидроизолация съвети, поддръжка на покрив, Варна" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/блог" />
         <meta property="og:title" content="Блог за Покриви Варна - Съвети и Ръководства" />
         <meta property="og:description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви." />
         <meta property="og:type" content="website" />

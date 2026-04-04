@@ -311,9 +311,7 @@ const FlatRoofPage = () => {
         <meta name="twitter:title" content="Плоски Покриви Варна - от 11 €/кв.м | 10г Гаранция" />
         <meta name="twitter:description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. До 10 години гаранция." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/плоски-покриви" />
         <meta name="keywords" content="плосък покрив варна, хидроизолация плосък покрив, ремонт плосък покрив, битумна хидроизолация варна, PVC мембрана варна" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/плоски-покриви" />
         <meta property="og:title" content="Плоски Покриви Варна - от 11 €/кв.м" />
         <meta property="og:description" content="Битумни и PVC мембрани. До 10г гаранция." />
         <meta property="og:type" content="website" />

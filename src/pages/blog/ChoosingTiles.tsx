@@ -30,7 +30,6 @@ const ChoosingTiles = () => {
         <meta name="twitter:title" content="Как да изберем керемиди за нов покрив" />
         <meta name="twitter:description" content="Керамични, бетонни или метални керемиди? Намерете правилния избор за вашия дом." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/избор-на-керемиди-за-нов-покрив" />
       </Helmet>
 
       <Header />

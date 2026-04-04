@@ -73,7 +73,6 @@ const DynamicArticle = () => {
         <meta name="twitter:title" content={article.title} />
         <meta name="twitter:description" content={article.excerpt || article.title} />
         <meta name="twitter:image" content={article.cover_image_url || "https://www.remontnapokrivivarna.bg/og-image.jpg"} />
-        <link rel="canonical" href={`https://www.remontnapokrivivarna.bg/bg/блог/${article.slug}`} />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
       </Helmet>
 

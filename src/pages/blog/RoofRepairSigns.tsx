@@ -56,7 +56,6 @@ const RoofRepairSigns = () => {
         <meta name="twitter:title" content="5 признака, че покривът се нуждае от ремонт" />
         <meta name="twitter:description" content="Разберете кои са най-честите признаци за проблеми с покрива. Кога е време за спешен ремонт?" />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/5-признака-че-покривът-се-нуждае-от-ремонт" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
