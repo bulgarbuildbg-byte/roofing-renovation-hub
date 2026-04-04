@@ -275,7 +275,6 @@ const WaterproofingVarnaPage = () => {
         <meta name="twitter:title" content="Хидроизолация Варна | Битумна, PVC, Течна – Цени от 14 €/кв.м" />
         <meta name="twitter:description" content="Хидроизолация на покриви и тераси. Битумни, PVC, течна. Над 15г опит. Безплатен оглед." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/хидроизолация-варна" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>

@@ -130,7 +130,6 @@ const Index = () => {
         <meta name="twitter:title" content={t('meta.homeTitle')} />
         <meta name="twitter:description" content={t('meta.homeDesc')} />
         <meta name="twitter:image" content={`${BASE_URL}/og-image.jpg`} />
-        <link rel="canonical" href={`${BASE_URL}/bg`} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>

@@ -322,9 +322,7 @@ const MaintenancePage = () => {
         <meta name="twitter:title" content="Поддръжка на Покриви Варна - от 30 € | Годишни Договори" />
         <meta name="twitter:description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/поддръжка-на-покриви" />
         <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/поддръжка-на-покриви" />
         <meta property="og:title" content="Поддръжка Покриви Варна - от 30 €" />
         <meta property="og:description" content="Почистване на улуци и покриви. Годишни пакети." />
         <meta property="og:type" content="website" />

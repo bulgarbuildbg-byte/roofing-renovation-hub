@@ -283,9 +283,7 @@ const TileReplacementPage = () => {
         <meta name="twitter:title" content="Смяна на Керемиди Варна - от 8лв/бр | 5г Гаранция" />
         <meta name="twitter:description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/смяна-керемиди" />
         <meta name="keywords" content="смяна керемиди варна, подмяна керемиди варна, керемиди цена варна, ремонт керемиден покрив, счупени керемиди" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/смяна-керемиди" />
         <meta property="og:title" content="Смяна Керемиди Варна - от 8лв/бр" />
         <meta property="og:description" content="Бетонни, керамични, марсилски. Гаранция до 5 години." />
         <meta property="og:type" content="website" />

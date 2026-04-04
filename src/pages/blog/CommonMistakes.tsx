@@ -29,7 +29,6 @@ const CommonMistakes = () => {
         <meta name="twitter:title" content="Най-честите грешки при покривни ремонти" />
         <meta name="twitter:description" content="Избягвайте скъпите грешки при ремонт на покрив. Как професионалистите решават проблемите правилно." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/най-честите-грешки-при-покривни-ремонти" />
       </Helmet>
 
       <Header />

@@ -69,7 +69,6 @@ const WinterRoofPreparation = () => {
         <meta name="twitter:title" content="Как да подготвим покрива за зимата: Пълно ръководство" />
         <meta name="twitter:description" content="Научете как да подготвите покрива си за студените месеци с нашите експертни съвети." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <link rel="canonical" href="https://www.remontnapokrivivarna.bg/bg/блог/как-да-подготвим-покрива-за-зимата" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
