@@ -9,7 +9,7 @@ const AnalyticsTracker = () => {
   // Track page views on route change, including referrer classification
   useEffect(() => {
     // Only track on the real production domain — skip Lovable preview, editor, and localhost sessions
-    if (window.location.hostname !== "remontnapokrivivarna.bg") return;
+    if (!window.location.hostname.endsWith("remontnapokrivivarna.bg")) return;
     // Don't track admin pages
     if (location.pathname.startsWith("/admin")) return;
 
