@@ -53,7 +53,6 @@ const AnalyticsTracker = () => {
         body,
       }).catch(() => {});
     };
-    };
 
     window.addEventListener("beforeunload", handleUnload);
     return () => window.removeEventListener("beforeunload", handleUnload);
