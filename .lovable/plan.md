@@ -1,32 +1,34 @@
 
 
-## Place 10 Uploaded Photos on Service Pages
+## Place 10 New Roof Photos on NewRoofPage
 
-This batch contains photos for 3 services: **Metal Roofs** (6 photos), **Maintenance** (2 photos), and **New Roof** (2 photos).
+### Current State
+The `NewRoofPage.tsx` has 6 process images imported (lines 16-21) but only 1 is actually rendered (as a hero background on line 176). The 6-step process timeline (lines 445-493) is text-only with no images — unlike other service pages (e.g., MetalRoofPage) which display images alongside each step.
 
-### Photo-to-Page Mapping (from Excel)
+### What This Batch Does
+All 10 uploaded photos are for the **New Roof** service page, completing the set (2 were placed in the previous batch).
 
-| Uploaded File | Service Page | Replaces Current Import |
+### Photo-to-Step Mapping
+
+| Uploaded File | Process Step | Import Variable |
 |---|---|---|
-| `metal-roof-tiles-before-after-01.jpg` | MetalRoofPage | `metalRoofSurvey` (step 1 - survey/inspection) |
-| `metal-roof-sheet-installation-01.jpg` | MetalRoofPage | `metalInstallation` (step 4 - panel installation) |
-| `metal-roof-tiles-installation-01.jpg` | MetalRoofPage | `membraneBattens` (step 2 - battens/membrane prep) |
-| `metal-roof-trapezoidal-installation-01.jpg` | MetalRoofPage | `metalDelivery` (step 3 - delivery/materials) |
-| `metal-roof-tiles-complete-01.jpg` | MetalRoofPage | `gutterInstallation` (step 6 - completed roof) |
-| `metal-roof-ridge-installation-01.jpg` | MetalRoofPage | `metalRidgeCap` (step 5 - ridge cap) |
-| `maintenance-inspection-attic-01.jpg` | MaintenancePage | `groundInspection` (step 1 - inspection) |
-| `maintenance-inspection-attic-02.jpg` | MaintenancePage | `roofWalkingInspection` (step 2 - walking inspection) |
-| `new-roof-design-plan-01.jpg` | NewRoofPage | `roofPlanning` (step 1 - planning) |
-| `new-roof-structure-diagram-01.jpg` | NewRoofPage | `roofingMaterials` (step 2 - materials/structure) |
+| `new-roof-wooden-structure-02.jpg` | Hero background | `roofFrameConstruction` (replaces current) |
+| `new-roof-wooden-structure-01.jpg` | Step 3 - Frame construction | `woodenStructure1` (new) |
+| `new-roof-wooden-structure-03.jpg` | Step 3 - secondary | `woodenStructure2` (new) |
+| `new-roof-wooden-structure-04.jpg` | Step 3 - secondary | `woodenStructure3` (new) |
+| `new-roof-wooden-decking-01.jpg` | Step 4 - Decking/sheathing | `woodenDecking` (new) |
+| `new-roof-underlayment-battens-01.jpg` | Step 4 - Underlayment | `membraneBattens` (replaces current) |
+| `new-roof-tile-preparation-01.jpg` | Step 5 - Tile preparation | `tilePreparation` (new) |
+| `new-roof-tile-installation-01.jpg` | Step 5 - Tile installation | `tileInstallation` (replaces current) |
+| `new-roof-tile-installation-02.jpg` | Step 5 - secondary | `tileInstallation2` (new) |
+| `new-roof-tile-complete-01.jpg` | Step 6 - Completed roof | `roofInsulation` (replaces current) |
 
 ### Steps
 
-1. **Copy all 10 images** from `user-uploads://` to `src/assets/process/` using their filenames from the Excel mapping
-2. **Update `MetalRoofPage.tsx`** — replace 6 import paths (lines 14-19) to point to the new filenames
-3. **Update `MaintenancePage.tsx`** — replace 2 import paths (lines 14-15) to point to the new filenames
-4. **Update `NewRoofPage.tsx`** — replace 2 import paths (lines 16-17) to point to the new filenames
+1. **Copy all 10 images** from `user-uploads://` to `src/assets/process/`
+2. **Update imports in `NewRoofPage.tsx`** — replace 4 existing import paths + add 6 new imports for the additional photos
+3. **Add images to the process timeline** — enhance the text-only timeline (lines 445-493) to include photos alongside each step, matching the pattern used by MetalRoofPage. Each step gets 1-3 relevant photos displayed in a grid below the step description.
 
-### Technical Detail
-
-All images follow the existing ES6 import pattern (`import img from "@/assets/process/filename.jpg"`). Only the file paths in the import statements change; no layout, alt text, or component structure changes are needed. The old image files remain in the repo (they may be referenced elsewhere or removed in a future cleanup).
+### Files Changed
+- `src/pages/services/NewRoofPage.tsx` — update imports + add image grids to process steps
 
