@@ -11,8 +11,8 @@ import { CheckCircle, Settings, Calendar, Phone, MapPin, Search, Leaf, Snowflake
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // Process images - Roof maintenance and inspection
-import groundInspection from "@/assets/process/roof-inspection-pro.jpg";
-import roofWalkingInspection from "@/assets/process/roof-walking-inspection.jpg";
+import groundInspection from "@/assets/process/maintenance-inspection-attic-01.jpg";
+import roofWalkingInspection from "@/assets/process/maintenance-inspection-attic-02.jpg";
 import gutterCleaning from "@/assets/process/gutter-cleaning.jpg";
 import mossRemoval from "@/assets/process/moss-removal.jpg";
 import singleTileRepair from "@/assets/process/single-tile-repair.jpg";
