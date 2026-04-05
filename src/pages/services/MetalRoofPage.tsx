@@ -11,12 +11,12 @@ import { Phone, CheckCircle, Shield, Zap, Clock, Palette, Layers, Wind, MapPin, 
 import { Link } from "react-router-dom";
 
 // Process images - Metal roof installation
-import metalRoofSurvey from "@/assets/process/metal-roof-survey.jpg";
-import membraneBattens from "@/assets/process/membrane-battens.jpg";
-import metalDelivery from "@/assets/process/metal-delivery.jpg";
-import metalInstallation from "@/assets/process/metal-installation.jpg";
-import metalRidgeCap from "@/assets/process/metal-ridge-cap.jpg";
-import gutterInstallation from "@/assets/process/completed-metal-roof.jpg";
+import metalRoofSurvey from "@/assets/process/metal-roof-tiles-before-after-01.jpg";
+import membraneBattens from "@/assets/process/metal-roof-tiles-installation-01.jpg";
+import metalDelivery from "@/assets/process/metal-roof-trapezoidal-installation-01.jpg";
+import metalInstallation from "@/assets/process/metal-roof-sheet-installation-01.jpg";
+import metalRidgeCap from "@/assets/process/metal-roof-ridge-installation-01.jpg";
+import gutterInstallation from "@/assets/process/metal-roof-tiles-complete-01.jpg";
 
 const relatedServices = [
   {
