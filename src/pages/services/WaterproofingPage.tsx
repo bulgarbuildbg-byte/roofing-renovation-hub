@@ -307,10 +307,10 @@ const WaterproofingPage = () => {
               <span className="text-primary-foreground">{t('pages.waterproofing.breadcrumb.current')}</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
-              Хидроизолация на покриви Варна
+              {t('pages.waterproofing.hero.title')}
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto text-center mb-8">
-              Професионална хидроизолация с качествени материали и 5 години гаранция. Защитете покрива си от влага, течове и атмосферни влияния.
+              {t('pages.waterproofing.hero.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
