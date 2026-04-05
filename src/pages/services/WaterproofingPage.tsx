@@ -614,7 +614,7 @@ const WaterproofingPage = () => {
                 <a href="tel:+359884997659">Обадете се сега</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
-                <Link to="/контакти">Изпратете запитване</Link>
+                <Link to={getPath('contact')}>{t('pages.waterproofing.cta.inquiryBtn')}</Link>
               </Button>
             </div>
           </div>
