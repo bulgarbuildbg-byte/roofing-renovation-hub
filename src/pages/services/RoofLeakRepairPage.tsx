@@ -11,8 +11,8 @@ import { Phone, CheckCircle, AlertTriangle, Droplets, Clock, Shield, Wrench, Map
 import { Link } from "react-router-dom";
 
 // Process images - Leak repair
-import leakInspection from "@/assets/process/roof-leak-damage.jpg";
-import emergencyTarp from "@/assets/process/emergency-tarp.jpg";
+import leakInspection from "@/assets/process/roof-repair-leak-diagnosis-attic-01.jpg";
+import emergencyTarp from "@/assets/process/roof-repair-structural-damage-01.jpg";
 import thermalInspection from "@/assets/process/thermal-inspection.jpg";
 import leakPatching from "@/assets/process/leak-patching.jpg";
 import leakTesting from "@/assets/process/leak-testing.jpg";
