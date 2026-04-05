@@ -1,34 +1,44 @@
 
 
-## Place 10 New Roof Photos on NewRoofPage
+## Fix Navigation: Clickable Service Cards + "Безплатна оферта" Button Behavior
 
-### Current State
-The `NewRoofPage.tsx` has 6 process images imported (lines 16-21) but only 1 is actually rendered (as a hero background on line 176). The 6-step process timeline (lines 445-493) is text-only with no images — unlike other service pages (e.g., MetalRoofPage) which display images alongside each step.
+### Problem 1: Service card images are not clickable
+The entire card area (image + text) is not wrapped in a link. Only the "Безплатна оферта" button at the bottom links to the service page. Users expect clicking anywhere on the card (especially the image) to navigate to that service.
 
-### What This Batch Does
-All 10 uploaded photos are for the **New Roof** service page, completing the set (2 were placed in the previous batch).
+### Problem 2: "Безплатна оферта" button goes to the service page, not a contact form
+The button currently links to the individual service page via `getPath(service.routeKey)`. For better conversion, it should scroll directly to the contact form or link to the contact page.
 
-### Photo-to-Step Mapping
+### Plan
 
-| Uploaded File | Process Step | Import Variable |
-|---|---|---|
-| `new-roof-wooden-structure-02.jpg` | Hero background | `roofFrameConstruction` (replaces current) |
-| `new-roof-wooden-structure-01.jpg` | Step 3 - Frame construction | `woodenStructure1` (new) |
-| `new-roof-wooden-structure-03.jpg` | Step 3 - secondary | `woodenStructure2` (new) |
-| `new-roof-wooden-structure-04.jpg` | Step 3 - secondary | `woodenStructure3` (new) |
-| `new-roof-wooden-decking-01.jpg` | Step 4 - Decking/sheathing | `woodenDecking` (new) |
-| `new-roof-underlayment-battens-01.jpg` | Step 4 - Underlayment | `membraneBattens` (replaces current) |
-| `new-roof-tile-preparation-01.jpg` | Step 5 - Tile preparation | `tilePreparation` (new) |
-| `new-roof-tile-installation-01.jpg` | Step 5 - Tile installation | `tileInstallation` (replaces current) |
-| `new-roof-tile-installation-02.jpg` | Step 5 - secondary | `tileInstallation2` (new) |
-| `new-roof-tile-complete-01.jpg` | Step 6 - Completed roof | `roofInsulation` (replaces current) |
+**File: `src/components/Services.tsx`**
 
-### Steps
+1. **Make the entire card clickable** — Wrap each `<Card>` in a `<Link to={getPath(service.routeKey)}>` so clicking anywhere on the card (image, title, description) navigates to the service page. Add `cursor-pointer` styling.
 
-1. **Copy all 10 images** from `user-uploads://` to `src/assets/process/`
-2. **Update imports in `NewRoofPage.tsx`** — replace 4 existing import paths + add 6 new imports for the additional photos
-3. **Add images to the process timeline** — enhance the text-only timeline (lines 445-493) to include photos alongside each step, matching the pattern used by MetalRoofPage. Each step gets 1-3 relevant photos displayed in a grid below the step description.
+2. **Change "Безплатна оферта" button behavior** — Instead of linking to the service page (redundant now that the card is clickable), change the button to either:
+   - Scroll to the `#contact` section on the homepage (if the user is on the homepage)
+   - Link to `getPath('contact')` (the localized contact page)
+
+   Since the contact form lives in a `Contact` component with `id="contact"` and service pages do NOT have an embedded form, the button will link to the localized contact page (`/bg/контакти`, `/en/contact`, etc.) for reliability across all contexts.
+
+3. **Stop event propagation** on the button click so it doesn't trigger the card's navigation.
+
+### Technical Detail
+
+```text
+Before:
+  Card (not clickable)
+    └─ Image (not clickable)
+    └─ Text content
+    └─ Button "Безплатна оферта" → /bg/ремонт-на-покриви (service page)
+
+After:
+  Link → /bg/ремонт-на-покриви (whole card clickable)
+    └─ Card
+        └─ Image
+        └─ Text content
+        └─ Button "Безплатна оферта" → /bg/контакти (contact page, stops propagation)
+```
 
 ### Files Changed
-- `src/pages/services/NewRoofPage.tsx` — update imports + add image grids to process steps
+- `src/components/Services.tsx` — wrap cards in Link, change button target to contact page
 
