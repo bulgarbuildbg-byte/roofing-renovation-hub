@@ -10,6 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import {
   CheckCircle, Droplets, Shield, Phone, MapPin, Layers, HardHat,
   Clock, Banknote, Hammer, AlertTriangle, Thermometer, Ruler, Star

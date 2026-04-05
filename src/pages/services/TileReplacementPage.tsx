@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Layers, Shield, Ruler, Palette, MapPin, Clock, Wrench, AlertTriangle, Home, Search } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
 // Process images - Ceramic tile replacement
 import roofInspection from "@/assets/process/tile-replacement-before-after-01.jpg";
@@ -25,17 +27,17 @@ const relatedServices = [
   {
     title: "Ремонт на Покриви",
     description: "Цялостен ремонт на покривната конструкция и покритие.",
-    href: "/ремонт-на-покриви"
+    href: getPath('roofRepair')
   },
   {
     title: "Поддръжка на Покриви",
     description: "Редовна профилактика за предотвратяване на повреди.",
-    href: "/поддръжка-на-покриви"
+    href: getPath('maintenance')
   },
   {
     title: "Изграждане на Нов Покрив",
     description: "Пълно изграждане на нов покрив с качествени материали.",
-    href: "/изграждане-на-покрив"
+    href: getPath('newRoof')
   }
 ];
 
@@ -304,9 +306,9 @@ const TileReplacementPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to="/" className="hover:text-primary-foreground">Начало</Link>
+              <Link to={getPath('home')} className="hover:text-primary-foreground">Начало</Link>
               <span className="mx-2">/</span>
-              <Link to="/услуги" className="hover:text-primary-foreground">Услуги</Link>
+              <Link to={getPath('services')} className="hover:text-primary-foreground">Услуги</Link>
               <span className="mx-2">/</span>
               <span>Смяна на керемиди</span>
             </nav>
@@ -330,7 +332,7 @@ const TileReplacementPage = () => {
                   </a>
                 </Button>
                 <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                  <Link to="/контакти">Безплатна Оферта</Link>
+                  <Link to={getPath('contact')}>Безплатна Оферта</Link>
                 </Button>
               </div>
               

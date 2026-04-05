@@ -7,6 +7,8 @@ import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { CheckCircle, Settings, Calendar, Phone, MapPin, Search, Leaf, Snowflake, Sun, CloudRain } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -22,17 +24,17 @@ const relatedServices = [
   {
     title: "Ремонт на Покриви",
     description: "Професионален ремонт при открити проблеми по време на поддръжка.",
-    href: "/ремонт-на-покриви"
+    href: getPath('roofRepair')
   },
   {
     title: "Смяна на Керемиди",
     description: "Подмяна на повредени керемиди преди да причинят течове.",
-    href: "/смяна-на-керемиди"
+    href: getPath('tileReplacement')
   },
   {
     title: "Хидроизолация",
     description: "Превантивна хидроизолация за защита на покрива.",
-    href: "/хидроизолация"
+    href: getPath('waterproofing')
   }
 ];
 
@@ -340,9 +342,9 @@ const MaintenancePage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to="/" className="hover:text-primary-foreground">Начало</Link>
+              <Link to={getPath('home')} className="hover:text-primary-foreground">Начало</Link>
               <span className="mx-2">/</span>
-              <Link to="/услуги" className="hover:text-primary-foreground">Услуги</Link>
+              <Link to={getPath('services')} className="hover:text-primary-foreground">Услуги</Link>
               <span className="mx-2">/</span>
               <span className="text-primary-foreground">Поддръжка на покриви</span>
             </nav>
@@ -360,7 +362,7 @@ const MaintenancePage = () => {
                 </a>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                <Link to="/контакти">Заявете преглед</Link>
+                <Link to={getPath('contact')}>Заявете преглед</Link>
               </Button>
             </div>
           </div>
@@ -657,7 +659,7 @@ const MaintenancePage = () => {
                 <a href="tel:+359884997659">Заявете преглед</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
-                <Link to="/контакти">Изпратете запитване</Link>
+                <Link to={getPath('contact')}>Изпратете запитване</Link>
               </Button>
             </div>
           </div>

@@ -10,6 +10,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { CheckCircle, Home, Shield, Phone, MapPin, Search, Layers, Ruler, HardHat, Clock, Banknote, Hammer } from "lucide-react";
 
 // Process images - New roof construction
@@ -30,17 +32,17 @@ const relatedServices = [
   {
     title: "Метални Покриви",
     description: "Леки и издръжливи метални покриви с дълга гаранция.",
-    href: "/метални-покриви"
+    href: getPath('metalRoof')
   },
   {
     title: "Смяна на Керемиди",
     description: "Подмяна на стари керемиди с нови качествени материали.",
-    href: "/смяна-на-керемиди"
+    href: getPath('tileReplacement')
   },
   {
     title: "Хидроизолация",
     description: "Професионална хидроизолация за дълготрайна защита.",
-    href: "/хидроизолация"
+    href: getPath('waterproofing')
   }
 ];
 
@@ -675,10 +677,10 @@ const NewRoofPage = () => {
             <div>
               <h4 className="font-bold text-slate-900 mb-4">Нашите услуги</h4>
               <ul className="space-y-2">
-                <li><Link to="/ремонт-на-покриви" className="hover:text-accent">[Ремонт на покриви]</Link></li>
-                <li><Link to="/хидроизолация" className="hover:text-accent">[Хидроизолация]</Link></li>
-                <li><Link to="/смяна-на-керемиди" className="hover:text-accent">[Смяна на керемиди]</Link></li>
-                <li><Link to="/метални-покриви" className="hover:text-accent">Метални покриви</Link></li>
+                <li><Link to={getPath('roofRepair')} className="hover:text-accent">[Ремонт на покриви]</Link></li>
+                <li><Link to={getPath('waterproofing')} className="hover:text-accent">[Хидроизолация]</Link></li>
+                <li><Link to={getPath('tileReplacement')} className="hover:text-accent">[Смяна на керемиди]</Link></li>
+                <li><Link to={getPath('metalRoof')} className="hover:text-accent">Метални покриви</Link></li>
               </ul>
             </div>
             <div>
@@ -695,7 +697,7 @@ const NewRoofPage = () => {
               <ul className="space-y-2">
                 <li><Link to="/блог" className="hover:text-accent">Блог за строителство</Link></li>
                 <li><Link to="/въпроси" className="hover:text-accent">Чести въпроси</Link></li>
-                <li><Link to="/контакти" className="hover:text-accent">Контакти</Link></li>
+                <li><Link to={getPath('contact')} className="hover:text-accent">Контакти</Link></li>
               </ul>
             </div>
           </div>
