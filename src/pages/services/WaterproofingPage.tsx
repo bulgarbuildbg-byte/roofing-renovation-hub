@@ -343,7 +343,7 @@ const WaterproofingPage = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto prose prose-lg">
-              <h2 className="text-3xl font-bold text-foreground mb-6">Какво е хидроизолация и защо е важна?</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-6">{t('pages.waterproofing.intro.title')}</h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                 Хидроизолацията е защитен слой, който предотвратява проникването на вода в покривната конструкция и сградата. Във Варна, с нейния влажен морски климат, интензивни валежи и силни ветрове, качествената хидроизолация е абсолютно необходима за всяка сграда.
               </p>
