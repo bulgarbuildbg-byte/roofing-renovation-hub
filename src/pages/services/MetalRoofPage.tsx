@@ -20,32 +20,27 @@ import metalInstallation from "@/assets/process/metal-roof-sheet-installation-01
 import metalRidgeCap from "@/assets/process/metal-roof-ridge-installation-01.jpg";
 import gutterInstallation from "@/assets/process/metal-roof-tiles-complete-01.jpg";
 
-const relatedServices = [
-  {
-    title: "Изграждане на Нов Покрив",
-    description: "Пълно проектиране и изграждане на нова покривна конструкция.",
-    href: getPath('newRoof')
-  },
-  {
-    title: "Ремонт на Покриви",
-    description: "Професионален ремонт на всички видове покриви.",
-    href: getPath('roofRepair')
-  },
-  {
-    title: "Поддръжка на Покриви",
-    description: "Редовна поддръжка за дълъг живот на металния покрив.",
-    href: getPath('maintenance')
-  }
-];
-
-const learnMoreLinks = [
-  { title: "Как да изберем правилните керемиди", href: "/блог/как-да-изберем-керемиди-за-нов-покрив" },
-  { title: "Подготовка на покрива за зимата", href: "/блог/как-да-подготвим-покрива-за-зимата" }
-];
-
 const MetalRoofPage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
+
+  const relatedServices = [
+    {
+      title: "Изграждане на Нов Покрив",
+      description: "Пълно проектиране и изграждане на нова покривна конструкция.",
+      href: getPath('newRoof')
+    },
+    {
+      title: "Ремонт на Покриви",
+      description: "Професионален ремонт на всички видове покриви.",
+      href: getPath('roofRepair')
+    },
+    {
+      title: "Поддръжка на Покриви",
+      description: "Редовна поддръжка за дълъг живот на металния покрив.",
+      href: getPath('maintenance')
+    }
+  ];
   const services = [
     "Монтаж на метални керемиди",
     "Монтаж на ламаринени покриви",

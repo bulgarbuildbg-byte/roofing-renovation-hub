@@ -20,32 +20,27 @@ import mossRemoval from "@/assets/process/moss-removal.jpg";
 import singleTileRepair from "@/assets/process/single-tile-repair.jpg";
 import maintenanceReport from "@/assets/process/maintenance-report.jpg";
 
-const relatedServices = [
-  {
-    title: "Ремонт на Покриви",
-    description: "Професионален ремонт при открити проблеми по време на поддръжка.",
-    href: getPath('roofRepair')
-  },
-  {
-    title: "Смяна на Керемиди",
-    description: "Подмяна на повредени керемиди преди да причинят течове.",
-    href: getPath('tileReplacement')
-  },
-  {
-    title: "Хидроизолация",
-    description: "Превантивна хидроизолация за защита на покрива.",
-    href: getPath('waterproofing')
-  }
-];
-
-const learnMoreLinks = [
-  { title: "Пролетна инспекция на покрива", href: "/блог/пролетна-инспекция-на-покрива" },
-  { title: "Подготовка на покрива за зимата", href: "/блог/как-да-подготвим-покрива-за-зимата" }
-];
-
 const MaintenancePage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
+
+  const relatedServices = [
+    {
+      title: "Ремонт на Покриви",
+      description: "Професионален ремонт при открити проблеми по време на поддръжка.",
+      href: getPath('roofRepair')
+    },
+    {
+      title: "Смяна на Керемиди",
+      description: "Подмяна на повредени керемиди преди да причинят течове.",
+      href: getPath('tileReplacement')
+    },
+    {
+      title: "Хидроизолация",
+      description: "Превантивна хидроизолация за защита на покрива.",
+      href: getPath('waterproofing')
+    }
+  ];
   const services = [
     "Почистване на покриви от мъх и лишеи",
     "Почистване на улуци и водосточни тръби",
