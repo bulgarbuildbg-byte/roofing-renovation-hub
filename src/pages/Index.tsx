@@ -140,6 +140,7 @@ const Index = () => {
       <Header />
       <Hero />
       <TrustIndicators />
+      <CertificationsBar />
       <BrandCarousel />
       <Services />
       <Testimonials />
