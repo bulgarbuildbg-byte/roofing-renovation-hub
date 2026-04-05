@@ -300,11 +300,11 @@ const WaterproofingPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to="/" className="hover:text-primary-foreground">Начало</Link>
+              <Link to={getPath('home')} className="hover:text-primary-foreground">{t('pages.waterproofing.breadcrumb.home')}</Link>
               <span className="mx-2">/</span>
-              <Link to="/услуги" className="hover:text-primary-foreground">Услуги</Link>
+              <Link to={getPath('services')} className="hover:text-primary-foreground">{t('pages.waterproofing.breadcrumb.services')}</Link>
               <span className="mx-2">/</span>
-              <span className="text-primary-foreground">Хидроизолация</span>
+              <span className="text-primary-foreground">{t('pages.waterproofing.breadcrumb.current')}</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
               Хидроизолация на покриви Варна
