@@ -51,46 +51,51 @@ const Services = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {serviceKeys.map((service, index) => (
-            <Card 
-              key={index} 
-              className="bg-background hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border flex flex-col overflow-hidden"
-            >
-              <div className="relative h-40 md:h-44 overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={t(`services.${service.key}.title`)}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              </div>
-              <CardContent className="p-4 md:p-6 flex flex-col flex-grow">
-                <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
-                  {t(`services.${service.key}.title`)}
-                </h3>
-                <p className="text-accent font-medium text-sm mb-3">
-                  {t(`services.${service.key}.problem`)}
-                </p>
-                <ul className="text-muted-foreground text-sm mb-4 space-y-1">
-                  {(t(`services.${service.key}.includes`) as string).split(',').slice(0, 3).map((item: string, i: number) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-foreground text-sm font-medium mb-4 mt-auto">
-                  ✓ {t(`services.${service.key}.benefits`)}
-                </p>
-                <Link to={getPath(service.routeKey)} className="block">
-                  <Button 
-                    className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+            <Link key={index} to={getPath(service.routeKey)} className="block group">
+              <Card 
+                className="bg-background hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border flex flex-col overflow-hidden cursor-pointer h-full"
+              >
+                <div className="relative h-40 md:h-44 overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={t(`services.${service.key}.title`)}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
+                <CardContent className="p-4 md:p-6 flex flex-col flex-grow">
+                  <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
+                    {t(`services.${service.key}.title`)}
+                  </h3>
+                  <p className="text-accent font-medium text-sm mb-3">
+                    {t(`services.${service.key}.problem`)}
+                  </p>
+                  <ul className="text-muted-foreground text-sm mb-4 space-y-1">
+                    {(t(`services.${service.key}.includes`) as string).split(',').slice(0, 3).map((item: string, i: number) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-foreground text-sm font-medium mb-4 mt-auto">
+                    ✓ {t(`services.${service.key}.benefits`)}
+                  </p>
+                  <Link
+                    to={getPath('contact')}
+                    className="block"
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    {t('services.freeQuote')}
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                    <Button 
+                      className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                    >
+                      {t('services.freeQuote')}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 
