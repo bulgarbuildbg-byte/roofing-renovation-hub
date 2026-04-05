@@ -1,54 +1,41 @@
 
 
-## Fix Language System on Service Pages
+## Подобряване на видимостта на връзката с България Билд ЕООД и сертификати
 
-### Root Cause
-All 9 service pages (6,200 lines total) have **every string hardcoded in Bulgarian**. They don't use `useTranslation()` or `useLocalizedPath()`. When a user switches language, the URL changes correctly but the page content stays in Bulgarian.
+### Какво има сега
+- Footer: малък текст в дъното "специализирано покривно подразделение на BulgarBuild"
+- About page: секция "Корпоративна Структура" с подробности
+- Trust Indicators: 6 бадж-а (опит, проекти, гаранция, лицензирана, безплатен оглед, район) — няма "Камара на строителите" и няма "България Билд"
+- WhyChooseUs: 6 карти — без споменаване на камарата или корпоративната връзка
 
-Two distinct problems:
-1. **Content not translated** — pages render Bulgarian regardless of active language
-2. **Internal links hardcoded** — links like `href="/хидроизолация"` don't use language prefix, breaking navigation
+### Какво ще се промени
 
-### Affected Pages
-| Page | Lines | File |
-|------|-------|------|
-| FlatRoofPage | 741 | `src/pages/services/FlatRoofPage.tsx` |
-| WaterproofingVarnaPage | 792 | `src/pages/services/WaterproofingVarnaPage.tsx` |
-| NewRoofPage | 710 | `src/pages/services/NewRoofPage.tsx` |
-| MetalRoofPage | 680 | `src/pages/services/MetalRoofPage.tsx` |
-| TileReplacementPage | 680 | `src/pages/services/TileReplacementPage.tsx` |
-| MaintenancePage | 679 | `src/pages/services/MaintenancePage.tsx` |
-| RoofLeakRepairPage | 665 | `src/pages/services/RoofLeakRepairPage.tsx` |
-| WaterproofingPage | 644 | `src/pages/services/WaterproofingPage.tsx` |
-| RoofRepairPage | 600 | `src/pages/services/RoofRepairPage.tsx` |
+**1. Нова секция "Сертификати и Членства" на началната страница**
+Нов компонент `CertificationsBar` (или разширение на `TrustIndicators`), поставен след Hero + TrustIndicators. Ще съдържа:
+- "Част от България Билд ЕООД" — с линк към bulgarbuild.com и лого/текст
+- "Член на Камарата на строителите в България" — с икона Building2/Landmark
+- "Сертифицирана компания · ЕИК: 207189805" — с икона FileCheck/Shield
 
-### Plan (per page)
+Визуално: хоризонтална лента с 3 елемента на светъл/accent фон, ясно различима от TrustIndicators.
 
-1. **Extract all Bulgarian text strings** into translation keys under a new `pages.{serviceName}` namespace in each locale file
-2. **Add `useTranslation()` and `useLocalizedPath()`** hooks to each page component
-3. **Replace all hardcoded strings** with `t('pages.serviceName.keyName')` calls
-4. **Fix internal links** — replace hardcoded paths like `"/хидроизолация"` with `getPath('waterproofing')`
-5. **Add translations** to all 10 locale files (bg, en, de, fi, sv, no, fr, nl, ru, ua)
+**2. Обновяване на TrustIndicators**
+Замяна на "Лицензирана компания" (trust.licensed) с по-ясно: "Член на КСБ" (Камарата на строителите в България) във всички 10 езикови файла.
 
-### Scope and Approach
-Given the scale (~6,200 lines across 9 pages, 10 languages), this will be done in batches of 2-3 pages per iteration. Each page has roughly 80-120 unique text strings that need extraction.
+**3. Обновяване на Footer trust signals**
+Промяна на секцията с тикове в Footer:
+- ✓ Част от България Билд ЕООД
+- ✓ Член на Камарата на строителите
+- ✓ Писмена гаранция до 10 год.
 
-**Batch 1:** RoofRepairPage + RoofLeakRepairPage (smallest, ~1,265 lines)
-**Batch 2:** WaterproofingPage + NewRoofPage (~1,354 lines)
-**Batch 3:** TileReplacementPage + MetalRoofPage (~1,360 lines)
-**Batch 4:** FlatRoofPage + MaintenancePage (~1,420 lines)
-**Batch 5:** WaterproofingVarnaPage (~792 lines)
+**4. Преводи**
+Добавяне на нови ключове (`certifications.*`) във всички 10 locale файла.
 
-### Files Changed
-- `src/pages/services/*.tsx` — all 9 service pages (add hooks, replace hardcoded text and links)
-- `src/i18n/locales/bg.ts` — add `pages.*` keys with existing Bulgarian text
-- `src/i18n/locales/en.ts` — English translations
-- `src/i18n/locales/de.ts` — German translations
-- `src/i18n/locales/fi.ts` — Finnish translations
-- `src/i18n/locales/sv.ts` — Swedish translations
-- `src/i18n/locales/no.ts` — Norwegian translations
-- `src/i18n/locales/fr.ts` — French translations
-- `src/i18n/locales/nl.ts` — Dutch translations
-- `src/i18n/locales/ru.ts` — Russian translations
-- `src/i18n/locales/ua.ts` — Ukrainian translations
+### Файлове за промяна
+- `src/components/CertificationsBar.tsx` — нов компонент
+- `src/pages/Index.tsx` — добавяне на CertificationsBar след TrustIndicators
+- `src/components/Footer.tsx` — обновяване на trust signals
+- `src/components/TrustIndicators.tsx` — промяна на "licensed" ключа
+- `src/i18n/locales/bg.ts` — нови ключове за сертификати и КСБ
+- `src/i18n/locales/en.ts` — English преводи
+- `src/i18n/locales/de.ts`, `fi.ts`, `sv.ts`, `no.ts`, `fr.ts`, `nl.ts`, `ru.ts`, `ua.ts` — преводи
 
