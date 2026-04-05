@@ -11,9 +11,9 @@ import { CheckCircle, Droplets, Shield, Clock, Phone, MapPin, AlertTriangle, Sea
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // Process images - Bituminous waterproofing
-import roofSurfacePrep from "@/assets/process/flat-roof-waterproofing.jpg";
-import waterproofingPrimer from "@/assets/process/waterproofing-membrane.jpg";
-import waterproofingTorch from "@/assets/process/bitumen-torch-application.jpg";
+import roofSurfacePrep from "@/assets/process/waterproofing-bitumen-membrane-roll-01.jpg";
+import waterproofingPrimer from "@/assets/process/waterproofing-bitumen-torch-closeup-01.jpg";
+import waterproofingTorch from "@/assets/process/waterproofing-bitumen-torch-terrace-01.jpg";
 import waterproofingDetail from "@/assets/process/roof-chimney-detail.jpg";
 import waterproofingSecondLayer from "@/assets/process/flat-roof-overview.jpg";
 import completedFlatRoof from "@/assets/portfolio/apartment-building.jpg";
