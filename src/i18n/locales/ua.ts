@@ -85,7 +85,7 @@ const ua = {
     responseTime: "⏰ Відповідаємо протягом 24 годин", sendInquiry: "Надіслати запит",
   },
   mobile: { call: "Зателефонувати", freeInspection: "Безкоштовний огляд" },
-  trust: { experience: "15+ років досвіду", projects: "500+ проектів", warranty: "Гарантія до 10 років", licensed: "Ліцензовані", freeInspection: "Безкоштовний огляд", area: "Варна та регіон" },
+  trust: { experience: "15+ років досвіду", projects: "500+ проектів", warranty: "Гарантія до 10 років", licensed: "Член КСБ", freeInspection: "Безкоштовний огляд", area: "Варна та регіон" },
   testimonials: { title: "Що Кажуть Наші Клієнти", subtitle: "Понад 500 задоволених клієнтів у Варні та регіоні", fromReviews: "зі 127 відгуків", beNext: "Стaньте нашим наступним задоволеним клієнтом", callNow: "Зателефонувати", requestInspection: "Замовити огляд", verified: "Підтверджений клієнт" },
   gallery: { title: "Наші Проекти", subtitle: "Галерея успішно завершених проектів у Варні", seeAll: "Всі проекти" },
   beforeAfter: { title: "До & Після", subtitle: "Подивіться перетворення, яких ми досягаємо. Зсуньте для порівняння.", before: "До", after: "Після" },

@@ -85,7 +85,7 @@ const no = {
     responseTime: "⏰ Vi svarer innen 24 timer", sendInquiry: "Send forespørsel",
   },
   mobile: { call: "Ring oss", freeInspection: "Gratis inspeksjon" },
-  trust: { experience: "15+ års erfaring", projects: "500+ prosjekter", warranty: "Opptil 10 års garanti", licensed: "Lisensiert", freeInspection: "Gratis inspeksjon", area: "Varna & region" },
+  trust: { experience: "15+ års erfaring", projects: "500+ prosjekter", warranty: "Opptil 10 års garanti", licensed: "KSB-medlem", freeInspection: "Gratis inspeksjon", area: "Varna & region" },
   testimonials: { title: "Hva Våre Kunder Sier", subtitle: "Over 500 fornøyde kunder i Varna og regionen", fromReviews: "fra 127 anmeldelser", beNext: "Bli vår neste fornøyde kunde", callNow: "Ring nå", requestInspection: "Be om inspeksjon", verified: "Verifisert kunde" },
   gallery: { title: "Våre Prosjekter", subtitle: "Galleri av vellykkede prosjekter i Varna", seeAll: "Se alle prosjekter" },
   beforeAfter: { title: "Før & Etter", subtitle: "Se forvandlingene vi oppnår med våre reparasjoner. Dra for å sammenligne.", before: "Før", after: "Etter" },

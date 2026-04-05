@@ -85,7 +85,7 @@ const ru = {
     responseTime: "⏰ Отвечаем в течение 24 часов", sendInquiry: "Отправить запрос",
   },
   mobile: { call: "Позвонить", freeInspection: "Бесплатный осмотр" },
-  trust: { experience: "15+ лет опыта", projects: "500+ проектов", warranty: "Гарантия до 10 лет", licensed: "Лицензированы", freeInspection: "Бесплатный осмотр", area: "Варна и регион" },
+  trust: { experience: "15+ лет опыта", projects: "500+ проектов", warranty: "Гарантия до 10 лет", licensed: "Член КСБ", freeInspection: "Бесплатный осмотр", area: "Варна и регион" },
   testimonials: { title: "Что Говорят Наши Клиенты", subtitle: "Более 500 довольных клиентов в Варне и регионе", fromReviews: "из 127 отзывов", beNext: "Станьте нашим следующим довольным клиентом", callNow: "Позвонить", requestInspection: "Заказать осмотр", verified: "Подтверждённый клиент" },
   gallery: { title: "Наши Проекты", subtitle: "Галерея успешно завершённых проектов в Варне", seeAll: "Все проекты" },
   beforeAfter: { title: "До & После", subtitle: "Посмотрите преображения, которых мы достигаем. Сдвиньте для сравнения.", before: "До", after: "После" },

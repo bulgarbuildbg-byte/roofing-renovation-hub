@@ -95,7 +95,7 @@ const de = {
   mobile: { call: "Anrufen", freeInspection: "Kostenlose Inspektion" },
   trust: {
     experience: "15+ Jahre Erfahrung", projects: "500+ Projekte", warranty: "Bis zu 10 J. Garantie",
-    licensed: "Lizenziert", freeInspection: "Kostenlose Inspektion", area: "Varna & Region",
+    licensed: "KSB-Mitglied", freeInspection: "Kostenlose Inspektion", area: "Varna & Region",
   },
   testimonials: {
     title: "Was Unsere Kunden Sagen", subtitle: "Über 500 zufriedene Kunden in Varna und der Region",

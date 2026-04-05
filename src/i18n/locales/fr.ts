@@ -85,7 +85,7 @@ const fr = {
     responseTime: "⏰ Nous répondons sous 24 heures", sendInquiry: "Envoyer une demande",
   },
   mobile: { call: "Appeler", freeInspection: "Inspection gratuite" },
-  trust: { experience: "15+ ans d'expérience", projects: "500+ projets", warranty: "Jusqu'à 10 ans de garantie", licensed: "Licencié", freeInspection: "Inspection gratuite", area: "Varna & région" },
+  trust: { experience: "15+ ans d'expérience", projects: "500+ projets", warranty: "Jusqu'à 10 ans de garantie", licensed: "Membre KSB", freeInspection: "Inspection gratuite", area: "Varna & région" },
   testimonials: { title: "Ce Que Disent Nos Clients", subtitle: "Plus de 500 clients satisfaits à Varna et dans la région", fromReviews: "sur 127 avis", beNext: "Devenez notre prochain client satisfait", callNow: "Appeler maintenant", requestInspection: "Demander une inspection", verified: "Client vérifié" },
   gallery: { title: "Nos Projets", subtitle: "Galerie de nos projets réussis à Varna", seeAll: "Voir tous les projets" },
   beforeAfter: { title: "Avant & Après", subtitle: "Voyez les transformations que nous réalisons. Glissez pour comparer.", before: "Avant", after: "Après" },

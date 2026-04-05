@@ -95,7 +95,7 @@ const fi = {
   mobile: { call: "Soita", freeInspection: "Ilmainen tarkastus" },
   trust: {
     experience: "15+ vuoden kokemus", projects: "500+ projektia", warranty: "Jopa 10v takuu",
-    licensed: "Lisensoitu", freeInspection: "Ilmainen tarkastus", area: "Varna & alue",
+    licensed: "KSB-jäsen", freeInspection: "Ilmainen tarkastus", area: "Varna & alue",
   },
   testimonials: {
     title: "Mitä Asiakkaamme Sanovat", subtitle: "Yli 500 tyytyväistä asiakasta Varnassa ja alueella",
