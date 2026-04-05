@@ -15,10 +15,16 @@ import { CheckCircle, Home, Shield, Phone, MapPin, Search, Layers, Ruler, HardHa
 // Process images - New roof construction
 import roofPlanning from "@/assets/process/new-roof-design-plan-01.jpg";
 import roofingMaterials from "@/assets/process/new-roof-structure-diagram-01.jpg";
-import roofFrameConstruction from "@/assets/process/roof-frame-work.jpg";
-import membraneBattens from "@/assets/process/roof-underlayment.jpg";
-import tileInstallation from "@/assets/process/tile-roof-construction.jpg";
-import roofInsulation from "@/assets/portfolio/family-house.jpg";
+import roofFrameConstruction from "@/assets/process/new-roof-wooden-structure-02.jpg";
+import woodenStructure1 from "@/assets/process/new-roof-wooden-structure-01.jpg";
+import woodenStructure2 from "@/assets/process/new-roof-wooden-structure-03.jpg";
+import woodenStructure3 from "@/assets/process/new-roof-wooden-structure-04.jpg";
+import woodenDecking from "@/assets/process/new-roof-wooden-decking-01.jpg";
+import membraneBattens from "@/assets/process/new-roof-underlayment-battens-01.jpg";
+import tilePreparation from "@/assets/process/new-roof-tile-preparation-01.jpg";
+import tileInstallation from "@/assets/process/new-roof-tile-installation-01.jpg";
+import tileInstallation2 from "@/assets/process/new-roof-tile-installation-02.jpg";
+import roofComplete from "@/assets/process/new-roof-tile-complete-01.jpg";
 
 const relatedServices = [
   {
