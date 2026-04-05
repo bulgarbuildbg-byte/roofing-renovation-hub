@@ -14,9 +14,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import roofSurfacePrep from "@/assets/process/waterproofing-bitumen-membrane-roll-01.jpg";
 import waterproofingPrimer from "@/assets/process/waterproofing-bitumen-torch-closeup-01.jpg";
 import waterproofingTorch from "@/assets/process/waterproofing-bitumen-torch-terrace-01.jpg";
-import waterproofingDetail from "@/assets/process/roof-chimney-detail.jpg";
-import waterproofingSecondLayer from "@/assets/process/flat-roof-overview.jpg";
-import completedFlatRoof from "@/assets/portfolio/apartment-building.jpg";
+import waterproofingDetail from "@/assets/process/waterproofing-bitumen-torch-welding-01.jpg";
+import waterproofingSecondLayer from "@/assets/process/waterproofing-bitumen-torch-winter-01.jpg";
+import completedFlatRoof from "@/assets/process/waterproofing-membrane-rolls-terrace-01.jpg";
 
 const relatedServices = [
   {
