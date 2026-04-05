@@ -60,6 +60,14 @@ const ru = {
     copyright: "RemontNaPokriviVarna. Все права защищены.",
     parentCompany: "Ремонт на Покриви Варна — специализированное кровельное подразделение",
     parentCompanyName: "BulgarBuild Construction Company", companyInfo: "Bulgaria Build EOOD · ЕИК: 207189805",
+    trustPartOf: "Часть Bulgaria Build EOOD",
+    trustKsb: "Член Строительной палаты",
+    trustWarranty: "Письменная гарантия до 10 лет",
+  },
+  certifications: {
+    partOf: "Часть Bulgaria Build EOOD",
+    ksbMember: "Член Болгарской палаты строителей",
+    certified: "Сертифицированная компания · ЕИК: 207189805",
   },
   faq: {
     title: "Часто Задаваемые Вопросы", subtitle: "Ответы на часто задаваемые вопросы о наших услугах", seeAll: "Все вопросы",

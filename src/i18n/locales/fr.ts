@@ -60,6 +60,14 @@ const fr = {
     copyright: "RemontNaPokriviVarna. Tous droits réservés.",
     parentCompany: "Remont na Pokrivi Varna est une division spécialisée de",
     parentCompanyName: "BulgarBuild Construction Company", companyInfo: "Bulgaria Build EOOD · UIC : 207189805",
+    trustPartOf: "Filiale de Bulgaria Build EOOD",
+    trustKsb: "Membre de la Chambre des constructeurs",
+    trustWarranty: "Garantie écrite jusqu'à 10 ans",
+  },
+  certifications: {
+    partOf: "Filiale de Bulgaria Build EOOD",
+    ksbMember: "Membre de la Chambre bulgare des constructeurs",
+    certified: "Entreprise certifiée · UIC : 207189805",
   },
   faq: {
     title: "Questions Fréquentes", subtitle: "Réponses aux questions courantes sur nos services", seeAll: "Voir toutes les questions",

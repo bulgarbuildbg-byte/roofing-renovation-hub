@@ -64,6 +64,14 @@ const fi = {
     parentCompany: "Remont na Pokrivi Varna on erikoistunut kattoosasto yrityksestä",
     parentCompanyName: "BulgarBuild Construction Company",
     companyInfo: "Bulgaria Build EOOD · UIC: 207189805",
+    trustPartOf: "Osa Bulgaria Build EOOD:tä",
+    trustKsb: "Rakentajakamarin jäsen",
+    trustWarranty: "Kirjallinen takuu jopa 10 vuotta",
+  },
+  certifications: {
+    partOf: "Osa Bulgaria Build EOOD:tä",
+    ksbMember: "Bulgarian rakentajakamarin jäsen",
+    certified: "Sertifioitu yritys · UIC: 207189805",
   },
   faq: {
     title: "Usein Kysytyt Kysymykset", subtitle: "Vastauksia yleisimpiin kysymyksiin palveluistamme",

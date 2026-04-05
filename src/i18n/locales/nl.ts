@@ -60,6 +60,14 @@ const nl = {
     copyright: "RemontNaPokriviVarna. Alle rechten voorbehouden.",
     parentCompany: "Remont na Pokrivi Varna is een gespecialiseerde dakafdeling van",
     parentCompanyName: "BulgarBuild Construction Company", companyInfo: "Bulgaria Build EOOD · UIC: 207189805",
+    trustPartOf: "Onderdeel van Bulgaria Build EOOD",
+    trustKsb: "Lid van de Bouwkamer",
+    trustWarranty: "Schriftelijke garantie tot 10 jaar",
+  },
+  certifications: {
+    partOf: "Onderdeel van Bulgaria Build EOOD",
+    ksbMember: "Lid van de Bulgaarse Bouwkamer",
+    certified: "Gecertificeerd bedrijf · UIC: 207189805",
   },
   faq: {
     title: "Veelgestelde Vragen", subtitle: "Antwoorden op veelgestelde vragen over onze diensten", seeAll: "Alle vragen bekijken",
