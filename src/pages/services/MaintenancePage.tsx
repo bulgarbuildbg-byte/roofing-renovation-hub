@@ -44,6 +44,8 @@ const learnMoreLinks = [
 ];
 
 const MaintenancePage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const services = [
     "Почистване на покриви от мъх и лишеи",
     "Почистване на улуци и водосточни тръби",

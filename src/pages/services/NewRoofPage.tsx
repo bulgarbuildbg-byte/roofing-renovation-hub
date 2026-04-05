@@ -47,6 +47,8 @@ const relatedServices = [
 ];
 
 const NewRoofPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Service",

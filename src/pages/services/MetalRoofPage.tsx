@@ -44,6 +44,8 @@ const learnMoreLinks = [
 ];
 
 const MetalRoofPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const services = [
     "Монтаж на метални керемиди",
     "Монтаж на ламаринени покриви",

@@ -44,6 +44,8 @@ const learnMoreLinks = [
 ];
 
 const FlatRoofPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const services = [
     "Хидроизолация на плосък покрив",
     "Ремонт на течове и пукнатини",

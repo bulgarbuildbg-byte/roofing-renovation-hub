@@ -47,6 +47,8 @@ const learnMoreLinks = [
 ];
 
 const TileReplacementPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const services = [
     "Смяна на единични счупени керемиди",
     "Частична подмяна на покривното покритие",

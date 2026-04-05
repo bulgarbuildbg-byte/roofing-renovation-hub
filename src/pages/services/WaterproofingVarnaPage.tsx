@@ -59,6 +59,8 @@ const learnMoreLinks = [
 ];
 
 const WaterproofingVarnaPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   // ── JSON-LD ───────────────────────────────────────────────
   const schemaData = {
     "@context": "https://schema.org",
