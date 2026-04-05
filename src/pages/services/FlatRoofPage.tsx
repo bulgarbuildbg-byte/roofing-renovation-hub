@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Layers, Shield, Droplets, Sun, MapPin, Clock, Wrench, AlertTriangle, ThermometerSun, Wind, Home } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
 // Process images - Flat roof / bituminous waterproofing
 import flatRoofInspection from "@/assets/process/flat-roof-inspection.jpg";
@@ -22,17 +24,17 @@ const relatedServices = [
   {
     title: "Хидроизолация",
     description: "Професионална хидроизолация с PVC, TPO и битумни мембрани.",
-    href: "/хидроизолация"
+    href: getPath('waterproofing')
   },
   {
     title: "Ремонт на Течове",
     description: "Спешно отстраняване на течове при плоски покриви.",
-    href: "/ремонт-течове"
+    href: getPath('leakRepair')
   },
   {
     title: "Поддръжка на Покриви",
     description: "Редовна инспекция и почистване на плоски покриви.",
-    href: "/поддръжка-на-покриви"
+    href: getPath('maintenance')
   }
 ];
 
@@ -42,6 +44,8 @@ const learnMoreLinks = [
 ];
 
 const FlatRoofPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const services = [
     "Хидроизолация на плосък покрив",
     "Ремонт на течове и пукнатини",
@@ -329,9 +333,9 @@ const FlatRoofPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to="/" className="hover:text-primary-foreground">Начало</Link>
+              <Link to={getPath('home')} className="hover:text-primary-foreground">Начало</Link>
               <span className="mx-2">/</span>
-              <Link to="/услуги" className="hover:text-primary-foreground">Услуги</Link>
+              <Link to={getPath('services')} className="hover:text-primary-foreground">Услуги</Link>
               <span className="mx-2">/</span>
               <span>Плоски покриви</span>
             </nav>
@@ -355,7 +359,7 @@ const FlatRoofPage = () => {
                   </a>
                 </Button>
                 <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                  <Link to="/контакти">Безплатен Оглед</Link>
+                  <Link to={getPath('contact')}>Безплатен Оглед</Link>
                 </Button>
               </div>
               

@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Shield, Zap, Clock, Palette, Layers, Wind, MapPin, Wrench, Home, AlertTriangle, ThermometerSun } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
 // Process images - Metal roof installation
 import metalRoofSurvey from "@/assets/process/metal-roof-tiles-before-after-01.jpg";
@@ -22,17 +24,17 @@ const relatedServices = [
   {
     title: "Изграждане на Нов Покрив",
     description: "Пълно проектиране и изграждане на нова покривна конструкция.",
-    href: "/изграждане-на-покрив"
+    href: getPath('newRoof')
   },
   {
     title: "Ремонт на Покриви",
     description: "Професионален ремонт на всички видове покриви.",
-    href: "/ремонт-на-покриви"
+    href: getPath('roofRepair')
   },
   {
     title: "Поддръжка на Покриви",
     description: "Редовна поддръжка за дълъг живот на металния покрив.",
-    href: "/поддръжка-на-покриви"
+    href: getPath('maintenance')
   }
 ];
 
@@ -42,6 +44,8 @@ const learnMoreLinks = [
 ];
 
 const MetalRoofPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const services = [
     "Монтаж на метални керемиди",
     "Монтаж на ламаринени покриви",
@@ -301,9 +305,9 @@ const MetalRoofPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to="/" className="hover:text-primary-foreground">Начало</Link>
+              <Link to={getPath('home')} className="hover:text-primary-foreground">Начало</Link>
               <span className="mx-2">/</span>
-              <Link to="/услуги" className="hover:text-primary-foreground">Услуги</Link>
+              <Link to={getPath('services')} className="hover:text-primary-foreground">Услуги</Link>
               <span className="mx-2">/</span>
               <span>Метални покриви</span>
             </nav>
@@ -327,7 +331,7 @@ const MetalRoofPage = () => {
                   </a>
                 </Button>
                 <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                  <Link to="/контакти">Безплатна Оферта</Link>
+                  <Link to={getPath('contact')}>Безплатна Оферта</Link>
                 </Button>
               </div>
               

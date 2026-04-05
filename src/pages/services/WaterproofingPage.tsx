@@ -9,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle, Droplets, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Layers, Thermometer } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
 // Process images - Bituminous waterproofing
 import roofSurfacePrep from "@/assets/process/waterproofing-bitumen-membrane-roll-01.jpg";
@@ -18,30 +20,20 @@ import waterproofingDetail from "@/assets/process/waterproofing-bitumen-torch-we
 import waterproofingSecondLayer from "@/assets/process/waterproofing-bitumen-torch-winter-01.jpg";
 import completedFlatRoof from "@/assets/process/waterproofing-membrane-rolls-terrace-01.jpg";
 
-const relatedServices = [
-  {
-    title: "Плоски Покриви",
-    description: "Специализирани решения за плоски покриви с модерни материали.",
-    href: "/плоски-покриви"
-  },
-  {
-    title: "Ремонт на Течове",
-    description: "Бързо локализиране и отстраняване на течове с гаранция.",
-    href: "/ремонт-течове"
-  },
-  {
-    title: "Поддръжка на Покриви",
-    description: "Превантивна грижа за дълготрайна защита на покрива.",
-    href: "/поддръжка-на-покриви"
-  }
-];
-
-const learnMoreLinks = [
-  { title: "Видове хидроизолация - пълно ръководство", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" },
-  { title: "Най-честите грешки при покривни ремонти", href: "/блог/най-честите-грешки-при-покривни-ремонти" }
-];
-
 const WaterproofingPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
+
+  const relatedServices = [
+    { title: t('nav.flatRoof'), description: t('services.flatRoof.problem'), href: getPath('flatRoof') },
+    { title: t('nav.leakRepair'), description: t('services.leakRepair.problem'), href: getPath('leakRepair') },
+    { title: t('nav.maintenance'), description: t('services.maintenance.problem'), href: getPath('maintenance') },
+  ];
+
+  const learnMoreLinks = [
+    { title: "Видове хидроизолация - пълно ръководство", href: `${getPath('blog' as any)}/видове-хидроизолация-и-кога-да-изберем-всяка` },
+    { title: "Най-честите грешки при покривни ремонти", href: `${getPath('blog' as any)}/най-честите-грешки-при-покривни-ремонти` },
+  ];
   const services = [
     "Битумна хидроизолация",
     "PVC мембрани",
@@ -275,7 +267,7 @@ const WaterproofingPage = () => {
   return (
     <>
       <Helmet>
-        <title>Хидроизолация Покрив Варна - от 28лв | 10г</title>
+        <title>{t('pages.waterproofing.meta.title')}</title>
         <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
         <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв/кв.м | 10г Гаранция" />
         <meta property="og:description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
@@ -308,27 +300,27 @@ const WaterproofingPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to="/" className="hover:text-primary-foreground">Начало</Link>
+              <Link to={getPath('home')} className="hover:text-primary-foreground">{t('pages.waterproofing.breadcrumb.home')}</Link>
               <span className="mx-2">/</span>
-              <Link to="/услуги" className="hover:text-primary-foreground">Услуги</Link>
+              <Link to={getPath('services')} className="hover:text-primary-foreground">{t('pages.waterproofing.breadcrumb.services')}</Link>
               <span className="mx-2">/</span>
-              <span className="text-primary-foreground">Хидроизолация</span>
+              <span className="text-primary-foreground">{t('pages.waterproofing.breadcrumb.current')}</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
-              Хидроизолация на покриви Варна
+              {t('pages.waterproofing.hero.title')}
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto text-center mb-8">
-              Професионална хидроизолация с качествени материали и 5 години гаранция. Защитете покрива си от влага, течове и атмосферни влияния.
+              {t('pages.waterproofing.hero.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                 <a href="tel:0884997659">
                   <Phone className="w-5 h-5 mr-2" />
-                  Обадете се: 088 499 7659
+                  {t('pages.waterproofing.hero.callBtn')}
                 </a>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                <Link to="/контакти">Безплатен оглед</Link>
+                <Link to={getPath('contact')}>{t('pages.waterproofing.hero.inspectionBtn')}</Link>
               </Button>
             </div>
           </div>
@@ -351,7 +343,7 @@ const WaterproofingPage = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto prose prose-lg">
-              <h2 className="text-3xl font-bold text-foreground mb-6">Какво е хидроизолация и защо е важна?</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-6">{t('pages.waterproofing.intro.title')}</h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                 Хидроизолацията е защитен слой, който предотвратява проникването на вода в покривната конструкция и сградата. Във Варна, с нейния влажен морски климат, интензивни валежи и силни ветрове, качествената хидроизолация е абсолютно необходима за всяка сграда.
               </p>
@@ -622,7 +614,7 @@ const WaterproofingPage = () => {
                 <a href="tel:+359884997659">Обадете се сега</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
-                <Link to="/контакти">Изпратете запитване</Link>
+                <Link to={getPath('contact')}>{t('pages.waterproofing.cta.inquiryBtn')}</Link>
               </Button>
             </div>
           </div>
