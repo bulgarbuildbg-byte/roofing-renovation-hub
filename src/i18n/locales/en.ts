@@ -259,6 +259,51 @@ const en = {
       blogSlug: "blog",
       schema: { name: "Roof Leak Repair Varna", desc: "Emergency roof leak repair in Varna. Fast 24/7 response, accurate diagnostics, permanent repair with up to 5-year warranty." },
     },
+    waterproofing: {
+      meta: { title: "Waterproofing Varna - from €14/sqm | 10yr Warranty", desc: "Professional waterproofing. Bitumen, PVC membrane, liquid. Up to 10 years warranty. Free inspection. ☎ 088 499 7659" },
+      breadcrumb: { home: "Home", services: "Services", current: "Waterproofing" },
+      hero: { title: "Roof Waterproofing Varna", subtitle: "Professional waterproofing with quality materials and 5-year warranty. Protect your roof from moisture, leaks and weather damage.", callBtn: "Call: 088 499 7659", inspectionBtn: "Free Inspection" },
+      intro: { title: "What is waterproofing and why is it important?" },
+      cta: { title: "Need waterproofing?", subtitle: "Don't wait for leaks. Call for a free inspection.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
+    },
+    newRoof: {
+      meta: { title: "New Roof Construction Varna | Professional Installation", desc: "Professional roof construction. Wooden structures, waterproofing. 15+ years experience. Free inspection: 088 499 7659" },
+      breadcrumb: { home: "Home", services: "Services", current: "New Roof Construction" },
+      hero: { title: "New Roof Construction - Professional Building and Installation", subtitle: "Licensed construction company with over 15 years of experience.", inspectionBtn: "Free Inspection & Quote", pricesBtn: "View Prices & Services" },
+      cta: { title: "Need a new roof?", subtitle: "Contact us for a free inspection.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
+    },
+    tileReplacement: {
+      meta: { title: "Tile Replacement Varna - from €4/pc | 5yr Warranty", desc: "Professional tile replacement. Fast installation, 5yr warranty. ☎ 088 499 7659" },
+      breadcrumb: { home: "Home", services: "Services", current: "Tile Replacement" },
+      hero: { title: "Tile Replacement Varna - Professional Service", subtitle: "Professional replacement of broken, old or damaged tiles.", callBtn: "Call Us", quoteBtn: "Free Quote" },
+      cta: { title: "Need tile replacement?", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
+    },
+    metalRoof: {
+      meta: { title: "Metal Roofs Varna - from €6/sqm | 50yr Warranty", desc: "Metal roof installation. Up to 50 years warranty. ☎ 088 499 7659" },
+      breadcrumb: { home: "Home", services: "Services", current: "Metal Roofs" },
+      hero: { title: "Metal Roofs Varna - Installation and Repair", subtitle: "Modern and durable metal roofing solutions with up to 50 years warranty.", callBtn: "Call Us", quoteBtn: "Free Quote" },
+      cta: { title: "Need a metal roof?", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
+    },
+    flatRoof: {
+      meta: { title: "Flat Roofs Varna - from €11/sqm | 10yr Warranty", desc: "Waterproofing for flat roofs and terraces. Up to 10 years warranty. ☎ 088 499 7659" },
+      breadcrumb: { home: "Home", services: "Services", current: "Flat Roofs" },
+      hero: { title: "Flat Roofs and Terraces in Varna", subtitle: "Specialized solutions for waterproofing and repair of flat roofs.", callBtn: "Call Us", quoteBtn: "Free Inspection" },
+      cta: { title: "Need flat roof repair?", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
+    },
+    maintenance: {
+      meta: { title: "Roof Maintenance Varna - from €30 | Annual Plans", desc: "Roof preventive care and cleaning. ☎ 088 499 7659" },
+      breadcrumb: { home: "Home", services: "Services", current: "Roof Maintenance" },
+      hero: { title: "Roof Maintenance Varna - Professional Service", subtitle: "Regular maintenance extends roof life by up to 50%.", callBtn: "Call: 088 499 7659", inspectionBtn: "Request Inspection" },
+      intro: { title: "Why is regular roof maintenance important?" },
+      cta: { title: "Maintain your roof", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
+    },
+    waterproofingVarna: {
+      meta: { title: "Waterproofing Varna | Bitumen, PVC, Liquid - Prices & Warranty", desc: "Waterproofing for roofs and terraces. Prices from €14/sqm. 15+ years experience. Free inspection: 088 499 7659" },
+      breadcrumb: { home: "Home", waterproofing: "Waterproofing", current: "Waterproofing Varna" },
+      hero: { title: "Waterproofing Varna - Bitumen, PVC and Liquid with Warranty", subtitle: "Stop leaks for good. Licensed construction company with over 15 years of experience.", callBtn: "Free inspection: 088 499 7659", inquiryBtn: "Send inquiry" },
+      intro: { title: "Waterproofing - The Most Important Investment in Roof Longevity" },
+      cta: { title: "Need waterproofing?", subtitle: "Contact us for a free inspection.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
+    },
   },
 };
 
