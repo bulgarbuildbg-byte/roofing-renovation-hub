@@ -267,7 +267,7 @@ const WaterproofingPage = () => {
   return (
     <>
       <Helmet>
-        <title>Хидроизолация Покрив Варна - от 28лв | 10г</title>
+        <title>{t('pages.waterproofing.meta.title')}</title>
         <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
         <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв/кв.м | 10г Гаранция" />
         <meta property="og:description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
