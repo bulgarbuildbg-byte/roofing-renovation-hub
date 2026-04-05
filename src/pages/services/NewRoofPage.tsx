@@ -28,27 +28,27 @@ import tileInstallation from "@/assets/process/new-roof-tile-installation-01.jpg
 import tileInstallation2 from "@/assets/process/new-roof-tile-installation-02.jpg";
 import roofComplete from "@/assets/process/new-roof-tile-complete-01.jpg";
 
-const relatedServices = [
-  {
-    title: "Метални Покриви",
-    description: "Леки и издръжливи метални покриви с дълга гаранция.",
-    href: getPath('metalRoof')
-  },
-  {
-    title: "Смяна на Керемиди",
-    description: "Подмяна на стари керемиди с нови качествени материали.",
-    href: getPath('tileReplacement')
-  },
-  {
-    title: "Хидроизолация",
-    description: "Професионална хидроизолация за дълготрайна защита.",
-    href: getPath('waterproofing')
-  }
-];
-
 const NewRoofPage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
+
+  const relatedServices = [
+    {
+      title: "Метални Покриви",
+      description: "Леки и издръжливи метални покриви с дълга гаранция.",
+      href: getPath('metalRoof')
+    },
+    {
+      title: "Смяна на Керемиди",
+      description: "Подмяна на стари керемиди с нови качествени материали.",
+      href: getPath('tileReplacement')
+    },
+    {
+      title: "Хидроизолация",
+      description: "Професионална хидроизолация за дълготрайна защита.",
+      href: getPath('waterproofing')
+    }
+  ];
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Service",

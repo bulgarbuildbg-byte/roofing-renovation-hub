@@ -20,32 +20,31 @@ import waterproofingTorch from "@/assets/process/bitumen-torch-application.jpg";
 import pvcMembrane from "@/assets/process/pvc-membrane.jpg";
 import completedApartmentRoof from "@/assets/process/completed-flat-roof.jpg";
 
-const relatedServices = [
-  {
-    title: "Хидроизолация",
-    description: "Професионална хидроизолация с PVC, TPO и битумни мембрани.",
-    href: getPath('waterproofing')
-  },
-  {
-    title: "Ремонт на Течове",
-    description: "Спешно отстраняване на течове при плоски покриви.",
-    href: getPath('leakRepair')
-  },
-  {
-    title: "Поддръжка на Покриви",
-    description: "Редовна инспекция и почистване на плоски покриви.",
-    href: getPath('maintenance')
-  }
-];
-
-const learnMoreLinks = [
-  { title: "Видове хидроизолация - кога да изберем всяка", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" },
-  { title: "Пролетна инспекция на покрива", href: "/блог/пролетна-инспекция-на-покрива" }
-];
-
 const FlatRoofPage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
+
+  const relatedServices = [
+    {
+      title: "Хидроизолация",
+      description: "Професионална хидроизолация с PVC, TPO и битумни мембрани.",
+      href: getPath('waterproofing')
+    },
+    {
+      title: "Ремонт на Течове",
+      description: "Спешно отстраняване на течове при плоски покриви.",
+      href: getPath('leakRepair')
+    },
+    {
+      title: "Поддръжка на Покриви",
+      description: "Редовна инспекция и почистване на плоски покриви.",
+      href: getPath('maintenance')
+    }
+  ];
+  const learnMoreLinks = [
+    { title: "Видове хидроизолация - кога да изберем всяка", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" },
+    { title: "Пролетна инспекция на покрива", href: "/блог/пролетна-инспекция-на-покрива" }
+  ];
   const services = [
     "Хидроизолация на плосък покрив",
     "Ремонт на течове и пукнатини",

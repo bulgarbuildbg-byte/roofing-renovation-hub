@@ -23,32 +23,31 @@ import tileUrban from "@/assets/process/tile-replacement-full-urban-01.jpg";
 import tileHipRoof from "@/assets/process/tile-replacement-hip-roof-01.jpg";
 import tileSlate from "@/assets/process/tile-replacement-slate-01.jpg";
 
-const relatedServices = [
-  {
-    title: "Ремонт на Покриви",
-    description: "Цялостен ремонт на покривната конструкция и покритие.",
-    href: getPath('roofRepair')
-  },
-  {
-    title: "Поддръжка на Покриви",
-    description: "Редовна профилактика за предотвратяване на повреди.",
-    href: getPath('maintenance')
-  },
-  {
-    title: "Изграждане на Нов Покрив",
-    description: "Пълно изграждане на нов покрив с качествени материали.",
-    href: getPath('newRoof')
-  }
-];
-
-const learnMoreLinks = [
-  { title: "Как да изберем правилните керемиди", href: "/блог/как-да-изберем-керемиди-за-нов-покрив" },
-  { title: "5 признака, че покривът се нуждае от ремонт", href: "/блог/5-признака-че-покривът-се-нуждае-от-ремонт" }
-];
-
 const TileReplacementPage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
+
+  const relatedServices = [
+    {
+      title: "Ремонт на Покриви",
+      description: "Цялостен ремонт на покривната конструкция и покритие.",
+      href: getPath('roofRepair')
+    },
+    {
+      title: "Поддръжка на Покриви",
+      description: "Редовна профилактика за предотвратяване на повреди.",
+      href: getPath('maintenance')
+    },
+    {
+      title: "Изграждане на Нов Покрив",
+      description: "Пълно изграждане на нов покрив с качествени материали.",
+      href: getPath('newRoof')
+    }
+  ];
+  const learnMoreLinks = [
+    { title: "Как да изберем правилните керемиди", href: "/блог/как-да-изберем-керемиди-за-нов-покрив" },
+    { title: "5 признака, че покривът се нуждае от ремонт", href: "/блог/5-признака-че-покривът-се-нуждае-от-ремонт" }
+  ];
   const services = [
     "Смяна на единични счупени керемиди",
     "Частична подмяна на покривното покритие",
