@@ -455,6 +455,10 @@ const NewRoofPage = () => {
                 <p className="text-slate-700">
                   Процесът започва с детайлен оглед на обекта. Нашите инженери извършват измервания и оценяват състоянието на сградата, за да се уверят, че тя може да поеме товарите от новия покрив. Извършваме конструктивен анализ и обсъждаме с вас най-добрите варианти за конструкция и материали.
                 </p>
+                <div className="grid md:grid-cols-2 gap-4 mt-4">
+                  <img src={roofPlanning} alt="Проектиране на нов покрив Варна" className="w-full h-48 object-cover rounded-lg" loading="lazy" />
+                  <img src={roofingMaterials} alt="Схема на покривна конструкция" className="w-full h-48 object-cover rounded-lg" loading="lazy" />
+                </div>
               </div>
 
               <div className="relative pl-8 md:pl-12">
@@ -471,6 +475,11 @@ const NewRoofPage = () => {
                 <p className="text-slate-700">
                   Монтираме мауерлатите, ребрата, столиците и поповете. Всички дървени елементи се обработват предварително с инсектициди и фунгициди. Използваме само поцинковани крепежни елементи за максимална здравина и устойчивост на корозия.
                 </p>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                  <img src={woodenStructure1} alt="Дървена покривна конструкция - монтаж" className="w-full h-40 object-cover rounded-lg" loading="lazy" />
+                  <img src={woodenStructure2} alt="Дървена конструкция на покрив" className="w-full h-40 object-cover rounded-lg" loading="lazy" />
+                  <img src={woodenStructure3} alt="Завършена дървена конструкция" className="w-full h-40 object-cover rounded-lg" loading="lazy" />
+                </div>
               </div>
 
               <div className="relative pl-8 md:pl-12">
@@ -479,6 +488,10 @@ const NewRoofPage = () => {
                 <p className="text-slate-700">
                   Върху ребрата полагаме висококачествена паропропусклива мембрана (дифузионно фолио), която защитава от вода отвън, но позволява на конструкцията да "диша". След това монтираме контралетви (за вентилация) и носещи летви за керемидите.
                 </p>
+                <div className="grid md:grid-cols-2 gap-4 mt-4">
+                  <img src={woodenDecking} alt="Дъсчена обшивка на покрив" className="w-full h-48 object-cover rounded-lg" loading="lazy" />
+                  <img src={membraneBattens} alt="Хидроизолация и летви на покрив" className="w-full h-48 object-cover rounded-lg" loading="lazy" />
+                </div>
               </div>
 
               <div className="relative pl-8 md:pl-12">
@@ -487,6 +500,11 @@ const NewRoofPage = () => {
                 <p className="text-slate-700">
                   Монтираме избраното от вас покритие – керамични, бетонни или битумни керемиди, метални листи или друго. Спазваме стриктно инструкциите на производителя за застъпване и закрепване.
                 </p>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                  <img src={tilePreparation} alt="Подготовка за полагане на керемиди" className="w-full h-40 object-cover rounded-lg" loading="lazy" />
+                  <img src={tileInstallation} alt="Монтаж на керемиди на покрив" className="w-full h-40 object-cover rounded-lg" loading="lazy" />
+                  <img src={tileInstallation2} alt="Полагане на покривно покритие" className="w-full h-40 object-cover rounded-lg" loading="lazy" />
+                </div>
               </div>
 
               <div className="relative pl-8 md:pl-12">
@@ -495,6 +513,9 @@ const NewRoofPage = () => {
                 <p className="text-slate-700">
                   Монтираме улуци, водосточни тръби, обшивки около комини и капандури. Извършваме финален оглед и водна проба (ако е приложимо), за да гарантираме, че покривът е 100% водоплътен. Обектът се предава с гаранционна карта.
                 </p>
+                <div className="mt-4">
+                  <img src={roofComplete} alt="Завършен нов покрив Варна" className="w-full h-56 object-cover rounded-lg" loading="lazy" />
+                </div>
               </div>
             </div>
           </div>
