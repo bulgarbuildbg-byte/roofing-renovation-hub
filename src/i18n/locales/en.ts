@@ -87,7 +87,7 @@ const en = {
   mobile: { call: "Call Us", freeInspection: "Free Inspection" },
   trust: {
     experience: "15+ Years Experience", projects: "500+ Projects", warranty: "Up to 10yr Warranty",
-    licensed: "Licensed", freeInspection: "Free Inspection", area: "Varna & Region",
+    licensed: "KSB Member", freeInspection: "Free Inspection", area: "Varna & Region",
   },
   testimonials: {
     title: "What Our Clients Say", subtitle: "Over 500 satisfied clients in Varna and the region",

@@ -87,7 +87,7 @@ const bg = {
   mobile: { call: "Обадете се", freeInspection: "Безплатен оглед" },
   trust: {
     experience: "15+ години опит", projects: "500+ проекта", warranty: "Гаранция до 10 год.",
-    licensed: "Лицензирани", freeInspection: "Безплатен оглед", area: "Варна и региона",
+    licensed: "Член на КСБ", freeInspection: "Безплатен оглед", area: "Варна и региона",
   },
   testimonials: {
     title: "Какво Казват Нашите Клиенти", subtitle: "Над 500 доволни клиенти във Варна и региона",
