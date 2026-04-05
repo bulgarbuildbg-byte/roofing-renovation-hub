@@ -64,6 +64,14 @@ const bg = {
     parentCompany: "Ремонт на Покриви Варна е специализирано покривно подразделение на",
     parentCompanyName: "BulgarBuild Construction Company",
     companyInfo: "България Билд ЕООД · ЕИК: 207189805",
+    trustPartOf: "Част от България Билд ЕООД",
+    trustKsb: "Член на Камарата на строителите",
+    trustWarranty: "Писмена гаранция до 10 год.",
+  },
+  certifications: {
+    partOf: "Част от България Билд ЕООД",
+    ksbMember: "Член на Камарата на строителите в България",
+    certified: "Сертифицирана компания · ЕИК: 207189805",
   },
   faq: {
     title: "Често Задавани Въпроси", subtitle: "Отговори на най-честите въпроси за нашите услуги",
@@ -87,7 +95,7 @@ const bg = {
   mobile: { call: "Обадете се", freeInspection: "Безплатен оглед" },
   trust: {
     experience: "15+ години опит", projects: "500+ проекта", warranty: "Гаранция до 10 год.",
-    licensed: "Лицензирани", freeInspection: "Безплатен оглед", area: "Варна и региона",
+    licensed: "Член на КСБ", freeInspection: "Безплатен оглед", area: "Варна и региона",
   },
   testimonials: {
     title: "Какво Казват Нашите Клиенти", subtitle: "Над 500 доволни клиенти във Варна и региона",

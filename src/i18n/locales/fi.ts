@@ -64,6 +64,14 @@ const fi = {
     parentCompany: "Remont na Pokrivi Varna on erikoistunut kattoosasto yrityksestä",
     parentCompanyName: "BulgarBuild Construction Company",
     companyInfo: "Bulgaria Build EOOD · UIC: 207189805",
+    trustPartOf: "Osa Bulgaria Build EOOD:tä",
+    trustKsb: "Rakentajakamarin jäsen",
+    trustWarranty: "Kirjallinen takuu jopa 10 vuotta",
+  },
+  certifications: {
+    partOf: "Osa Bulgaria Build EOOD:tä",
+    ksbMember: "Bulgarian rakentajakamarin jäsen",
+    certified: "Sertifioitu yritys · UIC: 207189805",
   },
   faq: {
     title: "Usein Kysytyt Kysymykset", subtitle: "Vastauksia yleisimpiin kysymyksiin palveluistamme",
@@ -87,7 +95,7 @@ const fi = {
   mobile: { call: "Soita", freeInspection: "Ilmainen tarkastus" },
   trust: {
     experience: "15+ vuoden kokemus", projects: "500+ projektia", warranty: "Jopa 10v takuu",
-    licensed: "Lisensoitu", freeInspection: "Ilmainen tarkastus", area: "Varna & alue",
+    licensed: "KSB-jäsen", freeInspection: "Ilmainen tarkastus", area: "Varna & alue",
   },
   testimonials: {
     title: "Mitä Asiakkaamme Sanovat", subtitle: "Yli 500 tyytyväistä asiakasta Varnassa ja alueella",

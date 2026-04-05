@@ -137,9 +137,9 @@ const Footer = () => {
 
               {/* Trust signals */}
               <div className="mt-5 pt-5 border-t border-primary-foreground/15 space-y-1">
-                <p className="text-primary-foreground/60 text-xs">✓ Лицензирана компания</p>
-                <p className="text-primary-foreground/60 text-xs">✓ Писмена гаранция до 10 год.</p>
-                <p className="text-primary-foreground/60 text-xs">✓ Безплатен оглед 24ч</p>
+                <p className="text-primary-foreground/60 text-xs">✓ {t('footer.trustPartOf')}</p>
+                <p className="text-primary-foreground/60 text-xs">✓ {t('footer.trustKsb')}</p>
+                <p className="text-primary-foreground/60 text-xs">✓ {t('footer.trustWarranty')}</p>
               </div>
             </div>
           </div>

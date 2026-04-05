@@ -60,6 +60,14 @@ const nl = {
     copyright: "RemontNaPokriviVarna. Alle rechten voorbehouden.",
     parentCompany: "Remont na Pokrivi Varna is een gespecialiseerde dakafdeling van",
     parentCompanyName: "BulgarBuild Construction Company", companyInfo: "Bulgaria Build EOOD · UIC: 207189805",
+    trustPartOf: "Onderdeel van Bulgaria Build EOOD",
+    trustKsb: "Lid van de Bouwkamer",
+    trustWarranty: "Schriftelijke garantie tot 10 jaar",
+  },
+  certifications: {
+    partOf: "Onderdeel van Bulgaria Build EOOD",
+    ksbMember: "Lid van de Bulgaarse Bouwkamer",
+    certified: "Gecertificeerd bedrijf · UIC: 207189805",
   },
   faq: {
     title: "Veelgestelde Vragen", subtitle: "Antwoorden op veelgestelde vragen over onze diensten", seeAll: "Alle vragen bekijken",
@@ -77,7 +85,7 @@ const nl = {
     responseTime: "⏰ We antwoorden binnen 24 uur", sendInquiry: "Aanvraag sturen",
   },
   mobile: { call: "Bel ons", freeInspection: "Gratis inspectie" },
-  trust: { experience: "15+ jaar ervaring", projects: "500+ projecten", warranty: "Tot 10 jaar garantie", licensed: "Gelicenseerd", freeInspection: "Gratis inspectie", area: "Varna & regio" },
+  trust: { experience: "15+ jaar ervaring", projects: "500+ projecten", warranty: "Tot 10 jaar garantie", licensed: "KSB-lid", freeInspection: "Gratis inspectie", area: "Varna & regio" },
   testimonials: { title: "Wat Onze Klanten Zeggen", subtitle: "Meer dan 500 tevreden klanten in Varna en de regio", fromReviews: "uit 127 beoordelingen", beNext: "Word onze volgende tevreden klant", callNow: "Nu bellen", requestInspection: "Inspectie aanvragen", verified: "Geverifieerde klant" },
   gallery: { title: "Onze Projecten", subtitle: "Galerij van succesvol afgeronde projecten in Varna", seeAll: "Alle projecten bekijken" },
   beforeAfter: { title: "Voor & Na", subtitle: "Bekijk de transformaties die we bereiken met onze reparaties. Schuif om te vergelijken.", before: "Voor", after: "Na" },

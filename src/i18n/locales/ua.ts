@@ -60,6 +60,14 @@ const ua = {
     copyright: "RemontNaPokriviVarna. Всі права захищені.",
     parentCompany: "Ремонт на Покриви Варна — спеціалізований покрівельний підрозділ",
     parentCompanyName: "BulgarBuild Construction Company", companyInfo: "Bulgaria Build EOOD · ЕІК: 207189805",
+    trustPartOf: "Частина Bulgaria Build EOOD",
+    trustKsb: "Член Будівельної палати",
+    trustWarranty: "Письмова гарантія до 10 років",
+  },
+  certifications: {
+    partOf: "Частина Bulgaria Build EOOD",
+    ksbMember: "Член Болгарської палати будівельників",
+    certified: "Сертифікована компанія · ЕІК: 207189805",
   },
   faq: {
     title: "Часті Питання", subtitle: "Відповіді на найпоширеніші питання про наші послуги", seeAll: "Всі питання",
@@ -77,7 +85,7 @@ const ua = {
     responseTime: "⏰ Відповідаємо протягом 24 годин", sendInquiry: "Надіслати запит",
   },
   mobile: { call: "Зателефонувати", freeInspection: "Безкоштовний огляд" },
-  trust: { experience: "15+ років досвіду", projects: "500+ проектів", warranty: "Гарантія до 10 років", licensed: "Ліцензовані", freeInspection: "Безкоштовний огляд", area: "Варна та регіон" },
+  trust: { experience: "15+ років досвіду", projects: "500+ проектів", warranty: "Гарантія до 10 років", licensed: "Член КСБ", freeInspection: "Безкоштовний огляд", area: "Варна та регіон" },
   testimonials: { title: "Що Кажуть Наші Клієнти", subtitle: "Понад 500 задоволених клієнтів у Варні та регіоні", fromReviews: "зі 127 відгуків", beNext: "Стaньте нашим наступним задоволеним клієнтом", callNow: "Зателефонувати", requestInspection: "Замовити огляд", verified: "Підтверджений клієнт" },
   gallery: { title: "Наші Проекти", subtitle: "Галерея успішно завершених проектів у Варні", seeAll: "Всі проекти" },
   beforeAfter: { title: "До & Після", subtitle: "Подивіться перетворення, яких ми досягаємо. Зсуньте для порівняння.", before: "До", after: "Після" },

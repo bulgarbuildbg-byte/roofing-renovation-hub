@@ -64,6 +64,14 @@ const de = {
     parentCompany: "Remont na Pokrivi Varna ist eine spezialisierte Dachabteilung von",
     parentCompanyName: "BulgarBuild Construction Company",
     companyInfo: "Bulgaria Build EOOD · UIC: 207189805",
+    trustPartOf: "Teil von Bulgaria Build EOOD",
+    trustKsb: "Mitglied der Baukammer",
+    trustWarranty: "Schriftliche Garantie bis 10 Jahre",
+  },
+  certifications: {
+    partOf: "Teil von Bulgaria Build EOOD",
+    ksbMember: "Mitglied der Bulgarischen Baukammer",
+    certified: "Zertifiziertes Unternehmen · UIC: 207189805",
   },
   faq: {
     title: "Häufig Gestellte Fragen", subtitle: "Antworten auf häufige Fragen zu unseren Leistungen",
@@ -87,7 +95,7 @@ const de = {
   mobile: { call: "Anrufen", freeInspection: "Kostenlose Inspektion" },
   trust: {
     experience: "15+ Jahre Erfahrung", projects: "500+ Projekte", warranty: "Bis zu 10 J. Garantie",
-    licensed: "Lizenziert", freeInspection: "Kostenlose Inspektion", area: "Varna & Region",
+    licensed: "KSB-Mitglied", freeInspection: "Kostenlose Inspektion", area: "Varna & Region",
   },
   testimonials: {
     title: "Was Unsere Kunden Sagen", subtitle: "Über 500 zufriedene Kunden in Varna und der Region",

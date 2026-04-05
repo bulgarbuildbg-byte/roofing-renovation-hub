@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import TrustIndicators from "@/components/TrustIndicators";
+import CertificationsBar from "@/components/CertificationsBar";
 import BrandCarousel from "@/components/BrandCarousel";
 import Services from "@/components/Services";
 import CTASection from "@/components/CTASection";
@@ -139,6 +140,7 @@ const Index = () => {
       <Header />
       <Hero />
       <TrustIndicators />
+      <CertificationsBar />
       <BrandCarousel />
       <Services />
       <Testimonials />
