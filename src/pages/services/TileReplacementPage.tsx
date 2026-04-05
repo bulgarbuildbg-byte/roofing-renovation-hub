@@ -13,10 +13,13 @@ import { Link } from "react-router-dom";
 // Process images - Ceramic tile replacement
 import roofInspection from "@/assets/process/tile-replacement-before-after-01.jpg";
 import tileSamples from "@/assets/process/tile-replacement-ceramic-01.jpg";
-import roofScaffolding from "@/assets/process/roof-repair-structural-diagnosis-02.jpg";
-import tileRemoval from "@/assets/process/roof-repair-insulation-removal-01.jpg";
-import tileInstallation from "@/assets/process/roof-repair-tile-replacement-01.jpg";
-import completedTileRoof from "@/assets/process/roof-repair-leak-diagnosis-attic-01.jpg";
+import roofScaffolding from "@/assets/process/tile-replacement-preparation-01.jpg";
+import tileRemoval from "@/assets/process/tile-replacement-partial-01.jpg";
+import tileInstallation from "@/assets/process/tile-replacement-full-02.jpg";
+import completedTileRoof from "@/assets/process/tile-replacement-full-01.jpg";
+import tileUrban from "@/assets/process/tile-replacement-full-urban-01.jpg";
+import tileHipRoof from "@/assets/process/tile-replacement-hip-roof-01.jpg";
+import tileSlate from "@/assets/process/tile-replacement-slate-01.jpg";
 
 const relatedServices = [
   {
