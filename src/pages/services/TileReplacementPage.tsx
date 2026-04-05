@@ -11,12 +11,12 @@ import { Phone, CheckCircle, Layers, Shield, Ruler, Palette, MapPin, Clock, Wren
 import { Link } from "react-router-dom";
 
 // Process images - Ceramic tile replacement
-import roofInspection from "@/assets/process/roof-inspection-pro.jpg";
-import tileSamples from "@/assets/process/roof-tiles-stack.jpg";
-import roofScaffolding from "@/assets/process/roof-frame-work.jpg";
-import tileRemoval from "@/assets/process/old-roof-removal.jpg";
-import tileInstallation from "@/assets/process/tile-installation-worker.jpg";
-import completedTileRoof from "@/assets/portfolio/villa-roof.jpg";
+import roofInspection from "@/assets/process/tile-replacement-before-after-01.jpg";
+import tileSamples from "@/assets/process/tile-replacement-ceramic-01.jpg";
+import roofScaffolding from "@/assets/process/roof-repair-structural-diagnosis-02.jpg";
+import tileRemoval from "@/assets/process/roof-repair-insulation-removal-01.jpg";
+import tileInstallation from "@/assets/process/roof-repair-tile-replacement-01.jpg";
+import completedTileRoof from "@/assets/process/roof-repair-leak-diagnosis-attic-01.jpg";
 
 const relatedServices = [
   {

@@ -11,12 +11,12 @@ import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Searc
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 // Process images - Ceramic tile roof repair
-import roofInspection from "@/assets/process/roof-measuring.jpg";
-import roofAssessment from "@/assets/process/cost-calculation.jpg";
-import roofScaffolding from "@/assets/process/roof-frame-work.jpg";
-import tileRemoval from "@/assets/process/old-roof-removal.jpg";
-import tileInstallation from "@/assets/process/tile-roof-construction.jpg";
-import completedTileRoof from "@/assets/portfolio/residential-tile-roof.jpg";
+import roofInspection from "@/assets/process/roof-repair-attic-hatch-inspection-01.jpg";
+import roofAssessment from "@/assets/process/roof-repair-diagnosis-inspection-01.jpg";
+import roofScaffolding from "@/assets/process/roof-repair-structural-diagnosis-01.jpg";
+import tileRemoval from "@/assets/process/roof-repair-insulation-removal-01.jpg";
+import tileInstallation from "@/assets/process/roof-repair-tile-replacement-01.jpg";
+import completedTileRoof from "@/assets/process/roof-repair-structural-damage-01.jpg";
 
 const relatedServices = [
   {
