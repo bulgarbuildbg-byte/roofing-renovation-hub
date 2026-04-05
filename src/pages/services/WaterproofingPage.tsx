@@ -20,30 +20,20 @@ import waterproofingDetail from "@/assets/process/waterproofing-bitumen-torch-we
 import waterproofingSecondLayer from "@/assets/process/waterproofing-bitumen-torch-winter-01.jpg";
 import completedFlatRoof from "@/assets/process/waterproofing-membrane-rolls-terrace-01.jpg";
 
-const relatedServices = [
-  {
-    title: "Плоски Покриви",
-    description: "Специализирани решения за плоски покриви с модерни материали.",
-    href: "/плоски-покриви"
-  },
-  {
-    title: "Ремонт на Течове",
-    description: "Бързо локализиране и отстраняване на течове с гаранция.",
-    href: "/ремонт-течове"
-  },
-  {
-    title: "Поддръжка на Покриви",
-    description: "Превантивна грижа за дълготрайна защита на покрива.",
-    href: "/поддръжка-на-покриви"
-  }
-];
-
-const learnMoreLinks = [
-  { title: "Видове хидроизолация - пълно ръководство", href: "/блог/видове-хидроизолация-и-кога-да-изберем-всяка" },
-  { title: "Най-честите грешки при покривни ремонти", href: "/блог/най-честите-грешки-при-покривни-ремонти" }
-];
-
 const WaterproofingPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
+
+  const relatedServices = [
+    { title: t('nav.flatRoof'), description: t('services.flatRoof.problem'), href: getPath('flatRoof') },
+    { title: t('nav.leakRepair'), description: t('services.leakRepair.problem'), href: getPath('leakRepair') },
+    { title: t('nav.maintenance'), description: t('services.maintenance.problem'), href: getPath('maintenance') },
+  ];
+
+  const learnMoreLinks = [
+    { title: "Видове хидроизолация - пълно ръководство", href: `${getPath('blog' as any)}/видове-хидроизолация-и-кога-да-изберем-всяка` },
+    { title: "Най-честите грешки при покривни ремонти", href: `${getPath('blog' as any)}/най-честите-грешки-при-покривни-ремонти` },
+  ];
   const services = [
     "Битумна хидроизолация",
     "PVC мембрани",
