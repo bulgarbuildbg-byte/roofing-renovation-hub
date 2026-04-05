@@ -1,41 +1,10 @@
 
 
-## Подобряване на видимостта на връзката с България Билд ЕООД и сертификати
+## Add Second Google Ads Tag
 
-### Какво има сега
-- Footer: малък текст в дъното "специализирано покривно подразделение на BulgarBuild"
-- About page: секция "Корпоративна Структура" с подробности
-- Trust Indicators: 6 бадж-а (опит, проекти, гаранция, лицензирана, безплатен оглед, район) — няма "Камара на строителите" и няма "България Билд"
-- WhyChooseUs: 6 карти — без споменаване на камарата или корпоративната връзка
+The site already has one Google Ads tag (`AW-17872435541`) in `index.html`. The new tag (`AW-18066399675`) will be added alongside it. Since both tags share the same gtag.js loader, we only need to add one extra `gtag('config', ...)` line — no need to load the script twice.
 
-### Какво ще се промени
+### Changes
 
-**1. Нова секция "Сертификати и Членства" на началната страница**
-Нов компонент `CertificationsBar` (или разширение на `TrustIndicators`), поставен след Hero + TrustIndicators. Ще съдържа:
-- "Част от България Билд ЕООД" — с линк към bulgarbuild.com и лого/текст
-- "Член на Камарата на строителите в България" — с икона Building2/Landmark
-- "Сертифицирана компания · ЕИК: 207189805" — с икона FileCheck/Shield
-
-Визуално: хоризонтална лента с 3 елемента на светъл/accent фон, ясно различима от TrustIndicators.
-
-**2. Обновяване на TrustIndicators**
-Замяна на "Лицензирана компания" (trust.licensed) с по-ясно: "Член на КСБ" (Камарата на строителите в България) във всички 10 езикови файла.
-
-**3. Обновяване на Footer trust signals**
-Промяна на секцията с тикове в Footer:
-- ✓ Част от България Билд ЕООД
-- ✓ Член на Камарата на строителите
-- ✓ Писмена гаранция до 10 год.
-
-**4. Преводи**
-Добавяне на нови ключове (`certifications.*`) във всички 10 locale файла.
-
-### Файлове за промяна
-- `src/components/CertificationsBar.tsx` — нов компонент
-- `src/pages/Index.tsx` — добавяне на CertificationsBar след TrustIndicators
-- `src/components/Footer.tsx` — обновяване на trust signals
-- `src/components/TrustIndicators.tsx` — промяна на "licensed" ключа
-- `src/i18n/locales/bg.ts` — нови ключове за сертификати и КСБ
-- `src/i18n/locales/en.ts` — English преводи
-- `src/i18n/locales/de.ts`, `fi.ts`, `sv.ts`, `no.ts`, `fr.ts`, `nl.ts`, `ru.ts`, `ua.ts` — преводи
+**`index.html`** — Add `gtag('config', 'AW-18066399675');` right after the existing `gtag('config', 'AW-17872435541');` line inside the existing gtag script block.
 
