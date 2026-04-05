@@ -64,6 +64,14 @@ const en = {
     parentCompany: "Remont na Pokrivi Varna is a specialized roofing division of",
     parentCompanyName: "BulgarBuild Construction Company",
     companyInfo: "Bulgaria Build EOOD · UIC: 207189805",
+    trustPartOf: "Part of Bulgaria Build EOOD",
+    trustKsb: "Member of the Chamber of Builders",
+    trustWarranty: "Written warranty up to 10 years",
+  },
+  certifications: {
+    partOf: "Part of Bulgaria Build EOOD",
+    ksbMember: "Member of the Bulgarian Chamber of Builders",
+    certified: "Certified Company · UIC: 207189805",
   },
   faq: {
     title: "Frequently Asked Questions", subtitle: "Answers to common questions about our services",
