@@ -320,7 +320,7 @@ const WaterproofingPage = () => {
                 </a>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                <Link to="/контакти">Безплатен оглед</Link>
+                <Link to={getPath('contact')}>{t('pages.waterproofing.hero.inspectionBtn')}</Link>
               </Button>
             </div>
           </div>
