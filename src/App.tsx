@@ -33,6 +33,7 @@ const BacklinksPage = lazy(() => import("./pages/admin/BacklinksPage"));
 const EmailCampaignListPage = lazy(() => import("./pages/admin/EmailCampaignListPage"));
 const EmailCampaignEditorPage = lazy(() => import("./pages/admin/EmailCampaignEditorPage"));
 const TestimonialsManagementPage = lazy(() => import("./pages/admin/TestimonialsManagementPage"));
+const CallLogPage = lazy(() => import("./pages/admin/CallLogPage"));
 
 const queryClient = new QueryClient();
 
