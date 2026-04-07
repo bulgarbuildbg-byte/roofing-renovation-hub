@@ -264,6 +264,10 @@ const AnalyticsPage = () => {
               />
             </PopoverContent>
           </Popover>
+          <Button variant={filterBots ? "default" : "outline"} size="sm" onClick={() => setFilterBots(!filterBots)}>
+            <ShieldCheck className="h-4 w-4 mr-1" />
+            {filterBots ? "Реални" : "Всички"}
+          </Button>
           <Button variant="outline" size="sm" onClick={() => setCompareEnabled(!compareEnabled)}>
             <ArrowUpDown className="h-4 w-4 mr-1" />
             {compareEnabled ? "Без сравнение" : "Сравнение"}
