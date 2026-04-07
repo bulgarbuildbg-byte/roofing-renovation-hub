@@ -125,22 +125,14 @@ export async function trackEvent(
 }
 
 /**
- * Log a phone call click: insert into call_log + fire Google Ads conversion.
+ * Log a phone call click: track analytics event + fire Google Ads conversion.
  * Called from the global tel: click interceptor in AnalyticsTracker.
  */
-export async function trackCallClick(phoneNumber: string) {
-  try {
-    // Log to call_log (will fail silently if user not authenticated — that's OK for public visitors)
-    await supabase.from("call_log" as any).insert({
-      client_name: "Уебсайт посетител",
-      client_phone: phoneNumber,
-      call_direction: "outbound",
-      notes: `Клик от ${window.location.pathname}`,
-      created_by: "00000000-0000-0000-0000-000000000000",
-    });
-  } catch {
-    // Public visitors can't insert to call_log (RLS) — expected
-  }
+export function trackCallClick(phoneNumber: string) {
+  // Track as analytics event (public insert allowed)
+  trackEvent("button_click", "call_button", {
+    page_path: window.location.pathname,
+  });
 
   // Fire Google Ads conversion for both accounts
   if (window.gtag) {
