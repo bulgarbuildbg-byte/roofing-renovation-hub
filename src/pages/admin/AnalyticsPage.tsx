@@ -466,7 +466,7 @@ const AnalyticsPage = () => {
             </CardContent>
           </Card>
 
-          {/* Conversion rate */}
+           {/* Conversion rate */}
           {current.visitors > 0 && (
             <Card>
               <CardHeader>
@@ -486,6 +486,31 @@ const AnalyticsPage = () => {
                     <p className="text-2xl font-bold">{(((current.offers + current.calls) / current.visitors) * 100).toFixed(1)}%</p>
                     <p className="text-xs text-muted-foreground">Общо конверсия</p>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Conversions by traffic source */}
+          {conversionsBySource.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Globe className="h-4 w-4 text-primary" />
+                  Запитвания по източник на трафик
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {conversionsBySource.map(s => (
+                    <div key={s.source} className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
+                        <span>{s.label}</span>
+                      </div>
+                      <span className="font-bold">{s.count}</span>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
