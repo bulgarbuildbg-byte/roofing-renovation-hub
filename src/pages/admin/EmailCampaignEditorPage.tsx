@@ -8,7 +8,21 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft, Send, Users } from "lucide-react";
+
+const SEGMENTS = [
+  { value: "all", label: "Всички с email consent" },
+  { value: "quote_sent", label: "Изпратили запитване за оферта" },
+  { value: "new_30d", label: "Нови клиенти (последните 30 дни)" },
+  { value: "repair", label: "Услуга: Ремонт на покрив" },
+  { value: "waterproofing", label: "Услуга: Хидроизолация" },
+  { value: "new_construction", label: "Услуга: Нов покрив" },
+  { value: "maintenance", label: "Услуга: Поддръжка" },
+  { value: "flat_roof", label: "Услуга: Плосък покрив" },
+  { value: "metal_roof", label: "Услуга: Метален покрив" },
+  { value: "tiles", label: "Услуга: Керемиди" },
+  { value: "leak_repair", label: "Услуга: Течове" },
+];
 
 const EmailCampaignEditorPage = () => {
   const { id } = useParams();
@@ -22,7 +36,8 @@ const EmailCampaignEditorPage = () => {
   });
   const [saving, setSaving] = useState(false);
   const [sending, setSending] = useState(false);
-  const [recipientCount, setRecipientCount] = useState(0);
+  const [recipientCount, setRecipientCount] = useState<number | null>(null);
+  const [countLoading, setCountLoading] = useState(false);
 
   useEffect(() => {
     if (!isNew) {
@@ -36,10 +51,30 @@ const EmailCampaignEditorPage = () => {
           }
         });
     }
-    // Count recipients
-    supabase.from("inquiries").select("id", { count: "exact", head: true }).eq("email_consent", true)
-      .then(({ count }) => setRecipientCount(count || 0));
   }, [id, isNew]);
+
+  // Count recipients when segment changes
+  useEffect(() => {
+    const countRecipients = async () => {
+      setCountLoading(true);
+      let query = supabase.from("inquiries").select("id", { count: "exact", head: true }).eq("email_consent", true);
+
+      if (form.segment === "quote_sent") {
+        query = query.in("status", ["quote_sent", "accepted"]);
+      } else if (form.segment === "new_30d") {
+        const d30 = new Date();
+        d30.setDate(d30.getDate() - 30);
+        query = query.gte("created_at", d30.toISOString());
+      } else if (!["all"].includes(form.segment)) {
+        query = query.eq("service_type", form.segment as any);
+      }
+
+      const { count } = await query;
+      setRecipientCount(count || 0);
+      setCountLoading(false);
+    };
+    countRecipients();
+  }, [form.segment]);
 
   const handleSave = async () => {
     if (!user) return;
@@ -88,13 +123,15 @@ const EmailCampaignEditorPage = () => {
           <Select value={form.segment} onValueChange={v => setForm({...form, segment: v})}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Всички лийдове ({recipientCount})</SelectItem>
-              <SelectItem value="repair">Ремонт на покриви</SelectItem>
-              <SelectItem value="waterproofing">Хидроизолация</SelectItem>
-              <SelectItem value="new_construction">Нов покрив</SelectItem>
-              <SelectItem value="maintenance">Поддръжка</SelectItem>
+              {SEGMENTS.map(s => (
+                <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
+          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground">
+            <Users className="h-3 w-3" />
+            {countLoading ? "Зареждане..." : `${recipientCount ?? 0} получатели`}
+          </div>
         </div>
         <div>
           <Label>Съдържание (HTML)</Label>
