@@ -1,5 +1,11 @@
 import { supabase } from "@/integrations/supabase/client";
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 const SESSION_KEY = "analytics_session_id";
 const REFERRER_KEY = "analytics_first_referrer_source";
 
