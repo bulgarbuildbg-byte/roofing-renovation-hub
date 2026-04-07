@@ -36,7 +36,9 @@ const AnalyticsPage = () => {
     return { from: r.from, to: r.to };
   });
   const [compareEnabled, setCompareEnabled] = useState(false);
+  const [filterBots, setFilterBots] = useState(true);
   const [events, setEvents] = useState<any[]>([]);
+  const [inquiries, setInquiries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const from = dateRange?.from;
