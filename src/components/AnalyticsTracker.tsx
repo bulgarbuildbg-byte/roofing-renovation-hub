@@ -62,6 +62,21 @@ const AnalyticsTracker = () => {
     return () => window.removeEventListener("beforeunload", handleUnload);
   }, []);
 
+  // Global tel: click interceptor — auto-track + Google Ads conversion
+  useEffect(() => {
+    if (!window.location.hostname.endsWith("remontnapokrivivarna.bg")) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest?.("a[href^='tel:']");
+      if (!anchor) return;
+      const phone = (anchor as HTMLAnchorElement).href.replace("tel:", "");
+      trackCallClick(phone);
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, []);
+
   return null;
 };
 
