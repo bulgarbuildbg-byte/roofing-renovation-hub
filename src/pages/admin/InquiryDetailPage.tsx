@@ -174,6 +174,15 @@ const InquiryDetailPage = () => {
                   {format(new Date(inquiry.created_at), "dd MMMM yyyy, HH:mm", { locale: bg })}
                 </p>
               </div>
+              {inquiry.referrer_source && (
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Източник на трафик</p>
+                  <Badge variant="outline" className="gap-1">
+                    <Globe className="h-3 w-3" />
+                    {({ organic: "Органично", direct: "Директен", social: "Социални мрежи", referral: "Препращане", email: "Имейл" } as Record<string, string>)[inquiry.referrer_source] || inquiry.referrer_source}
+                  </Badge>
+                </div>
+              )}
             </div>
           </div>
 

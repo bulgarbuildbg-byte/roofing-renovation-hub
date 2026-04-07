@@ -97,6 +97,7 @@ const App = () => (
               <Route path="email-campaigns" element={<Suspense fallback={null}><EmailCampaignListPage /></Suspense>} />
               <Route path="email-campaigns/new" element={<Suspense fallback={null}><EmailCampaignEditorPage /></Suspense>} />
               <Route path="email-campaigns/:id/edit" element={<Suspense fallback={null}><EmailCampaignEditorPage /></Suspense>} />
+              <Route path="calls" element={<Suspense fallback={null}><CallLogPage /></Suspense>} />
               <Route path="staff" element={<Suspense fallback={null}><ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute></Suspense>} />
             </Route>
 

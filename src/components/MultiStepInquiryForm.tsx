@@ -92,7 +92,9 @@ const MultiStepInquiryForm = () => {
         preferred_material: form.preferred_material as any || null,
         roof_complexity: form.roof_complexity as any || null,
         description: form.description || null,
-      })
+        session_id: getSessionId(),
+        referrer_source: getFirstReferrerSource(),
+      } as any)
       .select()
       .single();
 

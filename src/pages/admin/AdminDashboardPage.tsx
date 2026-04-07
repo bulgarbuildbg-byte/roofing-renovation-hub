@@ -22,6 +22,7 @@ const AdminDashboardPage = () => {
     { to: "/admin/articles", label: "Статии", icon: Newspaper },
     { to: "/admin/comments", label: "Дискусии", icon: MessageSquare },
     { to: "/admin/testimonials", label: "Отзиви", icon: Star },
+    { to: "/admin/calls", label: "Обаждания", icon: PhoneCall },
     ...(isAdmin ? [{ to: "/admin/staff", label: "Екип", icon: Users }] : []),
   ];
 
