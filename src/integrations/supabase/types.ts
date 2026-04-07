@@ -21,6 +21,7 @@ export type Database = {
           event_name: string
           event_type: string
           id: string
+          is_bot: boolean | null
           page_path: string | null
           referrer: string | null
           referrer_source: string | null
@@ -32,6 +33,7 @@ export type Database = {
           event_name: string
           event_type: string
           id?: string
+          is_bot?: boolean | null
           page_path?: string | null
           referrer?: string | null
           referrer_source?: string | null
@@ -43,6 +45,7 @@ export type Database = {
           event_name?: string
           event_type?: string
           id?: string
+          is_bot?: boolean | null
           page_path?: string | null
           referrer?: string | null
           referrer_source?: string | null
@@ -174,6 +177,56 @@ export type Database = {
           url?: string
         }
         Relationships: []
+      }
+      call_log: {
+        Row: {
+          call_date: string
+          call_direction: string
+          client_email: string | null
+          client_name: string
+          client_phone: string
+          created_at: string
+          created_by: string
+          duration_minutes: number | null
+          id: string
+          inquiry_id: string | null
+          notes: string | null
+        }
+        Insert: {
+          call_date?: string
+          call_direction?: string
+          client_email?: string | null
+          client_name: string
+          client_phone: string
+          created_at?: string
+          created_by: string
+          duration_minutes?: number | null
+          id?: string
+          inquiry_id?: string | null
+          notes?: string | null
+        }
+        Update: {
+          call_date?: string
+          call_direction?: string
+          client_email?: string | null
+          client_name?: string
+          client_phone?: string
+          created_at?: string
+          created_by?: string
+          duration_minutes?: number | null
+          id?: string
+          inquiry_id?: string | null
+          notes?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_log_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       campaigns: {
         Row: {
@@ -408,8 +461,10 @@ export type Database = {
           preferred_material:
             | Database["public"]["Enums"]["material_type"]
             | null
+          referrer_source: string | null
           roof_complexity: Database["public"]["Enums"]["roof_complexity"] | null
           service_type: Database["public"]["Enums"]["service_type"]
+          session_id: string | null
           sms_consent: boolean | null
           status: Database["public"]["Enums"]["inquiry_status"]
           unsubscribed_at: string | null
@@ -431,10 +486,12 @@ export type Database = {
           preferred_material?:
             | Database["public"]["Enums"]["material_type"]
             | null
+          referrer_source?: string | null
           roof_complexity?:
             | Database["public"]["Enums"]["roof_complexity"]
             | null
           service_type?: Database["public"]["Enums"]["service_type"]
+          session_id?: string | null
           sms_consent?: boolean | null
           status?: Database["public"]["Enums"]["inquiry_status"]
           unsubscribed_at?: string | null
@@ -456,10 +513,12 @@ export type Database = {
           preferred_material?:
             | Database["public"]["Enums"]["material_type"]
             | null
+          referrer_source?: string | null
           roof_complexity?:
             | Database["public"]["Enums"]["roof_complexity"]
             | null
           service_type?: Database["public"]["Enums"]["service_type"]
+          session_id?: string | null
           sms_consent?: boolean | null
           status?: Database["public"]["Enums"]["inquiry_status"]
           unsubscribed_at?: string | null
