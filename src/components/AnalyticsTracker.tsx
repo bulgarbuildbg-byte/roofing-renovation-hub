@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { trackEvent, getSessionId, classifyReferrer, isBot, setFirstReferrerSource } from "@/lib/analytics";
+import { trackEvent, getSessionId, classifyReferrer, isBot, setFirstReferrerSource, trackCallClick } from "@/lib/analytics";
 
 const AnalyticsTracker = () => {
   const location = useLocation();
@@ -60,6 +60,21 @@ const AnalyticsTracker = () => {
 
     window.addEventListener("beforeunload", handleUnload);
     return () => window.removeEventListener("beforeunload", handleUnload);
+  }, []);
+
+  // Global tel: click interceptor — auto-track + Google Ads conversion
+  useEffect(() => {
+    if (!window.location.hostname.endsWith("remontnapokrivivarna.bg")) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest?.("a[href^='tel:']");
+      if (!anchor) return;
+      const phone = (anchor as HTMLAnchorElement).href.replace("tel:", "");
+      trackCallClick(phone);
+    };
+
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
   }, []);
 
   return null;

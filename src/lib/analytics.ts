@@ -1,5 +1,11 @@
 import { supabase } from "@/integrations/supabase/client";
 
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 const SESSION_KEY = "analytics_session_id";
 const REFERRER_KEY = "analytics_first_referrer_source";
 
@@ -115,5 +121,30 @@ export async function trackEvent(
     });
   } catch {
     // silently fail - analytics should never break the app
+  }
+}
+
+/**
+ * Log a phone call click: track analytics event + fire Google Ads conversion.
+ * Called from the global tel: click interceptor in AnalyticsTracker.
+ */
+export function trackCallClick(phoneNumber: string) {
+  // Track as analytics event (public insert allowed)
+  trackEvent("button_click", "call_button", {
+    page_path: window.location.pathname,
+  });
+
+  // Fire Google Ads conversion for both accounts
+  if (window.gtag) {
+    window.gtag("event", "conversion", {
+      send_to: "AW-17872435541/call_click",
+      value: 1.0,
+      currency: "BGN",
+    });
+    window.gtag("event", "conversion", {
+      send_to: "AW-18066399675/call_click",
+      value: 1.0,
+      currency: "BGN",
+    });
   }
 }
