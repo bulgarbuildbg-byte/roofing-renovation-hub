@@ -80,11 +80,43 @@ const AnalyticsPage = () => {
   const filterByRange = (rows: any[], r: { from: Date; to: Date }) =>
     rows.filter(e => {
       const d = new Date(e.created_at);
-      return d >= r.from && d <= endOfDay(r.to);
+      if (d < r.from || d > endOfDay(r.to)) return false;
+      if (filterBots && e.is_bot) return false;
+      return true;
     });
 
-  const currentEvents = useMemo(() => from && to ? filterByRange(events, { from, to }) : [], [events, from, to]);
-  const compareEvents = useMemo(() => compRange ? filterByRange(events, compRange) : [], [events, compRange]);
+  const botCount = useMemo(() => {
+    if (!from || !to) return 0;
+    return events.filter(e => {
+      const d = new Date(e.created_at);
+      return d >= from && d <= endOfDay(to) && e.is_bot;
+    }).length;
+  }, [events, from, to]);
+
+  const currentEvents = useMemo(() => from && to ? filterByRange(events, { from, to }) : [], [events, from, to, filterBots]);
+  const compareEvents = useMemo(() => compRange ? filterByRange(events, compRange) : [], [events, compRange, filterBots]);
+
+  // Conversions by source
+  const conversionsBySource = useMemo(() => {
+    if (!from || !to) return [];
+    const rangeInquiries = inquiries.filter(inq => {
+      const d = new Date(inq.created_at);
+      return d >= from && d <= endOfDay(to);
+    });
+    const counts: Record<string, number> = {};
+    for (const inq of rangeInquiries) {
+      const src = inq.referrer_source || "direct";
+      counts[src] = (counts[src] || 0) + 1;
+    }
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([source, count]) => ({
+        source,
+        count,
+        label: SOURCE_CONFIG[source]?.label ?? source,
+        color: SOURCE_CONFIG[source]?.color ?? "hsl(var(--border))",
+      }));
+  }, [inquiries, from, to]);
 
   const calcStats = (rows: any[]) => {
     const visitors = new Set(rows.filter(r => r.event_type === "page_view").map(r => r.session_id)).size;
