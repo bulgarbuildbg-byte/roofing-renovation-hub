@@ -352,6 +352,19 @@ const AnalyticsPage = () => {
                 <TrendIndicator current={current.calculator} previous={compare?.calculator ?? null} />
               </CardContent>
             </Card>
+            {botCount > 0 && (
+              <Card>
+                <CardHeader className="pb-1">
+                  <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+                    <Bot className="h-3.5 w-3.5 text-destructive" /> Ботове
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-3xl font-bold text-muted-foreground">{botCount}</p>
+                  <p className="text-xs text-muted-foreground">{filterBots ? "филтрирани" : "включени"}</p>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Daily activity chart */}
