@@ -1,6 +1,23 @@
 import { supabase } from "@/integrations/supabase/client";
 
 const SESSION_KEY = "analytics_session_id";
+const REFERRER_KEY = "analytics_first_referrer_source";
+
+const BOT_PATTERNS = [
+  /bot/i, /crawl/i, /spider/i, /slurp/i, /mediapartners/i,
+  /googlebot/i, /bingbot/i, /yandex/i, /baiduspider/i,
+  /facebookexternalhit/i, /twitterbot/i, /linkedinbot/i,
+  /whatsapp/i, /telegrambot/i, /discordbot/i,
+  /semrushbot/i, /ahrefsbot/i, /dotbot/i, /mj12bot/i,
+  /petalbot/i, /bytespider/i, /gptbot/i, /applebot/i,
+];
+
+export function isBot(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent || "";
+  if ((navigator as any).webdriver) return true;
+  return BOT_PATTERNS.some((p) => p.test(ua));
+}
 
 export function getSessionId(): string {
   let id = sessionStorage.getItem(SESSION_KEY);
@@ -11,6 +28,17 @@ export function getSessionId(): string {
   return id;
 }
 
+/** Store first-touch referrer source for the session (used by inquiry form) */
+export function setFirstReferrerSource(source: string) {
+  if (!sessionStorage.getItem(REFERRER_KEY)) {
+    sessionStorage.setItem(REFERRER_KEY, source);
+  }
+}
+
+export function getFirstReferrerSource(): string {
+  return sessionStorage.getItem(REFERRER_KEY) || "direct";
+}
+
 export function classifyReferrer(referrer: string): string {
   if (!referrer) return "direct";
 
@@ -18,7 +46,6 @@ export function classifyReferrer(referrer: string): string {
     const url = new URL(referrer);
     const host = url.hostname.toLowerCase();
 
-    // Email clients / marketing platforms
     if (
       host.includes("mail.") ||
       host.includes("mailchimp") ||
@@ -30,7 +57,6 @@ export function classifyReferrer(referrer: string): string {
       referrer.includes("utm_medium=email")
     ) return "email";
 
-    // Organic search engines
     if (
       host.includes("google.") ||
       host.includes("bing.com") ||
@@ -43,7 +69,6 @@ export function classifyReferrer(referrer: string): string {
       host.includes("startpage.com")
     ) return "organic";
 
-    // Social networks
     if (
       host.includes("facebook.com") ||
       host.includes("fb.com") ||
@@ -60,7 +85,6 @@ export function classifyReferrer(referrer: string): string {
       host.includes("ok.ru")
     ) return "social";
 
-    // Any other referrer domain = referral
     return "referral";
   } catch {
     return "direct";
@@ -78,6 +102,7 @@ export async function trackEvent(
   }
 ) {
   try {
+    const botFlag = isBot();
     await supabase.from("analytics_events" as any).insert({
       event_type: eventType,
       event_name: eventName,
@@ -86,6 +111,7 @@ export async function trackEvent(
       duration_seconds: extras?.duration_seconds ?? null,
       referrer_source: extras?.referrer_source ?? null,
       referrer: extras?.referrer ?? null,
+      is_bot: botFlag,
     });
   } catch {
     // silently fail - analytics should never break the app

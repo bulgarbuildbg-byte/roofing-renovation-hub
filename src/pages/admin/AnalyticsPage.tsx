@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download, ArrowUpDown, TrendingUp, TrendingDown, Minus, Globe } from "lucide-react";
+import { Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download, ArrowUpDown, TrendingUp, TrendingDown, Minus, Globe, Bot, ShieldCheck } from "lucide-react";
 import { format, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfDay, endOfWeek, endOfMonth, endOfYear } from "date-fns";
 import { bg } from "date-fns/locale";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
@@ -36,7 +36,9 @@ const AnalyticsPage = () => {
     return { from: r.from, to: r.to };
   });
   const [compareEnabled, setCompareEnabled] = useState(false);
+  const [filterBots, setFilterBots] = useState(true);
   const [events, setEvents] = useState<any[]>([]);
+  const [inquiries, setInquiries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const from = dateRange?.from;
@@ -58,23 +60,63 @@ const AnalyticsPage = () => {
     setLoading(true);
     const earliest = compRange ? compRange.from : from!;
     const latest = to || from!;
-    const { data } = await supabase
-      .from("analytics_events" as any)
-      .select("event_type, event_name, session_id, duration_seconds, created_at, page_path, referrer_source, referrer")
-      .gte("created_at", earliest.toISOString())
-      .lte("created_at", endOfDay(latest).toISOString());
+    const [{ data }, { data: inqData }] = await Promise.all([
+      supabase
+        .from("analytics_events" as any)
+        .select("event_type, event_name, session_id, duration_seconds, created_at, page_path, referrer_source, referrer, is_bot")
+        .gte("created_at", earliest.toISOString())
+        .lte("created_at", endOfDay(latest).toISOString()),
+      supabase
+        .from("inquiries")
+        .select("id, created_at, referrer_source, session_id")
+        .gte("created_at", earliest.toISOString())
+        .lte("created_at", endOfDay(latest).toISOString()),
+    ]);
     setEvents(data || []);
+    setInquiries(inqData || []);
     setLoading(false);
   };
 
   const filterByRange = (rows: any[], r: { from: Date; to: Date }) =>
     rows.filter(e => {
       const d = new Date(e.created_at);
-      return d >= r.from && d <= endOfDay(r.to);
+      if (d < r.from || d > endOfDay(r.to)) return false;
+      if (filterBots && e.is_bot) return false;
+      return true;
     });
 
-  const currentEvents = useMemo(() => from && to ? filterByRange(events, { from, to }) : [], [events, from, to]);
-  const compareEvents = useMemo(() => compRange ? filterByRange(events, compRange) : [], [events, compRange]);
+  const botCount = useMemo(() => {
+    if (!from || !to) return 0;
+    return events.filter(e => {
+      const d = new Date(e.created_at);
+      return d >= from && d <= endOfDay(to) && e.is_bot;
+    }).length;
+  }, [events, from, to]);
+
+  const currentEvents = useMemo(() => from && to ? filterByRange(events, { from, to }) : [], [events, from, to, filterBots]);
+  const compareEvents = useMemo(() => compRange ? filterByRange(events, compRange) : [], [events, compRange, filterBots]);
+
+  // Conversions by source
+  const conversionsBySource = useMemo(() => {
+    if (!from || !to) return [];
+    const rangeInquiries = inquiries.filter(inq => {
+      const d = new Date(inq.created_at);
+      return d >= from && d <= endOfDay(to);
+    });
+    const counts: Record<string, number> = {};
+    for (const inq of rangeInquiries) {
+      const src = inq.referrer_source || "direct";
+      counts[src] = (counts[src] || 0) + 1;
+    }
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([source, count]) => ({
+        source,
+        count,
+        label: SOURCE_CONFIG[source]?.label ?? source,
+        color: SOURCE_CONFIG[source]?.color ?? "hsl(var(--border))",
+      }));
+  }, [inquiries, from, to]);
 
   const calcStats = (rows: any[]) => {
     const visitors = new Set(rows.filter(r => r.event_type === "page_view").map(r => r.session_id)).size;
@@ -222,6 +264,10 @@ const AnalyticsPage = () => {
               />
             </PopoverContent>
           </Popover>
+          <Button variant={filterBots ? "default" : "outline"} size="sm" onClick={() => setFilterBots(!filterBots)}>
+            <ShieldCheck className="h-4 w-4 mr-1" />
+            {filterBots ? "Реални" : "Всички"}
+          </Button>
           <Button variant="outline" size="sm" onClick={() => setCompareEnabled(!compareEnabled)}>
             <ArrowUpDown className="h-4 w-4 mr-1" />
             {compareEnabled ? "Без сравнение" : "Сравнение"}
@@ -306,6 +352,19 @@ const AnalyticsPage = () => {
                 <TrendIndicator current={current.calculator} previous={compare?.calculator ?? null} />
               </CardContent>
             </Card>
+            {botCount > 0 && (
+              <Card>
+                <CardHeader className="pb-1">
+                  <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+                    <Bot className="h-3.5 w-3.5 text-destructive" /> Ботове
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-3xl font-bold text-muted-foreground">{botCount}</p>
+                  <p className="text-xs text-muted-foreground">{filterBots ? "филтрирани" : "включени"}</p>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Daily activity chart */}
@@ -407,7 +466,7 @@ const AnalyticsPage = () => {
             </CardContent>
           </Card>
 
-          {/* Conversion rate */}
+           {/* Conversion rate */}
           {current.visitors > 0 && (
             <Card>
               <CardHeader>
@@ -427,6 +486,31 @@ const AnalyticsPage = () => {
                     <p className="text-2xl font-bold">{(((current.offers + current.calls) / current.visitors) * 100).toFixed(1)}%</p>
                     <p className="text-xs text-muted-foreground">Общо конверсия</p>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Conversions by traffic source */}
+          {conversionsBySource.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm flex items-center gap-2">
+                  <Globe className="h-4 w-4 text-primary" />
+                  Запитвания по източник на трафик
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {conversionsBySource.map(s => (
+                    <div key={s.source} className="flex items-center justify-between text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
+                        <span>{s.label}</span>
+                      </div>
+                      <span className="font-bold">{s.count}</span>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>

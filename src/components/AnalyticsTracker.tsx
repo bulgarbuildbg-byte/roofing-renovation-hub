@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { trackEvent, getSessionId, classifyReferrer } from "@/lib/analytics";
+import { trackEvent, getSessionId, classifyReferrer, isBot, setFirstReferrerSource } from "@/lib/analytics";
 
 const AnalyticsTracker = () => {
   const location = useLocation();
@@ -8,13 +8,16 @@ const AnalyticsTracker = () => {
 
   // Track page views on route change, including referrer classification
   useEffect(() => {
-    // Only track on the real production domain — skip Lovable preview, editor, and localhost sessions
+    // Only track on the real production domain
     if (!window.location.hostname.endsWith("remontnapokrivivarna.bg")) return;
     // Don't track admin pages
     if (location.pathname.startsWith("/admin")) return;
 
     const referrer = document.referrer || "";
     const source = classifyReferrer(referrer);
+
+    // Store first-touch source for conversion tracking
+    setFirstReferrerSource(source);
 
     trackEvent("page_view", "visit", {
       page_path: location.pathname,
@@ -39,6 +42,7 @@ const AnalyticsTracker = () => {
         session_id: getSessionId(),
         page_path: window.location.pathname,
         duration_seconds: seconds,
+        is_bot: isBot(),
       });
 
       fetch(url, {

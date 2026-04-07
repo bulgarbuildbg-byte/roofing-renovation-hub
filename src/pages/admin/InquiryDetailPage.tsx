@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, FileText, Download, Phone, Mail, MapPin, Ruler, Layers, Box } from "lucide-react";
+import { ArrowLeft, FileText, Download, Phone, Mail, MapPin, Ruler, Layers, Box, Globe } from "lucide-react";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
@@ -174,6 +174,15 @@ const InquiryDetailPage = () => {
                   {format(new Date(inquiry.created_at), "dd MMMM yyyy, HH:mm", { locale: bg })}
                 </p>
               </div>
+              {inquiry.referrer_source && (
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Източник на трафик</p>
+                  <Badge variant="outline" className="gap-1">
+                    <Globe className="h-3 w-3" />
+                    {({ organic: "Органично", direct: "Директен", social: "Социални мрежи", referral: "Препращане", email: "Имейл" } as Record<string, string>)[inquiry.referrer_source] || inquiry.referrer_source}
+                  </Badge>
+                </div>
+              )}
             </div>
           </div>
 

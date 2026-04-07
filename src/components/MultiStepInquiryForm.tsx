@@ -7,7 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { CheckCircle, Phone, ArrowLeft, ArrowRight, Send, Upload, X, Loader2 } from "lucide-react";
 
 const serviceOptions = [
@@ -92,7 +92,9 @@ const MultiStepInquiryForm = () => {
         preferred_material: form.preferred_material as any || null,
         roof_complexity: form.roof_complexity as any || null,
         description: form.description || null,
-      })
+        session_id: getSessionId(),
+        referrer_source: getFirstReferrerSource(),
+      } as any)
       .select()
       .single();
 
