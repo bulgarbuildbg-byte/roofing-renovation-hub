@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { trackEvent, getSessionId, classifyReferrer, isBot, setFirstReferrerSource } from "@/lib/analytics";
+import { trackEvent, getSessionId, classifyReferrer, isBot, setFirstReferrerSource, trackCallClick } from "@/lib/analytics";
 
 const AnalyticsTracker = () => {
   const location = useLocation();
