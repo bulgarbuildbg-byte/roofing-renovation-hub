@@ -60,12 +60,20 @@ const AnalyticsPage = () => {
     setLoading(true);
     const earliest = compRange ? compRange.from : from!;
     const latest = to || from!;
-    const { data } = await supabase
-      .from("analytics_events" as any)
-      .select("event_type, event_name, session_id, duration_seconds, created_at, page_path, referrer_source, referrer")
-      .gte("created_at", earliest.toISOString())
-      .lte("created_at", endOfDay(latest).toISOString());
+    const [{ data }, { data: inqData }] = await Promise.all([
+      supabase
+        .from("analytics_events" as any)
+        .select("event_type, event_name, session_id, duration_seconds, created_at, page_path, referrer_source, referrer, is_bot")
+        .gte("created_at", earliest.toISOString())
+        .lte("created_at", endOfDay(latest).toISOString()),
+      supabase
+        .from("inquiries")
+        .select("id, created_at, referrer_source, session_id")
+        .gte("created_at", earliest.toISOString())
+        .lte("created_at", endOfDay(latest).toISOString()),
+    ]);
     setEvents(data || []);
+    setInquiries(inqData || []);
     setLoading(false);
   };
 
