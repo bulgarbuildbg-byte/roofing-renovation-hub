@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download, ArrowUpDown, TrendingUp, TrendingDown, Minus, Globe } from "lucide-react";
+import { Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download, ArrowUpDown, TrendingUp, TrendingDown, Minus, Globe, Bot, ShieldCheck } from "lucide-react";
 import { format, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfDay, endOfWeek, endOfMonth, endOfYear } from "date-fns";
 import { bg } from "date-fns/locale";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
