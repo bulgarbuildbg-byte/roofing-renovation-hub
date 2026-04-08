@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { HardHat, FileText, Wrench, ShieldCheck, CheckCircle } from "lucide-react";
+import { ClipboardCheck, FileText, Hammer, Award, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -11,28 +11,28 @@ const HowWeWork = () => {
 
   const steps = [
     {
-      id: 1, icon: HardHat,
+      id: 1, icon: ClipboardCheck,
       titleKey: "howWeWork.step1Title",
       textKey: "howWeWork.step1Text",
-      benefits: ["howWeWork.step1Benefit"],
+      benefits: ["howWeWork.step1Benefit1", "howWeWork.step1Benefit2", "howWeWork.step1Benefit3"],
     },
     {
       id: 2, icon: FileText,
       titleKey: "howWeWork.step2Title",
       textKey: "howWeWork.step2Text",
-      benefits: ["howWeWork.step2Benefit"],
+      benefits: ["howWeWork.step2Benefit1", "howWeWork.step2Benefit2", "howWeWork.step2Benefit3"],
     },
     {
-      id: 3, icon: Wrench,
+      id: 3, icon: Hammer,
       titleKey: "howWeWork.step3Title",
       textKey: "howWeWork.step3Text",
       benefits: ["howWeWork.step3Benefit1", "howWeWork.step3Benefit2", "howWeWork.step3Benefit3"],
     },
     {
-      id: 4, icon: ShieldCheck,
+      id: 4, icon: Award,
       titleKey: "howWeWork.step4Title",
       textKey: "howWeWork.step4Text",
-      benefits: ["howWeWork.step4Benefit"],
+      benefits: ["howWeWork.step4Benefit1", "howWeWork.step4Benefit2", "howWeWork.step4Benefit3"],
     },
   ];
 
@@ -52,12 +52,12 @@ const HowWeWork = () => {
           {steps.map((step) => {
             const Icon = step.icon;
             return (
-              <Card key={step.id} className="relative overflow-hidden hover:shadow-lg transition-shadow">
+              <Card key={step.id} className="relative overflow-hidden hover:shadow-lg transition-shadow border-t-4 border-primary">
                 <CardContent className="p-6 text-center flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold shadow-lg">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center text-2xl font-bold shadow-lg">
                     {step.id}
                   </div>
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-primary/15 flex items-center justify-center">
                     <Icon className="w-10 h-10 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">
@@ -74,7 +74,7 @@ const HowWeWork = () => {
                       </div>
                     ))}
                   </div>
-                  <Button asChild variant="outline" size="sm" className="mt-auto">
+                  <Button asChild size="sm" className="mt-auto">
                     <Link to={getPath("howWeWork")}>
                       {t("howWeWork.learnMore")}
                     </Link>

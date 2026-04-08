@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
-import { Search, ClipboardCheck, Hammer, Shield, CheckCircle, Phone } from "lucide-react";
+import { ClipboardCheck, FileText, Hammer, Award, CheckCircle, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
@@ -27,14 +27,14 @@ const HowWeWorkPage = () => {
 
   const steps = [
     {
-      id: 1, icon: Search,
+      id: 1, icon: ClipboardCheck,
       title: t("howWeWork.step1Title"),
       text: t("howWeWork.step1Text"),
       details: t("howWeWork.step1Details"),
       bullets: (t("howWeWork.step1Bullets", { returnObjects: true }) as string[]),
     },
     {
-      id: 2, icon: ClipboardCheck,
+      id: 2, icon: FileText,
       title: t("howWeWork.step2Title"),
       text: t("howWeWork.step2Text"),
       details: t("howWeWork.step2Details"),
@@ -48,7 +48,7 @@ const HowWeWorkPage = () => {
       bullets: (t("howWeWork.step3Bullets", { returnObjects: true }) as string[]),
     },
     {
-      id: 4, icon: Shield,
+      id: 4, icon: Award,
       title: t("howWeWork.step4Title"),
       text: t("howWeWork.step4Text"),
       details: t("howWeWork.step4Details"),
@@ -114,7 +114,7 @@ const HowWeWorkPage = () => {
                   <ul className="space-y-2">
                     {Array.isArray(step.bullets) && step.bullets.map((bullet, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                         <span className="text-foreground">{bullet}</span>
                       </li>
                     ))}
