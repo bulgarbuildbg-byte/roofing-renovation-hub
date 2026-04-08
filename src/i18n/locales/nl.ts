@@ -111,4 +111,29 @@ const nl = {
     emergencyOnly: "Alleen noodgevallen", emergencyNote: "* Bij noodgevallen zijn we 24/7 bereikbaar",
   },
 };
+
+  howWeWork: {
+    sectionTitle: "Hoe We Werken",
+    sectionSubtitle: "Een transparant en efficiënt proces van inspectie tot projectoplevering",
+    learnMore: "Meer informatie",
+    stepLabel: "Stap {{number}}",
+    step1Title: "Inspectie & Consultatie", step1Text: "Gratis inspectie ter plaatse en expertadvies",
+    step1Details: "Ons team voert een gratis inspectie van uw dak ter plaatse uit.", step1Bullets: ["Gratis inspectie binnen 24 uur", "Gedetailleerde fotodocumentatie", "Deskundige beoordeling", "Aanbevelingen"],
+    step2Title: "Offerte", step2Text: "Duidelijke en transparante offerte zonder verborgen kosten",
+    step2Details: "Na de inspectie maken we een gedetailleerde schriftelijke offerte.", step2Bullets: ["Gedetailleerde schriftelijke offerte", "Geen verborgen kosten", "Meerdere prijsopties", "Duidelijke garantievoorwaarden"],
+    step3Title: "Uitvoering", step3Text: "Hoogwaardig werk op tijd geleverd",
+    step3Details: "Na goedkeuring beginnen we met het werk volgens het afgesproken schema.", step3Bullets: ["Professioneel team met 15+ jaar ervaring", "Hoogwaardige materialen", "Naleving van alle bouwstandaarden", "Dagelijkse communicatie"],
+    step4Title: "Garantie", step4Text: "Projectoplevering met tot 10–15 jaar garantie",
+    step4Details: "Bij oplevering voeren we een gezamenlijke inspectie uit.", step4Bullets: ["Schriftelijke garantie tot 10–15 jaar", "Volledige documentatie", "Opleveringsprotocol", "After-garantieservice"],
+    pageTitle: "Hoe We Werken — Ons Proces", pageSubtitle: "Van de eerste inspectie tot het voltooide project.",
+    metaTitle: "Hoe We Werken | Dakreparatie Varna", metaDesc: "Ontdek hoe we werken — van gratis inspectie tot oplevering met garantie.",
+    ctaButton: "Vraag gratis inspectie aan", ctaTitle: "Klaar om te beginnen?", ctaSubtitle: "Vraag een gratis inspectie aan en ontvang een offerte binnen 24 uur.",
+    faqTitle: "Veelgestelde Vragen Over Ons Proces",
+    faqs: [
+      { q: "Hoe lang duurt de inspectie?", a: "De inspectie duurt doorgaans 30 tot 60 minuten." },
+      { q: "Is de inspectie echt gratis?", a: "Ja, de inspectie is volledig gratis en vrijblijvend." },
+      { q: "Welke garantie bieden jullie?", a: "We bieden een schriftelijke garantie van 5 tot 15 jaar." },
+    ],
+  },
+};
 export default nl;

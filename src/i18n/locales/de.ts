@@ -138,4 +138,30 @@ const de = {
   },
 };
 
+
+  howWeWork: {
+    sectionTitle: "Wie Wir Arbeiten",
+    sectionSubtitle: "Ein transparenter und effizienter Prozess von der Inspektion bis zur Fertigstellung",
+    learnMore: "Mehr erfahren",
+    stepLabel: "Schritt {{number}}",
+    step1Title: "Inspektion & Beratung", step1Text: "Kostenlose Vor-Ort-Inspektion und Expertenberatung",
+    step1Details: "Unser Team führt eine kostenlose Vor-Ort-Inspektion Ihres Daches durch.", step1Bullets: ["Kostenlose Inspektion innerhalb von 24 Stunden", "Detaillierte Fotodokumentation", "Fachkundige Problembewertung", "Empfehlungen für optimale Lösung"],
+    step2Title: "Angebot", step2Text: "Klares und transparentes Angebot ohne versteckte Kosten",
+    step2Details: "Nach der Inspektion erstellen wir ein detailliertes schriftliches Angebot.", step2Bullets: ["Detailliertes schriftliches Angebot", "Keine versteckten Kosten", "Verschiedene Preisvarianten", "Klare Garantiebedingungen"],
+    step3Title: "Ausführung", step3Text: "Hochwertige Arbeit, termingerecht geliefert",
+    step3Details: "Nach Genehmigung beginnen wir die Arbeit nach dem vereinbarten Zeitplan.", step3Bullets: ["Professionelles Team mit 15+ Jahren Erfahrung", "Hochwertige Materialien", "Einhaltung aller Baustandards", "Tägliche Fortschrittskommunikation"],
+    step4Title: "Garantie", step4Text: "Projektübergabe mit bis zu 10–15 Jahren Garantie",
+    step4Details: "Bei Fertigstellung führen wir eine gemeinsame Inspektion durch.", step4Bullets: ["Schriftliche Garantie bis 10–15 Jahre", "Vollständige Dokumentation", "Abnahmeprotokoll", "Nachgarantie-Service"],
+    pageTitle: "Wie Wir Arbeiten — Unser Prozess", pageSubtitle: "Von der ersten Inspektion bis zum fertigen Projekt.",
+    metaTitle: "Wie Wir Arbeiten | Dachreparatur Varna", metaDesc: "Erfahren Sie, wie wir arbeiten — von der kostenlosen Inspektion bis zur Fertigstellung mit Garantie.",
+    ctaButton: "Kostenlose Inspektion anfordern", ctaTitle: "Bereit loszulegen?", ctaSubtitle: "Fordern Sie eine kostenlose Inspektion an.",
+    faqTitle: "Häufig gestellte Fragen zu unserem Prozess",
+    faqs: [
+      { q: "Wie lange dauert die Inspektion?", a: "Die Inspektion dauert in der Regel 30 bis 60 Minuten." },
+      { q: "Ist die Inspektion wirklich kostenlos?", a: "Ja, die Inspektion ist völlig kostenlos und unverbindlich." },
+      { q: "Welche Garantie bieten Sie?", a: "Wir bieten eine schriftliche Garantie von 5 bis 15 Jahren." },
+    ],
+  },
+};
+
 export default de;

@@ -111,4 +111,29 @@ const fr = {
     emergencyOnly: "Urgences uniquement", emergencyNote: "* En cas d'urgence, nous sommes disponibles 24h/24 et 7j/7",
   },
 };
+
+  howWeWork: {
+    sectionTitle: "Comment Nous Travaillons",
+    sectionSubtitle: "Un processus transparent et efficace de l'inspection à la finition du projet",
+    learnMore: "En savoir plus",
+    stepLabel: "Étape {{number}}",
+    step1Title: "Inspection & Consultation", step1Text: "Inspection gratuite sur site et consultation d'experts",
+    step1Details: "Notre équipe effectue une inspection gratuite de votre toiture sur place.", step1Bullets: ["Inspection gratuite sous 24 heures", "Documentation photo détaillée", "Évaluation experte", "Recommandations"],
+    step2Title: "Devis", step2Text: "Devis clair et transparent sans frais cachés",
+    step2Details: "Après l'inspection, nous préparons un devis détaillé.", step2Bullets: ["Devis écrit détaillé", "Pas de frais cachés", "Plusieurs options de prix", "Conditions de garantie claires"],
+    step3Title: "Exécution", step3Text: "Travail de haute qualité livré dans les délais",
+    step3Details: "Après approbation, nous commençons les travaux selon le calendrier convenu.", step3Bullets: ["Équipe professionnelle avec 15+ ans d'expérience", "Matériaux de haute qualité", "Conformité aux normes de construction", "Communication quotidienne"],
+    step4Title: "Garantie", step4Text: "Remise du projet avec jusqu'à 10–15 ans de garantie",
+    step4Details: "À la fin, nous effectuons une inspection conjointe.", step4Bullets: ["Garantie écrite jusqu'à 10–15 ans", "Documentation complète", "Procès-verbal de réception", "Service après-garantie"],
+    pageTitle: "Comment Nous Travaillons — Notre Processus", pageSubtitle: "De l'inspection initiale au projet terminé.",
+    metaTitle: "Comment Nous Travaillons | Réparation de Toiture Varna", metaDesc: "Découvrez comment nous travaillons — de l'inspection gratuite à la finition avec garantie.",
+    ctaButton: "Demander une inspection gratuite", ctaTitle: "Prêt à commencer ?", ctaSubtitle: "Demandez une inspection gratuite et recevez un devis sous 24 heures.",
+    faqTitle: "Questions Fréquentes Sur Notre Processus",
+    faqs: [
+      { q: "Combien de temps dure l'inspection ?", a: "L'inspection dure généralement de 30 à 60 minutes." },
+      { q: "L'inspection est-elle vraiment gratuite ?", a: "Oui, l'inspection est entièrement gratuite et sans engagement." },
+      { q: "Quelle garantie offrez-vous ?", a: "Nous offrons une garantie écrite de 5 à 15 ans." },
+    ],
+  },
+};
 export default fr;

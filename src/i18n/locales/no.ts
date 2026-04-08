@@ -111,4 +111,29 @@ const no = {
     emergencyOnly: "Kun nødstilfeller", emergencyNote: "* Ved nødstilfeller er vi tilgjengelige 24/7",
   },
 };
+
+  howWeWork: {
+    sectionTitle: "Slik Jobber Vi",
+    sectionSubtitle: "En transparent og effektiv prosess fra inspeksjon til prosjektferdigstillelse",
+    learnMore: "Les mer",
+    stepLabel: "Steg {{number}}",
+    step1Title: "Inspeksjon & Konsultasjon", step1Text: "Gratis inspeksjon på stedet og ekspertrådgivning",
+    step1Details: "Teamet vårt utfører en gratis inspeksjon av taket ditt på stedet.", step1Bullets: ["Gratis inspeksjon innen 24 timer", "Detaljert fotodokumentasjon", "Ekspertvurdering", "Anbefalinger"],
+    step2Title: "Tilbud", step2Text: "Klart og transparent tilbud uten skjulte kostnader",
+    step2Details: "Etter inspeksjonen lager vi et detaljert skriftlig tilbud.", step2Bullets: ["Detaljert skriftlig tilbud", "Ingen skjulte kostnader", "Flere prisalternativer", "Klare garantivilkår"],
+    step3Title: "Utførelse", step3Text: "Høykvalitetsarbeid levert i tide",
+    step3Details: "Etter godkjenning starter vi arbeidet etter avtalt tidsplan.", step3Bullets: ["Profesjonelt team med 15+ års erfaring", "Høykvalitetsmaterialer", "Overholdelse av alle byggestandarder", "Daglig kommunikasjon"],
+    step4Title: "Garanti", step4Text: "Prosjektoverlevering med opptil 10–15 års garanti",
+    step4Details: "Ved ferdigstillelse gjennomfører vi en felles inspeksjon.", step4Bullets: ["Skriftlig garanti opptil 10–15 år", "Fullstendig dokumentasjon", "Overtakelsesprotokoll", "Ettergarantiservice"],
+    pageTitle: "Slik Jobber Vi — Vår Prosess", pageSubtitle: "Fra første inspeksjon til ferdig prosjekt.",
+    metaTitle: "Slik Jobber Vi | Takreparasjon Varna", metaDesc: "Lær hvordan vi jobber — fra gratis inspeksjon til ferdigstillelse med garanti.",
+    ctaButton: "Be om gratis inspeksjon", ctaTitle: "Klar til å starte?", ctaSubtitle: "Be om en gratis inspeksjon og motta et tilbud innen 24 timer.",
+    faqTitle: "Vanlige Spørsmål Om Vår Prosess",
+    faqs: [
+      { q: "Hvor lang tid tar inspeksjonen?", a: "Inspeksjonen tar vanligvis 30–60 minutter." },
+      { q: "Er inspeksjonen virkelig gratis?", a: "Ja, inspeksjonen er helt gratis og uforpliktende." },
+      { q: "Hvilken garanti tilbyr dere?", a: "Vi tilbyr en skriftlig garanti på 5–15 år." },
+    ],
+  },
+};
 export default no;

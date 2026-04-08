@@ -7,6 +7,7 @@ import TrustIndicators from "@/components/TrustIndicators";
 import CertificationsBar from "@/components/CertificationsBar";
 import BrandCarousel from "@/components/BrandCarousel";
 import Services from "@/components/Services";
+import HowWeWork from "@/components/HowWeWork";
 import CTASection from "@/components/CTASection";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import About from "@/components/About";
@@ -143,6 +144,7 @@ const Index = () => {
       <CertificationsBar />
       <BrandCarousel />
       <Services />
+      <HowWeWork />
       <Testimonials />
 
       {/* Below-the-fold — lazy loaded */}
