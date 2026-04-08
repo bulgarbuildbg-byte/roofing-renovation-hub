@@ -1,17 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Phone, CheckCircle, Clock, Shield } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import heroImage from "@/assets/hero-roofing-new.png";
 
 const Hero = () => {
   const { t } = useTranslation();
-
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const { getPath } = useLocalizedPath();
 
   return (
     <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-24">
