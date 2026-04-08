@@ -47,12 +47,12 @@ const BrandCarousel = () => {
                 href={brand.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-shrink-0 px-6 md:px-10 flex items-center justify-center h-12 cursor-pointer"
+                className="flex-shrink-0 px-6 md:px-10 flex items-center justify-center h-16 cursor-pointer"
               >
                 <img
                   src={brand.logo}
                   alt={brand.name}
-                  className="max-h-8 max-w-[80px] object-contain opacity-50 hover:opacity-80 transition-opacity"
+                  className="max-h-12 max-w-[140px] object-contain opacity-80 hover:opacity-100 transition-opacity"
                   loading="lazy"
                 />
               </a>
