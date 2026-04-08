@@ -29,10 +29,10 @@ const isFemale = (name: string) => {
   return /а$/i.test(first);
 };
 
-const getAutoAvatar = (name: string, id: string) => {
+const getAutoAvatar = (name: string, id: string, index: number) => {
   const pool = isFemale(name) ? femaleAvatarIds : maleAvatarIds;
-  const seed = (name.length + parseInt(id.slice(-4), 16)) % pool.length;
-  return `https://i.pravatar.cc/200?img=${pool[seed]}`;
+  const hash = name.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) + index * 7;
+  return `https://i.pravatar.cc/200?img=${pool[hash % pool.length]}`;
 };
 
 const serviceLabels: Record<string, string> = {
@@ -155,7 +155,7 @@ const Testimonials = () => {
           <div className="px-0 md:px-14">
             <div ref={emblaRef} className="overflow-hidden">
               <div className="flex gap-5">
-                {displayTestimonials.map((testimonial) => {
+                {displayTestimonials.map((testimonial, index) => {
                   const serviceLabel = testimonial.service_type
                     ? serviceLabels[testimonial.service_type] || testimonial.service_type
                     : null;
@@ -170,14 +170,14 @@ const Testimonials = () => {
                           {/* Left: Circular Photo */}
                           <div className="flex-shrink-0">
                             <img
-                              src={testimonial.avatar_url || getAutoAvatar(testimonial.author_name, testimonial.id)}
+                              src={testimonial.avatar_url || getAutoAvatar(testimonial.author_name, testimonial.id, index)}
                               alt={testimonial.author_name}
                               className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-2 ring-primary/20"
                               loading="lazy"
                               onError={(e) => {
                                 const target = e.currentTarget;
                                 target.onerror = null;
-                                target.src = getAutoAvatar(testimonial.author_name, testimonial.id);
+                                target.src = getAutoAvatar(testimonial.author_name, testimonial.id, index);
                               }}
                             />
                           </div>
