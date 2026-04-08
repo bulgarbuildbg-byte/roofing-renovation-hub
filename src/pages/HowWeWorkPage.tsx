@@ -132,10 +132,10 @@ const HowWeWorkPage = () => {
           <h2 className="text-3xl font-bold text-primary-foreground mb-4">{t("howWeWork.ctaTitle")}</h2>
           <p className="text-primary-foreground/80 mb-6 text-lg">{t("howWeWork.ctaSubtitle")}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary">
               <Link to={getPath("inspection")}>{t("howWeWork.ctaButton")}</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+            <Button asChild size="lg" className="bg-white text-primary border-2 border-white hover:bg-white/90 font-semibold">
               <a href="tel:+359884997659">
                 <Phone className="w-4 h-4 mr-2" />
                 088 499 7659

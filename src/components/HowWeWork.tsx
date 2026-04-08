@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Search, ClipboardCheck, Hammer, Shield } from "lucide-react";
+import { HardHat, FileText, Wrench, ShieldCheck, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -10,10 +10,30 @@ const HowWeWork = () => {
   const { getPath } = useLocalizedPath();
 
   const steps = [
-    { id: 1, icon: Search, titleKey: "howWeWork.step1Title", textKey: "howWeWork.step1Text" },
-    { id: 2, icon: ClipboardCheck, titleKey: "howWeWork.step2Title", textKey: "howWeWork.step2Text" },
-    { id: 3, icon: Hammer, titleKey: "howWeWork.step3Title", textKey: "howWeWork.step3Text" },
-    { id: 4, icon: Shield, titleKey: "howWeWork.step4Title", textKey: "howWeWork.step4Text" },
+    {
+      id: 1, icon: HardHat,
+      titleKey: "howWeWork.step1Title",
+      textKey: "howWeWork.step1Text",
+      benefits: ["howWeWork.step1Benefit"],
+    },
+    {
+      id: 2, icon: FileText,
+      titleKey: "howWeWork.step2Title",
+      textKey: "howWeWork.step2Text",
+      benefits: ["howWeWork.step2Benefit"],
+    },
+    {
+      id: 3, icon: Wrench,
+      titleKey: "howWeWork.step3Title",
+      textKey: "howWeWork.step3Text",
+      benefits: ["howWeWork.step3Benefit1", "howWeWork.step3Benefit2", "howWeWork.step3Benefit3"],
+    },
+    {
+      id: 4, icon: ShieldCheck,
+      titleKey: "howWeWork.step4Title",
+      textKey: "howWeWork.step4Text",
+      benefits: ["howWeWork.step4Benefit"],
+    },
   ];
 
   return (
@@ -34,11 +54,11 @@ const HowWeWork = () => {
             return (
               <Card key={step.id} className="relative overflow-hidden hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 text-center flex flex-col items-center gap-4">
-                  <div className="absolute top-3 left-3 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">
+                  <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xl font-bold shadow-lg">
                     {step.id}
                   </div>
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mt-4">
-                    <Icon className="w-8 h-8 text-primary" />
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Icon className="w-10 h-10 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">
                     {t(step.titleKey)}
@@ -46,6 +66,14 @@ const HowWeWork = () => {
                   <p className="text-muted-foreground text-sm">
                     {t(step.textKey)}
                   </p>
+                  <div className="space-y-1.5 w-full text-left">
+                    {step.benefits.map((bKey, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <span className="text-sm text-foreground font-medium">{t(bKey)}</span>
+                      </div>
+                    ))}
+                  </div>
                   <Button asChild variant="outline" size="sm" className="mt-auto">
                     <Link to={getPath("howWeWork")}>
                       {t("howWeWork.learnMore")}
