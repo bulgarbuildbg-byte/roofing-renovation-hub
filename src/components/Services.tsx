@@ -33,9 +33,10 @@ const Services = () => {
   const { getPath } = useLocalizedPath();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "center",
+    align: "start",
     loop: true,
     slidesToScroll: 1,
+    containScroll: false,
   });
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -79,8 +80,8 @@ const Services = () => {
 
         <div className="relative px-12 md:px-16">
           {/* Soft gradient fade on edges */}
-          <div className="absolute left-12 md:left-16 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-secondary to-transparent z-[5] pointer-events-none" />
-          <div className="absolute right-12 md:right-16 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-secondary to-transparent z-[5] pointer-events-none" />
+          <div className="absolute left-12 md:left-16 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-secondary/80 to-transparent z-[5] pointer-events-none" />
+          <div className="absolute right-12 md:right-16 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-l from-secondary/80 to-transparent z-[5] pointer-events-none" />
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-4">
               {serviceKeys.map((service, index) => (
