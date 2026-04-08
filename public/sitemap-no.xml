@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.remontnapokrivivarna.bg/no</loc>
     <lastmod>2026-04-08</lastmod>
@@ -35,6 +36,17 @@
     <lastmod>2026-04-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/безплатен-оглед"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/free-inspection"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/kostenlose-inspektion"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/besplatnyj-osmotr"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/ilmainen-tarkastus"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/gratis-inspektion"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/gratis-inspeksjon"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/inspection-gratuite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/gratis-inspectie"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/bezkoshtovnyj-ohlyad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/безплатен-оглед"/>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/no/om-oss</loc>
