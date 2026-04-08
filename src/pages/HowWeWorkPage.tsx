@@ -48,7 +48,7 @@ const HowWeWorkPage = () => {
       bullets: (t("howWeWork.step3Bullets", { returnObjects: true }) as string[]),
     },
     {
-      id: 4, icon: Shield,
+      id: 4, icon: Award,
       title: t("howWeWork.step4Title"),
       text: t("howWeWork.step4Text"),
       details: t("howWeWork.step4Details"),
