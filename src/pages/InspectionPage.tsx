@@ -64,6 +64,10 @@ const InspectionPage = () => {
     }
   };
 
+  const domain = "https://www.remontnapokrivivarna.bg";
+  const pagePath = `/${currentLang}/${currentLang === 'bg' ? 'безплатен-оглед' : 'free-inspection'}`;
+  const pageUrl = `${domain}${pagePath}`;
+
   const businessSchema = {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
@@ -74,12 +78,46 @@ const InspectionPage = () => {
     areaServed: { "@type": "City", name: "Варна" },
   };
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Roof Inspection",
+    name: t("inspection.heroTitle"),
+    description: t("inspection.meta.desc"),
+    provider: { "@type": "RoofingContractor", name: "RemontNaPokriviVarna" },
+    areaServed: { "@type": "City", name: "Varna, Bulgaria" },
+    offers: { "@type": "Offer", price: "0", priceCurrency: "BGN", description: "Безплатен оглед на покрив" },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: t("nav.home") || "Начало", item: `${domain}/${currentLang}` },
+      { "@type": "ListItem", position: 2, name: t("inspection.heroTitle"), item: pageUrl },
+    ],
+  };
+
   return (
     <>
       <Helmet>
         <title>{t("inspection.meta.title")}</title>
         <meta name="description" content={t("inspection.meta.desc")} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={pageUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={t("inspection.meta.title")} />
+        <meta property="og:description" content={t("inspection.meta.desc")} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={`${domain}/og-image.jpg`} />
+        <meta property="og:locale" content={currentLang === 'bg' ? 'bg_BG' : currentLang === 'en' ? 'en_US' : `${currentLang}_${currentLang.toUpperCase()}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t("inspection.meta.title")} />
+        <meta name="twitter:description" content={t("inspection.meta.desc")} />
+        <meta name="twitter:image" content={`${domain}/og-image.jpg`} />
         <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <Header />

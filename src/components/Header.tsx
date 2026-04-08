@@ -85,11 +85,10 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
                 088 499 7659
               </a>
             </Button>
-            <Button
-              onClick={() => { onClose(); scrollToSection('contact'); }}
-              className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold"
-            >
-              {t('nav.freeInspection')}
+            <Button asChild className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold">
+              <Link to={getPath('inspection')} onClick={onClose}>
+                {t('nav.freeInspection')}
+              </Link>
             </Button>
           </div>
         </nav>
@@ -280,17 +279,12 @@ const Header = () => {
 
               {/* Free Inspection button */}
               <Button
-                onClick={() => {
-                  const element = document.getElementById("contact");
-                  if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    window.location.href = `/${currentLang}#contact`;
-                  }
-                }}
+                asChild
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 px-5"
               >
-                {t('nav.freeInspection')}
+                <Link to={getPath('inspection')}>
+                  {t('nav.freeInspection')}
+                </Link>
               </Button>
 
               {/* Language switcher */}
