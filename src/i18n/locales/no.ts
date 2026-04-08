@@ -110,8 +110,6 @@ const no = {
     weekdays: "Mandag - Fredag", saturday: "Lørdag", sunday: "Søndag",
     emergencyOnly: "Kun nødstilfeller", emergencyNote: "* Ved nødstilfeller er vi tilgjengelige 24/7",
   },
-};
-
   howWeWork: {
     sectionTitle: "Slik Jobber Vi",
     sectionSubtitle: "En transparent og effektiv prosess fra inspeksjon til prosjektferdigstillelse",

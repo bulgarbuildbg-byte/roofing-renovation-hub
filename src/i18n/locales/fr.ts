@@ -110,8 +110,6 @@ const fr = {
     weekdays: "Lundi - Vendredi", saturday: "Samedi", sunday: "Dimanche",
     emergencyOnly: "Urgences uniquement", emergencyNote: "* En cas d'urgence, nous sommes disponibles 24h/24 et 7j/7",
   },
-};
-
   howWeWork: {
     sectionTitle: "Comment Nous Travaillons",
     sectionSubtitle: "Un processus transparent et efficace de l'inspection à la finition du projet",

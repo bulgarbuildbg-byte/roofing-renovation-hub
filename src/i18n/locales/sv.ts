@@ -110,8 +110,6 @@ const sv = {
     weekdays: "Måndag - Fredag", saturday: "Lördag", sunday: "Söndag",
     emergencyOnly: "Endast nödfall", emergencyNote: "* Vid nödfall finns vi tillgängliga 24/7",
   },
-};
-
   howWeWork: {
     sectionTitle: "Så Arbetar Vi",
     sectionSubtitle: "En transparent och effektiv process från inspektion till projektavslut",
