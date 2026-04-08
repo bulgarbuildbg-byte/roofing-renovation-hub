@@ -60,7 +60,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nouvelle-toiture-varna', tileReplacement: 'remplacement-tuiles-varna',
     flatRoof: 'toits-plats-varna', metalRoof: 'toits-metalliques-varna', maintenance: 'entretien-toiture-varna',
     about: 'a-propos', projects: 'projets', reviews: 'avis', calculator: 'calculateur',
-    blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'inspection-gratuite',
+    blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'inspection-gratuite', howWeWork: 'comment-nous-travaillons',
   },
   nl: {
     home: '', services: 'diensten', roofRepair: 'dakreparatie-varna', leakRepair: 'lekkage-reparatie-varna',
