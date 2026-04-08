@@ -399,6 +399,17 @@ const en = {
       { q: "Can I see examples of your work?", a: "Of course! We have an extensive portfolio of completed projects." },
     ],
   },
+  completedProjects: {
+    title: "Our Completed Projects",
+    subtitle: "Browse some of our successfully completed projects in Varna and the region",
+    viewAll: "View All Projects",
+    project1Title: "Family House Repair", project1Location: "Varna", project1Service: "Roof Repair",
+    project2Title: "Apartment Building", project2Location: "Aksakovo", project2Service: "Waterproofing",
+    project3Title: "Villa with New Roof", project3Location: "Varna", project3Service: "New Roof",
+    project4Title: "Commercial Building", project4Location: "Provadia", project4Service: "Flat Roof",
+    project5Title: "Tile Replacement", project5Location: "Varna", project5Service: "Tile Replacement",
+    project6Title: "Panel Block", project6Location: "Dolen Chiflik", project6Service: "Repair & Insulation",
+  },
 };
 
 export default en;

@@ -145,5 +145,16 @@ const no = {
       { q: "Hvilken garanti tilbyr dere?", a: "Vi tilbyr en skriftlig garanti på 5–15 år." },
     ],
   },
+  completedProjects: {
+    title: "Våre fullførte prosjekter",
+    subtitle: "Se noen av våre vellykket fullførte prosjekter i Varna og regionen",
+    viewAll: "Se alle prosjekter",
+    project1Title: "Reparasjon av enebolig", project1Location: "Varna", project1Service: "Takreparasjon",
+    project2Title: "Leilighetsbygg", project2Location: "Aksakovo", project2Service: "Vanntetting",
+    project3Title: "Villa med nytt tak", project3Location: "Varna", project3Service: "Nytt tak",
+    project4Title: "Næringsbygg", project4Location: "Provadia", project4Service: "Flatt tak",
+    project5Title: "Teglstein-bytte", project5Location: "Varna", project5Service: "Teglstein-bytte",
+    project6Title: "Panelblokk", project6Location: "Dolen Chiflik", project6Service: "Reparasjon og isolasjon",
+  },
 };
 export default no;

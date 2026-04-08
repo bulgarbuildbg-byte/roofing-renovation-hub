@@ -164,5 +164,16 @@ const fi = {
       { q: "Millaisen takuun tarjoatte?", a: "Tarjoamme kirjallisen takuun 5–15 vuotta." },
     ],
   },
+  completedProjects: {
+    title: "Valmiit projektimme",
+    subtitle: "Tutustu onnistuneisiin projekteihimme Varnassa ja sen ympäristössä",
+    viewAll: "Katso kaikki projektit",
+    project1Title: "Omakotitalon korjaus", project1Location: "Varna", project1Service: "Kattokorjaus",
+    project2Title: "Kerrostalo", project2Location: "Aksakovo", project2Service: "Vedeneristys",
+    project3Title: "Huvila uudella katolla", project3Location: "Varna", project3Service: "Uusi katto",
+    project4Title: "Liikerakennus", project4Location: "Provadia", project4Service: "Tasakatto",
+    project5Title: "Tiilien vaihto", project5Location: "Varna", project5Service: "Tiilien vaihto",
+    project6Title: "Elementtitalo", project6Location: "Dolen Chiflik", project6Service: "Korjaus ja eristys",
+  },
 };
 export default fi;

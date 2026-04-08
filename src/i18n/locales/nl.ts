@@ -145,5 +145,16 @@ const nl = {
       { q: "Welke garantie bieden jullie?", a: "We bieden een schriftelijke garantie van 5 tot 15 jaar." },
     ],
   },
+  completedProjects: {
+    title: "Onze afgeronde projecten",
+    subtitle: "Bekijk enkele van onze succesvol afgeronde projecten in Varna en omgeving",
+    viewAll: "Bekijk alle projecten",
+    project1Title: "Reparatie gezinswoning", project1Location: "Varna", project1Service: "Dakreparatie",
+    project2Title: "Flatgebouw", project2Location: "Aksakovo", project2Service: "Waterdichting",
+    project3Title: "Villa met nieuw dak", project3Location: "Varna", project3Service: "Nieuw dak",
+    project4Title: "Commercieel gebouw", project4Location: "Provadia", project4Service: "Plat dak",
+    project5Title: "Dakpannen vervangen", project5Location: "Varna", project5Service: "Dakpannen vervangen",
+    project6Title: "Flatblok", project6Location: "Dolen Chiflik", project6Service: "Reparatie en isolatie",
+  },
 };
 export default nl;
