@@ -1,45 +1,28 @@
 
 
-## Services Section — Carousel Redesign
+## Services Carousel — Center Focus + Soft Edge Fade
 
 ### Summary
-Convert the grid layout in `src/components/Services.tsx` to an Embla carousel showing 4 cards at a time, centered, with left/right navigation arrows and a "View All Services" button below.
+Add gradient fade overlays on left/right edges of the carousel and ensure the initial scroll position centers the first 4 priority services on load.
 
 ### Changes — `src/components/Services.tsx`
 
-**1. Reorder `serviceKeys` array for priority**
-Move priority services to the front:
-1. Roof Repair
-2. Waterproofing
-3. New Roof
-4. Tile Replacement
-5. Leak Repair, Flat Roof, Metal Roof, Maintenance
+**1. Ensure 4 priority services are centered on load**
+- Embla with `loop: true` and `align: "center"` already centers. With 8 slides showing 4 at XL, the first 4 are naturally visible. No `startIndex` change needed — current config is correct.
 
-**2. Replace grid with Embla carousel**
-- Import `useEmblaCarousel` (already used in the project)
-- Config: `align: "center"`, `loop: true`, `slidesToScroll: 1`
-- Each slide: `basis-1/4` on xl, `basis-1/3` on lg, `basis-1/2` on sm, `basis-full` on mobile
-- Cards keep existing design (image, title, problem, includes, benefits, Free Quote button)
+**2. Add soft gradient fade on left & right edges**
+- Add two `pointer-events-none` overlay divs inside the `relative` carousel wrapper:
+  - Left: `absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-secondary to-transparent z-[5]`
+  - Right: `absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-secondary to-transparent z-[5]`
+- The gradient color matches `bg-secondary` (the section background) so it fades seamlessly.
+- `z-[5]` keeps them above cards but below the navigation arrows (arrows get `z-10`).
 
-**3. Left/Right navigation arrows**
-- Wrap carousel in `relative` container with horizontal padding
-- Two round buttons (`ChevronLeft` / `ChevronRight`) positioned absolute at vertical center, left-0 / right-0
-- White background, shadow, primary color on hover
-
-**4. "View All Services" button**
-- Below the carousel, centered
-- Uses `Link` to `getPath('services')` — routes to the full services page
-- Label from existing i18n key `nav.allServices` ("Всички услуги" in BG)
-- Styled as outline variant with primary border
-
-**5. Keep "Not sure?" CTA block** unchanged below the new button.
-
-### i18n
-No new keys needed — `nav.allServices` already exists in all 10 locales.
+**3. Move arrow buttons outside the fade area**
+- Increase outer padding from `px-10 md:px-14` to `px-12 md:px-16` so arrows sit cleanly outside the fade zone.
 
 ### Files
 
-| File | Action |
+| File | Change |
 |---|---|
-| `src/components/Services.tsx` | Grid → Embla carousel, reorder services, add arrows + "View All" button |
+| `src/components/Services.tsx` | Add 2 gradient overlay divs + adjust padding |
 
