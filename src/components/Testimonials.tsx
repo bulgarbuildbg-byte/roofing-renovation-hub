@@ -51,9 +51,6 @@ const Testimonials = () => {
     align: "start",
     slidesToScroll: 1,
     containScroll: "trimSnaps",
-    breakpoints: {
-      "(min-width: 1024px)": { slidesToScroll: 1 },
-    },
   });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(true);
@@ -114,8 +111,116 @@ const Testimonials = () => {
           </p>
         </div>
 
-        {/* Carousel controls */}
-        <div className="flex justify-end gap-2 mb-4 max-w-7xl mx-auto">
+        {/* Carousel with side arrows */}
+        <div className="max-w-7xl mx-auto relative">
+          {/* Left Arrow */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => emblaApi?.scrollPrev()}
+            disabled={!canScrollPrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 rounded-full h-10 w-10 bg-background shadow-md border-border disabled:opacity-30 hidden md:flex"
+            aria-label="Предишен отзив"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+
+          {/* Right Arrow */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => emblaApi?.scrollNext()}
+            disabled={!canScrollNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 rounded-full h-10 w-10 bg-background shadow-md border-border disabled:opacity-30 hidden md:flex"
+            aria-label="Следващ отзив"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+
+          {/* Embla Carousel */}
+          <div className="px-0 md:px-14">
+            <div ref={emblaRef} className="overflow-hidden">
+              <div className="flex gap-5">
+                {displayTestimonials.map((testimonial) => {
+                  const serviceLabel = testimonial.service_type
+                    ? serviceLabels[testimonial.service_type] || testimonial.service_type
+                    : null;
+
+                  return (
+                    <div
+                      key={testimonial.id}
+                      className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_48%] lg:flex-[0_0_31.5%]"
+                    >
+                      <Card className="bg-background border-border hover:shadow-lg transition-shadow h-full">
+                        <CardContent className="p-5 md:p-6 flex flex-row items-start gap-4 h-full">
+                          {/* Left: Circular Photo */}
+                          <div className="flex-shrink-0">
+                            {testimonial.avatar_url ? (
+                              <img
+                                src={testimonial.avatar_url}
+                                alt={testimonial.author_name}
+                                className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-2 ring-primary/20"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
+                                <span className="text-xl font-bold text-primary">
+                                  {getInitials(testimonial.author_name)}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Right: Content */}
+                          <div className="flex flex-col justify-between flex-1 min-w-0">
+                            {/* Stars */}
+                            <div>
+                              <div className="flex gap-0.5 mb-2">
+                                {Array.from({ length: testimonial.rating }).map((_, i) => (
+                                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                                ))}
+                              </div>
+
+                              {/* Quote */}
+                              <p className="text-foreground leading-relaxed text-sm line-clamp-4 mb-3">
+                                "{testimonial.text}"
+                              </p>
+                            </div>
+
+                            {/* Author info */}
+                            <div className="border-t border-border pt-3 mt-auto">
+                              <div className="flex items-center gap-1.5 mb-1">
+                                <p className="font-bold text-foreground text-sm truncate">
+                                  {testimonial.author_name}
+                                </p>
+                                {testimonial.is_verified && (
+                                  <BadgeCheck className="w-4 h-4 text-accent shrink-0" aria-label={t('testimonials.verified')} />
+                                )}
+                              </div>
+                              <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
+                                <MapPin className="w-3 h-3 shrink-0" />
+                                <span className="truncate">{testimonial.location}</span>
+                              </div>
+                              {serviceLabel && (
+                                <span className="inline-flex items-center gap-1 bg-primary/8 text-primary text-xs font-semibold px-2.5 py-0.5 rounded-full border border-primary/15">
+                                  <Wrench className="w-3 h-3" />
+                                  {serviceLabel}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile arrows */}
+        <div className="flex justify-center gap-3 mt-4 md:hidden">
           <Button
             variant="outline"
             size="icon"
@@ -137,90 +242,6 @@ const Testimonials = () => {
             <ChevronRight className="w-5 h-5" />
           </Button>
         </div>
-
-        {/* Embla Carousel */}
-        <div className="max-w-7xl mx-auto">
-          <div ref={emblaRef} className="overflow-hidden">
-            <div className="flex gap-5">
-              {displayTestimonials.map((testimonial) => {
-                const serviceLabel = testimonial.service_type
-                  ? serviceLabels[testimonial.service_type] || testimonial.service_type
-                  : null;
-
-                return (
-                  <div
-                    key={testimonial.id}
-                    className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_48%] lg:flex-[0_0_31.5%]"
-                  >
-                    <Card className="bg-background border-border hover:shadow-lg transition-shadow h-full">
-                      <CardContent className="p-0 flex flex-row h-full">
-                        {/* Left: Photo */}
-                        <div className="flex-shrink-0 w-28 md:w-36 relative overflow-hidden rounded-l-xl">
-                          {testimonial.avatar_url ? (
-                            <img
-                              src={testimonial.avatar_url}
-                              alt={testimonial.author_name}
-                              className="w-full h-full object-cover min-h-[180px]"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div className="w-full h-full min-h-[180px] bg-primary/10 flex items-center justify-center">
-                              <span className="text-2xl font-bold text-primary">
-                                {getInitials(testimonial.author_name)}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Right: Content */}
-                        <div className="flex flex-col justify-between p-4 md:p-5 flex-1 min-w-0">
-                          {/* Stars */}
-                          <div>
-                            <div className="flex gap-0.5 mb-2">
-                              {Array.from({ length: testimonial.rating }).map((_, i) => (
-                                <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                              ))}
-                            </div>
-
-                            {/* Quote */}
-                            <p className="text-foreground leading-relaxed text-sm line-clamp-4 mb-3">
-                              "{testimonial.text}"
-                            </p>
-                          </div>
-
-                          {/* Author info */}
-                          <div className="border-t border-border pt-3 mt-auto">
-                            <div className="flex items-center gap-1.5 mb-1">
-                              <p className="font-bold text-foreground text-sm truncate">
-                                {testimonial.author_name}
-                              </p>
-                              {testimonial.is_verified && (
-                                <BadgeCheck className="w-4 h-4 text-accent shrink-0" aria-label={t('testimonials.verified')} />
-                              )}
-                            </div>
-                            <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
-                              <MapPin className="w-3 h-3 shrink-0" />
-                              <span className="truncate">{testimonial.location}</span>
-                            </div>
-                            {serviceLabel && (
-                              <span className="inline-flex items-center gap-1 bg-primary/8 text-primary text-xs font-semibold px-2.5 py-0.5 rounded-full border border-primary/15">
-                                <Wrench className="w-3 h-3" />
-                                {serviceLabel}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll hint on mobile */}
-        <p className="text-center text-xs text-muted-foreground mt-3 md:hidden">← Плъзнете за повече →</p>
 
         {/* Section CTA */}
         <div className="mt-10 md:mt-12 text-center">
