@@ -44,7 +44,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nytt-tak-varna', tileReplacement: 'tegelbyte-varna',
     flatRoof: 'platta-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takunderhall-varna',
     about: 'om-oss', projects: 'projekt', reviews: 'omdomen', calculator: 'kalkylator',
-    blog: 'blogg', faq: 'vanliga-fragor', contact: 'kontakt',
+    blog: 'blogg', faq: 'vanliga-fragor', contact: 'kontakt', inspection: 'gratis-inspektion',
   },
   no: {
     home: '', services: 'tjenester', roofRepair: 'takreparasjon-varna', leakRepair: 'lekkasje-reparasjon-varna',
