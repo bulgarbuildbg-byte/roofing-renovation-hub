@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-primary.jpeg";
 import type { RouteKey } from "@/i18n/routes";
 
 const serviceAreas = [
