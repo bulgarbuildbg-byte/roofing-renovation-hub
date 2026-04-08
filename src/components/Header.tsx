@@ -280,17 +280,12 @@ const Header = () => {
 
               {/* Free Inspection button */}
               <Button
-                onClick={() => {
-                  const element = document.getElementById("contact");
-                  if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                  } else {
-                    window.location.href = `/${currentLang}#contact`;
-                  }
-                }}
+                asChild
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 px-5"
               >
-                {t('nav.freeInspection')}
+                <Link to={getPath('inspection')}>
+                  {t('nav.freeInspection')}
+                </Link>
               </Button>
 
               {/* Language switcher */}
