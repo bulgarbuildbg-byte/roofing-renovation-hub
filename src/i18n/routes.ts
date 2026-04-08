@@ -52,7 +52,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nytt-tak-varna', tileReplacement: 'teglstein-bytte-varna',
     flatRoof: 'flate-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takvedlikehold-varna',
     about: 'om-oss', projects: 'prosjekter', reviews: 'anmeldelser', calculator: 'kalkulator',
-    blog: 'blogg', faq: 'vanlige-sporsmal', contact: 'kontakt', inspection: 'gratis-inspeksjon',
+    blog: 'blogg', faq: 'vanlige-sporsmal', contact: 'kontakt', inspection: 'gratis-inspeksjon', howWeWork: 'slik-jobber-vi',
   },
   fr: {
     home: '', services: 'services', roofRepair: 'reparation-toiture-varna', leakRepair: 'reparation-fuite-varna',
