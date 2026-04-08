@@ -29,10 +29,10 @@ const isFemale = (name: string) => {
   return /а$/i.test(first);
 };
 
-const getAutoAvatar = (name: string, id: string) => {
+const getAutoAvatar = (name: string, id: string, index: number) => {
   const pool = isFemale(name) ? femaleAvatarIds : maleAvatarIds;
-  const seed = (name.length + parseInt(id.slice(-4), 16)) % pool.length;
-  return `https://i.pravatar.cc/200?img=${pool[seed]}`;
+  const hash = name.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0) + index * 7;
+  return `https://i.pravatar.cc/200?img=${pool[hash % pool.length]}`;
 };
 
 const serviceLabels: Record<string, string> = {
