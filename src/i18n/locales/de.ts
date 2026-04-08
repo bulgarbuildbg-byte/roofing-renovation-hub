@@ -116,6 +116,26 @@ const de = {
     homeDesc: "Professionelle Dachreparatur in Varna, Bulgarien. 15+ Jahre Erfahrung, bis zu 10 Jahre Garantie, kostenlose Inspektion.",
     homeKeywords: "Dachreparatur Varna, Dachsanierung Bulgarien, Dachdecker Varna, Abdichtung Varna",
   },
+  inspection: {
+    meta: { title: "Kostenlose Dachinspektion Varna | 088 499 7659", desc: "Fordern Sie eine kostenlose Dachinspektion an. Wir antworten innerhalb von 24 Stunden." },
+    badge: "100% Kostenlos – Ohne Verpflichtungen",
+    heroTitle: "Kostenlose Dachinspektion Anfordern",
+    heroSubtitle: "Unser Spezialist kommt zu Ihnen, inspiziert Ihr Dach und gibt Ihnen eine ehrliche Bewertung und ein Angebot – völlig kostenlos.",
+    step1Title: "Welchen Dachtyp haben Sie?", step1Desc: "Wählen Sie Ihren Dachtyp für eine genaue Bewertung",
+    flatRoof: "Flachdach", pitchedRoof: "Schrägdach",
+    step2Title: "Ihre Kontaktdaten",
+    name: "Name", phone: "Telefon", email: "E-Mail", address: "Objektadresse", notes: "Zusätzliche Anmerkungen",
+    addressPlaceholder: "Straße / Bezirk / Stadt", notesPlaceholder: "Beschreiben Sie kurz das Problem...",
+    submitBtn: "Kostenlose Inspektion Anfordern", sending: "Senden...",
+    successTitle: "Anfrage Gesendet!", successDesc: "Wir werden uns innerhalb von 24 Stunden mit Ihnen in Verbindung setzen.",
+    errorTitle: "Fehler", errorDesc: "Bitte versuchen Sie es erneut oder rufen Sie 088 499 7659 an.",
+    trust1: "15+ Jahre Erfahrung", trust2: "Lizenziertes Unternehmen", trust3: "Inspektion innerhalb 24h", trust4: "Varna & Region",
+    contactTitle: "Kontaktieren Sie Uns", callUs: "Anrufen", emailUs: "E-Mail senden",
+    officeAddress: "Usta Kolyu Ficheto Str. 25A", city: "Varna 9000",
+    mapTitle: "Unser Standort", hoursTitle: "Öffnungszeiten",
+    weekdays: "Montag - Freitag", saturday: "Samstag", sunday: "Sonntag",
+    emergencyOnly: "Nur Notfälle", emergencyNote: "* Bei Notfällen sind wir 24/7 erreichbar",
+  },
 };
 
 export default de;
