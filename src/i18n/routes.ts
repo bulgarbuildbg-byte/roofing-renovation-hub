@@ -28,7 +28,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'neues-dach-varna', tileReplacement: 'ziegelaustausch-varna',
     flatRoof: 'flachdaecher-varna', metalRoof: 'metalldaecher-varna', maintenance: 'dachpflege-varna',
     about: 'ueber-uns', projects: 'projekte', reviews: 'bewertungen', calculator: 'kalkulator',
-    blog: 'blog', faq: 'faq', contact: 'kontakt',
+    blog: 'blog', faq: 'faq', contact: 'kontakt', inspection: 'kostenlose-inspektion',
   },
   fi: {
     home: '', services: 'palvelut', roofRepair: 'kattokorjaus-varna', leakRepair: 'vuotokorjaus-varna',
