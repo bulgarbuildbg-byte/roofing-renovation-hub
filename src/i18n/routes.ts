@@ -20,7 +20,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'new-roof-varna', tileReplacement: 'tile-replacement-varna',
     flatRoof: 'flat-roofs-varna', metalRoof: 'metal-roofs-varna', maintenance: 'roof-maintenance-varna',
     about: 'about', projects: 'projects', reviews: 'reviews', calculator: 'calculator',
-    blog: 'blog', faq: 'faq', contact: 'contact',
+    blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'free-inspection',
   },
   de: {
     home: '', services: 'dienstleistungen', roofRepair: 'dachreparatur-varna', leakRepair: 'leckage-reparatur-varna',
