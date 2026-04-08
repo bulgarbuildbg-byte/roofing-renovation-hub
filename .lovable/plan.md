@@ -1,41 +1,29 @@
 
 
-## New "Our Completed Projects" Carousel Section
+## Redesign Reviews/Testimonials Section
 
-### What We'll Build
-A new homepage section with a horizontal carousel showing 4 project cards at a time on desktop, with left/right navigation arrows and a "View All Projects" button below.
+### What Changes
 
-### Changes
+**`src/components/Testimonials.tsx`** — Full layout redesign:
 
-**1. New component: `src/components/CompletedProjects.tsx`**
-- Carousel using Embla (already installed via `embla-carousel-react`) showing project cards
-- Shows 4 cards per row on desktop, 2 on tablet, 1 on mobile
-- Each card: project image, title, location badge, service type
-- Left/right arrow buttons (always visible, not just on hover)
-- "View All Projects" button centered below, linking to localized projects page
-- Reuses same project images from `src/assets/portfolio/`
+1. **Card layout**: Change from vertical (photo on top) to **horizontal** — large photo on the left, text content on the right
+2. **Photo size**: Avatar from `h-11 w-11` → **`w-24 h-24 md:w-28 md:h-28`** with `rounded-xl` (rectangular, not circular)
+3. **Carousel**: Switch from manual scroll div to **Embla carousel** (already installed), showing **3 cards on desktop**, 2 on tablet, 1 on mobile, with left/right arrow buttons
+4. **Photos**: Use realistic stock portrait URLs from `randomuser.me` API for fallback testimonials (8 unique photos matching Bulgarian names — male/female appropriate). When DB testimonials have `avatar_url`, those are used instead
+5. **Card structure** (left-to-right):
+   - Left: Large client photo
+   - Right: Stars row, quote text, name + BadgeCheck, location, service badge
+6. **Arrows**: Positioned at top-right (existing pattern) or flanking the carousel
 
-**2. `src/pages/Index.tsx`**
-- Import and place `<CompletedProjects />` immediately after `<HowWeWork />`
-- Lazy-loaded via `React.lazy`
+### Fallback Photos
 
-**3. i18n keys (all 10 locale files)**
-- Add `completedProjectsSection.title`, `completedProjectsSection.subtitle`, `completedProjectsSection.viewAll` to each locale file
+For the 8 hardcoded fallback testimonials, use realistic portrait images. Since the project uses ES6 imports for assets, we'll use `https://i.pravatar.cc/` URLs with seeded IDs (deterministic, realistic faces). Each testimonial gets a unique seed matching the person's gender.
 
 ### Files to Change
 
 | File | Action |
 |---|---|
-| `src/components/CompletedProjects.tsx` | New — carousel section component |
-| `src/pages/Index.tsx` | Insert section after HowWeWork |
-| `src/i18n/locales/bg.ts` | Add 3 translation keys |
-| `src/i18n/locales/en.ts` | Add 3 translation keys |
-| `src/i18n/locales/de.ts` | Add 3 translation keys |
-| `src/i18n/locales/fi.ts` | Add 3 translation keys |
-| `src/i18n/locales/fr.ts` | Add 3 translation keys |
-| `src/i18n/locales/nl.ts` | Add 3 translation keys |
-| `src/i18n/locales/no.ts` | Add 3 translation keys |
-| `src/i18n/locales/ru.ts` | Add 3 translation keys |
-| `src/i18n/locales/sv.ts` | Add 3 translation keys |
-| `src/i18n/locales/ua.ts` | Add 3 translation keys |
+| `src/components/Testimonials.tsx` | Horizontal card layout, larger photos, Embla carousel (3 visible), arrows |
+
+No i18n changes needed — all text keys already exist.
 
