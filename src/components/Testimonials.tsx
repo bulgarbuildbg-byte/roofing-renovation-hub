@@ -21,6 +21,11 @@ interface Testimonial {
 const getInitials = (name: string) =>
   name.split(" ").map((n) => n[0]).join(".").toUpperCase();
 
+const getAutoAvatar = (name: string, id: string) => {
+  const seed = (name.length + parseInt(id.slice(-4), 16)) % 50 + 1;
+  return `https://i.pravatar.cc/200?img=${seed}`;
+};
+
 const serviceLabels: Record<string, string> = {
   repair: "Ремонт на покрив",
   waterproofing: "Хидроизолация",
