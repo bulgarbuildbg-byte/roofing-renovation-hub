@@ -110,8 +110,6 @@ const nl = {
     weekdays: "Maandag - Vrijdag", saturday: "Zaterdag", sunday: "Zondag",
     emergencyOnly: "Alleen noodgevallen", emergencyNote: "* Bij noodgevallen zijn we 24/7 bereikbaar",
   },
-};
-
   howWeWork: {
     sectionTitle: "Hoe We Werken",
     sectionSubtitle: "Een transparant en efficiënt proces van inspectie tot projectoplevering",

@@ -136,9 +136,6 @@ const de = {
     weekdays: "Montag - Freitag", saturday: "Samstag", sunday: "Sonntag",
     emergencyOnly: "Nur Notfälle", emergencyNote: "* Bei Notfällen sind wir 24/7 erreichbar",
   },
-};
-
-
   howWeWork: {
     sectionTitle: "Wie Wir Arbeiten",
     sectionSubtitle: "Ein transparenter und effizienter Prozess von der Inspektion bis zur Fertigstellung",

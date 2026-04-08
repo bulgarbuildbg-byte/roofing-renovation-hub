@@ -110,8 +110,6 @@ const ua = {
     weekdays: "Понеділок - П'ятниця", saturday: "Субота", sunday: "Неділя",
     emergencyOnly: "Тільки екстрені випадки", emergencyNote: "* При аварійних ситуаціях ми доступні 24/7",
   },
-};
-
   howWeWork: {
     sectionTitle: "Як Ми Працюємо",
     sectionSubtitle: "Прозорий та ефективний процес від огляду до завершення проекту",

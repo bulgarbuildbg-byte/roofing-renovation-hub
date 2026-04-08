@@ -129,8 +129,6 @@ const fi = {
     weekdays: "Maanantai - Perjantai", saturday: "Lauantai", sunday: "Sunnuntai",
     emergencyOnly: "Vain hätätapaukset", emergencyNote: "* Hätätilanteissa olemme tavoitettavissa 24/7",
   },
-};
-
   howWeWork: {
     sectionTitle: "Miten Työskentelemme",
     sectionSubtitle: "Läpinäkyvä ja tehokas prosessi tarkastuksesta projektin valmistumiseen",
