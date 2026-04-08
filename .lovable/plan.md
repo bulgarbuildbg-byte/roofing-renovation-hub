@@ -1,29 +1,30 @@
 
 
-## Redesign Reviews/Testimonials Section
+## Testimonials Section — Design & Navigation Fix
 
-### What Changes
+### Changes to `src/components/Testimonials.tsx`
 
-**`src/components/Testimonials.tsx`** — Full layout redesign:
+**1. Photos — Make visible & circular**
+- The fallback photos (`i.pravatar.cc`) are already defined but may not render due to the rectangular container. Change photo container from rectangular (`w-28 md:w-36 rounded-l-xl`) to a **large circular avatar** (`w-20 h-20 md:w-24 md:h-24 rounded-full`) positioned prominently on the left side of each card with proper padding.
+- Add `ring-2 ring-primary/20` for a polished border effect.
+- Keep initials fallback for DB testimonials without `avatar_url`.
 
-1. **Card layout**: Change from vertical (photo on top) to **horizontal** — large photo on the left, text content on the right
-2. **Photo size**: Avatar from `h-11 w-11` → **`w-24 h-24 md:w-28 md:h-28`** with `rounded-xl` (rectangular, not circular)
-3. **Carousel**: Switch from manual scroll div to **Embla carousel** (already installed), showing **3 cards on desktop**, 2 on tablet, 1 on mobile, with left/right arrow buttons
-4. **Photos**: Use realistic stock portrait URLs from `randomuser.me` API for fallback testimonials (8 unique photos matching Bulgarian names — male/female appropriate). When DB testimonials have `avatar_url`, those are used instead
-5. **Card structure** (left-to-right):
-   - Left: Large client photo
-   - Right: Stars row, quote text, name + BadgeCheck, location, service badge
-6. **Arrows**: Positioned at top-right (existing pattern) or flanking the carousel
+**2. Card layout — Cleaner horizontal structure**
+- Wrap card content in a flex row with the circular photo on the left (vertically centered) and text on the right.
+- Add internal padding (`p-5 md:p-6`) so the photo isn't clipped by the card edge.
+- Remove the full-height photo strip approach (current `rounded-l-xl` style) — replace with a padded circular avatar.
 
-### Fallback Photos
+**3. Navigation buttons — Move to sides of carousel**
+- Remove the top-right arrow buttons block (lines 117-139).
+- Add **left arrow** (absolute positioned, vertically centered, left of carousel) and **right arrow** (same, right side).
+- Wrap the carousel in a `relative` container with horizontal padding (`px-12 md:px-14`) to make room for the arrows.
+- Style: `absolute top-1/2 -translate-y-1/2`, left arrow at `left-0`, right arrow at `right-0`. Rounded-full, shadow, white background.
 
-For the 8 hardcoded fallback testimonials, use realistic portrait images. Since the project uses ES6 imports for assets, we'll use `https://i.pravatar.cc/` URLs with seeded IDs (deterministic, realistic faces). Each testimonial gets a unique seed matching the person's gender.
+**4. No other file changes needed** — all i18n keys and data structures remain the same.
 
 ### Files to Change
 
 | File | Action |
 |---|---|
-| `src/components/Testimonials.tsx` | Horizontal card layout, larger photos, Embla carousel (3 visible), arrows |
-
-No i18n changes needed — all text keys already exist.
+| `src/components/Testimonials.tsx` | Circular photos, side-positioned nav arrows, cleaner card layout |
 
