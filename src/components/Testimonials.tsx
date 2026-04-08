@@ -160,20 +160,17 @@ const Testimonials = () => {
                         <CardContent className="p-5 md:p-6 flex flex-row items-start gap-4 h-full">
                           {/* Left: Circular Photo */}
                           <div className="flex-shrink-0">
-                            {testimonial.avatar_url ? (
-                              <img
-                                src={testimonial.avatar_url}
-                                alt={testimonial.author_name}
-                                className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-2 ring-primary/20"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-                                <span className="text-xl font-bold text-primary">
-                                  {getInitials(testimonial.author_name)}
-                                </span>
-                              </div>
-                            )}
+                            <img
+                              src={testimonial.avatar_url || getAutoAvatar(testimonial.author_name, testimonial.id)}
+                              alt={testimonial.author_name}
+                              className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover ring-2 ring-primary/20"
+                              loading="lazy"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                target.onerror = null;
+                                target.src = getAutoAvatar(testimonial.author_name, testimonial.id);
+                              }}
+                            />
                           </div>
 
                           {/* Right: Content */}
