@@ -27,7 +27,7 @@ const HowWeWorkPage = () => {
 
   const steps = [
     {
-      id: 1, icon: Search,
+      id: 1, icon: ClipboardCheck,
       title: t("howWeWork.step1Title"),
       text: t("howWeWork.step1Text"),
       details: t("howWeWork.step1Details"),
