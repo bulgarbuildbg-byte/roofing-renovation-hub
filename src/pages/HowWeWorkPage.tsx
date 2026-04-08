@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
-import { Search, ClipboardCheck, Hammer, Shield, CheckCircle, Phone } from "lucide-react";
+import { ClipboardCheck, FileText, Hammer, Award, CheckCircle, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
