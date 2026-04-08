@@ -103,7 +103,7 @@ const InspectionPage = () => {
             <div className="max-w-2xl mx-auto">
               {submitted ? (
                 <div className="text-center py-16">
-                  <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
+                  <CheckCircle className="h-16 w-16 text-primary mx-auto mb-6" />
                   <h2 className="text-3xl font-bold text-foreground mb-4">{t("inspection.successTitle")}</h2>
                   <p className="text-lg text-muted-foreground">{t("inspection.successDesc")}</p>
                 </div>
