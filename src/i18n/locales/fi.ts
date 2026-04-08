@@ -130,4 +130,29 @@ const fi = {
     emergencyOnly: "Vain hätätapaukset", emergencyNote: "* Hätätilanteissa olemme tavoitettavissa 24/7",
   },
 };
+
+  howWeWork: {
+    sectionTitle: "Miten Työskentelemme",
+    sectionSubtitle: "Läpinäkyvä ja tehokas prosessi tarkastuksesta projektin valmistumiseen",
+    learnMore: "Lue lisää",
+    stepLabel: "Vaihe {{number}}",
+    step1Title: "Tarkastus ja Konsultaatio", step1Text: "Ilmainen paikan päällä tapahtuva tarkastus ja asiantuntijakonsultaatio",
+    step1Details: "Tiimimme suorittaa ilmaisen paikan päällä tapahtuvan kattotarkastuksen.", step1Bullets: ["Ilmainen tarkastus 24 tunnin sisällä", "Yksityiskohtainen valokuvadokumentaatio", "Asiantuntija-arvio", "Suositukset optimaaliseen ratkaisuun"],
+    step2Title: "Tarjous", step2Text: "Selkeä ja läpinäkyvä tarjous ilman piilokustannuksia",
+    step2Details: "Tarkastuksen jälkeen laadimme yksityiskohtaisen kirjallisen tarjouksen.", step2Bullets: ["Yksityiskohtainen kirjallinen tarjous", "Ei piilokustannuksia", "Useita hintavaihtoehtoja", "Selkeät takuuehdot"],
+    step3Title: "Toteutus", step3Text: "Korkealaatuista työtä ajallaan",
+    step3Details: "Hyväksynnän jälkeen aloitamme työn sovitun aikataulun mukaisesti.", step3Bullets: ["Ammattimainen tiimi yli 15 vuoden kokemuksella", "Korkealaatuiset materiaalit", "Kaikkien rakennusstandardien noudattaminen", "Päivittäinen edistymisviestintä"],
+    step4Title: "Takuu", step4Text: "Projektin luovutus jopa 10–15 vuoden takuulla",
+    step4Details: "Valmistuessa teemme yhteisen tarkastuksen.", step4Bullets: ["Kirjallinen takuu jopa 10–15 vuotta", "Täydelliset asiakirjat", "Vastaanottopöytäkirja", "Takuun jälkeinen palvelu"],
+    pageTitle: "Miten Työskentelemme — Prosessimme", pageSubtitle: "Alkutarkastuksesta valmistuneeseen projektiin.",
+    metaTitle: "Miten Työskentelemme | Kattokorjaus Varna", metaDesc: "Opi miten työskentelemme — ilmaisesta tarkastuksesta takuun kanssa.",
+    ctaButton: "Pyydä ilmainen tarkastus", ctaTitle: "Valmis aloittamaan?", ctaSubtitle: "Pyydä ilmainen tarkastus ja saa tarjous 24 tunnin sisällä.",
+    faqTitle: "Usein Kysytyt Kysymykset Prosessistamme",
+    faqs: [
+      { q: "Kuinka kauan tarkastus kestää?", a: "Tarkastus kestää yleensä 30–60 minuuttia." },
+      { q: "Onko tarkastus todella ilmainen?", a: "Kyllä, tarkastus on täysin ilmainen eikä sido mihinkään." },
+      { q: "Millaisen takuun tarjoatte?", a: "Tarjoamme kirjallisen takuun 5–15 vuotta." },
+    ],
+  },
+};
 export default fi;
