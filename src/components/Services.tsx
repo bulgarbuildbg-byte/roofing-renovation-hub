@@ -33,9 +33,10 @@ const Services = () => {
   const { getPath } = useLocalizedPath();
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "center",
+    align: "start",
     loop: true,
     slidesToScroll: 1,
+    containScroll: false,
   });
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
