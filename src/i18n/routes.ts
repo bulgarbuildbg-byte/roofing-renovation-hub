@@ -3,7 +3,7 @@ import { SupportedLanguage } from './config';
 export type RouteKey =
   | 'home' | 'services' | 'roofRepair' | 'leakRepair' | 'waterproofing' | 'waterproofingVarna'
   | 'newRoof' | 'tileReplacement' | 'flatRoof' | 'metalRoof' | 'maintenance'
-  | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact';
+  | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact' | 'inspection';
 
 export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>> = {
   bg: {
@@ -12,7 +12,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'изграждане-на-покрив', tileReplacement: 'смяна-керемиди',
     flatRoof: 'плоски-покриви', metalRoof: 'метални-покриви', maintenance: 'поддръжка-на-покриви',
     about: 'за-нас', projects: 'проекти', reviews: 'отзиви', calculator: 'калкулатор',
-    blog: 'блог', faq: 'въпроси', contact: 'контакти',
+    blog: 'блог', faq: 'въпроси', contact: 'контакти', inspection: 'безплатен-оглед',
   },
   en: {
     home: '', services: 'services', roofRepair: 'roof-repair-varna', leakRepair: 'leak-repair-varna',
@@ -20,7 +20,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'new-roof-varna', tileReplacement: 'tile-replacement-varna',
     flatRoof: 'flat-roofs-varna', metalRoof: 'metal-roofs-varna', maintenance: 'roof-maintenance-varna',
     about: 'about', projects: 'projects', reviews: 'reviews', calculator: 'calculator',
-    blog: 'blog', faq: 'faq', contact: 'contact',
+    blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'free-inspection',
   },
   de: {
     home: '', services: 'dienstleistungen', roofRepair: 'dachreparatur-varna', leakRepair: 'leckage-reparatur-varna',
@@ -28,7 +28,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'neues-dach-varna', tileReplacement: 'ziegelaustausch-varna',
     flatRoof: 'flachdaecher-varna', metalRoof: 'metalldaecher-varna', maintenance: 'dachpflege-varna',
     about: 'ueber-uns', projects: 'projekte', reviews: 'bewertungen', calculator: 'kalkulator',
-    blog: 'blog', faq: 'faq', contact: 'kontakt',
+    blog: 'blog', faq: 'faq', contact: 'kontakt', inspection: 'kostenlose-inspektion',
   },
   fi: {
     home: '', services: 'palvelut', roofRepair: 'kattokorjaus-varna', leakRepair: 'vuotokorjaus-varna',
@@ -36,7 +36,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'uusi-katto-varna', tileReplacement: 'tiilien-vaihto-varna',
     flatRoof: 'tasakatot-varna', metalRoof: 'metallikatot-varna', maintenance: 'katon-huolto-varna',
     about: 'meista', projects: 'projektit', reviews: 'arvostelut', calculator: 'laskin',
-    blog: 'blogi', faq: 'ukk', contact: 'yhteystiedot',
+    blog: 'blogi', faq: 'ukk', contact: 'yhteystiedot', inspection: 'ilmainen-tarkastus',
   },
   sv: {
     home: '', services: 'tjanster', roofRepair: 'takreparation-varna', leakRepair: 'lackage-reparation-varna',
@@ -44,7 +44,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nytt-tak-varna', tileReplacement: 'tegelbyte-varna',
     flatRoof: 'platta-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takunderhall-varna',
     about: 'om-oss', projects: 'projekt', reviews: 'omdomen', calculator: 'kalkylator',
-    blog: 'blogg', faq: 'vanliga-fragor', contact: 'kontakt',
+    blog: 'blogg', faq: 'vanliga-fragor', contact: 'kontakt', inspection: 'gratis-inspektion',
   },
   no: {
     home: '', services: 'tjenester', roofRepair: 'takreparasjon-varna', leakRepair: 'lekkasje-reparasjon-varna',
@@ -52,7 +52,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nytt-tak-varna', tileReplacement: 'teglstein-bytte-varna',
     flatRoof: 'flate-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takvedlikehold-varna',
     about: 'om-oss', projects: 'prosjekter', reviews: 'anmeldelser', calculator: 'kalkulator',
-    blog: 'blogg', faq: 'vanlige-sporsmal', contact: 'kontakt',
+    blog: 'blogg', faq: 'vanlige-sporsmal', contact: 'kontakt', inspection: 'gratis-inspeksjon',
   },
   fr: {
     home: '', services: 'services', roofRepair: 'reparation-toiture-varna', leakRepair: 'reparation-fuite-varna',
@@ -60,7 +60,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nouvelle-toiture-varna', tileReplacement: 'remplacement-tuiles-varna',
     flatRoof: 'toits-plats-varna', metalRoof: 'toits-metalliques-varna', maintenance: 'entretien-toiture-varna',
     about: 'a-propos', projects: 'projets', reviews: 'avis', calculator: 'calculateur',
-    blog: 'blog', faq: 'faq', contact: 'contact',
+    blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'inspection-gratuite',
   },
   nl: {
     home: '', services: 'diensten', roofRepair: 'dakreparatie-varna', leakRepair: 'lekkage-reparatie-varna',
@@ -68,7 +68,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nieuw-dak-varna', tileReplacement: 'dakpannen-vervangen-varna',
     flatRoof: 'platte-daken-varna', metalRoof: 'metalen-daken-varna', maintenance: 'dakonderhoud-varna',
     about: 'over-ons', projects: 'projecten', reviews: 'beoordelingen', calculator: 'calculator',
-    blog: 'blog', faq: 'veelgestelde-vragen', contact: 'contact',
+    blog: 'blog', faq: 'veelgestelde-vragen', contact: 'contact', inspection: 'gratis-inspectie',
   },
   ru: {
     home: '', services: 'uslugi', roofRepair: 'remont-kryshi-varna', leakRepair: 'remont-protechek-varna',
@@ -76,7 +76,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'novaya-krysha-varna', tileReplacement: 'zamena-cherepitsy-varna',
     flatRoof: 'ploskie-kryshi-varna', metalRoof: 'metallicheskie-kryshi-varna', maintenance: 'obsluzhivanie-kryshi-varna',
     about: 'o-nas', projects: 'proekty', reviews: 'otzyvy', calculator: 'kalkulyator',
-    blog: 'blog', faq: 'voprosy', contact: 'kontakty',
+    blog: 'blog', faq: 'voprosy', contact: 'kontakty', inspection: 'besplatnyj-osmotr',
   },
   ua: {
     home: '', services: 'poslugy', roofRepair: 'remont-dahu-varna', leakRepair: 'remont-protikan-varna',
@@ -84,7 +84,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'novyj-dah-varna', tileReplacement: 'zamina-cherepytsi-varna',
     flatRoof: 'ploski-dahy-varna', metalRoof: 'metalevi-dahy-varna', maintenance: 'obslugovuvannya-dahu-varna',
     about: 'pro-nas', projects: 'proekty', reviews: 'vidguky', calculator: 'kalkulyator',
-    blog: 'blog', faq: 'pytannya', contact: 'kontakty',
+    blog: 'blog', faq: 'pytannya', contact: 'kontakty', inspection: 'bezkoshtovnyj-ohlyad',
   },
 };
 
