@@ -21,9 +21,18 @@ interface Testimonial {
 const getInitials = (name: string) =>
   name.split(" ").map((n) => n[0]).join(".").toUpperCase();
 
+const maleAvatarIds = [3, 7, 8, 11, 12, 13, 14, 33, 51, 52, 53, 55, 56, 57, 58, 59, 60];
+const femaleAvatarIds = [1, 5, 9, 10, 16, 20, 21, 23, 25, 26, 27, 28, 29, 31, 32, 34, 38, 39, 40, 41, 43, 44, 45, 47, 48, 49];
+
+const isFemale = (name: string) => {
+  const first = name.split(" ")[0];
+  return /а$/i.test(first);
+};
+
 const getAutoAvatar = (name: string, id: string) => {
-  const seed = (name.length + parseInt(id.slice(-4), 16)) % 50 + 1;
-  return `https://i.pravatar.cc/200?img=${seed}`;
+  const pool = isFemale(name) ? femaleAvatarIds : maleAvatarIds;
+  const seed = (name.length + parseInt(id.slice(-4), 16)) % pool.length;
+  return `https://i.pravatar.cc/200?img=${pool[seed]}`;
 };
 
 const serviceLabels: Record<string, string> = {
