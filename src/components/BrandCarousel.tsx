@@ -1,29 +1,33 @@
 import bramacLogo from "@/assets/brands/bramac.svg";
 import tondachLogo from "@/assets/brands/tondach.svg";
-import creatonLogo from "@/assets/brands/creaton.svg";
-import bmiLogo from "@/assets/brands/bmi.svg";
-import bauderLogo from "@/assets/brands/bauder.svg";
 import sikaLogo from "@/assets/brands/sika.svg";
 import icopalLogo from "@/assets/brands/icopal.svg";
-import vedagLogo from "@/assets/brands/vedag.svg";
-import dorkenLogo from "@/assets/brands/dorken.svg";
-import ondulineLogo from "@/assets/brands/onduline.svg";
-import braasLogo from "@/assets/brands/braas.svg";
-import fakroLogo from "@/assets/brands/fakro.svg";
+import veluxLogo from "@/assets/brands/velux.svg";
+import rockwoolLogo from "@/assets/brands/rockwool.svg";
+import technoNicolLogo from "@/assets/brands/technonicol.svg";
+import bilkaLogo from "@/assets/brands/bilka.svg";
+import kebeLogo from "@/assets/brands/kebe.svg";
+import ceresitLogo from "@/assets/brands/ceresit.svg";
+import austrothermLogo from "@/assets/brands/austrotherm.svg";
+import fibranLogo from "@/assets/brands/fibran.svg";
+import wienerbergerLogo from "@/assets/brands/wienerberger.svg";
+import weberLogo from "@/assets/brands/weber.svg";
 
 const allBrands = [
-  { name: "Bramac", logo: bramacLogo },
-  { name: "Tondach", logo: tondachLogo },
-  { name: "Creaton", logo: creatonLogo },
-  { name: "BMI Group", logo: bmiLogo },
-  { name: "Bauder", logo: bauderLogo },
-  { name: "Sika", logo: sikaLogo },
-  { name: "Icopal", logo: icopalLogo },
-  { name: "Vedag", logo: vedagLogo },
-  { name: "Dörken Delta", logo: dorkenLogo },
-  { name: "Onduline", logo: ondulineLogo },
-  { name: "Braas", logo: braasLogo },
-  { name: "Fakro", logo: fakroLogo },
+  { name: "VELUX", logo: veluxLogo, url: "https://www.velux.bg" },
+  { name: "Icopal", logo: icopalLogo, url: "https://www.bmigroup.com/icopal" },
+  { name: "Bramac", logo: bramacLogo, url: "https://www.bramac.bg" },
+  { name: "Tondach", logo: tondachLogo, url: "https://www.wienerberger.bg/produkty/tondach.html" },
+  { name: "Sika", logo: sikaLogo, url: "https://bul.sika.com" },
+  { name: "Rockwool", logo: rockwoolLogo, url: "https://www.rockwool.com/bg" },
+  { name: "TechnoNICOL", logo: technoNicolLogo, url: "https://www.technonicol.bg" },
+  { name: "Bilka", logo: bilkaLogo, url: "https://www.bilka.bg" },
+  { name: "Kebe", logo: kebeLogo, url: "https://www.kebe.gr" },
+  { name: "Ceresit", logo: ceresitLogo, url: "https://www.ceresit.bg" },
+  { name: "Austrotherm", logo: austrothermLogo, url: "https://www.austrotherm.bg" },
+  { name: "Fibran", logo: fibranLogo, url: "https://www.fibran.bg" },
+  { name: "Wienerberger", logo: wienerbergerLogo, url: "https://www.wienerberger.bg" },
+  { name: "Weber", logo: weberLogo, url: "https://www.bg.weber" },
 ];
 
 const BrandCarousel = () => {
@@ -38,14 +42,20 @@ const BrandCarousel = () => {
           <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-muted/20 to-transparent z-10 pointer-events-none" />
           <div className="flex animate-scroll-brands">
             {[...allBrands, ...allBrands].map((brand, i) => (
-              <div key={`${brand.name}-${i}`} className="flex-shrink-0 px-6 md:px-10 flex items-center justify-center h-12">
+              <a
+                key={`${brand.name}-${i}`}
+                href={brand.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 px-6 md:px-10 flex items-center justify-center h-12 cursor-pointer"
+              >
                 <img
                   src={brand.logo}
                   alt={brand.name}
                   className="max-h-8 max-w-[80px] object-contain opacity-50 hover:opacity-80 transition-opacity"
                   loading="lazy"
                 />
-              </div>
+              </a>
             ))}
           </div>
         </div>
