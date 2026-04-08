@@ -146,6 +146,9 @@ const Index = () => {
       <BrandCarousel />
       <Services />
       <HowWeWork />
+      <Suspense fallback={<div className="h-96" />}>
+        <CompletedProjects />
+      </Suspense>
       <Testimonials />
 
       {/* Below-the-fold — lazy loaded */}
