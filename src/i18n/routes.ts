@@ -68,7 +68,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'nieuw-dak-varna', tileReplacement: 'dakpannen-vervangen-varna',
     flatRoof: 'platte-daken-varna', metalRoof: 'metalen-daken-varna', maintenance: 'dakonderhoud-varna',
     about: 'over-ons', projects: 'projecten', reviews: 'beoordelingen', calculator: 'calculator',
-    blog: 'blog', faq: 'veelgestelde-vragen', contact: 'contact', inspection: 'gratis-inspectie',
+    blog: 'blog', faq: 'veelgestelde-vragen', contact: 'contact', inspection: 'gratis-inspectie', howWeWork: 'hoe-we-werken',
   },
   ru: {
     home: '', services: 'uslugi', roofRepair: 'remont-kryshi-varna', leakRepair: 'remont-protechek-varna',
