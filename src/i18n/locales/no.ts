@@ -113,6 +113,12 @@ const no = {
   howWeWork: {
     sectionTitle: "Slik Jobber Vi",
     sectionSubtitle: "En transparent og effektiv prosess fra inspeksjon til prosjektferdigstillelse",
+    step1Benefit: "Gratis inspeksjon på stedet",
+    step2Benefit: "Transparent prising",
+    step3Benefit1: "Kontrakt inkludert",
+    step3Benefit2: "Høykvalitetsutførelse",
+    step3Benefit3: "I tide",
+    step4Benefit: "Garanti opptil 10–15 år",
     learnMore: "Les mer",
     stepLabel: "Steg {{number}}",
     step1Title: "Inspeksjon & Konsultasjon", step1Text: "Gratis inspeksjon på stedet og ekspertrådgivning",

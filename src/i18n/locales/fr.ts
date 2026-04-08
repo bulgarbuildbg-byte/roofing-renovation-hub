@@ -113,6 +113,12 @@ const fr = {
   howWeWork: {
     sectionTitle: "Comment Nous Travaillons",
     sectionSubtitle: "Un processus transparent et efficace de l'inspection à la finition du projet",
+    step1Benefit: "Inspection gratuite sur site",
+    step2Benefit: "Tarification transparente",
+    step3Benefit1: "Contrat inclus",
+    step3Benefit2: "Exécution de haute qualité",
+    step3Benefit3: "Dans les délais",
+    step4Benefit: "Garantie jusqu'à 10–15 ans",
     learnMore: "En savoir plus",
     stepLabel: "Étape {{number}}",
     step1Title: "Inspection & Consultation", step1Text: "Inspection gratuite sur site et consultation d'experts",

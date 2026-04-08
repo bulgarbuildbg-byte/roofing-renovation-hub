@@ -113,6 +113,12 @@ const sv = {
   howWeWork: {
     sectionTitle: "Så Arbetar Vi",
     sectionSubtitle: "En transparent och effektiv process från inspektion till projektavslut",
+    step1Benefit: "Gratis inspektion på plats",
+    step2Benefit: "Transparent prissättning",
+    step3Benefit1: "Avtal inkluderat",
+    step3Benefit2: "Högkvalitativt utförande",
+    step3Benefit3: "I tid",
+    step4Benefit: "Garanti upp till 10–15 år",
     learnMore: "Läs mer",
     stepLabel: "Steg {{number}}",
     step1Title: "Inspektion & Konsultation", step1Text: "Gratis inspektion på plats och expertrådgivning",

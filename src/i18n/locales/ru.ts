@@ -113,6 +113,12 @@ const ru = {
   howWeWork: {
     sectionTitle: "Как Мы Работаем",
     sectionSubtitle: "Прозрачный и эффективный процесс от осмотра до завершения проекта",
+    step1Benefit: "Бесплатный осмотр на месте",
+    step2Benefit: "Прозрачное ценообразование",
+    step3Benefit1: "Договор включён",
+    step3Benefit2: "Качественное исполнение",
+    step3Benefit3: "В срок",
+    step4Benefit: "Гарантия до 10–15 лет",
     learnMore: "Узнать больше",
     stepLabel: "Шаг {{number}}",
     step1Title: "Осмотр и Консультация", step1Text: "Бесплатный осмотр на месте и экспертная консультация",

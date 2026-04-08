@@ -352,6 +352,12 @@ const en = {
   howWeWork: {
     sectionTitle: "How We Work",
     sectionSubtitle: "A transparent and efficient process from inspection to project completion",
+    step1Benefit: "Free on-site inspection",
+    step2Benefit: "Transparent pricing",
+    step3Benefit1: "Contract included",
+    step3Benefit2: "High-quality execution",
+    step3Benefit3: "On-time delivery",
+    step4Benefit: "Warranty up to 10–15 years",
     learnMore: "Learn More",
     stepLabel: "Step {{number}}",
     step1Title: "Inspection & Consultation",

@@ -113,6 +113,12 @@ const nl = {
   howWeWork: {
     sectionTitle: "Hoe We Werken",
     sectionSubtitle: "Een transparant en efficiënt proces van inspectie tot projectoplevering",
+    step1Benefit: "Gratis inspectie ter plaatse",
+    step2Benefit: "Transparante prijsstelling",
+    step3Benefit1: "Contract inbegrepen",
+    step3Benefit2: "Hoogwaardige uitvoering",
+    step3Benefit3: "Op tijd",
+    step4Benefit: "Garantie tot 10–15 jaar",
     learnMore: "Meer informatie",
     stepLabel: "Stap {{number}}",
     step1Title: "Inspectie & Consultatie", step1Text: "Gratis inspectie ter plaatse en expertadvies",

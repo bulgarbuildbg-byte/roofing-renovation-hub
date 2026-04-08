@@ -139,6 +139,12 @@ const de = {
   howWeWork: {
     sectionTitle: "Wie Wir Arbeiten",
     sectionSubtitle: "Ein transparenter und effizienter Prozess von der Inspektion bis zur Fertigstellung",
+    step1Benefit: "Kostenlose Vor-Ort-Inspektion",
+    step2Benefit: "Transparente Preisgestaltung",
+    step3Benefit1: "Vertrag inklusive",
+    step3Benefit2: "Hochwertige Ausführung",
+    step3Benefit3: "Termingerecht",
+    step4Benefit: "Garantie bis zu 10–15 Jahre",
     learnMore: "Mehr erfahren",
     stepLabel: "Schritt {{number}}",
     step1Title: "Inspektion & Beratung", step1Text: "Kostenlose Vor-Ort-Inspektion und Expertenberatung",
