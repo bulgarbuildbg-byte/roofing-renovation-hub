@@ -1,53 +1,40 @@
 
 
-## Подобрения на страницата за безплатен оглед — 5 точки
+## Смяна на логото — използване на 3 формата
 
-### 1. Синхронизация на формата с MultiStepInquiryForm
+### Какво ще се направи
 
-Текущата InspectionPage има опростена форма (име, телефон, email, адрес, бележки). MultiStepInquiryForm има 5 стъпки с допълнителни полета: **тип услуга, площ, материал, сложност на покрива, файлове, преглед**.
+Замяна на текущото `src/assets/logo.png` с трите нови версии на логото и използването им в правилния контекст.
 
-**Решение:** Преработка на InspectionPage формата в 5 стъпки:
-- **Стъпка 1**: Визуален избор на тип покрив (flat/pitched) — запазва се, но с подобрени икони и UX
-- **Стъпка 2**: Контактни данни (име*, телефон*, имейл*, адрес на обекта*) — същите задължителни полета като MultiStepInquiryForm
-- **Стъпка 3**: Технически детайли (площ, материал, сложност) — идентични с MultiStepInquiryForm стъпка 3
-- **Стъпка 4**: Снимки и описание — файл ъплоуд + бележки, идентично с MultiStepInquiryForm стъпка 4
-- **Стъпка 5**: Преглед и изпращане — обобщение на всички данни
+### Файлове с ново лого (копиране от upload)
 
-Submit записва в `inquiries` таблицата със **същите полета** като MultiStepInquiryForm: `area_sqm`, `preferred_material`, `roof_complexity`, `description`, `service_type` (базиран на избора flat → `flat_roof`, pitched → `repair`), плюс `referrer_source: "inspection_landing"`.
+| Upload | Дестинация | Употреба |
+|---|---|---|
+| `Horizontal_Compact_Logo_Slim_Version.jpeg` | `src/assets/logo-horizontal.jpeg` | Header навигация (основно лого в сайта) |
+| `Primary_Logo_Main_Version.jpeg` | `src/assets/logo-primary.jpeg` | Footer, Admin pages, маркетингови секции |
+| `Square_Logo_Icon_Version.jpeg` | `src/assets/logo-square.jpeg` | Favicon (`public/favicon.png`), OG image fallback |
 
-### 2. Ясно UX насочване при стъпка 1
+### Промени по файлове
 
-- Добавяне на голям заглавен текст: **"Какъв е вашият покрив?"** с подтекст "Изберете тип, за да продължите"
-- Пулсираща анимация на картите при първо зареждане
-- Визуална стрелка/индикатор "Кликнете за избор"
-- След избор — плавна анимация към стъпка 2 с progress bar (5 стъпки)
+**1. `src/components/Header.tsx`**
+- Замяна на `import logo from "@/assets/logo.png"` с `import logo from "@/assets/logo-horizontal.jpeg"`
+- Компактната хоризонтална версия е идеална за навигационната лента
 
-### 3. По-интерактивни бутони за избор на покрив
+**2. `src/components/Footer.tsx`**
+- Замяна на `import logo from "@/assets/logo.png"` с `import logo from "@/assets/logo-primary.jpeg"`
+- Footer-ът има достатъчно пространство за пълната версия на логото
+- Премахване на `brightness-0 invert` филтъра, тъй като новото лого вече има подходящи цветове
 
-- По-голям размер на картите с gradient background при hover
-- `scale-105` трансформация при hover
-- Зелена отметка (CheckCircle) при избрана карта
-- По-ясен border (3px solid primary) при активна карта
-- Subtle shadow elevation промяна
+**3. `src/pages/admin/AdminLoginPage.tsx`**
+- Замяна с `logo-primary.jpeg`
 
-### 4. Реалистични SVG икони за покриви
+**4. `src/pages/admin/AdminDashboardPage.tsx`**
+- Замяна с `logo-horizontal.jpeg` (dashboard sidebar е компактно пространство)
 
-Замяна на Lucide `Minus` и `Triangle` с custom inline SVG:
+**5. `public/favicon.png`**
+- Генериране на favicon от квадратната версия на логото (resize до 32x32 и 180x180 за apple-touch-icon)
 
-- **Плосък покрив**: SVG показващ сграда с хоризонтална покривна линия, модерен стил с видими слоеве
-- **Покрив с наклон**: SVG показващ класическа къща с двускатен покрив, керемиди, комин
-
-Иконите ще бъдат inline SVG компоненти директно в InspectionPage — без нужда от външни файлове.
-
-### 5. Единна CRM база (вече работи)
-
-И двете форми вече записват в `inquiries` таблицата. С синхронизацията на полетата, всички данни (площ, материал, сложност, файлове) ще се записват по идентичен начин. Разликата ще бъде само в `referrer_source`: `"inspection_landing"` vs стандартен referrer от MultiStepInquiryForm.
-
-### Файлове за промяна
-
-| Файл | Промяна |
-|---|---|
-| `src/pages/InspectionPage.tsx` | Пълна преработка: 5-стъпкова форма, custom SVG икони, подобрен UX, файл ъплоуд, progress bar |
-
-Останалите файлове не се променят — MultiStepInquiryForm, routing, i18n ключовете остават.
+### Какво не се променя
+- Routing, i18n, SEO schema markup — без промени
+- Старият `src/assets/logo.png` ще бъде запазен за обратна съвместимост, но няма да се използва
 
