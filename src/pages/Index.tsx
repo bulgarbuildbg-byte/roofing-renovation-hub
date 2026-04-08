@@ -23,6 +23,7 @@ const BeforeAfterGallery = lazy(() => import("@/components/BeforeAfterGallery"))
 const PriceCalculator = lazy(() => import("@/components/PriceCalculator"));
 const HomeFAQ = lazy(() => import("@/components/HomeFAQ"));
 const ChatBot = lazy(() => import("@/components/ChatBot"));
+const CompletedProjects = lazy(() => import("@/components/CompletedProjects"));
 
 const Index = () => {
   const { t } = useTranslation();
