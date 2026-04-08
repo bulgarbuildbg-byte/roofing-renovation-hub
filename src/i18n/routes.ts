@@ -12,7 +12,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'изграждане-на-покрив', tileReplacement: 'смяна-керемиди',
     flatRoof: 'плоски-покриви', metalRoof: 'метални-покриви', maintenance: 'поддръжка-на-покриви',
     about: 'за-нас', projects: 'проекти', reviews: 'отзиви', calculator: 'калкулатор',
-    blog: 'блог', faq: 'въпроси', contact: 'контакти', inspection: 'безплатен-оглед',
+    blog: 'блог', faq: 'въпроси', contact: 'контакти', inspection: 'безплатен-оглед', howWeWork: 'как-работим',
   },
   en: {
     home: '', services: 'services', roofRepair: 'roof-repair-varna', leakRepair: 'leak-repair-varna',
