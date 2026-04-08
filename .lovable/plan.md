@@ -1,58 +1,41 @@
 
 
-## Дизайн + Съдържание — „Как работим" секция и страница
+## New "Our Completed Projects" Carousel Section
 
-### Промени
+### What We'll Build
+A new homepage section with a horizontal carousel showing 4 project cards at a time on desktop, with left/right navigation arrows and a "View All Projects" button below.
 
-**1. `src/components/HowWeWork.tsx` — Homepage секция**
-- Иконки: `HardHat` → `ClipboardCheck` (инспекция/чеклист), `FileText` остава (оферта), `Wrench` → `Hammer` (строителство), `ShieldCheck` → `Award` (сертификат/гаранция)
-- Стъпкови номера: увеличени до `w-14 h-14 text-2xl`, с gradient background (`bg-gradient-to-br from-primary to-primary/80`) и по-голям shadow
-- Benefits: 3 зелени check-а на всяка стъпка (вместо 1) с обновен текст
-- Бутон: от `variant="outline"` → `variant="default"` (primary цвят, ясно видим)
-- Карти: добавяне на цветен горен бордер (`border-t-4 border-primary`) за premium вид
-- Иконков кръг: по-голям (`w-20 h-20`), по-наситен фон (`bg-primary/15`)
+### Changes
 
-**2. `src/pages/HowWeWorkPage.tsx` — Подробна страница**
-- Иконки: синхронизиране с homepage (`ClipboardCheck`, `FileText`, `Hammer`, `Award`)
-- Bullet checkmarks: от `text-primary` → `text-green-600` (зелени, както иска потребителят)
-- CTA секция бутони: запазване на текущия fix (бял телефонен бутон с `text-primary`)
-- Иконков кръг: по-наситен фон, по-голям step number badge
+**1. New component: `src/components/CompletedProjects.tsx`**
+- Carousel using Embla (already installed via `embla-carousel-react`) showing project cards
+- Shows 4 cards per row on desktop, 2 on tablet, 1 on mobile
+- Each card: project image, title, location badge, service type
+- Left/right arrow buttons (always visible, not just on hover)
+- "View All Projects" button centered below, linking to localized projects page
+- Reuses same project images from `src/assets/portfolio/`
 
-**3. i18n — обновени benefit ключове (всички 10 locale файла)**
+**2. `src/pages/Index.tsx`**
+- Import and place `<CompletedProjects />` immediately after `<HowWeWork />`
+- Lazy-loaded via `React.lazy`
 
-Нови ключове за 3 benefits на стъпка:
+**3. i18n keys (all 10 locale files)**
+- Add `completedProjectsSection.title`, `completedProjectsSection.subtitle`, `completedProjectsSection.viewAll` to each locale file
 
-| Стъпка | BG текст |
+### Files to Change
+
+| File | Action |
 |---|---|
-| step1Benefit1 | Безплатен оглед |
-| step1Benefit2 | Професионална консултация |
-| step1Benefit3 | Ясна оценка на проблема |
-| step2Benefit1 | Без скрити разходи |
-| step2Benefit2 | Ясно ценообразуване |
-| step2Benefit3 | Детайлен обхват на работа |
-| step3Benefit1 | Подписан договор |
-| step3Benefit2 | Качествено изпълнение |
-| step3Benefit3 | Изпълнение в срок |
-| step4Benefit1 | Приемо-предавателен протокол |
-| step4Benefit2 | До 10–15 години гаранция |
-| step4Benefit3 | Подкрепа след завършване |
-
-Старите `step1Benefit`, `step2Benefit` и т.н. се заменят с `step1Benefit1/2/3` и т.н.
-
-### Файлове за промяна
-
-| Файл | Действие |
-|---|---|
-| `src/components/HowWeWork.tsx` | Нови икони, по-големи номера, 3 benefits/стъпка, primary бутон, premium карти |
-| `src/pages/HowWeWorkPage.tsx` | Нови икони, зелени checkmarks, синхронизиран дизайн |
-| `src/i18n/locales/bg.ts` | 12 нови benefit ключове (3×4), премахване на старите |
-| `src/i18n/locales/en.ts` | Същото |
-| `src/i18n/locales/de.ts` | Същото |
-| `src/i18n/locales/fi.ts` | Същото |
-| `src/i18n/locales/fr.ts` | Същото |
-| `src/i18n/locales/nl.ts` | Същото |
-| `src/i18n/locales/no.ts` | Същото |
-| `src/i18n/locales/ru.ts` | Същото |
-| `src/i18n/locales/sv.ts` | Същото |
-| `src/i18n/locales/ua.ts` | Същото |
+| `src/components/CompletedProjects.tsx` | New — carousel section component |
+| `src/pages/Index.tsx` | Insert section after HowWeWork |
+| `src/i18n/locales/bg.ts` | Add 3 translation keys |
+| `src/i18n/locales/en.ts` | Add 3 translation keys |
+| `src/i18n/locales/de.ts` | Add 3 translation keys |
+| `src/i18n/locales/fi.ts` | Add 3 translation keys |
+| `src/i18n/locales/fr.ts` | Add 3 translation keys |
+| `src/i18n/locales/nl.ts` | Add 3 translation keys |
+| `src/i18n/locales/no.ts` | Add 3 translation keys |
+| `src/i18n/locales/ru.ts` | Add 3 translation keys |
+| `src/i18n/locales/sv.ts` | Add 3 translation keys |
+| `src/i18n/locales/ua.ts` | Add 3 translation keys |
 
