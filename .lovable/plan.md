@@ -1,35 +1,53 @@
 
 
-## Три подобрения за страницата за безплатен оглед
+## Подобрения на страницата за безплатен оглед — 5 точки
 
-### 1. Линк в навигацията и Hero секцията
+### 1. Синхронизация на формата с MultiStepInquiryForm
 
-**`src/components/Header.tsx`:**
-- Desktop: Бутонът "Безплатен оглед" (ред 282-294) вместо да скролва към `#contact`, ще навигира към `/bg/безплатен-оглед` чрез `Link` с `getPath('inspection')`
-- Mobile Menu: Бутонът "Безплатен оглед" (ред 88-93) — също ще линква към inspection страницата
-- Full Menu Panel: Добавяне на линк "Безплатен оглед" между "Контакти" и разделителя
+Текущата InspectionPage има опростена форма (име, телефон, email, адрес, бележки). MultiStepInquiryForm има 5 стъпки с допълнителни полета: **тип услуга, площ, материал, сложност на покрива, файлове, преглед**.
 
-**`src/components/Hero.tsx`:**
-- Първият CTA бутон "Заявете безплатен оглед" (ред 57-63) — вместо `scrollToContact`, ще бъде `Link` към `getPath('inspection')`
-- Ще използва `useLocalizedPath` hook
+**Решение:** Преработка на InspectionPage формата в 5 стъпки:
+- **Стъпка 1**: Визуален избор на тип покрив (flat/pitched) — запазва се, но с подобрени икони и UX
+- **Стъпка 2**: Контактни данни (име*, телефон*, имейл*, адрес на обекта*) — същите задължителни полета като MultiStepInquiryForm
+- **Стъпка 3**: Технически детайли (площ, материал, сложност) — идентични с MultiStepInquiryForm стъпка 3
+- **Стъпка 4**: Снимки и описание — файл ъплоуд + бележки, идентично с MultiStepInquiryForm стъпка 4
+- **Стъпка 5**: Преглед и изпращане — обобщение на всички данни
 
-### 2. Schema.org Service markup за InspectionPage
+Submit записва в `inquiries` таблицата със **същите полета** като MultiStepInquiryForm: `area_sqm`, `preferred_material`, `roof_complexity`, `description`, `service_type` (базиран на избора flat → `flat_roof`, pitched → `repair`), плюс `referrer_source: "inspection_landing"`.
 
-**`src/pages/InspectionPage.tsx`:**
-- Добавяне на `Service` schema с `serviceType: "Roof Inspection"`, `areaServed`, `provider`, `offers` (безплатно)
-- Добавяне на `BreadcrumbList` schema (Начало → Безплатен Оглед)
+### 2. Ясно UX насочване при стъпка 1
 
-### 3. Open Graph мета тагове
+- Добавяне на голям заглавен текст: **"Какъв е вашият покрив?"** с подтекст "Изберете тип, за да продължите"
+- Пулсираща анимация на картите при първо зареждане
+- Визуална стрелка/индикатор "Кликнете за избор"
+- След избор — плавна анимация към стъпка 2 с progress bar (5 стъпки)
 
-**`src/pages/InspectionPage.tsx`:**
-- `og:title`, `og:description`, `og:type: website`, `og:url` (динамично по език)
-- `og:image` (същия og-image.jpg)
-- `twitter:card`, `twitter:title`, `twitter:description`
-- `robots: index, follow`
-- `canonical` URL
+### 3. По-интерактивни бутони за избор на покрив
+
+- По-голям размер на картите с gradient background при hover
+- `scale-105` трансформация при hover
+- Зелена отметка (CheckCircle) при избрана карта
+- По-ясен border (3px solid primary) при активна карта
+- Subtle shadow elevation промяна
+
+### 4. Реалистични SVG икони за покриви
+
+Замяна на Lucide `Minus` и `Triangle` с custom inline SVG:
+
+- **Плосък покрив**: SVG показващ сграда с хоризонтална покривна линия, модерен стил с видими слоеве
+- **Покрив с наклон**: SVG показващ класическа къща с двускатен покрив, керемиди, комин
+
+Иконите ще бъдат inline SVG компоненти директно в InspectionPage — без нужда от външни файлове.
+
+### 5. Единна CRM база (вече работи)
+
+И двете форми вече записват в `inquiries` таблицата. С синхронизацията на полетата, всички данни (площ, материал, сложност, файлове) ще се записват по идентичен начин. Разликата ще бъде само в `referrer_source`: `"inspection_landing"` vs стандартен referrer от MultiStepInquiryForm.
 
 ### Файлове за промяна
-- `src/components/Header.tsx` — линкове към inspection
-- `src/components/Hero.tsx` — CTA бутон линк
-- `src/pages/InspectionPage.tsx` — Schema.org + OG tags
+
+| Файл | Промяна |
+|---|---|
+| `src/pages/InspectionPage.tsx` | Пълна преработка: 5-стъпкова форма, custom SVG икони, подобрен UX, файл ъплоуд, progress bar |
+
+Останалите файлове не се променят — MultiStepInquiryForm, routing, i18n ключовете остават.
 
