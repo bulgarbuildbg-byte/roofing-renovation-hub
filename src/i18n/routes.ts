@@ -84,7 +84,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'novyj-dah-varna', tileReplacement: 'zamina-cherepytsi-varna',
     flatRoof: 'ploski-dahy-varna', metalRoof: 'metalevi-dahy-varna', maintenance: 'obslugovuvannya-dahu-varna',
     about: 'pro-nas', projects: 'proekty', reviews: 'vidguky', calculator: 'kalkulyator',
-    blog: 'blog', faq: 'pytannya', contact: 'kontakty',
+    blog: 'blog', faq: 'pytannya', contact: 'kontakty', inspection: 'bezkoshtovnyj-ohlyad',
   },
 };
 

@@ -69,6 +69,7 @@ const App = () => (
             <Route path="/блог" element={<Navigate to="/bg/блог" replace />} />
             <Route path="/блог/:slug" element={<Navigate to="/bg/блог" replace />} />
             <Route path="/калкулатор" element={<Navigate to="/bg/калкулатор" replace />} />
+            <Route path="/безплатен-оглед" element={<Navigate to="/bg/безплатен-оглед" replace />} />
 
             {/* Language-prefixed public routes */}
             <Route path="/:lang/*" element={<LanguageLayout />}>
