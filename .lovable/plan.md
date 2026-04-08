@@ -1,22 +1,27 @@
 
 
-## Fix: Снимки на клиенти не се показват в секцията с отзиви
+## Промени в секцията с отзиви
 
-### Проблем
-Кодът е правилен за fallback данните (с `i.pravatar.cc` URLs), но базата данни връща testimonials с `avatar_url: null`. Когато DB данните са налични, те заменят fallback-ите и снимките изчезват — показват се само инициали.
+### 1. Смяна на снимки (fallback testimonials)
 
-### Решение
+В `src/components/Testimonials.tsx`:
 
-**`src/components/Testimonials.tsx`** — две промени:
+- **Мария Колева** (id "3"): `avatar_url` от `?img=5` → `?img=32` (бяла жена)
+- **Николай Василев** (id "6"): `avatar_url` от `?img=14` → `?img=53` (бял мъж)
+- **Георги Петров** (id "4"): `avatar_url` от `?img=8` → `?img=59` (бял мъж)
 
-1. **`onError` handler на `<img>`** — ако снимка от DB не се зареди, показва pravatar fallback вместо счупена икона
-2. **Fallback снимки за DB testimonials без `avatar_url`** — когато `avatar_url` е `null`, генерира детерминистичен pravatar URL базиран на `author_name` вместо да показва само инициали. Формула: `https://i.pravatar.cc/200?img=${(name.length + parseInt(id.slice(-4), 16)) % 50 + 1}`
+Също ще обновим `maleAvatarIds` и `femaleAvatarIds` масивите — ще махнем ID-тата, които не показват бели хора, за да се избегне проблемът и при auto-generated аватари от DB.
 
-Така всеки отзив винаги ще показва реалистична човешка снимка — независимо дали идва от DB или от fallback данни.
+### 2. Каруселът да е центриран
+
+Промяна на Embla конфигурацията:
+- `align: "start"` → `align: "center"`
+
+Това ще центрира активните карти в средата на контейнера.
 
 ### Файлове
 
 | Файл | Промяна |
 |---|---|
-| `src/components/Testimonials.tsx` | Добавяне на auto-generated avatar URL когато `avatar_url` е null + `onError` handler |
+| `src/components/Testimonials.tsx` | 3 avatar URL-а + carousel align center |
 
