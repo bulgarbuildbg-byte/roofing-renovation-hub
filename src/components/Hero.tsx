@@ -51,11 +51,13 @@ const Hero = () => {
           
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 animate-fade-in">
             <Button 
-              onClick={scrollToContact}
+              asChild
               size="lg" 
               className="w-full sm:w-auto h-14 md:h-16 bg-accent hover:bg-accent/90 text-accent-foreground text-base md:text-lg font-bold px-6 md:px-8"
             >
-              {t('hero.ctaPrimary')}
+              <Link to={getPath('inspection')}>
+                {t('hero.ctaPrimary')}
+              </Link>
             </Button>
             <Button 
               asChild
