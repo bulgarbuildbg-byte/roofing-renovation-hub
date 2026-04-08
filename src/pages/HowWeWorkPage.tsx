@@ -114,7 +114,7 @@ const HowWeWorkPage = () => {
                   <ul className="space-y-2">
                     {Array.isArray(step.bullets) && step.bullets.map((bullet, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
                         <span className="text-foreground">{bullet}</span>
                       </li>
                     ))}
