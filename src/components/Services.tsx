@@ -81,7 +81,7 @@ const Services = () => {
           {/* Soft gradient fade on edges */}
           <div className="absolute left-12 md:left-16 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-secondary to-transparent z-[5] pointer-events-none" />
           <div className="absolute right-12 md:right-16 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-secondary to-transparent z-[5] pointer-events-none" />
-          <div ref={emblaRef} className="overflow-hidden">
+          <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-4">
               {serviceKeys.map((service, index) => (
                 <div
