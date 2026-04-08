@@ -144,6 +144,7 @@ const Index = () => {
       <CertificationsBar />
       <BrandCarousel />
       <Services />
+      <HowWeWork />
       <Testimonials />
 
       {/* Below-the-fold — lazy loaded */}
