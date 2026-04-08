@@ -76,7 +76,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'novaya-krysha-varna', tileReplacement: 'zamena-cherepitsy-varna',
     flatRoof: 'ploskie-kryshi-varna', metalRoof: 'metallicheskie-kryshi-varna', maintenance: 'obsluzhivanie-kryshi-varna',
     about: 'o-nas', projects: 'proekty', reviews: 'otzyvy', calculator: 'kalkulyator',
-    blog: 'blog', faq: 'voprosy', contact: 'kontakty',
+    blog: 'blog', faq: 'voprosy', contact: 'kontakty', inspection: 'besplatnyj-osmotr',
   },
   ua: {
     home: '', services: 'poslugy', roofRepair: 'remont-dahu-varna', leakRepair: 'remont-protikan-varna',
