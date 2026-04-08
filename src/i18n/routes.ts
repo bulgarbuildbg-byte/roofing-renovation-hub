@@ -36,7 +36,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     newRoof: 'uusi-katto-varna', tileReplacement: 'tiilien-vaihto-varna',
     flatRoof: 'tasakatot-varna', metalRoof: 'metallikatot-varna', maintenance: 'katon-huolto-varna',
     about: 'meista', projects: 'projektit', reviews: 'arvostelut', calculator: 'laskin',
-    blog: 'blogi', faq: 'ukk', contact: 'yhteystiedot',
+    blog: 'blogi', faq: 'ukk', contact: 'yhteystiedot', inspection: 'ilmainen-tarkastus',
   },
   sv: {
     home: '', services: 'tjanster', roofRepair: 'takreparation-varna', leakRepair: 'lackage-reparation-varna',
