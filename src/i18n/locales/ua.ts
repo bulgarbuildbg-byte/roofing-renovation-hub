@@ -145,5 +145,16 @@ const ua = {
       { q: "Яку гарантію ви надаєте?", a: "Ми надаємо письмову гарантію від 5 до 15 років." },
     ],
   },
+  completedProjects: {
+    title: "Наші завершені проекти",
+    subtitle: "Ознайомтесь з деякими з наших успішно завершених проектів у Варні та регіоні",
+    viewAll: "Переглянути всі проекти",
+    project1Title: "Ремонт сімейного будинку", project1Location: "Варна", project1Service: "Ремонт даху",
+    project2Title: "Житловий будинок", project2Location: "Аксаково", project2Service: "Гідроізоляція",
+    project3Title: "Вілла з новим дахом", project3Location: "Варна", project3Service: "Новий дах",
+    project4Title: "Комерційна будівля", project4Location: "Провадія", project4Service: "Плоский дах",
+    project5Title: "Заміна черепиці", project5Location: "Варна", project5Service: "Заміна черепиці",
+    project6Title: "Панельний будинок", project6Location: "Долен Чифлік", project6Service: "Ремонт та ізоляція",
+  },
 };
 export default ua;

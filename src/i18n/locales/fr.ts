@@ -145,5 +145,16 @@ const fr = {
       { q: "Quelle garantie offrez-vous ?", a: "Nous offrons une garantie écrite de 5 à 15 ans." },
     ],
   },
+  completedProjects: {
+    title: "Nos projets réalisés",
+    subtitle: "Découvrez quelques-uns de nos projets réalisés avec succès à Varna et dans la région",
+    viewAll: "Voir tous les projets",
+    project1Title: "Réparation maison familiale", project1Location: "Varna", project1Service: "Réparation de toiture",
+    project2Title: "Immeuble résidentiel", project2Location: "Aksakovo", project2Service: "Étanchéité",
+    project3Title: "Villa avec nouvelle toiture", project3Location: "Varna", project3Service: "Nouvelle toiture",
+    project4Title: "Bâtiment commercial", project4Location: "Provadia", project4Service: "Toit plat",
+    project5Title: "Remplacement de tuiles", project5Location: "Varna", project5Service: "Remplacement de tuiles",
+    project6Title: "Bloc de panneaux", project6Location: "Dolen Chiflik", project6Service: "Réparation et isolation",
+  },
 };
 export default fr;

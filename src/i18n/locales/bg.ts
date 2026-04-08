@@ -443,6 +443,17 @@ const bg = {
       { q: "Мога ли да видя примери от ваша работа?", a: "Разбира се! Имаме обширно портфолио с реализирани проекти. Можете да разгледате нашата галерия или да поискате референции от доволни клиенти." },
     ],
   },
+  completedProjects: {
+    title: "Нашите завършени проекти",
+    subtitle: "Разгледайте част от успешно изпълнените ни проекти във Варна и региона",
+    viewAll: "Вижте всички проекти",
+    project1Title: "Ремонт на фамилна къща", project1Location: "Варна", project1Service: "Ремонт на покрив",
+    project2Title: "Жилищен блок", project2Location: "Аксаково", project2Service: "Хидроизолация",
+    project3Title: "Вила с нов покрив", project3Location: "Варна", project3Service: "Нов покрив",
+    project4Title: "Търговска сграда", project4Location: "Провадия", project4Service: "Плосък покрив",
+    project5Title: "Смяна на керемиди", project5Location: "Варна", project5Service: "Смяна на керемиди",
+    project6Title: "Панелен блок", project6Location: "Долен Чифлик", project6Service: "Ремонт и изолация",
+  },
 };
 
 export default bg;

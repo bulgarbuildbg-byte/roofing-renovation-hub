@@ -145,5 +145,16 @@ const ru = {
       { q: "Какую гарантию вы предоставляете?", a: "Мы предоставляем письменную гарантию от 5 до 15 лет." },
     ],
   },
+  completedProjects: {
+    title: "Наши завершённые проекты",
+    subtitle: "Ознакомьтесь с некоторыми из наших успешно завершённых проектов в Варне и регионе",
+    viewAll: "Смотреть все проекты",
+    project1Title: "Ремонт семейного дома", project1Location: "Варна", project1Service: "Ремонт крыши",
+    project2Title: "Жилое здание", project2Location: "Аксаково", project2Service: "Гидроизоляция",
+    project3Title: "Вилла с новой крышей", project3Location: "Варна", project3Service: "Новая крыша",
+    project4Title: "Коммерческое здание", project4Location: "Провадия", project4Service: "Плоская крыша",
+    project5Title: "Замена черепицы", project5Location: "Варна", project5Service: "Замена черепицы",
+    project6Title: "Панельный дом", project6Location: "Долен Чифлик", project6Service: "Ремонт и изоляция",
+  },
 };
 export default ru;

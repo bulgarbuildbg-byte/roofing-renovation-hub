@@ -171,6 +171,17 @@ const de = {
       { q: "Welche Garantie bieten Sie?", a: "Wir bieten eine schriftliche Garantie von 5 bis 15 Jahren." },
     ],
   },
+  completedProjects: {
+    title: "Unsere abgeschlossenen Projekte",
+    subtitle: "Entdecken Sie einige unserer erfolgreich abgeschlossenen Projekte in Varna und Umgebung",
+    viewAll: "Alle Projekte ansehen",
+    project1Title: "Familienhaus-Reparatur", project1Location: "Varna", project1Service: "Dachreparatur",
+    project2Title: "Wohngebäude", project2Location: "Aksakovo", project2Service: "Abdichtung",
+    project3Title: "Villa mit neuem Dach", project3Location: "Varna", project3Service: "Neues Dach",
+    project4Title: "Gewerbegebäude", project4Location: "Provadia", project4Service: "Flachdach",
+    project5Title: "Ziegelaustausch", project5Location: "Varna", project5Service: "Ziegelaustausch",
+    project6Title: "Plattenblock", project6Location: "Dolen Chiflik", project6Service: "Reparatur & Isolierung",
+  },
 };
 
 export default de;
