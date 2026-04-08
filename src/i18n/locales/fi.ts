@@ -132,6 +132,12 @@ const fi = {
   howWeWork: {
     sectionTitle: "Miten Työskentelemme",
     sectionSubtitle: "Läpinäkyvä ja tehokas prosessi tarkastuksesta projektin valmistumiseen",
+    step1Benefit: "Ilmainen tarkastus paikan päällä",
+    step2Benefit: "Läpinäkyvä hinnoittelu",
+    step3Benefit1: "Sopimus sisältyy",
+    step3Benefit2: "Korkealaatuinen toteutus",
+    step3Benefit3: "Ajallaan",
+    step4Benefit: "Takuu jopa 10–15 vuotta",
     learnMore: "Lue lisää",
     stepLabel: "Vaihe {{number}}",
     step1Title: "Tarkastus ja Konsultaatio", step1Text: "Ilmainen paikan päällä tapahtuva tarkastus ja asiantuntijakonsultaatio",

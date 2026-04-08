@@ -113,6 +113,12 @@ const ua = {
   howWeWork: {
     sectionTitle: "Як Ми Працюємо",
     sectionSubtitle: "Прозорий та ефективний процес від огляду до завершення проекту",
+    step1Benefit: "Безкоштовний огляд на місці",
+    step2Benefit: "Прозоре ціноутворення",
+    step3Benefit1: "Договір включено",
+    step3Benefit2: "Якісне виконання",
+    step3Benefit3: "Вчасно",
+    step4Benefit: "Гарантія до 10–15 років",
     learnMore: "Дізнатися більше",
     stepLabel: "Крок {{number}}",
     step1Title: "Огляд і Консультація", step1Text: "Безкоштовний огляд на місці та експертна консультація",

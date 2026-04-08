@@ -396,6 +396,12 @@ const bg = {
   howWeWork: {
     sectionTitle: "Как Работим",
     sectionSubtitle: "Прозрачен и ефективен процес от огледа до завършването на проекта",
+    step1Benefit: "Безплатен оглед на място",
+    step2Benefit: "Прозрачно ценообразуване",
+    step3Benefit1: "Договор включен",
+    step3Benefit2: "Качествено изпълнение",
+    step3Benefit3: "В срок",
+    step4Benefit: "Гаранция до 10–15 години",
     learnMore: "Научете повече",
     stepLabel: "Стъпка {{number}}",
     step1Title: "Оглед и Консултация",
