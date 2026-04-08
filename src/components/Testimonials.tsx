@@ -205,7 +205,7 @@ const Testimonials = () => {
                                   {testimonial.author_name}
                                 </p>
                                 {testimonial.is_verified && (
-                                  <BadgeCheck className="w-4 h-4 text-accent shrink-0" aria-label={t('testimonials.verified')} />
+                                  <BadgeCheck className="w-4 h-4 text-blue-500 shrink-0" aria-label={t('testimonials.verified')} />
                                 )}
                               </div>
                               <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
