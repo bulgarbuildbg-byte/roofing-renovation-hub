@@ -62,7 +62,7 @@ const fallbackTestimonials: Testimonial[] = [
 const Testimonials = () => {
   const { t } = useTranslation();
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
+    align: "center",
     slidesToScroll: 1,
     containScroll: "trimSnaps",
   });
