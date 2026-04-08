@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-primary.jpeg";
 import type { RouteKey } from "@/i18n/routes";
 
 const serviceAreas = [
@@ -63,7 +63,7 @@ const Footer = () => {
             {/* Brand */}
             <div>
               <Link to={getPath('home')}>
-                <img src={logo} alt="RemontNaPokriviVarna — Ремонт на покриви Варна" className="h-24 w-auto mb-4 brightness-0 invert" />
+                <img src={logo} alt="RemontNaPokriviVarna — Ремонт на покриви Варна" className="h-24 w-auto mb-4" />
               </Link>
               <p className="text-primary-foreground/80 mb-4 text-sm leading-relaxed">{t('footer.companyDesc')}</p>
               <div className="flex items-center gap-2 text-primary-foreground/60 text-xs">

@@ -3,7 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink, BarChart3, Megaphone, MessageSquare, Database, Link2, Mail, Star, PhoneCall } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-horizontal.jpeg";
 
 const AdminDashboardPage = () => {
   const { user, isAdmin, signOut } = useAuth();
