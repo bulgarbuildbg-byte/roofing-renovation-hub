@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo-horizontal.jpeg";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import LanguageSwitcher from "./LanguageSwitcher";
 import {

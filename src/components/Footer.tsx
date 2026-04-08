@@ -63,7 +63,7 @@ const Footer = () => {
             {/* Brand */}
             <div>
               <Link to={getPath('home')}>
-                <img src={logo} alt="RemontNaPokriviVarna — Ремонт на покриви Варна" className="h-24 w-auto mb-4 brightness-0 invert" />
+                <img src={logo} alt="RemontNaPokriviVarna — Ремонт на покриви Варна" className="h-24 w-auto mb-4" />
               </Link>
               <p className="text-primary-foreground/80 mb-4 text-sm leading-relaxed">{t('footer.companyDesc')}</p>
               <div className="flex items-center gap-2 text-primary-foreground/60 text-xs">
