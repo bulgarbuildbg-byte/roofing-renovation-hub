@@ -34,6 +34,7 @@ const Footer = () => {
     { key: "blog", routeKey: "blog" },
     { key: "faq", routeKey: "faq" },
     { key: "contact", routeKey: "contact" },
+    { key: "freeInspection", routeKey: "inspection" },
   ];
 
   return (
