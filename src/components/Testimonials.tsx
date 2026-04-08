@@ -21,8 +21,8 @@ interface Testimonial {
 const getInitials = (name: string) =>
   name.split(" ").map((n) => n[0]).join(".").toUpperCase();
 
-const maleAvatarIds = [3, 7, 8, 11, 12, 13, 14, 33, 51, 52, 53, 55, 56, 57, 58, 59, 60];
-const femaleAvatarIds = [1, 5, 9, 10, 16, 20, 21, 23, 25, 26, 27, 28, 29, 31, 32, 34, 38, 39, 40, 41, 43, 44, 45, 47, 48, 49];
+const maleAvatarIds = [3, 8, 13, 14, 51, 55, 56, 57, 58, 60];
+const femaleAvatarIds = [5, 10, 16, 20, 21, 23, 25, 27, 28, 29, 31, 34, 38, 39, 40, 41, 43, 44, 45, 47, 48, 49];
 
 const isFemale = (name: string) => {
   const first = name.split(" ")[0];
