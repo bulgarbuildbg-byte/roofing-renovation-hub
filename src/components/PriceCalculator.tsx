@@ -283,6 +283,10 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setFiles([]);
     setSubmitted(false);
   };
+
+  const OptionCard = ({ id, label, icon: Icon, isSelected, onClick }: {
+    id: string; label: string; icon?: any; isSelected: boolean; onClick: () => void;
+  }) => (
     <button
       onClick={onClick}
       className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${
