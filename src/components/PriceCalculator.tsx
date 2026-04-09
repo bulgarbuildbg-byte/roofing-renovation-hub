@@ -472,81 +472,49 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
               {/* STEP 6: Result */}
               {currentStep === "result" && (
                 <div>
-                  {submitted ? (
-                    <div className="text-center py-6">
-                      <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-foreground mb-2">Заявката е изпратена!</h3>
-                      <p className="text-muted-foreground mb-4">Ще се свържем с вас в рамките на 24 часа.</p>
-                      <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
-                        <Phone className="w-5 h-5" /> 088 499 7659
-                      </a>
-                      <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block mt-6">
-                        ← Изчисли отново
-                      </button>
+                  {/* Price display */}
+                  {priceRange.isInspection ? (
+                    <div className="text-center py-4 mb-4">
+                      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                        <Search className="w-7 h-7 text-primary" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-foreground mb-1">Безплатен оглед</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Професионален оглед + точна оферта — напълно безплатно.
+                      </p>
                     </div>
                   ) : (
-                    <>
-                      {/* Price display */}
-                      {priceRange.isInspection ? (
-                        <div className="text-center py-4 mb-4">
-                          <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                            <Search className="w-7 h-7 text-primary" />
-                          </div>
-                          <h3 className="text-2xl font-bold text-foreground mb-1">Безплатен оглед</h3>
-                          <p className="text-sm text-muted-foreground">
-                            Професионален оглед + точна оферта — напълно безплатно.
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-5 text-center mb-5">
-                          <p className="text-muted-foreground text-sm mb-1">Ориентировъчна цена</p>
-                          <p className="text-3xl md:text-4xl font-bold text-primary mb-3">
-                            {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
-                          </p>
-                          <div className="flex flex-wrap justify-center gap-3 text-xs">
-                            <span className="flex items-center gap-1 text-foreground"><Eye className="w-3.5 h-3.5 text-primary" /> Безплатен оглед</span>
-                            <span className="flex items-center gap-1 text-foreground"><Shield className="w-3.5 h-3.5 text-primary" /> Гаранция</span>
-                            <span className="flex items-center gap-1 text-foreground"><Clock className="w-3.5 h-3.5 text-primary" /> Труд + материали</span>
-                          </div>
-                        </div>
-                      )}
-
-                      {!submitted ? (
-                        <>
-                          <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                            <Button size="lg" className="flex-1" onClick={() => { trackEvent("button_click", "calculator_open_form"); setShowForm(true); }}>
-                              <Send className="w-5 h-5 mr-2" />
-                              Заявете безплатен оглед
-                            </Button>
-                            <Button asChild variant="outline" size="lg" className="flex-1">
-                              <a href="tel:0884997659">
-                                <Phone className="w-5 h-5 mr-2" />
-                                Обадете се сега
-                              </a>
-                            </Button>
-                          </div>
-                          <p className="text-xs text-muted-foreground text-center mb-4">
-                            ⚠️ Ориентировъчна цена. Точната оферта — след безплатен оглед.
-                          </p>
-                          <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block">
-                            ← Изчисли отново
-                          </button>
-                        </>
-                      ) : (
-                        <div className="text-center py-6">
-                          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                          <h3 className="text-xl font-bold text-foreground mb-2">Заявката е изпратена!</h3>
-                          <p className="text-muted-foreground mb-4">Ще се свържем с вас в рамките на 24 часа.</p>
-                          <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
-                            <Phone className="w-5 h-5" /> 088 499 7659
-                          </a>
-                          <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block mt-6">
-                            ← Изчисли отново
-                          </button>
-                        </div>
-                      )}
-                    </>
+                    <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-5 text-center mb-5">
+                      <p className="text-muted-foreground text-sm mb-1">Ориентировъчна цена</p>
+                      <p className="text-3xl md:text-4xl font-bold text-primary mb-3">
+                        {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
+                      </p>
+                      <div className="flex flex-wrap justify-center gap-3 text-xs">
+                        <span className="flex items-center gap-1 text-foreground"><Eye className="w-3.5 h-3.5 text-primary" /> Безплатен оглед</span>
+                        <span className="flex items-center gap-1 text-foreground"><Shield className="w-3.5 h-3.5 text-primary" /> Гаранция</span>
+                        <span className="flex items-center gap-1 text-foreground"><Clock className="w-3.5 h-3.5 text-primary" /> Труд + материали</span>
+                      </div>
+                    </div>
                   )}
+
+                  <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                    <Button size="lg" className="flex-1" onClick={() => { trackEvent("button_click", "calculator_open_form"); setShowForm(true); }}>
+                      <Send className="w-5 h-5 mr-2" />
+                      Заявете безплатен оглед
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="flex-1">
+                      <a href="tel:0884997659">
+                        <Phone className="w-5 h-5 mr-2" />
+                        Обадете се сега
+                      </a>
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground text-center mb-4">
+                    ⚠️ Ориентировъчна цена. Точната оферта — след безплатен оглед.
+                  </p>
+                  <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block">
+                    ← Изчисли отново
+                  </button>
                 </div>
               )}
             </CardContent>
