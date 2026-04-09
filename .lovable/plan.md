@@ -1,45 +1,51 @@
 
 
-## Вградена форма за запитване в калкулатора
+## Обновяване на формата в калкулатора — modal popup + нови полета
 
 ### Какво се променя
 
-Един файл: `src/components/PriceCalculator.tsx`. След показване на резултата, бутоните „Заявете безплатен оглед" и „Обадете се сега" се заменят с inline форма вместо redirect.
+Един файл: `src/components/PriceCalculator.tsx`. Формата за запитване се извежда в **Dialog (modal popup)** вместо inline секция. Добавят се нови полета и подобрения.
 
 ---
 
 ### Промени
 
-**Нов state**: `showForm` (boolean), `formData` (name, phone, address, city, description), `files` (File[]), `submitting`, `submitted`.
+**1. Modal вместо inline форма**
+- Import `Dialog, DialogContent, DialogHeader, DialogTitle` от `@/components/ui/dialog`
+- При натискане на „Заявете безплатен оглед" → отваря modal (`setShowForm(true)`)
+- Desktop и mobile — еднакво поведение (popup)
+- Без скрол, без redirect
 
-**Бутон „Заявете безплатен оглед"** → вместо `scrollToContact()` → `setShowForm(true)`.
-**Бутон „Обадете се сега"** → остава `tel:` линк (без промяна).
+**2. Нови полета във формата**
 
-**Форма (показва се в result стъпката когато showForm=true)**:
-- Име (задължително)
-- Телефон (задължително)
-- Адрес / Град
-- Кратко описание (опционално)
-- Качване на файлове/снимки (drag & drop или бутон)
-- Бутон „Изпрати запитване"
+| Поле | Задължително | Тип |
+|---|---|---|
+| Име | Да | text |
+| Фамилия | Да | text (НОВО) |
+| Телефон | Да | tel |
+| Имейл | Да | email (НОВО) |
+| Адрес / град / улица | Да | text (placeholder: „Напр. Варна, кв. Левски, ул. …") |
+| Опишете проблема | Не | textarea |
+| Снимки/файлове | Не | file upload |
 
-**Автоматично прикачени данни от калкулатора** (скрити, не се показват на потребителя):
-- roofType, material, problem, scope, roofSize, access
-- Изчислената ориентировъчна цена (min-max)
+**formData state** се обновява: `{ firstName, lastName, phone, email, address, description }`
 
-**Submit логика** (преизползва съществуващата от MultiStepInquiryForm):
-1. Insert в `inquiries` таблицата с всички данни + `session_id` + `referrer_source`
-2. Upload файлове в `inquiry-attachments` bucket
-3. Insert в `inquiry_files` таблицата
-4. Показване на success state с CheckCircle + телефон
+**3. File upload подобрения**
+- Лимит: до 8 файла, до 250 MB общо
+- `accept="image/*,.pdf,.doc,.docx,.heic"` + `capture="environment"` за камера на мобилно
+- Валидация при добавяне (брой + размер)
+- Drag & drop зона с текст
 
-**Mapping на калкулатор данни към inquiries колони**:
-- problem → `service_type` (map: leak→leak_repair, repair→repair, new_roof→new_construction, etc.)
-- roofSize → `area_sqm`
-- material → `preferred_material` (map to existing enum values)
-- scope/access/roofType → `description` (append като текст)
+**4. Submit логика**
+- Валидация: firstName, lastName, phone, email, address — всички задължителни
+- `name` в inquiries = `${firstName} ${lastName}`
+- `email` = реалният имейл (вече не fake @calculator.local)
+- Всички калкулаторни данни се прикачват в `description` автоматично
+- Успешно изпращане → success state в modal → затваряне
 
-**UI**: Формата се показва като разширена секция под ценовия резултат (не modal), с плавна анимация. Ценовият диапазон остава видим отгоре.
+**5. CTA бутоните на result стъпката остават**
+- „Заявете безплатен оглед" → отваря modal
+- „Обадете се сега" → `tel:` линк (без промяна)
 
 ---
 
@@ -47,5 +53,5 @@
 
 | Файл | Промяна |
 |---|---|
-| `src/components/PriceCalculator.tsx` | Добавяне на inline форма в result стъпката, submit логика към Supabase, file upload |
+| `src/components/PriceCalculator.tsx` | Форма в Dialog modal, нови полета (фамилия, имейл), file upload лимити (8 файла / 250MB), валидация |
 
