@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera } from "lucide-react";
+import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain } from "lucide-react";
 import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -73,14 +73,14 @@ const scopeOptions: Record<string, { id: string; label: string }[]> = {
 
 // Step 5: Access
 const accessOptions = [
-  { id: "easy", label: "Лесен", multiplier: 1.0 },
-  { id: "medium", label: "Среден", multiplier: 1.1 },
-  { id: "hard", label: "Труден", multiplier: 1.2 },
+  { id: "easy", label: "Лесен", icon: Truck, multiplier: 1.0 },
+  { id: "medium", label: "Среден", icon: ArrowUpDown, multiplier: 1.1 },
+  { id: "hard", label: "Труден", icon: Mountain, multiplier: 1.2 },
 ];
 
 const sizePresets = [50, 100, 150, 200];
 
-// Price matrix: [problem][scope] => { min, max } per m²
+// Price matrix
 const priceMatrix: Record<string, Record<string, { min: number; max: number }>> = {
   leak: {
     local: { min: 15, max: 35 },
@@ -125,17 +125,15 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   // Determine which steps are active
   const steps = useMemo((): WizardStep[] => {
     const s: WizardStep[] = ["roofType"];
-    // Material step only for sloped/flat
     if (roofType === "sloped" || roofType === "flat") s.push("material");
     s.push("problem");
-    // Scope step only for leak/repair/new_roof
     if (problem === "leak" || problem === "repair" || problem === "new_roof") s.push("scope");
     s.push("size", "result");
     return s;
   }, [roofType, problem]);
 
   const currentStepIndex = steps.indexOf(currentStep);
-  const totalSteps = steps.length - 1; // exclude result from count
+  const totalSteps = steps.length - 1;
   const progressValue = currentStep === "result" ? 100 : (currentStepIndex / totalSteps) * 100;
 
   const goNext = useCallback(() => {
@@ -151,7 +149,6 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   const selectRoofType = (id: string) => {
     setRoofType(id);
     setMaterial("");
-    // If metal or unsure, skip material
     if (id === "metal" || id === "unsure") {
       setCurrentStep("problem");
     } else {
@@ -181,14 +178,11 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   const priceRange = useMemo(() => {
     if (problem === "inspection") return { min: 0, max: 0, isInspection: true };
-
     const problemKey = problem || "unsure";
     const scopeKey = scope || "_default";
     const rates = priceMatrix[problemKey]?.[scopeKey] || priceMatrix[problemKey]?.["_default"] || priceMatrix.unsure._default;
-
     const roofMult = roofTypes.find(r => r.id === roofType)?.multiplier || 1.0;
     const accessMult = accessOptions.find(a => a.id === access)?.multiplier || 1.0;
-
     return {
       min: Math.round(rates.min * roofSize * roofMult * accessMult),
       max: Math.round(rates.max * roofSize * roofMult * accessMult),
@@ -313,34 +307,51 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   }) => (
     <button
       onClick={onClick}
-      className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${
-        isSelected ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-muted/50"
+      className={`group p-5 rounded-2xl border-2 transition-all duration-200 text-left flex items-center gap-4 ${
+        isSelected
+          ? "border-accent bg-accent/10 shadow-md shadow-accent/20"
+          : "border-border/60 hover:border-accent/50 hover:shadow-md hover:-translate-y-0.5 bg-card"
       }`}
     >
-      {Icon && <Icon className={`w-5 h-5 shrink-0 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />}
-      <span className={`text-sm font-medium ${isSelected ? "text-primary" : "text-foreground"}`}>{label}</span>
+      {Icon && (
+        <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 ${
+          isSelected ? "bg-accent/20" : "bg-muted group-hover:bg-accent/10"
+        }`}>
+          <Icon className={`w-6 h-6 transition-colors duration-200 ${
+            isSelected ? "text-accent" : "text-muted-foreground group-hover:text-accent"
+          }`} />
+        </div>
+      )}
+      <span className={`text-sm font-semibold transition-colors duration-200 ${
+        isSelected ? "text-accent" : "text-foreground"
+      }`}>{label}</span>
     </button>
   );
 
-  const StepHeader = ({ title, stepNum }: { title: string; stepNum: number }) => (
-    <div className="mb-6">
-      <div className="flex items-center gap-3 mb-2">
+  const StepHeader = ({ title, subtitle }: { title: string; subtitle?: string }) => (
+    <div className="mb-8">
+      <div className="flex items-center gap-3 mb-3">
         {currentStepIndex > 0 && (
-          <button onClick={goBack} className="p-1.5 rounded-lg hover:bg-muted transition-colors text-muted-foreground">
+          <button onClick={goBack} className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors text-muted-foreground">
             <ArrowLeft className="w-5 h-5" />
           </button>
         )}
-        <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+        <div className="w-9 h-9 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-sm font-bold shrink-0">
+          {currentStepIndex + 1}
+        </div>
+        <h3 className="text-xl font-bold text-foreground">{title}</h3>
       </div>
-      <p className="text-sm text-muted-foreground">Изберете най-близкия вариант – ще уточним детайлите на място</p>
+      <p className="text-sm text-muted-foreground italic ml-[4.25rem]">
+        {subtitle || "Изберете най-близкия вариант – ще уточним детайлите на място"}
+      </p>
     </div>
   );
 
   return (
-    <section className="py-16 bg-muted/30" id="calculator">
+    <section className="py-16 bg-gradient-to-b from-secondary to-muted" id="calculator">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-4">
             <Calculator className="w-4 h-4" />
             Онлайн калкулатор
           </div>
@@ -353,25 +364,28 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <Card className="shadow-lg border-border/50">
-            <CardContent className="p-6 md:p-8">
+          <Card className="shadow-xl border-border/40">
+            <CardContent className="p-8 md:p-10">
               {/* Progress */}
               {currentStep !== "result" && (
-                <div className="mb-6">
+                <div className="mb-8">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-muted-foreground">
+                    <span className="text-sm font-semibold text-muted-foreground">
                       Стъпка {currentStepIndex + 1} от {totalSteps}
                     </span>
+                    <span className="text-xs font-semibold bg-accent/10 text-accent px-2.5 py-1 rounded-full">
+                      {Math.round(progressValue)}%
+                    </span>
                   </div>
-                  <Progress value={progressValue} className="h-2" />
+                  <Progress value={progressValue} className="h-3 [&>div]:bg-gradient-to-r [&>div]:from-accent [&>div]:to-accent/70" />
                 </div>
               )}
 
               {/* STEP 1: Roof Type */}
               {currentStep === "roofType" && (
-                <div>
-                  <StepHeader title="Какъв е вашият покрив?" stepNum={1} />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="animate-fade-in">
+                  <StepHeader title="Какъв е вашият покрив?" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {roofTypes.map(rt => (
                       <OptionCard key={rt.id} id={rt.id} label={rt.label} icon={rt.icon} isSelected={roofType === rt.id} onClick={() => selectRoofType(rt.id)} />
                     ))}
@@ -381,9 +395,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
               {/* STEP 2: Material */}
               {currentStep === "material" && (
-                <div>
-                  <StepHeader title="Какъв е материалът?" stepNum={2} />
-                  <div className="grid grid-cols-1 gap-3">
+                <div className="animate-fade-in">
+                  <StepHeader title="Какъв е материалът?" />
+                  <div className="grid grid-cols-1 gap-4">
                     {(materialOptions[roofType] || []).map(m => (
                       <OptionCard key={m.id} id={m.id} label={m.label} isSelected={material === m.id} onClick={() => selectMaterial(m.id)} />
                     ))}
@@ -393,9 +407,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
               {/* STEP 3: Problem */}
               {currentStep === "problem" && (
-                <div>
-                  <StepHeader title="Какъв е проблемът в момента?" stepNum={3} />
-                  <div className="grid grid-cols-1 gap-3">
+                <div className="animate-fade-in">
+                  <StepHeader title="Какъв е проблемът в момента?" />
+                  <div className="grid grid-cols-1 gap-4">
                     {problems.map(p => (
                       <OptionCard key={p.id} id={p.id} label={p.label} icon={p.icon} isSelected={problem === p.id} onClick={() => selectProblem(p.id)} />
                     ))}
@@ -405,9 +419,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
               {/* STEP 4: Scope */}
               {currentStep === "scope" && (
-                <div>
-                  <StepHeader title="Какъв е обхватът?" stepNum={4} />
-                  <div className="grid grid-cols-1 gap-3">
+                <div className="animate-fade-in">
+                  <StepHeader title="Какъв е обхватът?" />
+                  <div className="grid grid-cols-1 gap-4">
                     {(scopeOptions[problem] || []).map(s => (
                       <OptionCard key={s.id} id={s.id} label={s.label} isSelected={scope === s.id} onClick={() => selectScope(s.id)} />
                     ))}
@@ -417,27 +431,33 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
               {/* STEP 5: Size & Access */}
               {currentStep === "size" && (
-                <div>
-                  <StepHeader title="Размер и достъп" stepNum={5} />
-                  <div className="space-y-6">
+                <div className="animate-fade-in">
+                  <StepHeader title="Размер и достъп" subtitle="Приблизителни стойности — ще уточним на място" />
+                  <div className="space-y-8">
                     {/* Area */}
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-3 block">Приблизителна площ на покрива</label>
-                      <div className="flex items-center gap-4 mb-3">
+                      <label className="text-sm font-semibold text-foreground mb-4 block">Приблизителна площ на покрива</label>
+                      <div className="flex items-center gap-4 mb-4">
                         <Slider
                           value={[roofSize]}
                           onValueChange={(v) => setRoofSize(v[0])}
                           min={10} max={500} step={5}
-                          className="flex-1"
+                          className="flex-1 [&>span>span]:bg-accent"
                         />
                         <div className="w-24 text-center">
-                          <span className="text-2xl font-bold text-primary">{roofSize}</span>
+                          <span className="text-2xl font-bold text-accent">{roofSize}</span>
                           <span className="text-muted-foreground ml-1 text-sm">м²</span>
                         </div>
                       </div>
                       <div className="flex gap-2 flex-wrap">
                         {sizePresets.map(p => (
-                          <Button key={p} variant={roofSize === p ? "default" : "outline"} size="sm" onClick={() => setRoofSize(p)}>
+                          <Button
+                            key={p}
+                            variant={roofSize === p ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setRoofSize(p)}
+                            className={roofSize === p ? "bg-accent hover:bg-accent/90 text-accent-foreground" : "hover:border-accent/50"}
+                          >
                             {p} м²
                           </Button>
                         ))}
@@ -446,23 +466,35 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
                     {/* Access */}
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-3 block">Достъп до покрива</label>
+                      <label className="text-sm font-semibold text-foreground mb-4 block">Достъп до покрива</label>
                       <div className="grid grid-cols-3 gap-3">
-                        {accessOptions.map(a => (
-                          <button
-                            key={a.id}
-                            onClick={() => setAccess(a.id)}
-                            className={`px-4 py-3 rounded-xl border-2 transition-all text-sm font-medium ${
-                              access === a.id ? "border-primary bg-primary/5 text-primary" : "border-border hover:border-primary/50 text-foreground"
-                            }`}
-                          >
-                            {a.label}
-                          </button>
-                        ))}
+                        {accessOptions.map(a => {
+                          const AccessIcon = a.icon;
+                          return (
+                            <button
+                              key={a.id}
+                              onClick={() => setAccess(a.id)}
+                              className={`group flex flex-col items-center gap-2 px-4 py-4 rounded-2xl border-2 transition-all duration-200 text-sm font-semibold ${
+                                access === a.id
+                                  ? "border-accent bg-accent/10 text-accent shadow-md shadow-accent/20"
+                                  : "border-border/60 hover:border-accent/50 hover:shadow-md hover:-translate-y-0.5 text-foreground bg-card"
+                              }`}
+                            >
+                              <AccessIcon className={`w-5 h-5 transition-colors duration-200 ${
+                                access === a.id ? "text-accent" : "text-muted-foreground group-hover:text-accent"
+                              }`} />
+                              {a.label}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 
-                    <Button size="lg" className="w-full" onClick={() => { trackEvent("calculator_complete", "calculator"); goNext(); }}>
+                    <Button
+                      size="lg"
+                      className="w-full h-14 text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                      onClick={() => { trackEvent("calculator_complete", "calculator"); goNext(); }}
+                    >
                       Вижте ориентировъчна цена
                     </Button>
                   </div>
@@ -471,38 +503,42 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
               {/* STEP 6: Result */}
               {currentStep === "result" && (
-                <div>
+                <div className="animate-fade-in">
                   {/* Price display */}
                   {priceRange.isInspection ? (
-                    <div className="text-center py-4 mb-4">
-                      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                        <Search className="w-7 h-7 text-primary" />
+                    <div className="text-center py-6 mb-6">
+                      <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                        <Search className="w-8 h-8 text-accent" />
                       </div>
-                      <h3 className="text-2xl font-bold text-foreground mb-1">Безплатен оглед</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <h3 className="text-2xl font-bold text-foreground mb-2">Безплатен оглед</h3>
+                      <p className="text-muted-foreground">
                         Професионален оглед + точна оферта — напълно безплатно.
                       </p>
                     </div>
                   ) : (
-                    <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-5 text-center mb-5">
-                      <p className="text-muted-foreground text-sm mb-1">Ориентировъчна цена</p>
-                      <p className="text-3xl md:text-4xl font-bold text-primary mb-3">
+                    <div className="bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 text-center mb-6">
+                      <p className="text-primary-foreground/80 text-sm mb-2">Ориентировъчна цена</p>
+                      <p className="text-4xl md:text-5xl font-extrabold text-primary-foreground mb-4">
                         {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
                       </p>
-                      <div className="flex flex-wrap justify-center gap-3 text-xs">
-                        <span className="flex items-center gap-1 text-foreground"><Eye className="w-3.5 h-3.5 text-primary" /> Безплатен оглед</span>
-                        <span className="flex items-center gap-1 text-foreground"><Shield className="w-3.5 h-3.5 text-primary" /> Гаранция</span>
-                        <span className="flex items-center gap-1 text-foreground"><Clock className="w-3.5 h-3.5 text-primary" /> Труд + материали</span>
+                      <div className="flex flex-wrap justify-center gap-4 text-xs">
+                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Eye className="w-4 h-4" /> Безплатен оглед</span>
+                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Shield className="w-4 h-4" /> Гаранция</span>
+                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Clock className="w-4 h-4" /> Труд + материали</span>
                       </div>
                     </div>
                   )}
 
                   <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                    <Button size="lg" className="flex-1" onClick={() => { trackEvent("button_click", "calculator_open_form"); setShowForm(true); }}>
+                    <Button
+                      size="lg"
+                      className="flex-1 h-14 text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                      onClick={() => { trackEvent("button_click", "calculator_open_form"); setShowForm(true); }}
+                    >
                       <Send className="w-5 h-5 mr-2" />
                       Заявете безплатен оглед
                     </Button>
-                    <Button asChild variant="outline" size="lg" className="flex-1">
+                    <Button asChild size="lg" className="flex-1 h-14 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200">
                       <a href="tel:0884997659">
                         <Phone className="w-5 h-5 mr-2" />
                         Обадете се сега
@@ -512,7 +548,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                   <p className="text-xs text-muted-foreground text-center mb-4">
                     ⚠️ Ориентировъчна цена. Точната оферта — след безплатен оглед.
                   </p>
-                  <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block">
+                  <button onClick={resetWizard} className="text-sm text-accent hover:underline mx-auto block font-medium">
                     ← Изчисли отново
                   </button>
                 </div>
@@ -604,10 +640,15 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                     </div>
                   )}
                 </div>
-                <Button size="lg" className="w-full" onClick={handleSubmit} disabled={submitting}>
-                  {submitting ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Изпращане...</> : <><Send className="h-4 w-4 mr-2" /> Изпрати запитване</>}
+                <Button
+                  size="lg"
+                  className="w-full h-14 text-lg font-bold bg-accent hover:bg-accent/90 text-accent-foreground hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+                  onClick={handleSubmit}
+                  disabled={submitting}
+                >
+                  {submitting ? <><Loader2 className="h-5 w-5 mr-2 animate-spin" /> Изпращане...</> : <><Send className="h-5 w-5 mr-2" /> Изпрати запитване</>}
                 </Button>
-                <a href="tel:0884997659" className="text-sm text-accent hover:underline flex items-center justify-center gap-1">
+                <a href="tel:0884997659" className="text-sm text-accent hover:underline flex items-center justify-center gap-1 font-medium">
                   <Phone className="w-3.5 h-3.5" /> Или се обадете: 088 499 7659
                 </a>
               </div>
