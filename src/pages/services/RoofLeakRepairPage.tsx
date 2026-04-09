@@ -2,17 +2,16 @@ import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
-import CTASection from "@/components/CTASection";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
+import PriceCalculator from "@/components/PriceCalculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Phone, CheckCircle, AlertTriangle, Droplets, Clock, Shield, Wrench, MapPin, Search, ThermometerSun, Home, Hammer } from "lucide-react";
+import { Phone, CheckCircle, AlertTriangle, Droplets, Clock, Shield, Wrench, MapPin, Search, Eye, Hammer, ClipboardCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
-// Process images - Leak repair
 import leakInspection from "@/assets/process/roof-repair-leak-diagnosis-attic-01.jpg";
 import emergencyTarp from "@/assets/process/roof-repair-structural-damage-01.jpg";
 import thermalInspection from "@/assets/process/thermal-inspection.jpg";
@@ -86,6 +85,27 @@ const RoofLeakRepairPage = () => {
     answer: t(`pages.leakRepair.faqs.${i}.a`),
   }));
 
+  const consequences = [
+    { title: "Разрушаване на мазилка и бои", description: "Водата причинява подуване, напукване и олющване на стени и тавани." },
+    { title: "Мухъл и здравословни рискове", description: "Влажността създава идеални условия за мухъл, опасен за дихателната система." },
+    { title: "Повреда на електрическите инсталации", description: "Водата в контакт с кабели създава реален риск от късо съединение и пожар." },
+    { title: "Скъпи конструктивни ремонти", description: "Гнилите греди и повредената изолация изискват многократно по-скъп ремонт." },
+  ];
+
+  const solutionSteps = [
+    { title: "Спешна реакция", description: "Реагираме бързо при аварийни течове — временна защита до началото на ремонта." },
+    { title: "Термална диагностика", description: "Локализираме точния източник на теча с визуална и термична инспекция." },
+    { title: "Трайно отстраняване", description: "Извършваме ремонт с качествени материали, който решава проблема дълготрайно." },
+    { title: "Гаранция и проверка", description: "Тестваме ремонта и предоставяме писмена гаранция за извършената работа." },
+  ];
+
+  const quickProcess = [
+    { icon: Phone, title: "Свързване", description: "Обадете се или изпратете запитване" },
+    { icon: Search, title: "Оглед", description: "Безплатен оглед на място" },
+    { icon: ClipboardCheck, title: "Оферта", description: "Детайлна оферта без задължение" },
+    { icon: Hammer, title: "Изпълнение", description: "Качествен ремонт с гаранция" },
+  ];
+
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -151,7 +171,7 @@ const RoofLeakRepairPage = () => {
       <Header />
       
       <main className="pt-20">
-        {/* Hero Section */}
+        {/* 1. HERO */}
         <section className="relative bg-primary text-primary-foreground py-16 md:py-24 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
           <div className="container mx-auto px-4 relative z-10">
@@ -174,66 +194,45 @@ const RoofLeakRepairPage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                  <a href="tel:0884997659">
-                    <Phone className="w-5 h-5 mr-2" />
-                    {t('pages.leakRepair.hero.callBtn')}
-                  </a>
+                  <Link to={getPath('contact')}>
+                    <Eye className="w-5 h-5 mr-2" />
+                    Заяви безплатен оглед
+                  </Link>
                 </Button>
                 <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                  <Link to={getPath('contact')}>{t('pages.leakRepair.hero.inspectionBtn')}</Link>
+                  <a href="tel:0884997659">
+                    <Phone className="w-5 h-5 mr-2" />
+                    Обади се сега
+                  </a>
                 </Button>
               </div>
               
-              <div className="flex flex-wrap gap-6 text-sm">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-accent" />
-                  <span>{t('pages.leakRepair.hero.responseTime')}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-accent" />
-                  <span>{t('pages.leakRepair.hero.warranty')}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span>{t('pages.leakRepair.hero.freeDiag')}</span>
-                </div>
+              <div className="flex flex-wrap gap-4 text-sm">
+                {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
+                  <div key={item} className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-1.5 rounded-full">
+                    <CheckCircle className="w-4 h-4 text-accent" />
+                    <span className="text-primary-foreground/90">{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Introduction */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{t('pages.leakRepair.intro.title')}</h2>
-              <div className="prose prose-lg text-muted-foreground space-y-4">
-                <p>{t('pages.leakRepair.intro.p1')}</p>
-                <p>{t('pages.leakRepair.intro.p2')}</p>
-                <p>{t('pages.leakRepair.intro.p3')}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Signs of Leak */}
-        <section className="py-16 bg-secondary">
+        {/* 2. PROBLEM */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('pages.leakRepair.signsSection.title')}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t('pages.leakRepair.signsSection.subtitle')}</p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {signs.map((sign, index) => (
-                <Card key={index} className="bg-background">
+                <Card key={index} className="bg-card border-border">
                   <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <Droplets className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-2">{sign.title}</h3>
-                        <p className="text-muted-foreground text-sm">{sign.description}</p>
-                      </div>
-                    </div>
+                    <Droplets className="w-8 h-8 text-accent mb-3" />
+                    <h3 className="font-semibold text-foreground mb-2">{sign.title}</h3>
+                    <p className="text-muted-foreground text-sm">{sign.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -241,8 +240,96 @@ const RoofLeakRepairPage = () => {
           </div>
         </section>
 
-        {/* Causes and Solutions */}
-        <section className="py-16">
+        {/* 3. CONSEQUENCES */}
+        <section className="py-16 bg-destructive/5 border-y border-destructive/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                Какво се случва, ако проблемът се отложи
+              </h2>
+              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+                Течът няма да спре сам — с времето последствията се увеличават
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {consequences.map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-destructive/20">
+                    <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. SOLUTION */}
+        <section className="py-16 bg-primary/5 border-b border-primary/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Как решаваме проблема</h2>
+              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Бърза реакция и трайно решение</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {solutionSteps.map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-primary/20">
+                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. PROCESS (compact) */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Как работим</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">От обаждането до гаранцията — прозрачен процес</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {quickProcess.map((step, index) => (
+                <div key={index} className="text-center">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center mx-auto mb-4">
+                    <step.icon className="w-6 h-6" />
+                  </div>
+                  <div className="text-sm font-bold text-muted-foreground mb-1">Стъпка {index + 1}</div>
+                  <h3 className="font-semibold text-foreground mb-1">{step.title}</h3>
+                  <p className="text-muted-foreground text-sm">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 6. MID CTA */}
+        <section className="py-12 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Имате теч? Не чакайте!</h2>
+            <p className="text-primary-foreground/90 mb-6 max-w-xl mx-auto">Колкото по-бързо реагирате, толкова по-малки ще бъдат щетите.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                <Link to={getPath('contact')}>Заяви безплатен оглед</Link>
+              </Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
+                <a href="tel:0884997659">
+                  <Phone className="w-5 h-5 mr-2" />
+                  088 499 7659
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* 7. CALCULATOR */}
+        <PriceCalculator />
+
+        {/* 8. SERVICE DETAILS - Causes & Solutions */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('pages.leakRepair.causesSection.title')}</h2>
@@ -250,7 +337,7 @@ const RoofLeakRepairPage = () => {
             </div>
             <div className="space-y-8 max-w-4xl mx-auto">
               {causes.map((cause, index) => (
-                <div key={index} className="bg-secondary rounded-lg p-6">
+                <div key={index} className="bg-muted/30 rounded-lg p-6">
                   <h3 className="text-xl font-semibold text-foreground mb-3 flex items-center gap-3">
                     <AlertTriangle className="w-6 h-6 text-accent" />
                     {cause.title}
@@ -268,14 +355,14 @@ const RoofLeakRepairPage = () => {
           </div>
         </section>
 
-        {/* Process */}
-        <section className="py-16 bg-secondary">
+        {/* Detailed Process */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('pages.leakRepair.processSection.title')}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t('pages.leakRepair.processSection.subtitle')}</p>
             </div>
-            <div className="space-y-12">
+            <div className="space-y-12 max-w-5xl mx-auto">
               {process.map((item, index) => (
                 <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 items-center`}>
                   <div className="lg:w-1/2">
@@ -294,13 +381,13 @@ const RoofLeakRepairPage = () => {
           </div>
         </section>
 
-        {/* Services */}
-        <section className="py-16">
+        {/* Services List */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 text-center">{t('pages.leakRepair.servicesSection.title')}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
               {services.map((service, index) => (
-                <div key={index} className="flex items-center gap-3 bg-secondary p-4 rounded-lg">
+                <div key={index} className="flex items-center gap-3 bg-muted/30 p-4 rounded-lg">
                   <CheckCircle className="w-6 h-6 text-primary flex-shrink-0" />
                   <span className="text-foreground">{service}</span>
                 </div>
@@ -309,33 +396,15 @@ const RoofLeakRepairPage = () => {
           </div>
         </section>
 
-        {/* Benefits */}
-        <section className="py-16 bg-secondary">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">{t('pages.leakRepair.benefitsSection.title')}</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-              {benefits.map((benefit, index) => (
-                <Card key={index} className="bg-background">
-                  <CardContent className="p-6 text-center">
-                    <benefit.icon className="w-12 h-12 text-primary mx-auto mb-4" />
-                    <h3 className="font-semibold text-foreground mb-2">{benefit.title}</h3>
-                    <p className="text-muted-foreground text-sm">{benefit.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Pricing */}
-        <section className="py-16">
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('pages.leakRepair.pricingSection.title')}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t('pages.leakRepair.pricingSection.subtitle')}</p>
             </div>
             <div className="max-w-3xl mx-auto">
-              <div className="bg-secondary rounded-lg overflow-hidden">
+              <div className="bg-card rounded-lg overflow-hidden border border-border">
                 {priceRanges.map((item, index) => (
                   <div key={index} className={`flex flex-col md:flex-row md:items-center justify-between p-4 ${index !== priceRanges.length - 1 ? 'border-b border-border' : ''}`}>
                     <div className="mb-2 md:mb-0">
@@ -351,8 +420,34 @@ const RoofLeakRepairPage = () => {
           </div>
         </section>
 
+        {/* 9. TRUST */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">{t('pages.leakRepair.benefitsSection.title')}</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
+              {benefits.map((benefit, index) => (
+                <Card key={index} className="bg-card border-border">
+                  <CardContent className="p-6 text-center">
+                    <benefit.icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <h3 className="font-semibold text-foreground mb-2">{benefit.title}</h3>
+                    <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+              {["15+ години опит", "Работа по договор", "Реални обекти", "Член на КСБ"].map((item) => (
+                <div key={item} className="flex items-center gap-2 justify-center p-3 bg-muted/30 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-foreground text-sm font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Service Areas */}
-        <section className="py-16 bg-secondary">
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('pages.leakRepair.areasSection.title')}</h2>
@@ -388,8 +483,8 @@ const RoofLeakRepairPage = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-16">
+        {/* FAQ */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('pages.leakRepair.faqSection.title')}</h2>
@@ -397,7 +492,7 @@ const RoofLeakRepairPage = () => {
             </div>
             <div className="max-w-3xl mx-auto space-y-6">
               {faqs.map((faq, index) => (
-                <div key={index} className="bg-secondary rounded-lg p-6">
+                <div key={index} className="bg-muted/30 rounded-lg p-6">
                   <h3 className="font-semibold text-foreground mb-3 text-lg">{faq.question}</h3>
                   <p className="text-muted-foreground">{faq.answer}</p>
                 </div>
@@ -406,7 +501,7 @@ const RoofLeakRepairPage = () => {
           </div>
         </section>
 
-        {/* Final CTA */}
+        {/* 11. FINAL CTA */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <AlertTriangle className="w-16 h-16 mx-auto mb-6 text-accent" />
