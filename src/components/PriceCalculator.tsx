@@ -117,7 +117,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   // Inline form state
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "", address: "", description: "" });
+  const [formData, setFormData] = useState({ firstName: "", lastName: "", phone: "", email: "", address: "", description: "" });
   const [files, setFiles] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
