@@ -22,11 +22,17 @@ const serviceKeys: { image: string; key: string; routeKey: RouteKey; price: stri
   { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "9 €/м²" },
   { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "68 €/м²" },
   { image: tileReplacementImg, key: "tileReplacement", routeKey: "tileReplacement", price: "18 €/м²" },
-  { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair", price: "22 €/м²" },
+  { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair", price: "22 €" },
   { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
   { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },
   { image: maintenanceImg, key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
 ];
+
+const highlightPrice = (price: string) => {
+  return price.split(/(\d+)/).map((part, i) =>
+    /\d+/.test(part) ? <span key={i} className="text-green-600">{part}</span> : part
+  );
+};
 
 const Services = () => {
   const { t } = useTranslation();
@@ -111,7 +117,7 @@ const Services = () => {
                               onClick={(e) => e.stopPropagation()}
                               className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-extrabold text-[0.9rem] px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
                             >
-                              {t('services.startingFrom')} {service.price}
+                              {t('services.startingFrom')} {highlightPrice(service.price)}
                             </Link>
                             <p className="text-muted-foreground text-xs mt-1 italic">
                               {t('services.priceNote')}

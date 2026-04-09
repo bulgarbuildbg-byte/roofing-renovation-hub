@@ -8,15 +8,21 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Phone, ArrowRight, CheckCircle } from "lucide-react";
 
+const highlightPrice = (price: string) => {
+  return price.split(/(\d+)/).map((part, i) =>
+    /\d+/.test(part) ? <span key={i} className="text-green-600">{part}</span> : part
+  );
+};
+
 const pricingServices = [
-  { key: "roofRepair", price: "€15 / m²" },
-  { key: "waterproofing", price: "€10 / m²" },
-  { key: "newRoof", price: "€32 / m²" },
-  { key: "metalRoof", price: "€9 / m²" },
-  { key: "leakRepair", price: "€12 / m²" },
-  { key: "tileReplacement", price: "€14 / m²" },
-  { key: "flatRoof", price: "€11 / m²" },
-  { key: "maintenance", price: "€5 / m²" },
+  { key: "roofRepair", price: "19 €/м²" },
+  { key: "waterproofing", price: "9 €/м²" },
+  { key: "newRoof", price: "68 €/м²" },
+  { key: "metalRoof", price: "18 €/м²" },
+  { key: "leakRepair", price: "22 €" },
+  { key: "tileReplacement", price: "18 €/м²" },
+  { key: "flatRoof", price: "9 €/м²" },
+  { key: "maintenance", price: "69 €/месец" },
 ];
 
 const PricingPage = () => {
@@ -88,7 +94,7 @@ const PricingPage = () => {
                     {t(`services.${svc.key}.title`)}
                   </h3>
                   <div className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-bold text-xl px-4 py-2 rounded-full mb-3">
-                    {t('services.startingFrom')} {svc.price}
+                    {t('services.startingFrom')} {highlightPrice(svc.price)}
                   </div>
                   <p className="text-muted-foreground text-sm">
                     {t(`pricing.serviceDesc.${svc.key}`)}
