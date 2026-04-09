@@ -1,10 +1,15 @@
 import { useState, useMemo, useCallback } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
-import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, PlusCircle, Search, Hammer, CheckCircle } from "lucide-react";
-import { trackEvent } from "@/lib/analytics";
+import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, PlusCircle, Search, Hammer, CheckCircle, Upload, X, Loader2, Send } from "lucide-react";
+import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface PriceCalculatorProps {
   variant?: "full" | "compact";
@@ -97,6 +102,7 @@ const priceMatrix: Record<string, Record<string, { min: number; max: number }>> 
 type WizardStep = "roofType" | "material" | "problem" | "scope" | "size" | "result";
 
 const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState<WizardStep>("roofType");
   const [roofType, setRoofType] = useState("");
   const [material, setMaterial] = useState("");
@@ -104,6 +110,13 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   const [scope, setScope] = useState("");
   const [roofSize, setRoofSize] = useState(100);
   const [access, setAccess] = useState("easy");
+
+  // Inline form state
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({ name: "", phone: "", address: "", description: "" });
+  const [files, setFiles] = useState<File[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   // Determine which steps are active
   const steps = useMemo((): WizardStep[] => {
@@ -179,8 +192,82 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     };
   }, [problem, scope, roofType, roofSize, access]);
 
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  const problemToServiceType = (p: string): string => {
+    const map: Record<string, string> = { leak: "leak_repair", repair: "repair", new_roof: "new_construction", inspection: "maintenance", unsure: "other" };
+    return map[p] || "other";
+  };
+
+  const materialToEnum = (m: string): string | null => {
+    const map: Record<string, string> = { tiles: "tiles", bitumen_shingles: "bitumen", bitumen_membrane: "bitumen", liquid: "pvc_membrane", other: "other", unsure: "other" };
+    return map[m] || null;
+  };
+
+  const buildDescription = () => {
+    const parts: string[] = [];
+    const rt = roofTypes.find(r => r.id === roofType);
+    if (rt) parts.push(`Тип покрив: ${rt.label}`);
+    const mat = materialOptions[roofType]?.find(m => m.id === material);
+    if (mat) parts.push(`Материал: ${mat.label}`);
+    const prob = problems.find(p => p.id === problem);
+    if (prob) parts.push(`Проблем: ${prob.label}`);
+    const sc = scopeOptions[problem]?.find(s => s.id === scope);
+    if (sc) parts.push(`Обхват: ${sc.label}`);
+    parts.push(`Площ: ${roofSize} м²`);
+    const acc = accessOptions.find(a => a.id === access);
+    if (acc) parts.push(`Достъп: ${acc.label}`);
+    if (!priceRange.isInspection) parts.push(`Ориентировъчна цена: ${priceRange.min.toLocaleString()} – ${priceRange.max.toLocaleString()} €`);
+    if (formData.description) parts.push(`Описание: ${formData.description}`);
+    return parts.join("\n");
+  };
+
+  const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setFiles(prev => [...prev, ...Array.from(e.target.files!)]);
+  };
+
+  const removeFile = (i: number) => setFiles(files.filter((_, idx) => idx !== i));
+
+  const handleSubmit = async () => {
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      toast({ title: "Моля попълнете име и телефон", variant: "destructive" });
+      return;
+    }
+    setSubmitting(true);
+
+    const { data: inquiry, error } = await supabase
+      .from("inquiries")
+      .insert({
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        email: formData.phone.trim() + "@calculator.local",
+        address: formData.address.trim() || null,
+        service_type: problemToServiceType(problem) as any,
+        area_sqm: roofSize,
+        preferred_material: materialToEnum(material) as any || null,
+        description: buildDescription(),
+        session_id: getSessionId(),
+        referrer_source: getFirstReferrerSource(),
+      } as any)
+      .select()
+      .single();
+
+    if (error || !inquiry) {
+      toast({ title: "Грешка", description: "Моля, опитайте отново.", variant: "destructive" });
+      setSubmitting(false);
+      return;
+    }
+
+    for (const file of files) {
+      const path = `${inquiry.id}/${Date.now()}_${file.name}`;
+      const { data: uploaded } = await supabase.storage.from("inquiry-attachments").upload(path, file);
+      if (uploaded) {
+        const { data: urlData } = supabase.storage.from("inquiry-attachments").getPublicUrl(uploaded.path);
+        await supabase.from("inquiry_files").insert({ inquiry_id: inquiry.id, file_url: urlData.publicUrl, file_name: file.name, file_type: file.type });
+      }
+    }
+
+    trackEvent("button_click", "calculator_inquiry_submit");
+    setSubmitted(true);
+    setSubmitting(false);
   };
 
   const resetWizard = () => {
@@ -191,6 +278,10 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setScope("");
     setRoofSize(100);
     setAccess("easy");
+    setShowForm(false);
+    setFormData({ name: "", phone: "", address: "", description: "" });
+    setFiles([]);
+    setSubmitted(false);
   };
 
   const OptionCard = ({ id, label, icon: Icon, isSelected, onClick }: {
@@ -357,60 +448,117 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
               {/* STEP 6: Result */}
               {currentStep === "result" && (
                 <div>
-                  {priceRange.isInspection ? (
+                  {submitted ? (
                     <div className="text-center py-6">
-                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                        <Search className="w-8 h-8 text-primary" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-foreground mb-2">Безплатен оглед</h3>
-                      <p className="text-muted-foreground mb-6">
-                        Ще направим професионален оглед на вашия покрив и ще ви предоставим точна оферта — напълно безплатно.
-                      </p>
+                      <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                      <h3 className="text-xl font-bold text-foreground mb-2">Заявката е изпратена!</h3>
+                      <p className="text-muted-foreground mb-4">Ще се свържем с вас в рамките на 24 часа.</p>
+                      <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
+                        <Phone className="w-5 h-5" /> 088 499 7659
+                      </a>
+                      <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block mt-6">
+                        ← Изчисли отново
+                      </button>
                     </div>
                   ) : (
-                    <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-6 md:p-8 text-center mb-6">
-                      <p className="text-muted-foreground mb-2">Ориентировъчна цена</p>
-                      <p className="text-4xl md:text-5xl font-bold text-primary mb-4">
-                        {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
-                      </p>
-                      <div className="flex flex-wrap justify-center gap-4 text-sm">
-                        <span className="flex items-center gap-1.5 text-foreground">
-                          <Eye className="w-4 h-4 text-primary" />
-                          Безплатен оглед
-                        </span>
-                        <span className="flex items-center gap-1.5 text-foreground">
-                          <Shield className="w-4 h-4 text-primary" />
-                          Гаранция за изпълнение
-                        </span>
-                        <span className="flex items-center gap-1.5 text-foreground">
-                          <Clock className="w-4 h-4 text-primary" />
-                          Включва труд и материали
-                        </span>
-                      </div>
-                    </div>
+                    <>
+                      {/* Price display */}
+                      {priceRange.isInspection ? (
+                        <div className="text-center py-4 mb-4">
+                          <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                            <Search className="w-7 h-7 text-primary" />
+                          </div>
+                          <h3 className="text-2xl font-bold text-foreground mb-1">Безплатен оглед</h3>
+                          <p className="text-sm text-muted-foreground">
+                            Професионален оглед + точна оферта — напълно безплатно.
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-5 text-center mb-5">
+                          <p className="text-muted-foreground text-sm mb-1">Ориентировъчна цена</p>
+                          <p className="text-3xl md:text-4xl font-bold text-primary mb-3">
+                            {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
+                          </p>
+                          <div className="flex flex-wrap justify-center gap-3 text-xs">
+                            <span className="flex items-center gap-1 text-foreground"><Eye className="w-3.5 h-3.5 text-primary" /> Безплатен оглед</span>
+                            <span className="flex items-center gap-1 text-foreground"><Shield className="w-3.5 h-3.5 text-primary" /> Гаранция</span>
+                            <span className="flex items-center gap-1 text-foreground"><Clock className="w-3.5 h-3.5 text-primary" /> Труд + материали</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {!showForm ? (
+                        <>
+                          <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                            <Button size="lg" className="flex-1" onClick={() => { trackEvent("button_click", "calculator_open_form"); setShowForm(true); }}>
+                              <Send className="w-5 h-5 mr-2" />
+                              Заявете безплатен оглед
+                            </Button>
+                            <Button asChild variant="outline" size="lg" className="flex-1">
+                              <a href="tel:0884997659">
+                                <Phone className="w-5 h-5 mr-2" />
+                                Обадете се сега
+                              </a>
+                            </Button>
+                          </div>
+                          <p className="text-xs text-muted-foreground text-center mb-4">
+                            ⚠️ Ориентировъчна цена. Точната оферта — след безплатен оглед.
+                          </p>
+                          <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block">
+                            ← Изчисли отново
+                          </button>
+                        </>
+                      ) : (
+                        <div className="space-y-4 animate-in fade-in-0 slide-in-from-bottom-4 duration-300">
+                          <h4 className="text-lg font-semibold text-foreground">Изпратете запитване</h4>
+                          <p className="text-sm text-muted-foreground">Данните от калкулатора се прикачват автоматично.</p>
+                          <div>
+                            <Label>Вашето име *</Label>
+                            <Input value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Иван Иванов" className="h-12" />
+                          </div>
+                          <div>
+                            <Label>Телефон *</Label>
+                            <Input type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="088 123 4567" className="h-12" />
+                          </div>
+                          <div>
+                            <Label>Адрес / Град</Label>
+                            <Input value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} placeholder="гр. Варна, ул. Примерна 10" className="h-12" />
+                          </div>
+                          <div>
+                            <Label>Кратко описание (по желание)</Label>
+                            <Textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} placeholder="Опишете накратко проблема..." rows={3} />
+                          </div>
+                          <div>
+                            <Label>Снимки / файлове</Label>
+                            <label className="flex flex-col items-center gap-2 p-4 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-muted transition-colors">
+                              <Upload className="h-6 w-6 text-muted-foreground" />
+                              <span className="text-sm text-muted-foreground">Натиснете за качване</span>
+                              <input type="file" multiple accept="image/*,.pdf,.doc,.docx" onChange={handleFiles} className="hidden" />
+                            </label>
+                            {files.length > 0 && (
+                              <div className="mt-2 space-y-1">
+                                {files.map((f, i) => (
+                                  <div key={i} className="flex items-center justify-between text-sm p-2 bg-muted rounded">
+                                    <span className="truncate">{f.name}</span>
+                                    <button onClick={() => removeFile(i)}><X className="h-4 w-4 text-muted-foreground" /></button>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                          <Button size="lg" className="w-full" onClick={handleSubmit} disabled={submitting}>
+                            {submitting ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Изпращане...</> : <><Send className="h-4 w-4 mr-2" /> Изпрати запитване</>}
+                          </Button>
+                          <div className="flex items-center justify-between">
+                            <button onClick={() => setShowForm(false)} className="text-sm text-muted-foreground hover:underline">← Назад</button>
+                            <a href="tel:0884997659" className="text-sm text-accent hover:underline flex items-center gap-1">
+                              <Phone className="w-3.5 h-3.5" /> 088 499 7659
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
-
-                  {/* CTA */}
-                  <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                    <Button asChild size="lg" className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground">
-                      <a href="tel:0884997659">
-                        <Phone className="w-5 h-5 mr-2" />
-                        Обадете се сега
-                      </a>
-                    </Button>
-                    <Button variant="outline" size="lg" className="flex-1" onClick={() => { trackEvent("button_click", "calculator_cta"); scrollToContact(); }}>
-                      <Eye className="w-5 h-5 mr-2" />
-                      Заявете безплатен оглед
-                    </Button>
-                  </div>
-
-                  <p className="text-xs text-muted-foreground text-center mb-4">
-                    ⚠️ Това е ориентировъчна цена. Точната оферта се изготвя след безплатен оглед на място.
-                  </p>
-
-                  <button onClick={resetWizard} className="text-sm text-primary hover:underline mx-auto block">
-                    ← Изчисли отново
-                  </button>
                 </div>
               )}
             </CardContent>
