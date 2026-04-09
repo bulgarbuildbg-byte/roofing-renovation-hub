@@ -7,22 +7,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Phone, ArrowRight, CheckCircle } from "lucide-react";
+import type { RouteKey } from "@/i18n/routes";
 
-const highlightPrice = (price: string) => {
-  return price.split(/(\d+)/).map((part, i) =>
-    /\d+/.test(part) ? <span key={i} className="text-green-600">{part}</span> : part
-  );
-};
-
-const pricingServices = [
-  { key: "roofRepair", price: "19 €/м²" },
-  { key: "waterproofing", price: "9 €/м²" },
-  { key: "newRoof", price: "68 €/м²" },
-  { key: "metalRoof", price: "18 €/м²" },
-  { key: "leakRepair", price: "22 €" },
-  { key: "tileReplacement", price: "18 €/м²" },
-  { key: "flatRoof", price: "9 €/м²" },
-  { key: "maintenance", price: "69 €/месец" },
+const pricingServices: { key: string; routeKey: RouteKey; price: string }[] = [
+  { key: "roofRepair", routeKey: "roofRepair", price: "19 €/м²" },
+  { key: "waterproofing", routeKey: "waterproofing", price: "9 €/м²" },
+  { key: "newRoof", routeKey: "newRoof", price: "68 €/м²" },
+  { key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },
+  { key: "leakRepair", routeKey: "leakRepair", price: "22 €" },
+  { key: "tileReplacement", routeKey: "tileReplacement", price: "18 €/м²" },
+  { key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
+  { key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
 ];
 
 const PricingPage = () => {
@@ -88,19 +83,21 @@ const PricingPage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pricingServices.map((svc) => (
-              <Card key={svc.key} className="bg-background border-border hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-lg font-bold text-foreground mb-3">
-                    {t(`services.${svc.key}.title`)}
-                  </h3>
-                  <div className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-bold text-xl px-4 py-2 rounded-full mb-3">
-                    {t('services.startingFrom')} {highlightPrice(svc.price)}
-                  </div>
-                  <p className="text-muted-foreground text-sm">
-                    {t(`pricing.serviceDesc.${svc.key}`)}
-                  </p>
-                </CardContent>
-              </Card>
+              <Link key={svc.key} to={getPath(svc.routeKey)} className="block group">
+                <Card className="bg-background border-border hover:shadow-lg transition-shadow h-full">
+                  <CardContent className="p-6 text-center">
+                    <h3 className="text-lg font-bold text-foreground mb-3">
+                      {t(`services.${svc.key}.title`)}
+                    </h3>
+                    <div className="inline-flex items-center bg-green-50 text-green-700 border border-green-200 font-extrabold text-xl px-4 py-2 rounded-full mb-3 group-hover:bg-green-100 transition-colors">
+                      {t('services.startingFrom')} {svc.price}
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      {t(`pricing.serviceDesc.${svc.key}`)}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
           <p className="text-center text-muted-foreground text-sm italic mt-6">
