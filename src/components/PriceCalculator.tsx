@@ -303,7 +303,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setRoofSize(100);
     setAccess("easy");
     setShowForm(false);
-    setFormData({ name: "", phone: "", address: "", description: "" });
+    setFormData({ firstName: "", lastName: "", phone: "", email: "", address: "", description: "" });
     setFiles([]);
     setSubmitted(false);
   };
