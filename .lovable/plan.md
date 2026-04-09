@@ -1,28 +1,66 @@
 
 
-## Services Carousel — Center Focus + Soft Edge Fade
+## Add Starting Prices to Service Cards
 
 ### Summary
-Add gradient fade overlays on left/right edges of the carousel and ensure the initial scroll position centers the first 4 priority services on load.
+Add a pricing line and disclaimer note to each service card in `src/components/Services.tsx`. No layout, design, or structural changes — only insert two new text elements per card.
 
-### Changes — `src/components/Services.tsx`
+### What changes
 
-**1. Ensure 4 priority services are centered on load**
-- Embla with `loop: true` and `align: "center"` already centers. With 8 slides showing 4 at XL, the first 4 are naturally visible. No `startIndex` change needed — current config is correct.
+**1. Add a `price` field to the `serviceKeys` array**
 
-**2. Add soft gradient fade on left & right edges**
-- Add two `pointer-events-none` overlay divs inside the `relative` carousel wrapper:
-  - Left: `absolute left-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-r from-secondary to-transparent z-[5]`
-  - Right: `absolute right-0 top-0 bottom-0 w-16 md:w-24 bg-gradient-to-l from-secondary to-transparent z-[5]`
-- The gradient color matches `bg-secondary` (the section background) so it fades seamlessly.
-- `z-[5]` keeps them above cards but below the navigation arrows (arrows get `z-10`).
+Each service gets a price string (only 4 services have prices per the request; the remaining 4 — leak repair, tile replacement, flat roof, maintenance — were not listed, so they won't show a price line):
 
-**3. Move arrow buttons outside the fade area**
-- Increase outer padding from `px-10 md:px-14` to `px-12 md:px-16` so arrows sit cleanly outside the fade zone.
+| Service | Price |
+|---|---|
+| roofRepair | €13 / m² |
+| waterproofing | €8 / m² |
+| newRoof | €28 / m² |
+| metalRoof | €6 / m² |
+| leakRepair | *(none)* |
+| tileReplacement | *(none)* |
+| flatRoof | *(none)* |
+| maintenance | *(none)* |
+
+**2. Add i18n keys to all 10 locale files**
+
+New keys under `services`:
+- `startingFrom`: "Starting from" (translated per locale, e.g. BG: "От")
+- `priceNote`: "Final price is determined after on-site inspection." (translated per locale)
+
+**3. Insert pricing line in card — between title (h3) and problem text**
+
+```
+<h3>Roof Repair</h3>
++ <p className="text-primary font-bold text-sm mb-2">От €13 / m²</p>   ← NEW
+<p className="text-accent ...">problem text</p>
+```
+
+Only rendered when the service has a `price` value.
+
+**4. Insert disclaimer note — below the benefits line, above the button**
+
+```
+<p>✓ benefits</p>
++ <p className="text-muted-foreground text-xs mb-3 italic">priceNote</p>  ← NEW
+<Button>Free Quote</Button>
+```
+
+Only rendered when the service has a `price` value.
 
 ### Files
 
 | File | Change |
 |---|---|
-| `src/components/Services.tsx` | Add 2 gradient overlay divs + adjust padding |
+| `src/components/Services.tsx` | Add `price` to serviceKeys, render price line + note |
+| `src/i18n/locales/bg.ts` | Add `startingFrom` + `priceNote` keys |
+| `src/i18n/locales/en.ts` | Same |
+| `src/i18n/locales/de.ts` | Same |
+| `src/i18n/locales/fr.ts` | Same |
+| `src/i18n/locales/nl.ts` | Same |
+| `src/i18n/locales/sv.ts` | Same |
+| `src/i18n/locales/no.ts` | Same |
+| `src/i18n/locales/fi.ts` | Same |
+| `src/i18n/locales/ru.ts` | Same |
+| `src/i18n/locales/ua.ts` | Same |
 
