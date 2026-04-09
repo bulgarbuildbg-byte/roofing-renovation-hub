@@ -83,19 +83,21 @@ const PricingPage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {pricingServices.map((svc) => (
-              <Card key={svc.key} className="bg-background border-border hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-lg font-bold text-foreground mb-3">
-                    {t(`services.${svc.key}.title`)}
-                  </h3>
-                  <div className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-bold text-xl px-4 py-2 rounded-full mb-3">
-                    {t('services.startingFrom')} {highlightPrice(svc.price)}
-                  </div>
-                  <p className="text-muted-foreground text-sm">
-                    {t(`pricing.serviceDesc.${svc.key}`)}
-                  </p>
-                </CardContent>
-              </Card>
+              <Link key={svc.key} to={getPath(svc.routeKey)} className="block group">
+                <Card className="bg-background border-border hover:shadow-lg transition-shadow h-full">
+                  <CardContent className="p-6 text-center">
+                    <h3 className="text-lg font-bold text-foreground mb-3">
+                      {t(`services.${svc.key}.title`)}
+                    </h3>
+                    <div className="inline-flex items-center bg-green-50 text-green-700 border border-green-200 font-extrabold text-xl px-4 py-2 rounded-full mb-3 group-hover:bg-green-100 transition-colors">
+                      {t('services.startingFrom')} {svc.price}
+                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      {t(`pricing.serviceDesc.${svc.key}`)}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
           <p className="text-center text-muted-foreground text-sm italic mt-6">
