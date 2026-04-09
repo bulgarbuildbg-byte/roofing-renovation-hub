@@ -18,13 +18,13 @@ import maintenanceImg from "@/assets/services/maintenance.jpg";
 import type { RouteKey } from "@/i18n/routes";
 
 const serviceKeys: { image: string; key: string; routeKey: RouteKey; price?: string }[] = [
-  { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair", price: "€13 / m²" },
-  { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "€8 / m²" },
-  { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "€28 / m²" },
+  { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair", price: "€15 / m²" },
+  { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "€10 / m²" },
+  { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "€32 / m²" },
   { image: tileReplacementImg, key: "tileReplacement", routeKey: "tileReplacement" },
   { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair" },
   { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof" },
-  { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "€6 / m²" },
+  { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "€9 / m²" },
   { image: maintenanceImg, key: "maintenance", routeKey: "maintenance" },
 ];
 
@@ -105,9 +105,18 @@ const Services = () => {
                           {t(`services.${service.key}.title`)}
                         </h3>
                         {service.price && (
-                          <p className="text-primary font-bold text-sm mb-2">
-                            {t('services.startingFrom')} {service.price}
-                          </p>
+                          <div className="mb-2">
+                            <Link
+                              to={getPath('pricing' as RouteKey)}
+                              onClick={(e) => e.stopPropagation()}
+                              className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-bold text-sm px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
+                            >
+                              {t('services.startingFrom')} {service.price}
+                            </Link>
+                            <p className="text-muted-foreground text-xs mt-1 italic">
+                              {t('services.priceNote')}
+                            </p>
+                          </div>
                         )}
                         <p className="text-accent font-medium text-sm mb-3">
                           {t(`services.${service.key}.problem`)}
@@ -123,11 +132,6 @@ const Services = () => {
                         <p className="text-foreground text-sm font-medium mb-3 mt-auto">
                           ✓ {t(`services.${service.key}.benefits`)}
                         </p>
-                        {service.price && (
-                          <p className="text-muted-foreground text-xs mb-3 italic">
-                            {t('services.priceNote')}
-                          </p>
-                        )}
                         <Link
                           to={getPath('contact')}
                           className="block"

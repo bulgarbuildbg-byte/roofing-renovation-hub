@@ -22,6 +22,7 @@ import BlogArticle from "@/pages/blog/BlogArticle";
 import CalculatorPage from "@/pages/CalculatorPage";
 import InspectionPage from "@/pages/InspectionPage";
 import HowWeWorkPage from "@/pages/HowWeWorkPage";
+import PricingPage from "@/pages/PricingPage";
 import NotFound from "@/pages/NotFound";
 
 const PAGE_MAP: Record<RouteKey, React.ComponentType> = {
@@ -45,6 +46,7 @@ const PAGE_MAP: Record<RouteKey, React.ComponentType> = {
   calculator: CalculatorPage,
   inspection: InspectionPage,
   howWeWork: HowWeWorkPage,
+  pricing: PricingPage,
 };
 
 const LocalizedPageRouter = () => {

@@ -3,7 +3,7 @@ import { SupportedLanguage } from './config';
 export type RouteKey =
   | 'home' | 'services' | 'roofRepair' | 'leakRepair' | 'waterproofing' | 'waterproofingVarna'
   | 'newRoof' | 'tileReplacement' | 'flatRoof' | 'metalRoof' | 'maintenance'
-  | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact' | 'inspection' | 'howWeWork';
+  | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact' | 'inspection' | 'howWeWork' | 'pricing';
 
 export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>> = {
   bg: {
@@ -13,6 +13,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'плоски-покриви', metalRoof: 'метални-покриви', maintenance: 'поддръжка-на-покриви',
     about: 'за-нас', projects: 'проекти', reviews: 'отзиви', calculator: 'калкулатор',
     blog: 'блог', faq: 'въпроси', contact: 'контакти', inspection: 'безплатен-оглед', howWeWork: 'как-работим',
+    pricing: 'цени-ремонт-покрив',
   },
   en: {
     home: '', services: 'services', roofRepair: 'roof-repair-varna', leakRepair: 'leak-repair-varna',
@@ -21,6 +22,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'flat-roofs-varna', metalRoof: 'metal-roofs-varna', maintenance: 'roof-maintenance-varna',
     about: 'about', projects: 'projects', reviews: 'reviews', calculator: 'calculator',
     blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'free-inspection', howWeWork: 'how-we-work',
+    pricing: 'roof-repair-prices',
   },
   de: {
     home: '', services: 'dienstleistungen', roofRepair: 'dachreparatur-varna', leakRepair: 'leckage-reparatur-varna',
@@ -29,6 +31,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'flachdaecher-varna', metalRoof: 'metalldaecher-varna', maintenance: 'dachpflege-varna',
     about: 'ueber-uns', projects: 'projekte', reviews: 'bewertungen', calculator: 'kalkulator',
     blog: 'blog', faq: 'faq', contact: 'kontakt', inspection: 'kostenlose-inspektion', howWeWork: 'wie-wir-arbeiten',
+    pricing: 'dachsanierung-preise',
   },
   fi: {
     home: '', services: 'palvelut', roofRepair: 'kattokorjaus-varna', leakRepair: 'vuotokorjaus-varna',
@@ -37,6 +40,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'tasakatot-varna', metalRoof: 'metallikatot-varna', maintenance: 'katon-huolto-varna',
     about: 'meista', projects: 'projektit', reviews: 'arvostelut', calculator: 'laskin',
     blog: 'blogi', faq: 'ukk', contact: 'yhteystiedot', inspection: 'ilmainen-tarkastus', howWeWork: 'miten-tyoskentelemme',
+    pricing: 'kattokorjaus-hinnat',
   },
   sv: {
     home: '', services: 'tjanster', roofRepair: 'takreparation-varna', leakRepair: 'lackage-reparation-varna',
@@ -45,6 +49,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'platta-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takunderhall-varna',
     about: 'om-oss', projects: 'projekt', reviews: 'omdomen', calculator: 'kalkylator',
     blog: 'blogg', faq: 'vanliga-fragor', contact: 'kontakt', inspection: 'gratis-inspektion', howWeWork: 'sa-arbetar-vi',
+    pricing: 'takreparation-priser',
   },
   no: {
     home: '', services: 'tjenester', roofRepair: 'takreparasjon-varna', leakRepair: 'lekkasje-reparasjon-varna',
@@ -53,6 +58,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'flate-tak-varna', metalRoof: 'metalltak-varna', maintenance: 'takvedlikehold-varna',
     about: 'om-oss', projects: 'prosjekter', reviews: 'anmeldelser', calculator: 'kalkulator',
     blog: 'blogg', faq: 'vanlige-sporsmal', contact: 'kontakt', inspection: 'gratis-inspeksjon', howWeWork: 'slik-jobber-vi',
+    pricing: 'takreparasjon-priser',
   },
   fr: {
     home: '', services: 'services', roofRepair: 'reparation-toiture-varna', leakRepair: 'reparation-fuite-varna',
@@ -61,6 +67,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'toits-plats-varna', metalRoof: 'toits-metalliques-varna', maintenance: 'entretien-toiture-varna',
     about: 'a-propos', projects: 'projets', reviews: 'avis', calculator: 'calculateur',
     blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'inspection-gratuite', howWeWork: 'comment-nous-travaillons',
+    pricing: 'prix-reparation-toiture',
   },
   nl: {
     home: '', services: 'diensten', roofRepair: 'dakreparatie-varna', leakRepair: 'lekkage-reparatie-varna',
@@ -69,6 +76,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'platte-daken-varna', metalRoof: 'metalen-daken-varna', maintenance: 'dakonderhoud-varna',
     about: 'over-ons', projects: 'projecten', reviews: 'beoordelingen', calculator: 'calculator',
     blog: 'blog', faq: 'veelgestelde-vragen', contact: 'contact', inspection: 'gratis-inspectie', howWeWork: 'hoe-we-werken',
+    pricing: 'dakreparatie-prijzen',
   },
   ru: {
     home: '', services: 'uslugi', roofRepair: 'remont-kryshi-varna', leakRepair: 'remont-protechek-varna',
@@ -77,6 +85,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'ploskie-kryshi-varna', metalRoof: 'metallicheskie-kryshi-varna', maintenance: 'obsluzhivanie-kryshi-varna',
     about: 'o-nas', projects: 'proekty', reviews: 'otzyvy', calculator: 'kalkulyator',
     blog: 'blog', faq: 'voprosy', contact: 'kontakty', inspection: 'besplatnyj-osmotr', howWeWork: 'kak-my-rabotaem',
+    pricing: 'tseny-remonta-kryshi',
   },
   ua: {
     home: '', services: 'poslugy', roofRepair: 'remont-dahu-varna', leakRepair: 'remont-protikan-varna',
@@ -85,6 +94,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     flatRoof: 'ploski-dahy-varna', metalRoof: 'metalevi-dahy-varna', maintenance: 'obslugovuvannya-dahu-varna',
     about: 'pro-nas', projects: 'proekty', reviews: 'vidguky', calculator: 'kalkulyator',
     blog: 'blog', faq: 'pytannya', contact: 'kontakty', inspection: 'bezkoshtovnyj-ohlyad', howWeWork: 'yak-my-pratsyuyemo',
+    pricing: 'tsiny-remontu-dahu',
   },
 };
 
