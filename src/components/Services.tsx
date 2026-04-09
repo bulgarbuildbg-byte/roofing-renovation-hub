@@ -28,11 +28,6 @@ const serviceKeys: { image: string; key: string; routeKey: RouteKey; price: stri
   { image: maintenanceImg, key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
 ];
 
-const highlightPrice = (price: string) => {
-  return price.split(/(\d+)/).map((part, i) =>
-    /\d+/.test(part) ? <span key={i} className="text-green-600">{part}</span> : part
-  );
-};
 
 const Services = () => {
   const { t } = useTranslation();
