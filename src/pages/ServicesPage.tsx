@@ -1,10 +1,11 @@
 import { Helmet } from "react-helmet";
-import { Check, ArrowLeft, Phone, ClipboardCheck, FileText, Hammer, Shield } from "lucide-react";
+import { Check, ArrowLeft, Phone, ClipboardCheck, FileText, Hammer, Shield, Search, CreditCard, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
+import PriceCalculator from "@/components/PriceCalculator";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -32,103 +33,64 @@ const serviceCards: { image: string; key: string; routeKey: RouteKey; price: str
 
 const servicePackages = [
   {
-    title: "Основен Ремонт",
-    price: "от 13 €/м²",
-    description: "Основен ремонт и възстановяване на покривни повреди",
+    title: "Частичен ремонт",
+    price: "35–65 €/м²",
+    description: "Локални ремонти и отстраняване на конкретни проблеми",
     features: [
-      "Оглед и диагностика",
-      "Ремонт на керемиди",
-      "Смяна на повредени елементи",
-      "Почистване на улуци",
-      "1 година гаранция"
+      "Смяна на керемиди",
+      "Локални ремонти",
+      "Спиране на течове",
+      "Ремонт на обшивки"
     ],
     popular: false
   },
   {
-    title: "Пълна Реконструкция",
-    price: "от 28 €/м²",
-    description: "Цялостна реконструкция на покривната конструкция",
+    title: "Среден ремонт",
+    price: "65–110 €/м²",
+    description: "Частичен демонтаж и подмяна на основни елементи",
     features: [
-      "Пълна диагностика",
-      "Демонтаж на стар покрив",
-      "Изграждане на нова конструкция",
-      "Хидроизолация",
-      "Монтаж на нов покрив",
-      "Олуци и водосточни тръби",
-      "3 години гаранция"
+      "Частичен демонтаж",
+      "Нова хидроизолационна мембрана",
+      "Нови летви",
+      "Подмяна на керемиди",
+      "Ремонт на дървена конструкция"
     ],
     popular: true
   },
   {
-    title: "VIP Поддръжка",
-    price: "от 46 €/м²",
-    description: "Премиум услуги с най-високо качество материали",
+    title: "Пълна реконструкция",
+    price: "110–180 €/м²",
+    description: "Цялостна подмяна на покривната конструкция",
     features: [
-      "Премиум материали",
-      "Професионален екип",
-      "Термоизолация",
+      "Пълен демонтаж",
+      "Нова конструкция",
+      "Нови материали",
       "Хидроизолация",
-      "Пълна конструкция",
-      "Декоративни елементи",
-      "5 години гаранция",
-      "Безплатни годишни прегледи"
+      "Топлоизолация",
+      "Завършен покрив"
     ],
     popular: false
   }
 ];
 
-const detailedServices = [
-  {
-    title: "Ремонт на Покриви",
-    description: "Професионален ремонт на всички видове покривни конструкции - керемидни, метални, битумни. Отстраняваме течове, подменяме повредени елементи и възстановяваме целостта на покрива.",
-    price: "от 13 €/м²",
-    includes: [
-      "Диагностика на повреди",
-      "Ремонт на керемиди и метални листове",
-      "Подмяна на дървени елементи",
-      "Почистване на улуци и водостоци"
-    ]
-  },
-  {
-    title: "Монтаж на Нови Покриви",
-    description: "Изграждане на нови покривни конструкции с качествени материали. Работим с керемиди, метални покриви, битумни хидроизолации и други съвременни материали.",
-    price: "от 28 €/м²",
-    includes: [
-      "Изготвяне на проект",
-      "Изграждане на покривна конструкция",
-      "Монтаж на покривни материали",
-      "Монтаж на олуци и водостоци"
-    ]
-  },
-  {
-    title: "Хидроизолация",
-    description: "Надеждна хидроизолация за дълготрайна защита на вашия покрив от влага и атмосферни условия. Използваме качествени материали с доказана издръжливост.",
-    price: "от 14 €/м²",
-    includes: [
-      "Почистване и подготовка",
-      "Нанасяне на хидроизолация",
-      "Изпитване за течове",
-      "Гаранция за изпълнение"
-    ]
-  },
-  {
-    title: "Редовна Поддръжка",
-    description: "Профилактика и редовна поддръжка за запазване качеството и дълготрайността на вашия покрив. Препоръчваме годишни прегледи за превенция на проблеми.",
-    price: "от 6 €/м²",
-    includes: [
-      "Годишен преглед",
-      "Почистване на покрив",
-      "Проверка на водостоци",
-      "Малки ремонти при нужда"
-    ]
-  }
+const howWeWorkSteps = [
+  { icon: ClipboardCheck, title: "Заявка", description: "Обадете се или попълнете формата" },
+  { icon: Search, title: "Оглед", description: "Безплатен оглед на място" },
+  { icon: FileText, title: "Оферта", description: "Ясна оферта без скрити разходи" },
+  { icon: Hammer, title: "Изпълнение", description: "Качествено изпълнение с договор" },
+  { icon: Shield, title: "Гаранция", description: "10-15 години гаранция" },
 ];
 
-const howWeWorkSteps = [
-  { icon: ClipboardCheck, title: "Оглед и Консултация", description: "Безплатен оглед на място и професионална оценка" },
-  { icon: FileText, title: "Оферта", description: "Ясна оферта без скрити разходи" },
-  { icon: Hammer, title: "Изпълнение", description: "Качествено изпълнение с договор и срок" },
-  { icon: Shield, title: "Гаранция", description: "10-15 години гаранция и протокол" },
+const paymentSteps = [
+  { percent: "30%", label: "Аванс", description: "При подписване на договора" },
+  { percent: "40%", label: "По време на работа", description: "При напредък на дейностите" },
+  { percent: "30%", label: "При завършване", description: "След приемане на работата" },
+];
+
+const blogLinks = [
+  { title: "Кога да ремонтирате покрива?", href: "/блог/признаци-че-покривът-ви-се-нуждае-от-ремонт" },
+  { title: "Как да разпознаете проблем навреме", href: "/блог/пролетна-инспекция-на-покрива" },
+  { title: "Подготовка на покрива за зимата", href: "/блог/как-да-подготвим-покрива-за-зимата" },
 ];
 
 const ServicesPage = () => {
@@ -138,11 +100,11 @@ const ServicesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Покривни Услуги Варна - Цени от 8 €/кв.м</title>
-        <meta name="description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед. Вижте нашите пакети." />
-        <meta name="keywords" content="ремонт покриви варна цени, монтаж покриви варна, хидроизолация покриви, покривни услуги варна, цени покриви" />
-        <meta property="og:title" content="Покривни Услуги Варна - Цени от 8 €/кв.м" />
-        <meta property="og:description" content="Ремонт, хидроизолация и изграждане на покриви във Варна. Прозрачни цени, безплатен оглед." />
+        <title>Ремонт на покриви Варна – от 35 €/м²</title>
+        <meta name="description" content="Решаваме течове, подменяме керемиди и изграждаме нови покриви във Варна. Безплатен оглед. ☎ 088 499 7659" />
+        <meta name="keywords" content="ремонт покриви варна цени, монтаж покриви варна, хидроизолация покриви, покривни услуги варна" />
+        <meta property="og:title" content="Ремонт на покриви Варна – от 35 €/м²" />
+        <meta property="og:description" content="Решаваме течове, подменяме керемиди и изграждаме нови покриви. Безплатен оглед." />
         <meta property="og:type" content="website" />
       </Helmet>
 
@@ -150,7 +112,7 @@ const ServicesPage = () => {
         <Header />
         
         <main>
-          {/* Hero Section */}
+          {/* 1. Hero Section */}
           <section className="pt-32 pb-16 bg-secondary">
             <div className="container mx-auto px-4">
               <Link to={getPath('home')} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-8">
@@ -160,19 +122,24 @@ const ServicesPage = () => {
               
               <div className="max-w-3xl">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                  Покривни Услуги Варна
+                  Ремонт на покриви във Варна – от 35 €/м²
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
-                  Изберете услугата, от която имате нужда. Безплатна консултация и оглед за всеки проект.
+                  Решаваме течове, подменяме керемиди и изграждаме нови покриви. Безплатен оглед и честна оферта.
                 </p>
-                <Button size="lg" className="gap-2" asChild>
-                  <a href="tel:0884997659"><Phone className="w-5 h-5" />088 499 7659</a>
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="gap-2" asChild>
+                    <Link to={getPath('contact')}>Безплатен оглед</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="gap-2" asChild>
+                    <a href="tel:0884997659"><Phone className="w-5 h-5" />088 499 7659</a>
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
 
-          {/* All 8 Services Grid */}
+          {/* 2. All 8 Services Grid */}
           <section className="py-20 bg-background">
             <div className="container mx-auto px-4">
               <div className="text-center mb-12">
@@ -220,13 +187,13 @@ const ServicesPage = () => {
             </div>
           </section>
 
-          {/* How We Work - Compact */}
+          {/* 3. How We Work - 5 Steps */}
           <section className="py-16 bg-secondary">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
                 Как Работим
               </h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
                 {howWeWorkSteps.map((step, index) => (
                   <div key={index} className="text-center">
                     <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -241,16 +208,25 @@ const ServicesPage = () => {
             </div>
           </section>
 
-          {/* Pricing Packages */}
+          {/* 4. Pricing Packages */}
           <section className="py-20 bg-background">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
+              <div className="text-center mb-6">
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Пакети за Ремонт на Покриви Варна
+                  Пакети за ремонт на покриви
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   Изберете най-подходящия пакет за вашия проект
                 </p>
+              </div>
+
+              {/* Orientation note */}
+              <div className="max-w-3xl mx-auto mb-12">
+                <div className="bg-muted/50 border border-border rounded-xl p-5 text-center">
+                  <p className="text-muted-foreground text-sm">
+                    <strong className="text-foreground">Всеки покрив е различен.</strong> Крайната цена се определя след безплатен оглед на място. Посочените цени са ориентировъчни и зависят от площ, състояние и сложност.
+                  </p>
+                </div>
               </div>
 
               <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -294,50 +270,102 @@ const ServicesPage = () => {
             </div>
           </section>
 
-          {/* Detailed Services */}
+          {/* 5. Calculator Section */}
           <section className="py-20 bg-secondary">
             <div className="container mx-auto px-4">
-              <div className="text-center mb-16">
+              <div className="text-center mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                  Услуги по Ремонт и Изграждане на Покриви
+                  Изчислете ориентировъчна цена
                 </h2>
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Детайлна информация за всяка услуга и какво включва тя
+                  Въведете площ и тип ремонт, за да получите ориентировъчна цена
                 </p>
               </div>
+              <PriceCalculator />
+              <div className="max-w-2xl mx-auto mt-6">
+                <p className="text-sm text-muted-foreground text-center">
+                  Това е ориентировъчна цена. За точна оферта е необходим <strong className="text-foreground">безплатен оглед</strong> на място.
+                </p>
+              </div>
+            </div>
+          </section>
 
-              <div className="max-w-4xl mx-auto space-y-8">
-                {detailedServices.map((service, index) => (
-                  <article key={index} className="bg-background rounded-lg p-8 shadow-md border border-border">
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-                      <h3 className="text-2xl font-bold text-foreground">{service.title}</h3>
-                      <span className="text-2xl font-bold text-primary shrink-0">{service.price}</span>
-                    </div>
-                    <p className="text-muted-foreground mb-6 text-lg">
-                      {service.description}
-                    </p>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3">Включва:</h4>
-                      <ul className="grid md:grid-cols-2 gap-3">
-                        {service.includes.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-2">
-                            <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                            <span className="text-muted-foreground">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </article>
+          {/* 6. CTA after Calculator */}
+          <section className="py-16 bg-primary text-primary-foreground">
+            <div className="container mx-auto px-4 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Получете точна оферта
+              </h2>
+              <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                Безплатен оглед на място и честна оферта без скрити разходи
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" variant="secondary" className="gap-2" asChild>
+                  <Link to={getPath('contact')}>Заяви безплатен оглед</Link>
+                </Button>
+                <Button size="lg" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20 gap-2" asChild>
+                  <a href="tel:0884997659"><Phone className="w-5 h-5" />088 499 7659</a>
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          {/* 7. Payment Section */}
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  <CreditCard className="w-8 h-8 inline-block mr-2 text-primary" />
+                  Условия за плащане
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Разделно плащане за вашето спокойствие
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                {paymentSteps.map((step, index) => (
+                  <div key={index} className="text-center p-6 bg-card rounded-xl border border-border">
+                    <div className="text-4xl font-bold text-primary mb-2">{step.percent}</div>
+                    <h3 className="text-lg font-bold text-foreground mb-1">{step.label}</h3>
+                    <p className="text-sm text-muted-foreground">{step.description}</p>
+                  </div>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* CTA Section */}
+          {/* 8. Blog Section */}
+          <section className="py-16 bg-secondary">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  <BookOpen className="w-8 h-8 inline-block mr-2 text-primary" />
+                  Научете повече
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Полезни статии за покриви, ремонти и поддръжка
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                {blogLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    to={link.href}
+                    className="block p-6 bg-card rounded-xl border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{link.title}</h3>
+                    <span className="text-primary text-sm font-medium">Прочетете →</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* 9. Final CTA */}
           <section className="py-20 bg-primary text-primary-foreground">
             <div className="container mx-auto px-4 text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Готови за Безплатна Оценка?
+                Готови за безплатен оглед?
               </h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
                 Свържете се с нас днес за професионална консултация и безплатна оценка на вашия проект
