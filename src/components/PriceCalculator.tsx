@@ -1,10 +1,15 @@
 import { useState, useMemo, useCallback } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
-import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, PlusCircle, Search, Hammer, CheckCircle } from "lucide-react";
-import { trackEvent } from "@/lib/analytics";
+import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, PlusCircle, Search, Hammer, CheckCircle, Upload, X, Loader2, Send } from "lucide-react";
+import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface PriceCalculatorProps {
   variant?: "full" | "compact";
