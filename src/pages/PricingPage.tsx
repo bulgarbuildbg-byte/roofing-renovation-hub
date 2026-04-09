@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Phone, ArrowRight, CheckCircle } from "lucide-react";
+import type { RouteKey } from "@/i18n/routes";
 
 const highlightPrice = (price: string) => {
   return price.split(/(\d+)/).map((part, i) =>

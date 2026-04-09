@@ -110,9 +110,9 @@ const Services = () => {
                             <Link
                               to={getPath('pricing' as RouteKey)}
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-extrabold text-[0.9rem] px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
+                              className="inline-flex items-center bg-green-50 text-green-700 border border-green-200 font-extrabold text-[0.9rem] px-3 py-1 rounded-full hover:bg-green-100 transition-colors"
                             >
-                              {t('services.startingFrom')} {highlightPrice(service.price)}
+                              {t('services.startingFrom')} {service.price}
                             </Link>
                             <p className="text-muted-foreground text-xs mt-1 italic">
                               {t('services.priceNote')}
