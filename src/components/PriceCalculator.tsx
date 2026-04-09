@@ -102,6 +102,7 @@ const priceMatrix: Record<string, Record<string, { min: number; max: number }>> 
 type WizardStep = "roofType" | "material" | "problem" | "scope" | "size" | "result";
 
 const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState<WizardStep>("roofType");
   const [roofType, setRoofType] = useState("");
   const [material, setMaterial] = useState("");
@@ -109,6 +110,13 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   const [scope, setScope] = useState("");
   const [roofSize, setRoofSize] = useState(100);
   const [access, setAccess] = useState("easy");
+
+  // Inline form state
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({ name: "", phone: "", address: "", description: "" });
+  const [files, setFiles] = useState<File[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   // Determine which steps are active
   const steps = useMemo((): WizardStep[] => {
