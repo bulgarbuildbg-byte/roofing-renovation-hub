@@ -192,8 +192,82 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     };
   }, [problem, scope, roofType, roofSize, access]);
 
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  const problemToServiceType = (p: string): string => {
+    const map: Record<string, string> = { leak: "leak_repair", repair: "repair", new_roof: "new_construction", inspection: "maintenance", unsure: "other" };
+    return map[p] || "other";
+  };
+
+  const materialToEnum = (m: string): string | null => {
+    const map: Record<string, string> = { tiles: "tiles", bitumen_shingles: "bitumen", bitumen_membrane: "bitumen", liquid: "pvc_membrane", other: "other", unsure: "other" };
+    return map[m] || null;
+  };
+
+  const buildDescription = () => {
+    const parts: string[] = [];
+    const rt = roofTypes.find(r => r.id === roofType);
+    if (rt) parts.push(`Тип покрив: ${rt.label}`);
+    const mat = materialOptions[roofType]?.find(m => m.id === material);
+    if (mat) parts.push(`Материал: ${mat.label}`);
+    const prob = problems.find(p => p.id === problem);
+    if (prob) parts.push(`Проблем: ${prob.label}`);
+    const sc = scopeOptions[problem]?.find(s => s.id === scope);
+    if (sc) parts.push(`Обхват: ${sc.label}`);
+    parts.push(`Площ: ${roofSize} м²`);
+    const acc = accessOptions.find(a => a.id === access);
+    if (acc) parts.push(`Достъп: ${acc.label}`);
+    if (!priceRange.isInspection) parts.push(`Ориентировъчна цена: ${priceRange.min.toLocaleString()} – ${priceRange.max.toLocaleString()} €`);
+    if (formData.description) parts.push(`Описание: ${formData.description}`);
+    return parts.join("\n");
+  };
+
+  const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setFiles(prev => [...prev, ...Array.from(e.target.files!)]);
+  };
+
+  const removeFile = (i: number) => setFiles(files.filter((_, idx) => idx !== i));
+
+  const handleSubmit = async () => {
+    if (!formData.name.trim() || !formData.phone.trim()) {
+      toast({ title: "Моля попълнете име и телефон", variant: "destructive" });
+      return;
+    }
+    setSubmitting(true);
+
+    const { data: inquiry, error } = await supabase
+      .from("inquiries")
+      .insert({
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        email: formData.phone.trim() + "@calculator.local",
+        address: formData.address.trim() || null,
+        service_type: problemToServiceType(problem) as any,
+        area_sqm: roofSize,
+        preferred_material: materialToEnum(material) as any || null,
+        description: buildDescription(),
+        session_id: getSessionId(),
+        referrer_source: getFirstReferrerSource(),
+      } as any)
+      .select()
+      .single();
+
+    if (error || !inquiry) {
+      toast({ title: "Грешка", description: "Моля, опитайте отново.", variant: "destructive" });
+      setSubmitting(false);
+      return;
+    }
+
+    for (const file of files) {
+      const path = `${inquiry.id}/${Date.now()}_${file.name}`;
+      const { data: uploaded } = await supabase.storage.from("inquiry-attachments").upload(path, file);
+      if (uploaded) {
+        const { data: urlData } = supabase.storage.from("inquiry-attachments").getPublicUrl(uploaded.path);
+        await supabase.from("inquiry_files").insert({ inquiry_id: inquiry.id, file_url: urlData.publicUrl, file_name: file.name, file_type: file.type });
+      }
+    }
+
+    trackEvent("button_click", "calculator_inquiry_submit");
+    setSubmitted(true);
+    setSubmitting(false);
   };
 
   const resetWizard = () => {
@@ -204,11 +278,11 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setScope("");
     setRoofSize(100);
     setAccess("easy");
+    setShowForm(false);
+    setFormData({ name: "", phone: "", address: "", description: "" });
+    setFiles([]);
+    setSubmitted(false);
   };
-
-  const OptionCard = ({ id, label, icon: Icon, isSelected, onClick }: {
-    id: string; label: string; icon?: any; isSelected: boolean; onClick: () => void;
-  }) => (
     <button
       onClick={onClick}
       className={`p-4 rounded-xl border-2 transition-all text-left flex items-center gap-3 ${
