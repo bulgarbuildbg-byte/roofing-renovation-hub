@@ -17,14 +17,14 @@ import metalRoofImg from "@/assets/services/metal-roof.jpg";
 import maintenanceImg from "@/assets/services/maintenance.jpg";
 import type { RouteKey } from "@/i18n/routes";
 
-const serviceKeys: { image: string; key: string; routeKey: RouteKey }[] = [
-  { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair" },
-  { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing" },
-  { image: newRoofImg, key: "newRoof", routeKey: "newRoof" },
+const serviceKeys: { image: string; key: string; routeKey: RouteKey; price?: string }[] = [
+  { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair", price: "€13 / m²" },
+  { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "€8 / m²" },
+  { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "€28 / m²" },
   { image: tileReplacementImg, key: "tileReplacement", routeKey: "tileReplacement" },
   { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair" },
   { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof" },
-  { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof" },
+  { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "€6 / m²" },
   { image: maintenanceImg, key: "maintenance", routeKey: "maintenance" },
 ];
 
@@ -104,6 +104,11 @@ const Services = () => {
                         <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
                           {t(`services.${service.key}.title`)}
                         </h3>
+                        {service.price && (
+                          <p className="text-primary font-bold text-sm mb-2">
+                            {t('services.startingFrom')} {service.price}
+                          </p>
+                        )}
                         <p className="text-accent font-medium text-sm mb-3">
                           {t(`services.${service.key}.problem`)}
                         </p>
@@ -115,9 +120,14 @@ const Services = () => {
                             </li>
                           ))}
                         </ul>
-                        <p className="text-foreground text-sm font-medium mb-4 mt-auto">
+                        <p className="text-foreground text-sm font-medium mb-3 mt-auto">
                           ✓ {t(`services.${service.key}.benefits`)}
                         </p>
+                        {service.price && (
+                          <p className="text-muted-foreground text-xs mb-3 italic">
+                            {t('services.priceNote')}
+                          </p>
+                        )}
                         <Link
                           to={getPath('contact')}
                           className="block"
