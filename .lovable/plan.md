@@ -1,39 +1,65 @@
 
 
-## Обновяване на цените в картичките с услуги
+## Обновяване на цените навсякъде + зелени цифри
 
 ### Какво се променя
 
-Само файл `src/components/Services.tsx` — масивът `serviceKeys` и стилът на badge елемента.
+Два файла: `src/components/Services.tsx` и `src/pages/PricingPage.tsx`.
 
-### 1. Обновяване на цените в `serviceKeys`
+### 1. `src/components/Services.tsx` — масив `serviceKeys`
 
-Всички 8 услуги получават `price`:
+Промяна на `price` стойностите:
 
-| key | Сегашна цена | Нова цена |
+| key | Сега | Ново |
+|---|---|---|
+| roofRepair | `19 €/м²` | `19 €/м²` ✓ |
+| waterproofing | `9 €/м²` | `9 €/м²` ✓ |
+| newRoof | `68 €/м²` | `68 €/м²` ✓ |
+| tileReplacement | `18 €/м²` | `18 €/м²` ✓ |
+| leakRepair | `22 €/м²` | `22 €` (без /м²) |
+| flatRoof | `9 €/м²` | `9 €/м²` ✓ |
+| metalRoof | `18 €/м²` | `18 €/м²` ✓ |
+| maintenance | `69 €/месец` | `69 €/месец` ✓ |
+
+Единствена реална промяна в масива: `leakRepair` от `22 €/м²` → `22 €`.
+
+**Зелени цифри**: В badge елемента (ред ~114), вместо да рендерира `{service.price}` директно, ще обвием числовата стойност в `<span className="text-green-600">`. Ще се направи с regex split: числата стават зелени, останалият текст остава `text-primary`.
+
+### 2. `src/pages/PricingPage.tsx` — масив `pricingServices`
+
+Обновяване на цените:
+
+| key | Сега | Ново |
 |---|---|---|
 | roofRepair | `€15 / m²` | `19 €/м²` |
 | waterproofing | `€10 / m²` | `9 €/м²` |
 | newRoof | `€32 / m²` | `68 €/м²` |
-| tileReplacement | *(няма)* | `18 €/м²` |
-| leakRepair | *(няма)* | `22 €/м²` |
-| flatRoof | *(няма)* | `9 €/м²` |
 | metalRoof | `€9 / m²` | `18 €/м²` |
-| maintenance | *(няма)* | `69 €/месец` |
+| leakRepair | `€12 / m²` | `22 €` |
+| tileReplacement | `€14 / m²` | `18 €/м²` |
+| flatRoof | `€11 / m²` | `9 €/м²` |
+| maintenance | `€5 / m²` | `69 €/месец` |
 
-### 2. Подобряване на контраста на badge текста
+Същата зелена стилизация на цифрите в pricing grid badge (ред ~91).
 
-Текущ клас: `text-primary font-bold text-sm`
+### 3. Помощна функция за зелени цифри
 
-Промяна: добавяне на `font-extrabold` вместо `font-bold` и леко по-голям размер `text-[0.9rem]` за по-ясна видимост. Останалият стил (bg-primary/10, border, rounded-full) остава непроменен.
+Малка inline функция (или директно в JSX) за highlight на числата:
 
-### 3. Премахване на условието `{service.price &&`
+```tsx
+const highlightPrice = (price: string) => {
+  return price.split(/(\d+)/).map((part, i) =>
+    /\d+/.test(part) ? <span key={i} className="text-green-600">{part}</span> : part
+  );
+};
+```
 
-Тъй като вече всички услуги имат цена, условието остава, но няма да скрива нищо. Запазваме го за консистентност.
+Използва се и в двата файла в badge елементите.
 
 ### Файлове
 
 | Файл | Промяна |
 |---|---|
-| `src/components/Services.tsx` | Обновяване на цени в масива + усилване на шрифта на badge |
+| `src/components/Services.tsx` | leakRepair price fix + зелени цифри в badge |
+| `src/pages/PricingPage.tsx` | Всички 8 цени обновени + зелени цифри в badge |
 
