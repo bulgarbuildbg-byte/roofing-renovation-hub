@@ -16,6 +16,8 @@ const fi = {
   },
   services: {
     title: "Palvelumme", subtitle: "Kattava valikoima kattopalveluja laatutakuulla",
+    startingFrom: "Alkaen",
+    priceNote: "Lopullinen hinta määritetään paikan päällä tehtävän tarkastuksen jälkeen.",
     freeQuote: "Ilmainen tarjous",
     notSure: "Et ole varma, mitä palvelua tarvitset?",
     notSureDesc: "Soita meille ilmaiseen konsultaatioon ja tarkastukseen.",

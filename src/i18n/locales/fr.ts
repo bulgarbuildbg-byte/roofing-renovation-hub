@@ -16,6 +16,8 @@ const fr = {
   },
   services: {
     title: "Nos Services", subtitle: "Gamme complète de services de toiture avec garantie de qualité",
+    startingFrom: "À partir de",
+    priceNote: "Le prix final est déterminé après une inspection sur site.",
     freeQuote: "Devis gratuit", notSure: "Pas sûr du service dont vous avez besoin ?",
     notSureDesc: "Appelez-nous pour une consultation et une inspection gratuites.", requestInspection: "Demander une inspection gratuite",
     roofRepair: { title: "Réparation de toiture", problem: "Fuites, tuiles endommagées ou dégâts de tempête ?", includes: "Diagnostic du problème,Remplacement de tuiles,Réparation de fuites", benefits: "Arrêtez les fuites immédiatement et protégez votre maison" },

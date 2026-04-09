@@ -16,6 +16,8 @@ const nl = {
   },
   services: {
     title: "Onze Diensten", subtitle: "Compleet aanbod van dakdiensten met kwaliteitsgarantie",
+    startingFrom: "Vanaf",
+    priceNote: "De definitieve prijs wordt bepaald na inspectie ter plaatse.",
     freeQuote: "Gratis offerte", notSure: "Niet zeker welke dienst u nodig heeft?",
     notSureDesc: "Bel ons voor gratis advies en inspectie.", requestInspection: "Vraag gratis inspectie aan",
     roofRepair: { title: "Dakreparatie", problem: "Lekkages, beschadigde dakpannen of stormschade?", includes: "Probleemdiagnose,Panvervanging,Lekkagereparatie", benefits: "Stop lekkages direct en bescherm uw huis" },
