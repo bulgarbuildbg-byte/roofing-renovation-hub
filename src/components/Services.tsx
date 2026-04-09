@@ -17,15 +17,15 @@ import metalRoofImg from "@/assets/services/metal-roof.jpg";
 import maintenanceImg from "@/assets/services/maintenance.jpg";
 import type { RouteKey } from "@/i18n/routes";
 
-const serviceKeys: { image: string; key: string; routeKey: RouteKey; price?: string }[] = [
-  { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair", price: "€15 / m²" },
-  { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "€10 / m²" },
-  { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "€32 / m²" },
-  { image: tileReplacementImg, key: "tileReplacement", routeKey: "tileReplacement" },
-  { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair" },
-  { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof" },
-  { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "€9 / m²" },
-  { image: maintenanceImg, key: "maintenance", routeKey: "maintenance" },
+const serviceKeys: { image: string; key: string; routeKey: RouteKey; price: string }[] = [
+  { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair", price: "19 €/м²" },
+  { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "9 €/м²" },
+  { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "68 €/м²" },
+  { image: tileReplacementImg, key: "tileReplacement", routeKey: "tileReplacement", price: "18 €/м²" },
+  { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair", price: "22 €/м²" },
+  { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
+  { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },
+  { image: maintenanceImg, key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
 ];
 
 const Services = () => {
@@ -109,7 +109,7 @@ const Services = () => {
                             <Link
                               to={getPath('pricing' as RouteKey)}
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-bold text-sm px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
+                              className="inline-flex items-center bg-primary/10 text-primary border border-primary/20 font-extrabold text-[0.9rem] px-3 py-1 rounded-full hover:bg-primary/20 transition-colors"
                             >
                               {t('services.startingFrom')} {service.price}
                             </Link>
