@@ -16,6 +16,8 @@ const en = {
   },
   services: {
     title: "Our Services", subtitle: "Full range of roofing services with quality guarantee",
+    startingFrom: "Starting from",
+    priceNote: "Final price is determined after on-site inspection.",
     freeQuote: "Free Quote",
     notSure: "Not sure which service you need?",
     notSureDesc: "Call us for a free consultation and inspection. We'll give you an honest assessment.",

@@ -16,6 +16,8 @@ const no = {
   },
   services: {
     title: "Våre Tjenester", subtitle: "Komplett utvalg av taktjenester med kvalitetsgaranti",
+    startingFrom: "Fra",
+    priceNote: "Endelig pris fastsettes etter befaring på stedet.",
     freeQuote: "Gratis tilbud", notSure: "Usikker på hvilken tjeneste du trenger?",
     notSureDesc: "Ring oss for gratis konsultasjon og inspeksjon.", requestInspection: "Be om gratis inspeksjon",
     roofRepair: { title: "Takreparasjon", problem: "Lekkasjer, skadde takstein eller stormskader?", includes: "Problemdiagnose,Taksteinsbytte,Lekkasjereparasjon", benefits: "Stopp lekkasjer umiddelbart og beskytt hjemmet ditt" },

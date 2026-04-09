@@ -16,6 +16,8 @@ const sv = {
   },
   services: {
     title: "Våra Tjänster", subtitle: "Komplett utbud av taktjänster med kvalitetsgaranti",
+    startingFrom: "Från",
+    priceNote: "Slutpriset fastställs efter besiktning på plats.",
     freeQuote: "Gratis offert", notSure: "Osäker på vilken tjänst du behöver?",
     notSureDesc: "Ring oss för gratis konsultation och inspektion.", requestInspection: "Begär gratis inspektion",
     roofRepair: { title: "Takreparation", problem: "Läckor, skadade tegelpannor eller stormskador?", includes: "Problemdiagnos,Tegelbyte,Läckagereparation", benefits: "Stoppa läckor omedelbart och skydda ditt hem" },

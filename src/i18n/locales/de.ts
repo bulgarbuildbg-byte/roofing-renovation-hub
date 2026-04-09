@@ -16,6 +16,8 @@ const de = {
   },
   services: {
     title: "Unsere Leistungen", subtitle: "Komplettes Spektrum an Dachleistungen mit Qualitätsgarantie",
+    startingFrom: "Ab",
+    priceNote: "Der Endpreis wird nach einer Vor-Ort-Besichtigung festgelegt.",
     freeQuote: "Kostenloses Angebot",
     notSure: "Nicht sicher, welche Leistung Sie benötigen?",
     notSureDesc: "Rufen Sie uns an für eine kostenlose Beratung und Inspektion.",
