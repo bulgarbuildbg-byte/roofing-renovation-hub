@@ -1,59 +1,64 @@
 
 
-## Add Starting Prices to Service Cards
+## Service Cards Price Badge + New Pricing Page
 
 ### Summary
-Add a pricing line and disclaimer note to each service card in `src/components/Services.tsx`. No layout, design, or structural changes — only insert two new text elements per card.
+Two changes: (1) convert the plain-text price on service cards into a clickable badge linking to a new pricing page, and (2) create that pricing page with hero, intro, pricing table, SEO content, internal links, and CTA.
 
-### What changes
+### Part 1 — Price Badge on Service Cards
 
-**1. Add a `price` field to the `serviceKeys` array**
+**File: `src/components/Services.tsx`**
 
-Each service gets a price string (only 4 services have prices per the request; the remaining 4 — leak repair, tile replacement, flat roof, maintenance — were not listed, so they won't show a price line):
+Replace the current `<p className="text-primary font-bold text-sm mb-2">` price line (lines 107-111) with a clickable badge element:
 
-| Service | Price |
-|---|---|
-| roofRepair | €13 / m² |
-| waterproofing | €8 / m² |
-| newRoof | €28 / m² |
-| metalRoof | €6 / m² |
-| leakRepair | *(none)* |
-| tileReplacement | *(none)* |
-| flatRoof | *(none)* |
-| maintenance | *(none)* |
+- Style: `inline-flex` rounded pill with `bg-primary/10 text-primary border border-primary/20 font-bold text-sm px-3 py-1 rounded-full hover:bg-primary/20 transition-colors`
+- Wrapped in a `<Link>` to the pricing page route (`getPath('pricing')`)
+- `onClick={(e) => e.stopPropagation()}` to prevent the parent card link from firing
+- Text: `{t('services.startingFrom')} {service.price}`
 
-**2. Add i18n keys to all 10 locale files**
+Move the disclaimer note (`priceNote`) to directly below the badge (keep existing styling).
 
-New keys under `services`:
-- `startingFrom`: "Starting from" (translated per locale, e.g. BG: "От")
-- `priceNote`: "Final price is determined after on-site inspection." (translated per locale)
+Adjust prices to be more realistic for 2026:
+- Roof Repair: **€15 / m²** (was €13)
+- Waterproofing: **€10 / m²** (was €8)
+- New Roof: **€32 / m²** (was €28)
+- Metal Roofing: **€9 / m²** (was €6)
 
-**3. Insert pricing line in card — between title (h3) and problem text**
+### Part 2 — New Pricing Page
 
-```
-<h3>Roof Repair</h3>
-+ <p className="text-primary font-bold text-sm mb-2">От €13 / m²</p>   ← NEW
-<p className="text-accent ...">problem text</p>
-```
+**New route key: `pricing`**
 
-Only rendered when the service has a `price` value.
+**File: `src/i18n/routes.ts`**
+- Add `pricing` to `RouteKey` union
+- Add localized slugs: bg: `цени-ремонт-покрив`, en: `roof-repair-prices`, de: `dachsanierung-preise`, etc.
 
-**4. Insert disclaimer note — below the benefits line, above the button**
+**File: `src/components/LocalizedPageRouter.tsx`**
+- Import and add `PricingPage` to `PAGE_MAP`
 
-```
-<p>✓ benefits</p>
-+ <p className="text-muted-foreground text-xs mb-3 italic">priceNote</p>  ← NEW
-<Button>Free Quote</Button>
-```
+**File: `src/pages/PricingPage.tsx`** (new)
 
-Only rendered when the service has a `price` value.
+Structure:
+1. **Hero**: Title "Цени за ремонт на покриви" / "Roof Repair Prices", subtitle about transparent pricing, two CTA buttons (Request Inspection → `getPath('inspection')`, Get a Quote → `getPath('contact')`)
+2. **Intro paragraph**: Prices are starting points, every project differs, inspection required
+3. **Pricing table/cards**: 8 services, each with name, starting price, short explanation. All services listed, prices for the 4 main ones plus estimates for the other 4 (Leak Repair ~€12/m², Tile Replacement ~€14/m², Flat Roof ~€11/m², Maintenance ~€5/m²)
+4. **SEO content block**: What affects roof repair prices (size, condition, materials, complexity, access)
+5. **Internal links**: Natural links to Roof Repair, Waterproofing, New Roof pages
+6. **CTA section**: "Request a free inspection" with Inspection and Call buttons
+7. **Helmet SEO**: title, description, JSON-LD (Service schema)
+
+**i18n — all 10 locale files**
+
+Add `pricing` key block with translations for: page title, subtitle, intro text, service price labels, SEO content paragraphs, CTA text, disclaimer.
 
 ### Files
 
-| File | Change |
+| File | Action |
 |---|---|
-| `src/components/Services.tsx` | Add `price` to serviceKeys, render price line + note |
-| `src/i18n/locales/bg.ts` | Add `startingFrom` + `priceNote` keys |
+| `src/components/Services.tsx` | Price text → clickable badge, update prices |
+| `src/i18n/routes.ts` | Add `pricing` route key + slugs |
+| `src/components/LocalizedPageRouter.tsx` | Add PricingPage to PAGE_MAP |
+| `src/pages/PricingPage.tsx` | New pricing page |
+| `src/i18n/locales/bg.ts` | Add pricing page translations |
 | `src/i18n/locales/en.ts` | Same |
 | `src/i18n/locales/de.ts` | Same |
 | `src/i18n/locales/fr.ts` | Same |
