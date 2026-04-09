@@ -225,25 +225,45 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   };
 
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setFiles(prev => [...prev, ...Array.from(e.target.files!)]);
+    if (!e.target.files) return;
+    const newFiles = Array.from(e.target.files);
+    const combined = [...files, ...newFiles];
+    if (combined.length > MAX_FILES) {
+      toast({ title: `Максимум ${MAX_FILES} файла`, variant: "destructive" });
+      return;
+    }
+    const totalSize = combined.reduce((sum, f) => sum + f.size, 0);
+    if (totalSize > MAX_TOTAL_SIZE_MB * 1024 * 1024) {
+      toast({ title: `Максимум ${MAX_TOTAL_SIZE_MB} MB общо`, variant: "destructive" });
+      return;
+    }
+    setFiles(combined);
+    e.target.value = "";
   };
 
   const removeFile = (i: number) => setFiles(files.filter((_, idx) => idx !== i));
 
   const handleSubmit = async () => {
-    if (!formData.name.trim() || !formData.phone.trim()) {
-      toast({ title: "Моля попълнете име и телефон", variant: "destructive" });
+    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.phone.trim() || !formData.email.trim() || !formData.address.trim()) {
+      toast({ title: "Моля попълнете всички задължителни полета", variant: "destructive" });
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      toast({ title: "Моля въведете валиден имейл адрес", variant: "destructive" });
       return;
     }
     setSubmitting(true);
 
+    const fullName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
+
     const { data: inquiry, error } = await supabase
       .from("inquiries")
       .insert({
-        name: formData.name.trim(),
+        name: fullName,
         phone: formData.phone.trim(),
-        email: formData.phone.trim() + "@calculator.local",
-        address: formData.address.trim() || null,
+        email: formData.email.trim(),
+        address: formData.address.trim(),
         service_type: problemToServiceType(problem) as any,
         area_sqm: roofSize,
         preferred_material: materialToEnum(material) as any || null,
