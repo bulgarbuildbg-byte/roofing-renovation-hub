@@ -9,21 +9,15 @@ import Footer from "@/components/Footer";
 import { Phone, ArrowRight, CheckCircle } from "lucide-react";
 import type { RouteKey } from "@/i18n/routes";
 
-const highlightPrice = (price: string) => {
-  return price.split(/(\d+)/).map((part, i) =>
-    /\d+/.test(part) ? <span key={i} className="text-green-600">{part}</span> : part
-  );
-};
-
-const pricingServices = [
-  { key: "roofRepair", price: "19 €/м²" },
-  { key: "waterproofing", price: "9 €/м²" },
-  { key: "newRoof", price: "68 €/м²" },
-  { key: "metalRoof", price: "18 €/м²" },
-  { key: "leakRepair", price: "22 €" },
-  { key: "tileReplacement", price: "18 €/м²" },
-  { key: "flatRoof", price: "9 €/м²" },
-  { key: "maintenance", price: "69 €/месец" },
+const pricingServices: { key: string; routeKey: RouteKey; price: string }[] = [
+  { key: "roofRepair", routeKey: "roofRepair", price: "19 €/м²" },
+  { key: "waterproofing", routeKey: "waterproofing", price: "9 €/м²" },
+  { key: "newRoof", routeKey: "newRoof", price: "68 €/м²" },
+  { key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },
+  { key: "leakRepair", routeKey: "leakRepair", price: "22 €" },
+  { key: "tileReplacement", routeKey: "tileReplacement", price: "18 €/м²" },
+  { key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
+  { key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
 ];
 
 const PricingPage = () => {
