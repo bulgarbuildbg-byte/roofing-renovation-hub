@@ -60,19 +60,22 @@ const MaintenancePage = () => {
       title: "Базов преглед",
       description: "Визуален преглед на покрива и доклад за състоянието",
       price: "от 30 €",
-      features: ["Визуална инспекция", "Доклад за състоянието", "Препоръки за поддръжка"]
+      features: ["Визуална инспекция", "Доклад за състоянието", "Препоръки за поддръжка"],
+      suitableFor: "Собственици, които искат превантивен преглед или имат съмнения за теч или повреда след зимата."
     },
     {
       title: "Почистване на улуци",
       description: "Пълно почистване на улуци и водосточни тръби",
       price: "от 3 €/м",
-      features: ["Почистване от листа", "Промиване с вода", "Проверка за течове"]
+      features: ["Почистване от листа", "Промиване с вода", "Проверка за течове"],
+      suitableFor: "Сезонна поддръжка. Покриви с улуци и натрупване на листа, мръсотия или отломки."
     },
     {
       title: "Годишна поддръжка",
       description: "Пълен пакет за целогодишна грижа за покрива",
       price: "от 128 €/год",
-      features: ["2 прегледа годишно", "Почистване на улуци", "Дребни ремонти", "Приоритетно обслужване"]
+      features: ["2 прегледа годишно", "Почистване на улуци", "Дребни ремонти", "Приоритетно обслужване"],
+      suitableFor: "Собственици на къщи, вили и ваканционни имоти, които искат спокойствие и редовна грижа."
     }
   ];
 
@@ -326,10 +329,6 @@ const MaintenancePage = () => {
         <meta name="twitter:description" content="Профилактика и почистване на покриви. Предотвратете скъпи ремонти с редовна поддръжка." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, почистване покрив мъх, профилактика покрив, почистване сняг покрив" />
-        <meta property="og:title" content="Поддръжка Покриви Варна - от 30 €" />
-        <meta property="og:description" content="Почистване на улуци и покриви. Годишни пакети." />
-        <meta property="og:type" content="website" />
-        <meta property="og:locale" content="bg_BG" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
@@ -350,10 +349,13 @@ const MaintenancePage = () => {
               <span className="text-primary-foreground">Поддръжка на покриви</span>
             </nav>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-center">
-              Поддръжка на Покриви Варна - Професионална
+              Поддръжка на Покриви Варна
             </h1>
-            <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto text-center mb-8">
-              Редовната поддръжка удължава живота на покрива с до 50% и предотвратява скъпи аварийни ремонти.
+            <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-4xl mx-auto text-center mb-4">
+              Периодични прегледи, почистване, малки ремонти и предотвратяване на по-големи щети — за къщи и сгради.
+            </p>
+            <p className="text-lg text-primary-foreground/70 text-center mb-8">
+              От базов преглед до годишен абонамент — изберете пакет, който пасва на вас.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
@@ -362,14 +364,101 @@ const MaintenancePage = () => {
                   Обадете се: 088 499 7659
                 </a>
               </Button>
-              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
+              <Button asChild size="lg" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20">
                 <Link to={getPath('contact')}>Заявете преглед</Link>
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Hero Image */}
+        {/* 2. Packages - MOVED UP */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">Пакети за поддръжка</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              Изберете пакет, който отговаря на вашите нужди
+            </p>
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {packages.map((pkg, index) => (
+                <Card key={index} className={`border-border bg-card ${index === 2 ? 'ring-2 ring-primary' : ''}`}>
+                  <CardContent className="p-6 flex flex-col h-full">
+                    {index === 2 && (
+                      <span className="inline-block px-3 py-1 text-xs font-semibold text-primary-foreground bg-primary rounded-full mb-4 self-start">
+                        Препоръчан
+                      </span>
+                    )}
+                    <h3 className="text-xl font-semibold text-card-foreground mb-2">{pkg.title}</h3>
+                    <p className="text-muted-foreground mb-3">{pkg.description}</p>
+                    <p className="text-2xl font-bold text-primary mb-3">{pkg.price}</p>
+                    <div className="bg-muted/40 rounded-lg p-3 mb-4">
+                      <p className="text-xs font-semibold text-foreground mb-1">Подходящ за:</p>
+                      <p className="text-xs text-muted-foreground">{pkg.suitableFor}</p>
+                    </div>
+                    <ul className="space-y-2 mb-6">
+                      {pkg.features.map((feature, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <Button asChild className="w-full mt-auto">
+                      <Link to={getPath('contact')}>Заявете оферта</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Warning Signals - MOVED UP */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                Какъв проблем решава поддръжката?
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                Разпознаването на тези сигнали навреме може да ви спести хиляди левове
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {warningSignals.map((signal, index) => (
+                  <Card key={index} className="border-border">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-3">
+                        <CloudRain className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                        <div>
+                          <h3 className="text-lg font-semibold text-card-foreground mb-2">{signal.title}</h3>
+                          <p className="text-muted-foreground text-sm">{signal.description}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Benefits - MOVED UP */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Ползи от редовната поддръжка</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
+                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
+                    <span className="text-card-foreground">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. Hero Image */}
         <section className="relative h-[400px] md:h-[500px]">
           <img 
             src={gutterCleaning} 
@@ -382,8 +471,44 @@ const MaintenancePage = () => {
           </div>
         </section>
 
-        {/* Introduction */}
+        {/* 6. Step-by-Step Process */}
         <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                Процес на професионална инспекция
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
+                Нашият систематичен подход гарантира, че нищо не остава незабелязано
+              </p>
+              <div className="space-y-12">
+                {maintenanceProcess.map((step, index) => (
+                  <div key={index} className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}>
+                    <div className="w-full md:w-1/2">
+                      <img 
+                        src={step.image} 
+                        alt={step.imageAlt}
+                        className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg"
+                      />
+                    </div>
+                    <div className="w-full md:w-1/2">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
+                          {step.step}
+                        </div>
+                        <h3 className="text-2xl font-semibold text-foreground">{step.title}</h3>
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed text-lg">{step.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 7. Introduction / SEO text - MOVED DOWN */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto prose prose-lg">
               <h2 className="text-3xl font-bold text-foreground mb-6">Защо редовната поддръжка на покрива е важна?</h2>
@@ -400,8 +525,8 @@ const MaintenancePage = () => {
           </div>
         </section>
 
-        {/* Seasonal Maintenance */}
-        <section className="py-16 bg-muted/30">
+        {/* 8. Seasonal Maintenance - MOVED DOWN */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Сезонна поддръжка на покрива</h2>
@@ -438,79 +563,14 @@ const MaintenancePage = () => {
           </div>
         </section>
 
-        {/* Step-by-Step Process */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                Процес на професионална инспекция
-              </h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
-                Нашият систематичен подход гарантира, че нищо не остава незабелязано
-              </p>
-              <div className="space-y-12">
-                {maintenanceProcess.map((step, index) => (
-                  <div key={index} className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}>
-                    <div className="w-full md:w-1/2">
-                      <img 
-                        src={step.image} 
-                        alt={step.imageAlt}
-                        className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg"
-                      />
-                    </div>
-                    <div className="w-full md:w-1/2">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
-                          {step.step}
-                        </div>
-                        <h3 className="text-2xl font-semibold text-foreground">{step.title}</h3>
-                      </div>
-                      <p className="text-muted-foreground leading-relaxed text-lg">{step.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Warning Signals */}
+        {/* 9. Services List */}
         <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                Признаци, че покривът ви се нуждае от внимание
-              </h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-                Разпознаването на тези сигнали навреме може да ви спести сериозни проблеми
-              </p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {warningSignals.map((signal, index) => (
-                  <Card key={index} className="border-border">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-3">
-                        <CloudRain className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                        <div>
-                          <h3 className="text-lg font-semibold text-card-foreground mb-2">{signal.title}</h3>
-                          <p className="text-muted-foreground text-sm">{signal.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Services List */}
-        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Услуги по поддръжка</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 {services.map((service, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-muted/30 border border-border">
+                  <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-card border border-border">
                     <Settings className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
                     <span className="text-foreground">{service}</span>
                   </div>
@@ -520,59 +580,8 @@ const MaintenancePage = () => {
           </div>
         </section>
 
-        {/* Benefits */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Ползи от редовната поддръжка</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
-                    <span className="text-card-foreground">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Packages */}
+        {/* 10. Service Areas */}
         <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-foreground text-center mb-4">Пакети за поддръжка</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Изберете пакет, който отговаря на вашите нужди
-            </p>
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {packages.map((pkg, index) => (
-                <Card key={index} className={`border-border bg-card ${index === 2 ? 'ring-2 ring-primary' : ''}`}>
-                  <CardContent className="p-6">
-                    {index === 2 && (
-                      <span className="inline-block px-3 py-1 text-xs font-semibold text-primary-foreground bg-primary rounded-full mb-4">
-                        Препоръчан
-                      </span>
-                    )}
-                    <h3 className="text-xl font-semibold text-card-foreground mb-2">{pkg.title}</h3>
-                    <p className="text-muted-foreground mb-4">{pkg.description}</p>
-                    <p className="text-2xl font-bold text-primary mb-4">{pkg.price}</p>
-                    <ul className="space-y-2">
-                      {pkg.features.map((feature, i) => (
-                        <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <CheckCircle className="w-4 h-4 text-accent" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Service Areas */}
-        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
@@ -614,8 +623,8 @@ const MaintenancePage = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-16 bg-background">
+        {/* 11. FAQ Section */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">

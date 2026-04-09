@@ -1,11 +1,34 @@
 import { Helmet } from "react-helmet";
-import { Check, ArrowLeft, Phone } from "lucide-react";
+import { Check, ArrowLeft, Phone, ClipboardCheck, FileText, Hammer, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
+import type { RouteKey } from "@/i18n/routes";
+
+import roofRepairImg from "@/assets/services/roof-repair.jpg";
+import leakRepairImg from "@/assets/services/leak-repair.jpg";
+import waterproofingImg from "@/assets/services/waterproofing.jpg";
+import newRoofImg from "@/assets/services/new-roof.jpg";
+import tileReplacementImg from "@/assets/services/tile-replacement.jpg";
+import flatRoofImg from "@/assets/services/flat-roof.jpg";
+import metalRoofImg from "@/assets/services/metal-roof.jpg";
+import maintenanceImg from "@/assets/services/maintenance.jpg";
+
+const serviceCards: { image: string; key: string; routeKey: RouteKey; price: string }[] = [
+  { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair", price: "19 €/м²" },
+  { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "9 €/м²" },
+  { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "68 €/м²" },
+  { image: tileReplacementImg, key: "tileReplacement", routeKey: "tileReplacement", price: "18 €/м²" },
+  { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair", price: "22 €" },
+  { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
+  { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },
+  { image: maintenanceImg, key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
+];
 
 const servicePackages = [
   {
@@ -101,7 +124,17 @@ const detailedServices = [
   }
 ];
 
+const howWeWorkSteps = [
+  { icon: ClipboardCheck, title: "Оглед и Консултация", description: "Безплатен оглед на място и професионална оценка" },
+  { icon: FileText, title: "Оферта", description: "Ясна оферта без скрити разходи" },
+  { icon: Hammer, title: "Изпълнение", description: "Качествено изпълнение с договор и срок" },
+  { icon: Shield, title: "Гаранция", description: "10-15 години гаранция и протокол" },
+];
+
 const ServicesPage = () => {
+  const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
+
   return (
     <>
       <Helmet>
@@ -120,21 +153,90 @@ const ServicesPage = () => {
           {/* Hero Section */}
           <section className="pt-32 pb-16 bg-secondary">
             <div className="container mx-auto px-4">
-              <Link to="/" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-8">
+              <Link to={getPath('home')} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-8">
                 <ArrowLeft className="w-4 h-4" />
                 Обратно към начало
               </Link>
               
               <div className="max-w-3xl">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                  Покривни Услуги Варна - Цени и Пакети
+                  Покривни Услуги Варна
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
-                  Предлагаме пълен спектър от покривни услуги с конкурентни цени и гаранция за качество. Безплатна оценка и консултация!
+                  Изберете услугата, от която имате нужда. Безплатна консултация и оглед за всеки проект.
                 </p>
                 <Button size="lg" className="gap-2" asChild>
                   <a href="tel:0884997659"><Phone className="w-5 h-5" />088 499 7659</a>
                 </Button>
+              </div>
+            </div>
+          </section>
+
+          {/* All 8 Services Grid */}
+          <section className="py-20 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Нашите Услуги
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Всички покривни решения на едно място — изберете и разберете повече
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                {serviceCards.map((service, index) => (
+                  <Link key={index} to={getPath(service.routeKey)} className="block group">
+                    <Card className="bg-background hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border flex flex-col overflow-hidden cursor-pointer h-full">
+                      <div className="relative h-44 overflow-hidden">
+                        <img
+                          src={service.image}
+                          alt={t(`services.${service.key}.title`)}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      </div>
+                      <CardContent className="p-5 flex flex-col flex-grow">
+                        <h3 className="text-lg font-bold text-foreground mb-2">
+                          {t(`services.${service.key}.title`)}
+                        </h3>
+                        <div className="mb-3">
+                          <span className="inline-flex items-center bg-green-50 text-green-700 border border-green-200 font-extrabold text-sm px-3 py-1 rounded-full">
+                            от {service.price}
+                          </span>
+                        </div>
+                        <p className="text-muted-foreground text-sm mb-3 flex-grow">
+                          {t(`services.${service.key}.problem`)}
+                        </p>
+                        <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-auto">
+                          Научете повече
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* How We Work - Compact */}
+          <section className="py-16 bg-secondary">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+                Как Работим
+              </h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                {howWeWorkSteps.map((step, index) => (
+                  <div key={index} className="text-center">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <step.icon className="w-8 h-8 text-primary" />
+                    </div>
+                    <div className="text-sm font-bold text-primary mb-1">Стъпка {index + 1}</div>
+                    <h3 className="text-lg font-bold text-foreground mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground text-sm">{step.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
@@ -182,8 +284,8 @@ const ServicesPage = () => {
                       </ul>
                     </CardContent>
                     <CardFooter>
-                      <Button className="w-full" variant={pkg.popular ? "default" : "outline"}>
-                        Заявка за оферта
+                      <Button className="w-full" variant={pkg.popular ? "default" : "outline"} asChild>
+                        <Link to={getPath('contact')}>Заявка за оферта</Link>
                       </Button>
                     </CardFooter>
                   </Card>
@@ -244,8 +346,8 @@ const ServicesPage = () => {
                 <Button size="lg" variant="secondary" className="gap-2" asChild>
                   <a href="tel:0884997659"><Phone className="w-5 h-5" />088 499 7659</a>
                 </Button>
-                <Button size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                  remontnapokrivivarna@abv.bg
+                <Button size="lg" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20" asChild>
+                  <Link to={getPath('contact')}>Изпратете запитване</Link>
                 </Button>
               </div>
             </div>
