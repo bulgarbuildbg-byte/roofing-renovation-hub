@@ -6,10 +6,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
-import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, PlusCircle, Search, Hammer, CheckCircle, Upload, X, Loader2, Send } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera } from "lucide-react";
 import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+
+const MAX_FILES = 8;
+const MAX_TOTAL_SIZE_MB = 250;
 
 interface PriceCalculatorProps {
   variant?: "full" | "compact";
