@@ -1,51 +1,62 @@
 
 
-## Обновяване на формата в калкулатора — modal popup + нови полета
+## Визуални и UX подобрения на калкулатора
 
 ### Какво се променя
 
-Един файл: `src/components/PriceCalculator.tsx`. Формата за запитване се извежда в **Dialog (modal popup)** вместо inline секция. Добавят се нови полета и подобрения.
+Един файл: `src/components/PriceCalculator.tsx` — визуален overhaul без промяна на логиката.
 
 ---
 
 ### Промени
 
-**1. Modal вместо inline форма**
-- Import `Dialog, DialogContent, DialogHeader, DialogTitle` от `@/components/ui/dialog`
-- При натискане на „Заявете безплатен оглед" → отваря modal (`setShowForm(true)`)
-- Desktop и mobile — еднакво поведение (popup)
-- Без скрол, без redirect
+**1. Цветова схема и фон**
+- Секцията получава `bg-gradient-to-b from-slate-50 to-slate-100` вместо `bg-muted/30`
+- Картата (Card) получава по-силен shadow (`shadow-xl`) и subtle border (`border-slate-200`)
+- Progress bar: custom цвят с accent gradient indicator
 
-**2. Нови полета във формата**
+**2. OptionCard redesign**
+- По-големи картички с `p-5`, `rounded-2xl`, `shadow-sm`
+- Hover: `hover:shadow-md hover:-translate-y-0.5 transition-all duration-200`
+- Selected state: `border-accent bg-accent/10 shadow-accent/20 shadow-md` — ярко оранжев border + glow
+- Иконките стават цветни: accent цвят при hover/selected, `w-7 h-7` по-големи
+- Добавяне на цветни кръгчета зад иконките (`w-12 h-12 rounded-full bg-accent/10`)
 
-| Поле | Задължително | Тип |
-|---|---|---|
-| Име | Да | text |
-| Фамилия | Да | text (НОВО) |
-| Телефон | Да | tel |
-| Имейл | Да | email (НОВО) |
-| Адрес / град / улица | Да | text (placeholder: „Напр. Варна, кв. Левски, ул. …") |
-| Опишете проблема | Не | textarea |
-| Снимки/файлове | Не | file upload |
+**3. StepHeader redesign**
+- По-голямо заглавие `text-xl font-bold`
+- Подзаглавие с различен стил — `text-muted-foreground italic`
+- Back бутон: `bg-slate-100 hover:bg-slate-200 rounded-full p-2`
+- Номер на стъпка като badge: `bg-accent text-white w-8 h-8 rounded-full` пред заглавието
 
-**formData state** се обновява: `{ firstName, lastName, phone, email, address, description }`
+**4. Progress bar подобрения**
+- Текст „Стъпка X от Y" + percentage badge
+- Progress indicator: `bg-gradient-to-r from-accent to-accent/70` вместо default primary
+- По-висок `h-3` за видимост
 
-**3. File upload подобрения**
-- Лимит: до 8 файла, до 250 MB общо
-- `accept="image/*,.pdf,.doc,.docx,.heic"` + `capture="environment"` за камера на мобилно
-- Валидация при добавяне (брой + размер)
-- Drag & drop зона с текст
+**5. CTA бутони**
+- Основен CTA: `bg-accent hover:bg-accent/90 text-white` — оранжев, голям, `h-14 text-lg font-bold`
+- `hover:scale-[1.02] active:scale-[0.98] transition-all duration-200`
+- Телефон бутон: `bg-primary text-white` вместо outline
 
-**4. Submit логика**
-- Валидация: firstName, lastName, phone, email, address — всички задължителни
-- `name` в inquiries = `${firstName} ${lastName}`
-- `email` = реалният имейл (вече не fake @calculator.local)
-- Всички калкулаторни данни се прикачват в `description` автоматично
-- Успешно изпращане → success state в modal → затваряне
+**6. Result стъпка**
+- Ценовият блок: `bg-gradient-to-br from-primary to-primary/80 text-white rounded-2xl p-8`
+- Цената: `text-4xl md:text-5xl font-extrabold text-white`
+- Trust badges: бели иконки на тъмен фон
 
-**5. CTA бутоните на result стъпката остават**
-- „Заявете безплатен оглед" → отваря modal
-- „Обадете се сега" → `tel:` линк (без промяна)
+**7. Микроанимации**
+- Всяка стъпка wrap в div с `animate-fade-in` (вече съществува в CSS)
+- OptionCard: `transition-all duration-200` за hover/select
+- Бутони: `transition-transform duration-150`
+
+**8. Spacing**
+- CardContent padding: `p-8 md:p-10`
+- Gap между option cards: `gap-4`
+- Секции: `space-y-8` вместо `space-y-6`
+
+**9. Size стъпка**
+- Slider с accent цвят
+- Preset бутони: по-големи, с accent highlight при избор
+- Access бутони с иконки (Truck, ArrowUpDown, Mountain от lucide)
 
 ---
 
@@ -53,5 +64,5 @@
 
 | Файл | Промяна |
 |---|---|
-| `src/components/PriceCalculator.tsx` | Форма в Dialog modal, нови полета (фамилия, имейл), file upload лимити (8 файла / 250MB), валидация |
+| `src/components/PriceCalculator.tsx` | Визуален overhaul — нова цветова схема, по-големи картички с shadow/hover, accent CTA, step badges, анимации, подобрен spacing |
 
