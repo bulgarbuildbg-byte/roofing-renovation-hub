@@ -1,71 +1,39 @@
 
 
-## Service Cards Price Badge + New Pricing Page
+## Обновяване на цените в картичките с услуги
 
-### Summary
-Two changes: (1) convert the plain-text price on service cards into a clickable badge linking to a new pricing page, and (2) create that pricing page with hero, intro, pricing table, SEO content, internal links, and CTA.
+### Какво се променя
 
-### Part 1 — Price Badge on Service Cards
+Само файл `src/components/Services.tsx` — масивът `serviceKeys` и стилът на badge елемента.
 
-**File: `src/components/Services.tsx`**
+### 1. Обновяване на цените в `serviceKeys`
 
-Replace the current `<p className="text-primary font-bold text-sm mb-2">` price line (lines 107-111) with a clickable badge element:
+Всички 8 услуги получават `price`:
 
-- Style: `inline-flex` rounded pill with `bg-primary/10 text-primary border border-primary/20 font-bold text-sm px-3 py-1 rounded-full hover:bg-primary/20 transition-colors`
-- Wrapped in a `<Link>` to the pricing page route (`getPath('pricing')`)
-- `onClick={(e) => e.stopPropagation()}` to prevent the parent card link from firing
-- Text: `{t('services.startingFrom')} {service.price}`
+| key | Сегашна цена | Нова цена |
+|---|---|---|
+| roofRepair | `€15 / m²` | `19 €/м²` |
+| waterproofing | `€10 / m²` | `9 €/м²` |
+| newRoof | `€32 / m²` | `68 €/м²` |
+| tileReplacement | *(няма)* | `18 €/м²` |
+| leakRepair | *(няма)* | `22 €/м²` |
+| flatRoof | *(няма)* | `9 €/м²` |
+| metalRoof | `€9 / m²` | `18 €/м²` |
+| maintenance | *(няма)* | `69 €/месец` |
 
-Move the disclaimer note (`priceNote`) to directly below the badge (keep existing styling).
+### 2. Подобряване на контраста на badge текста
 
-Adjust prices to be more realistic for 2026:
-- Roof Repair: **€15 / m²** (was €13)
-- Waterproofing: **€10 / m²** (was €8)
-- New Roof: **€32 / m²** (was €28)
-- Metal Roofing: **€9 / m²** (was €6)
+Текущ клас: `text-primary font-bold text-sm`
 
-### Part 2 — New Pricing Page
+Промяна: добавяне на `font-extrabold` вместо `font-bold` и леко по-голям размер `text-[0.9rem]` за по-ясна видимост. Останалият стил (bg-primary/10, border, rounded-full) остава непроменен.
 
-**New route key: `pricing`**
+### 3. Премахване на условието `{service.price &&`
 
-**File: `src/i18n/routes.ts`**
-- Add `pricing` to `RouteKey` union
-- Add localized slugs: bg: `цени-ремонт-покрив`, en: `roof-repair-prices`, de: `dachsanierung-preise`, etc.
+Тъй като вече всички услуги имат цена, условието остава, но няма да скрива нищо. Запазваме го за консистентност.
 
-**File: `src/components/LocalizedPageRouter.tsx`**
-- Import and add `PricingPage` to `PAGE_MAP`
+### Файлове
 
-**File: `src/pages/PricingPage.tsx`** (new)
-
-Structure:
-1. **Hero**: Title "Цени за ремонт на покриви" / "Roof Repair Prices", subtitle about transparent pricing, two CTA buttons (Request Inspection → `getPath('inspection')`, Get a Quote → `getPath('contact')`)
-2. **Intro paragraph**: Prices are starting points, every project differs, inspection required
-3. **Pricing table/cards**: 8 services, each with name, starting price, short explanation. All services listed, prices for the 4 main ones plus estimates for the other 4 (Leak Repair ~€12/m², Tile Replacement ~€14/m², Flat Roof ~€11/m², Maintenance ~€5/m²)
-4. **SEO content block**: What affects roof repair prices (size, condition, materials, complexity, access)
-5. **Internal links**: Natural links to Roof Repair, Waterproofing, New Roof pages
-6. **CTA section**: "Request a free inspection" with Inspection and Call buttons
-7. **Helmet SEO**: title, description, JSON-LD (Service schema)
-
-**i18n — all 10 locale files**
-
-Add `pricing` key block with translations for: page title, subtitle, intro text, service price labels, SEO content paragraphs, CTA text, disclaimer.
-
-### Files
-
-| File | Action |
+| Файл | Промяна |
 |---|---|
-| `src/components/Services.tsx` | Price text → clickable badge, update prices |
-| `src/i18n/routes.ts` | Add `pricing` route key + slugs |
-| `src/components/LocalizedPageRouter.tsx` | Add PricingPage to PAGE_MAP |
-| `src/pages/PricingPage.tsx` | New pricing page |
-| `src/i18n/locales/bg.ts` | Add pricing page translations |
-| `src/i18n/locales/en.ts` | Same |
-| `src/i18n/locales/de.ts` | Same |
-| `src/i18n/locales/fr.ts` | Same |
-| `src/i18n/locales/nl.ts` | Same |
-| `src/i18n/locales/sv.ts` | Same |
-| `src/i18n/locales/no.ts` | Same |
-| `src/i18n/locales/fi.ts` | Same |
-| `src/i18n/locales/ru.ts` | Same |
-| `src/i18n/locales/ua.ts` | Same |
+| `src/components/Services.tsx` | Обновяване на цени в масива + усилване на шрифта на badge |
 
