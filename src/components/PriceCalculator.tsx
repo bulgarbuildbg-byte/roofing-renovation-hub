@@ -8,7 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain } from "lucide-react";
-import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { trackEvent, trackCalculatorEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
