@@ -8,7 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain } from "lucide-react";
-import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { trackEvent, trackCalculatorEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -138,8 +138,14 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   const goNext = useCallback(() => {
     const idx = steps.indexOf(currentStep);
-    if (idx < steps.length - 1) setCurrentStep(steps[idx + 1]);
-  }, [steps, currentStep]);
+    if (idx < steps.length - 1) {
+      const nextStep = steps[idx + 1];
+      if (nextStep === "result") {
+        trackCalculatorEvent("calculator_complete", { roofType, material, problem, scope, size: String(roofSize), access });
+      }
+      setCurrentStep(nextStep);
+    }
+  }, [steps, currentStep, roofType, material, problem, scope, roofSize, access]);
 
   const goBack = useCallback(() => {
     const idx = steps.indexOf(currentStep);
@@ -149,6 +155,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   const selectRoofType = (id: string) => {
     setRoofType(id);
     setMaterial("");
+    trackCalculatorEvent("calculator_start", { roofType: id });
     if (id === "metal" || id === "unsure") {
       setCurrentStep("problem");
     } else {
@@ -158,12 +165,14 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   const selectMaterial = (id: string) => {
     setMaterial(id);
+    trackCalculatorEvent("calculator_step", { step: "material", material: id });
     setCurrentStep("problem");
   };
 
   const selectProblem = (id: string) => {
     setProblem(id);
     setScope("");
+    trackCalculatorEvent("calculator_step", { step: "problem", problem: id });
     if (id === "inspection" || id === "unsure") {
       setCurrentStep("size");
     } else {
@@ -173,6 +182,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   const selectScope = (id: string) => {
     setScope(id);
+    trackCalculatorEvent("calculator_step", { step: "scope", scope: id });
     setCurrentStep("size");
   };
 

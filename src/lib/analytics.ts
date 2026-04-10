@@ -125,6 +125,24 @@ export async function trackEvent(
 }
 
 /**
+ * Track calculator funnel events (start, step, complete).
+ */
+export function trackCalculatorEvent(
+  step: string,
+  selections?: Record<string, string>
+) {
+  trackEvent("calculator", step, {
+    page_path: window.location.pathname,
+  });
+  // If there are selections, log them as a separate detail event
+  if (selections && Object.keys(selections).length > 0) {
+    trackEvent("calculator_detail", step, {
+      page_path: window.location.pathname,
+    });
+  }
+}
+
+/**
  * Log a phone call click: track analytics event + fire Google Ads conversion.
  * Called from the global tel: click interceptor in AnalyticsTracker.
  */
