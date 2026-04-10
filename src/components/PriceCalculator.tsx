@@ -149,6 +149,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   const selectRoofType = (id: string) => {
     setRoofType(id);
     setMaterial("");
+    trackCalculatorEvent("calculator_start", { roofType: id });
     if (id === "metal" || id === "unsure") {
       setCurrentStep("problem");
     } else {
@@ -158,12 +159,14 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   const selectMaterial = (id: string) => {
     setMaterial(id);
+    trackCalculatorEvent("calculator_step", { step: "material", material: id });
     setCurrentStep("problem");
   };
 
   const selectProblem = (id: string) => {
     setProblem(id);
     setScope("");
+    trackCalculatorEvent("calculator_step", { step: "problem", problem: id });
     if (id === "inspection" || id === "unsure") {
       setCurrentStep("size");
     } else {
@@ -173,6 +176,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   const selectScope = (id: string) => {
     setScope(id);
+    trackCalculatorEvent("calculator_step", { step: "scope", scope: id });
     setCurrentStep("size");
   };
 
