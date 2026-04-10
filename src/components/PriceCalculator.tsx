@@ -138,8 +138,14 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
 
   const goNext = useCallback(() => {
     const idx = steps.indexOf(currentStep);
-    if (idx < steps.length - 1) setCurrentStep(steps[idx + 1]);
-  }, [steps, currentStep]);
+    if (idx < steps.length - 1) {
+      const nextStep = steps[idx + 1];
+      if (nextStep === "result") {
+        trackCalculatorEvent("calculator_complete", { roofType, material, problem, scope, size: String(roofSize), access });
+      }
+      setCurrentStep(nextStep);
+    }
+  }, [steps, currentStep, roofType, material, problem, scope, roofSize, access]);
 
   const goBack = useCallback(() => {
     const idx = steps.indexOf(currentStep);
