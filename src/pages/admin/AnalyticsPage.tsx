@@ -3,11 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { supabase } from "@/integrations/supabase/client";
-import { Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download, ArrowUpDown, TrendingUp, TrendingDown, Minus, Globe, Bot, ShieldCheck } from "lucide-react";
-import { format, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfDay, endOfWeek, endOfMonth, endOfYear } from "date-fns";
+import {
+  Users, Clock, MousePointer, Phone, Calculator, Loader2, CalendarIcon, Download,
+  ArrowUpDown, TrendingUp, TrendingDown, Minus, Globe, Bot, ShieldCheck,
+  AlertTriangle, CheckCircle2, Target, BarChart3, PhoneCall, Percent,
+} from "lucide-react";
+import { format, startOfDay, startOfWeek, startOfMonth, startOfYear, endOfDay, endOfWeek, endOfMonth, endOfYear, subHours } from "date-fns";
 import { bg } from "date-fns/locale";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, FunnelChart, Funnel, LabelList } from "recharts";
 import type { DateRange } from "react-day-picker";
 
 type PresetKey = "today" | "this_week" | "this_month" | "this_year" | "custom";
@@ -20,19 +26,18 @@ const presets: { key: PresetKey; label: string; getRange: () => { from: Date; to
 ];
 
 const SOURCE_CONFIG: Record<string, { label: string; color: string }> = {
-  organic:  { label: "Органично търсене", color: "hsl(var(--primary))" },
-  direct:   { label: "Директен достъп",   color: "hsl(var(--muted-foreground))" },
+  organic:  { label: "Органично търсене", color: "#22c55e" },
+  direct:   { label: "Директен достъп",   color: "#64748b" },
   referral: { label: "Препращане",         color: "#f59e0b" },
   social:   { label: "Социални мрежи",     color: "#8b5cf6" },
   email:    { label: "Имейл",              color: "#06b6d4" },
-  unknown:  { label: "Непознат",           color: "hsl(var(--border))" },
+  unknown:  { label: "Непознат",           color: "#94a3b8" },
 };
 
 const AnalyticsPage = () => {
   const [activePreset, setActivePreset] = useState<PresetKey>("this_month");
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
-    const p = presets.find(p => p.key === "this_month")!;
-    const r = p.getRange();
+    const r = presets.find(p => p.key === "this_month")!.getRange();
     return { from: r.from, to: r.to };
   });
   const [compareEnabled, setCompareEnabled] = useState(false);
@@ -44,7 +49,6 @@ const AnalyticsPage = () => {
   const from = dateRange?.from;
   const to = dateRange?.to;
 
-  // Comparison range (same duration, immediately before)
   const compRange = useMemo(() => {
     if (!from || !to || !compareEnabled) return null;
     const diff = to.getTime() - from.getTime();
@@ -96,57 +100,116 @@ const AnalyticsPage = () => {
   const currentEvents = useMemo(() => from && to ? filterByRange(events, { from, to }) : [], [events, from, to, filterBots]);
   const compareEvents = useMemo(() => compRange ? filterByRange(events, compRange) : [], [events, compRange, filterBots]);
 
-  // Conversions by source
-  const conversionsBySource = useMemo(() => {
+  const rangeInquiries = useMemo(() => {
     if (!from || !to) return [];
-    const rangeInquiries = inquiries.filter(inq => {
+    return inquiries.filter(inq => {
       const d = new Date(inq.created_at);
       return d >= from && d <= endOfDay(to);
     });
-    const counts: Record<string, number> = {};
-    for (const inq of rangeInquiries) {
-      const src = inq.referrer_source || "direct";
-      counts[src] = (counts[src] || 0) + 1;
-    }
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([source, count]) => ({
-        source,
-        count,
-        label: SOURCE_CONFIG[source]?.label ?? source,
-        color: SOURCE_CONFIG[source]?.color ?? "hsl(var(--border))",
-      }));
   }, [inquiries, from, to]);
 
-  const calcStats = (rows: any[]) => {
+  const calcStats = (rows: any[], inqs: any[]) => {
     const visitors = new Set(rows.filter(r => r.event_type === "page_view").map(r => r.session_id)).size;
     const durations = rows.filter(r => r.event_type === "session_duration" && r.duration_seconds);
     const avgDuration = durations.length > 0
       ? Math.round(durations.reduce((s, r) => s + r.duration_seconds, 0) / durations.length / 60 * 10) / 10
       : 0;
     const btnCount = (name: string) => rows.filter(r => r.event_type === "button_click" && r.event_name === name).length;
-    return { visitors, avgDuration, offers: btnCount("offer_button"), calls: btnCount("call_button"), calculator: btnCount("calculator_button") };
+    const calcStarts = rows.filter(r => r.event_type === "calculator" && r.event_name === "calculator_start").length;
+    const calcCompletes = rows.filter(r => r.event_type === "calculator" && r.event_name === "calculator_complete").length;
+    const calls = btnCount("call_button");
+    const leads = inqs.length;
+    const conversionRate = visitors > 0 ? Math.round((leads / visitors) * 1000) / 10 : 0;
+    const calcCompletionRate = calcStarts > 0 ? Math.round((calcCompletes / calcStarts) * 100) : 0;
+    return { visitors, avgDuration, offers: btnCount("offer_button"), calls, calculator: btnCount("calculator_button"), calcStarts, calcCompletes, calcCompletionRate, leads, conversionRate };
   };
 
-  const current = calcStats(currentEvents);
-  const compare = compareEnabled ? calcStats(compareEvents) : null;
+  const current = calcStats(currentEvents, rangeInquiries);
+  const compare = compareEnabled ? calcStats(compareEvents, []) : null;
+
+  // Funnel data
+  const funnelData = useMemo(() => {
+    const steps = [
+      { name: "Посещения", value: current.visitors, fill: "#3b82f6" },
+      { name: "Калкулатор", value: current.calcStarts || current.calculator, fill: "#8b5cf6" },
+      { name: "Завършен калк.", value: current.calcCompletes, fill: "#a855f7" },
+      { name: "Запитване", value: current.leads, fill: "#f59e0b" },
+      { name: "Обаждане", value: current.calls, fill: "#22c55e" },
+    ];
+    return steps.map((s, i) => ({
+      ...s,
+      dropOff: i > 0 && steps[i - 1].value > 0 ? Math.round((1 - s.value / steps[i - 1].value) * 100) : 0,
+      pct: steps[0].value > 0 ? Math.round((s.value / steps[0].value) * 100) : 0,
+    }));
+  }, [current]);
+
+  // Call tracking by page
+  const callsByPage = useMemo(() => {
+    const callEvents = currentEvents.filter(e => e.event_type === "button_click" && e.event_name === "call_button");
+    const counts: Record<string, number> = {};
+    callEvents.forEach(e => { counts[e.page_path || "/"] = (counts[e.page_path || "/"] || 0) + 1; });
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([path, count]) => ({ path, count }));
+  }, [currentEvents]);
+
+  // Call tracking by source
+  const callsBySource = useMemo(() => {
+    const callEvents = currentEvents.filter(e => e.event_type === "button_click" && e.event_name === "call_button");
+    const sessionSources: Record<string, string> = {};
+    currentEvents.filter(e => e.event_type === "page_view").forEach(e => {
+      if (!sessionSources[e.session_id]) sessionSources[e.session_id] = e.referrer_source || "direct";
+    });
+    const counts: Record<string, number> = {};
+    callEvents.forEach(e => {
+      const src = sessionSources[e.session_id] || "direct";
+      counts[src] = (counts[src] || 0) + 1;
+    });
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([source, count]) => ({
+      source, count,
+      label: SOURCE_CONFIG[source]?.label ?? source,
+      color: SOURCE_CONFIG[source]?.color ?? "#94a3b8",
+    }));
+  }, [currentEvents]);
+
+  // Traffic sources with leads
+  const trafficSources = useMemo(() => {
+    const pageViews = currentEvents.filter(e => e.event_type === "page_view");
+    const sessionSource: Record<string, string> = {};
+    const sorted = [...pageViews].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+    for (const e of sorted) {
+      if (!sessionSource[e.session_id]) sessionSource[e.session_id] = e.referrer_source || "unknown";
+    }
+    const counts: Record<string, number> = {};
+    for (const src of Object.values(sessionSource)) counts[src] = (counts[src] || 0) + 1;
+    const total = Object.values(counts).reduce((s, v) => s + v, 0);
+
+    // Count leads per source
+    const leadCounts: Record<string, number> = {};
+    rangeInquiries.forEach(inq => {
+      const src = inq.referrer_source || "direct";
+      leadCounts[src] = (leadCounts[src] || 0) + 1;
+    });
+
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([source, sessions]) => ({
+        source, sessions,
+        leads: leadCounts[source] || 0,
+        pct: total > 0 ? Math.round((sessions / total) * 100) : 0,
+        label: SOURCE_CONFIG[source]?.label ?? source,
+        color: SOURCE_CONFIG[source]?.color ?? "#94a3b8",
+      }));
+  }, [currentEvents, rangeInquiries]);
 
   // Daily chart data
   const chartData = useMemo(() => {
     if (!from || !to) return [];
     const days: Date[] = [];
     const d = new Date(from);
-    while (d <= to) {
-      days.push(new Date(d));
-      d.setDate(d.getDate() + 1);
-    }
+    while (d <= to) { days.push(new Date(d)); d.setDate(d.getDate() + 1); }
     return days.map(day => {
       const dayStart = startOfDay(day);
       const dayEnd = endOfDay(day);
-      const dayEvents = currentEvents.filter(e => {
-        const d = new Date(e.created_at);
-        return d >= dayStart && d <= dayEnd;
-      });
+      const dayEvents = currentEvents.filter(e => { const d = new Date(e.created_at); return d >= dayStart && d <= dayEnd; });
       const visitors = new Set(dayEvents.filter(e => e.event_type === "page_view").map(e => e.session_id)).size;
       const leads = dayEvents.filter(e => e.event_type === "button_click" && e.event_name === "offer_button").length;
       const calls = dayEvents.filter(e => e.event_type === "button_click" && e.event_name === "call_button").length;
@@ -157,43 +220,39 @@ const AnalyticsPage = () => {
   // Top pages
   const topPages = useMemo(() => {
     const counts: Record<string, number> = {};
-    currentEvents.filter(e => e.event_type === "page_view" && e.page_path).forEach(e => {
-      counts[e.page_path] = (counts[e.page_path] || 0) + 1;
-    });
+    currentEvents.filter(e => e.event_type === "page_view" && e.page_path).forEach(e => { counts[e.page_path] = (counts[e.page_path] || 0) + 1; });
     return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 10).map(([path, views]) => ({ path, views }));
   }, [currentEvents]);
 
-  // Traffic sources — first-touch attribution per session
-  const trafficSources = useMemo(() => {
-    const pageViews = currentEvents.filter(e => e.event_type === "page_view");
-    // Build first-touch source per session (earliest event wins)
-    const sessionSource: Record<string, string> = {};
-    const sorted = [...pageViews].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
-    for (const e of sorted) {
-      if (!sessionSource[e.session_id]) {
-        sessionSource[e.session_id] = e.referrer_source || "unknown";
-      }
-    }
-    // Count sessions per source
-    const counts: Record<string, number> = {};
-    for (const src of Object.values(sessionSource)) {
-      counts[src] = (counts[src] || 0) + 1;
-    }
-    const total = Object.values(counts).reduce((s, v) => s + v, 0);
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([source, sessions]) => ({
-        source,
-        sessions,
-        pct: total > 0 ? Math.round((sessions / total) * 100) : 0,
-        label: SOURCE_CONFIG[source]?.label ?? source,
-        color: SOURCE_CONFIG[source]?.color ?? "hsl(var(--border))",
-      }));
+  // Calculator analytics — most chosen options
+  const calcAnalytics = useMemo(() => {
+    const calcDetailEvents = currentEvents.filter(e => e.event_type === "calculator" || e.event_type === "calculator_detail");
+    return {
+      starts: currentEvents.filter(e => e.event_type === "calculator" && e.event_name === "calculator_start").length,
+      completes: currentEvents.filter(e => e.event_type === "calculator" && e.event_name === "calculator_complete").length,
+      steps: currentEvents.filter(e => e.event_type === "calculator" && e.event_name === "calculator_step").length,
+    };
   }, [currentEvents]);
 
+  // Alerts
+  const alerts = useMemo(() => {
+    const list: { type: "error" | "warning" | "info"; title: string; message: string }[] = [];
+    if (current.visitors > 10 && current.conversionRate < 1) {
+      list.push({ type: "error", title: "Нисък Conversion Rate", message: `Само ${current.conversionRate}% от посетителите стават лидове. Проверете формите и CTA елементите.` });
+    }
+    const hours48ago = subHours(new Date(), 48);
+    const recentLeads = rangeInquiries.filter(inq => new Date(inq.created_at) >= hours48ago).length;
+    if (recentLeads === 0 && current.visitors > 20) {
+      list.push({ type: "warning", title: "Няма лидове 48ч", message: "Не са получени запитвания в последните 48 часа. Проверете формите и калкулатора." });
+    }
+    if (current.calcStarts > 5 && current.calcCompletionRate < 30) {
+      list.push({ type: "warning", title: "Нисък % завършване на калкулатора", message: `Само ${current.calcCompletionRate}% от потребителите завършват калкулатора. Помислете за опростяване на стъпките.` });
+    }
+    return list;
+  }, [current, rangeInquiries]);
+
   const handlePreset = (key: PresetKey) => {
-    const p = presets.find(p => p.key === key)!;
-    const r = p.getRange();
+    const r = presets.find(p => p.key === key)!.getRange();
     setActivePreset(key);
     setDateRange({ from: r.from, to: r.to });
   };
@@ -228,64 +287,65 @@ const AnalyticsPage = () => {
     ? `${format(from, "d MMM yyyy", { locale: bg })} — ${format(to, "d MMM yyyy", { locale: bg })}`
     : "Изберете период";
 
+  const KpiCard = ({ icon: Icon, label, value, suffix, color, trend }: {
+    icon: any; label: string; value: number | string; suffix?: string; color?: string; trend?: number | null;
+  }) => (
+    <Card className="border-border/50 shadow-sm hover:shadow-md transition-shadow">
+      <CardHeader className="pb-1">
+        <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+          <Icon className={`h-3.5 w-3.5 ${color || "text-primary"}`} /> {label}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-3xl font-bold">
+          {value}
+          {suffix && <span className="text-sm font-normal text-muted-foreground ml-1">{suffix}</span>}
+        </p>
+        {trend !== undefined && trend !== null && <TrendIndicator current={Number(value)} previous={trend} />}
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-2xl font-bold text-foreground">Аналитика</h1>
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">PRO Dashboard</h1>
+          <p className="text-sm text-muted-foreground">Маркетинг, лидове и продажби</p>
+        </div>
         <div className="flex items-center gap-2 flex-wrap">
           {presets.map(p => (
-            <Button
-              key={p.key}
-              variant={activePreset === p.key ? "default" : "outline"}
-              size="sm"
-              onClick={() => handlePreset(p.key)}
-            >
+            <Button key={p.key} variant={activePreset === p.key ? "default" : "outline"} size="sm" onClick={() => handlePreset(p.key)}>
               {p.label}
             </Button>
           ))}
           <Popover>
             <PopoverTrigger asChild>
               <Button variant={activePreset === "custom" ? "default" : "outline"} size="sm">
-                <CalendarIcon className="h-4 w-4 mr-1" />
-                Период
+                <CalendarIcon className="h-4 w-4 mr-1" /> Период
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="end">
-              <Calendar
-                mode="range"
-                selected={dateRange}
-                onSelect={(range) => {
-                  setDateRange(range);
-                  setActivePreset("custom");
-                }}
-                numberOfMonths={2}
-                locale={bg}
-                className="p-3 pointer-events-auto"
-              />
+              <Calendar mode="range" selected={dateRange} onSelect={(range) => { setDateRange(range); setActivePreset("custom"); }} numberOfMonths={2} locale={bg} className="p-3 pointer-events-auto" />
             </PopoverContent>
           </Popover>
           <Button variant={filterBots ? "default" : "outline"} size="sm" onClick={() => setFilterBots(!filterBots)}>
-            <ShieldCheck className="h-4 w-4 mr-1" />
-            {filterBots ? "Реални" : "Всички"}
+            <ShieldCheck className="h-4 w-4 mr-1" /> {filterBots ? "Реални" : "Всички"}
           </Button>
           <Button variant="outline" size="sm" onClick={() => setCompareEnabled(!compareEnabled)}>
-            <ArrowUpDown className="h-4 w-4 mr-1" />
-            {compareEnabled ? "Без сравнение" : "Сравнение"}
+            <ArrowUpDown className="h-4 w-4 mr-1" /> {compareEnabled ? "Без сравнение" : "Сравнение"}
           </Button>
           <Button variant="outline" size="sm" onClick={exportCSV}>
-            <Download className="h-4 w-4 mr-1" />
-            CSV
+            <Download className="h-4 w-4 mr-1" /> CSV
           </Button>
         </div>
       </div>
 
-      {/* Date range display */}
       <div className="text-sm text-muted-foreground">
         <span className="font-medium text-foreground">{dateLabel}</span>
         {compareEnabled && compRange && (
-          <span className="ml-3">
-            vs {format(compRange.from, "d MMM yyyy", { locale: bg })} — {format(compRange.to, "d MMM yyyy", { locale: bg })}
-          </span>
+          <span className="ml-3">vs {format(compRange.from, "d MMM yyyy", { locale: bg })} — {format(compRange.to, "d MMM yyyy", { locale: bg })}</span>
         )}
       </div>
 
@@ -295,226 +355,321 @@ const AnalyticsPage = () => {
         </div>
       ) : (
         <>
+          {/* Alerts */}
+          {alerts.length > 0 && (
+            <div className="space-y-2">
+              {alerts.map((a, i) => (
+                <Alert key={i} variant={a.type === "error" ? "destructive" : "default"} className={a.type === "warning" ? "border-yellow-500/50 bg-yellow-50 dark:bg-yellow-950/20" : ""}>
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertTitle>{a.title}</AlertTitle>
+                  <AlertDescription>{a.message}</AlertDescription>
+                </Alert>
+              ))}
+            </div>
+          )}
+
           {/* KPI Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <Card>
-              <CardHeader className="pb-1">
-                <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                  <Users className="h-3.5 w-3.5 text-primary" /> Посетители
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-bold">{current.visitors}</p>
-                <TrendIndicator current={current.visitors} previous={compare?.visitors ?? null} />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-1">
-                <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                  <Clock className="h-3.5 w-3.5 text-primary" /> Ср. време
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-bold">{current.avgDuration}<span className="text-sm font-normal text-muted-foreground ml-1">мин</span></p>
-                <TrendIndicator current={current.avgDuration} previous={compare?.avgDuration ?? null} />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-1">
-                <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                  <MousePointer className="h-3.5 w-3.5 text-accent" /> Оферти
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-bold">{current.offers}</p>
-                <TrendIndicator current={current.offers} previous={compare?.offers ?? null} />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-1">
-                <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                  <Phone className="h-3.5 w-3.5 text-green-500" /> Обаждания
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-bold">{current.calls}</p>
-                <TrendIndicator current={current.calls} previous={compare?.calls ?? null} />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-1">
-                <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                  <Calculator className="h-3.5 w-3.5 text-blue-500" /> Калкулатор
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-3xl font-bold">{current.calculator}</p>
-                <TrendIndicator current={current.calculator} previous={compare?.calculator ?? null} />
-              </CardContent>
-            </Card>
-            {botCount > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <KpiCard icon={Users} label="Посетители" value={current.visitors} trend={compare?.visitors ?? null} />
+            <KpiCard icon={Target} label="Лидове" value={current.leads} color="text-amber-500" trend={compare?.leads ?? null} />
+            <KpiCard icon={Percent} label="Conversion Rate" value={`${current.conversionRate}%`} color="text-emerald-500" />
+            <KpiCard icon={Phone} label="Обаждания" value={current.calls} color="text-green-500" trend={compare?.calls ?? null} />
+            <KpiCard icon={Calculator} label="Калкулатор старт" value={current.calcStarts || current.calculator} color="text-blue-500" />
+            <KpiCard icon={CheckCircle2} label="Калк. завършен %" value={`${current.calcCompletionRate}%`} color="text-purple-500" />
+            <KpiCard icon={Clock} label="Ср. време" value={current.avgDuration} suffix="мин" trend={compare?.avgDuration ?? null} />
+            {botCount > 0 && <KpiCard icon={Bot} label="Ботове (филтр.)" value={botCount} color="text-destructive" />}
+          </div>
+
+          {/* Tabs */}
+          <Tabs defaultValue="overview" className="space-y-4">
+            <TabsList className="grid w-full grid-cols-5">
+              <TabsTrigger value="overview">Общо</TabsTrigger>
+              <TabsTrigger value="funnel">Фуния</TabsTrigger>
+              <TabsTrigger value="calculator">Калкулатор</TabsTrigger>
+              <TabsTrigger value="traffic">Трафик</TabsTrigger>
+              <TabsTrigger value="calls">Обаждания</TabsTrigger>
+            </TabsList>
+
+            {/* Overview Tab */}
+            <TabsContent value="overview" className="space-y-4">
               <Card>
-                <CardHeader className="pb-1">
-                  <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                    <Bot className="h-3.5 w-3.5 text-destructive" /> Ботове
+                <CardHeader><CardTitle className="text-sm">Дневна активност</CardTitle></CardHeader>
+                <CardContent>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                        <XAxis dataKey="date" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+                        <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+                        <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
+                        <Bar dataKey="visitors" name="Посетители" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="leads" name="Оферти" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="calls" name="Обаждания" fill="#22c55e" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Top Pages */}
+                <Card>
+                  <CardHeader><CardTitle className="text-sm">Топ страници</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      {topPages.map((p, i) => (
+                        <div key={p.path} className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground truncate max-w-[200px]">{i + 1}. <span className="text-foreground">{p.path}</span></span>
+                          <span className="font-medium">{p.views}</span>
+                        </div>
+                      ))}
+                      {topPages.length === 0 && <p className="text-sm text-muted-foreground">Няма данни</p>}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Conversions */}
+                {current.visitors > 0 && (
+                  <Card>
+                    <CardHeader><CardTitle className="text-sm">Конверсии</CardTitle></CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                          <p className="text-2xl font-bold">{current.conversionRate}%</p>
+                          <p className="text-xs text-muted-foreground">Лидове / Посетители</p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold">{((current.calls / current.visitors) * 100).toFixed(1)}%</p>
+                          <p className="text-xs text-muted-foreground">Обаждания / Посетители</p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold">{(((current.leads + current.calls) / current.visitors) * 100).toFixed(1)}%</p>
+                          <p className="text-xs text-muted-foreground">Общо конверсия</p>
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold">{current.calcCompletionRate}%</p>
+                          <p className="text-xs text-muted-foreground">Завършване калкулатор</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </TabsContent>
+
+            {/* Funnel Tab */}
+            <TabsContent value="funnel" className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4 text-primary" /> Фуния на конверсия
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-3xl font-bold text-muted-foreground">{botCount}</p>
-                  <p className="text-xs text-muted-foreground">{filterBots ? "филтрирани" : "включени"}</p>
+                  <div className="space-y-3">
+                    {funnelData.map((step, i) => (
+                      <div key={step.name} className="space-y-1">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-medium">{step.name}</span>
+                          <div className="flex items-center gap-3">
+                            <span className="font-bold text-lg">{step.value}</span>
+                            <span className="text-xs text-muted-foreground">{step.pct}%</span>
+                            {i > 0 && step.dropOff > 0 && (
+                              <span className="text-xs text-red-500 flex items-center gap-0.5">
+                                <TrendingDown className="h-3 w-3" /> -{step.dropOff}%
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-6 overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{ width: `${Math.max(step.pct, 2)}%`, backgroundColor: step.fill }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {funnelData[0].value > 0 && (
+                    <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border/50">
+                      <h4 className="text-sm font-semibold mb-2">Drop-off анализ</h4>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                        {funnelData.slice(1).map(step => (
+                          <div key={step.name} className="text-center">
+                            <p className={`text-lg font-bold ${step.dropOff > 70 ? "text-red-500" : step.dropOff > 50 ? "text-amber-500" : "text-green-500"}`}>
+                              {step.dropOff}%
+                            </p>
+                            <p className="text-xs text-muted-foreground">загуба преди {step.name}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
-            )}
-          </div>
+            </TabsContent>
 
-          {/* Daily activity chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm">Дневна активност</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                    <XAxis dataKey="date" className="text-xs" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
-                    <YAxis className="text-xs" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
-                    <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
-                    <Bar dataKey="visitors" name="Посетители" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="leads" name="Оферти" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="calls" name="Обаждания" fill="#22c55e" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
+            {/* Calculator Tab */}
+            <TabsContent value="calculator" className="space-y-4">
+              <div className="grid md:grid-cols-3 gap-4">
+                <Card>
+                  <CardHeader className="pb-2"><CardTitle className="text-xs text-muted-foreground">Започнали</CardTitle></CardHeader>
+                  <CardContent><p className="text-3xl font-bold">{calcAnalytics.starts || current.calculator}</p></CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2"><CardTitle className="text-xs text-muted-foreground">Завършили</CardTitle></CardHeader>
+                  <CardContent><p className="text-3xl font-bold">{calcAnalytics.completes}</p></CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2"><CardTitle className="text-xs text-muted-foreground">Completion Rate</CardTitle></CardHeader>
+                  <CardContent>
+                    <p className={`text-3xl font-bold ${current.calcCompletionRate < 30 ? "text-red-500" : current.calcCompletionRate < 60 ? "text-amber-500" : "text-green-500"}`}>
+                      {current.calcCompletionRate}%
+                    </p>
+                  </CardContent>
+                </Card>
               </div>
-            </CardContent>
-          </Card>
+              <Card>
+                <CardHeader><CardTitle className="text-sm">Стъпки в калкулатора</CardTitle></CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Регистрирани {calcAnalytics.steps} преминавания между стъпки.
+                    {calcAnalytics.starts > 0 && calcAnalytics.completes === 0 && (
+                      <span className="text-amber-500 ml-2">⚠ Никой не е завършил калкулатора в този период.</span>
+                    )}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Данните за най-избрани тип покрив, материал и проблем ще се натрупат с времето чрез новите analytics events.
+                  </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-          {/* Traffic Sources */}
-          {trafficSources.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Globe className="h-4 w-4 text-primary" />
-                  Трафик по източници
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-[220px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={trafficSources}
-                      layout="vertical"
-                      margin={{ top: 0, right: 40, left: 0, bottom: 0 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" horizontal={false} className="stroke-border" />
-                      <XAxis
-                        type="number"
-                        tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
-                        allowDecimals={false}
-                      />
-                      <YAxis
-                        type="category"
-                        dataKey="label"
-                        width={130}
-                        tick={{ fill: 'hsl(var(--foreground))', fontSize: 12 }}
-                      />
-                      <Tooltip
-                        contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }}
-                        formatter={(value: number, _name: string, entry: any) => [
-                          `${value} сесии (${entry.payload.pct}%)`,
-                          entry.payload.label,
-                        ]}
-                      />
-                      <Bar dataKey="sessions" radius={[0, 4, 4, 0]} maxBarSize={28}>
-                        {trafficSources.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-                {/* Legend row */}
-                <div className="flex flex-wrap gap-x-5 gap-y-2 mt-3 pt-3 border-t border-border">
-                  {trafficSources.map(s => (
-                    <div key={s.source} className="flex items-center gap-1.5 text-xs">
-                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
-                      <span className="text-muted-foreground">{s.label}</span>
-                      <span className="font-semibold text-foreground">{s.sessions}</span>
-                      <span className="text-muted-foreground">({s.pct}%)</span>
+            {/* Traffic Tab */}
+            <TabsContent value="traffic" className="space-y-4">
+              {trafficSources.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <Globe className="h-4 w-4 text-primary" /> Трафик по източници (с лидове)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-[250px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={trafficSources} layout="vertical" margin={{ top: 0, right: 40, left: 0, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" horizontal={false} className="stroke-border" />
+                          <XAxis type="number" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} allowDecimals={false} />
+                          <YAxis type="category" dataKey="label" width={140} tick={{ fill: 'hsl(var(--foreground))', fontSize: 12 }} />
+                          <Tooltip contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))', borderRadius: '8px' }} />
+                          <Bar dataKey="sessions" name="Сесии" radius={[0, 4, 4, 0]} maxBarSize={28}>
+                            {trafficSources.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Bar>
+                        </BarChart>
+                      </ResponsiveContainer>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
 
-          {/* Top Pages */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm">Топ страници</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                {topPages.map((p, i) => (
-                  <div key={p.path} className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">{i + 1}. <span className="text-foreground">{p.path}</span></span>
-                    <span className="font-medium">{p.views}</span>
-                  </div>
-                ))}
-                {topPages.length === 0 && <p className="text-sm text-muted-foreground">Няма данни за периода</p>}
-              </div>
-            </CardContent>
-          </Card>
-
-           {/* Conversion rate */}
-          {current.visitors > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm">Конверсии</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <p className="text-2xl font-bold">{((current.offers / current.visitors) * 100).toFixed(1)}%</p>
-                    <p className="text-xs text-muted-foreground">Оферти / Посетители</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold">{((current.calls / current.visitors) * 100).toFixed(1)}%</p>
-                    <p className="text-xs text-muted-foreground">Обаждания / Посетители</p>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold">{(((current.offers + current.calls) / current.visitors) * 100).toFixed(1)}%</p>
-                    <p className="text-xs text-muted-foreground">Общо конверсия</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Conversions by traffic source */}
-          {conversionsBySource.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Globe className="h-4 w-4 text-primary" />
-                  Запитвания по източник на трафик
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {conversionsBySource.map(s => (
-                    <div key={s.source} className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
-                        <span>{s.label}</span>
+                    {/* Table with leads */}
+                    <div className="mt-4 border-t border-border pt-4">
+                      <div className="grid grid-cols-4 text-xs font-semibold text-muted-foreground mb-2 px-2">
+                        <span>Източник</span><span className="text-right">Сесии</span><span className="text-right">Лидове</span><span className="text-right">Conv. %</span>
                       </div>
-                      <span className="font-bold">{s.count}</span>
+                      {trafficSources.map(s => (
+                        <div key={s.source} className="grid grid-cols-4 text-sm px-2 py-1.5 hover:bg-muted/50 rounded">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
+                            <span>{s.label}</span>
+                          </div>
+                          <span className="text-right font-medium">{s.sessions}</span>
+                          <span className="text-right font-bold text-amber-600">{s.leads}</span>
+                          <span className="text-right">{s.sessions > 0 ? ((s.leads / s.sessions) * 100).toFixed(1) : 0}%</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Conversions by source */}
+              {rangeInquiries.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <Globe className="h-4 w-4 text-primary" /> Запитвания по източник
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      {trafficSources.filter(s => s.leads > 0).map(s => (
+                        <div key={s.source} className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
+                            <span>{s.label}</span>
+                          </div>
+                          <span className="font-bold">{s.leads}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </TabsContent>
+
+            {/* Calls Tab */}
+            <TabsContent value="calls" className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <PhoneCall className="h-4 w-4 text-green-500" /> Обаждания по страница
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {callsByPage.length > 0 ? (
+                      <div className="space-y-2">
+                        {callsByPage.map((p, i) => (
+                          <div key={p.path} className="flex items-center justify-between text-sm">
+                            <span className="text-muted-foreground truncate max-w-[250px]">{i + 1}. <span className="text-foreground">{p.path}</span></span>
+                            <span className="font-bold">{p.count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">Няма данни за обаждания</p>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm flex items-center gap-2">
+                      <Globe className="h-4 w-4 text-primary" /> Обаждания по източник
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {callsBySource.length > 0 ? (
+                      <div className="space-y-2">
+                        {callsBySource.map(s => (
+                          <div key={s.source} className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-2">
+                              <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: s.color }} />
+                              <span>{s.label}</span>
+                            </div>
+                            <span className="font-bold">{s.count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">Няма данни за обаждания</p>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+          </Tabs>
         </>
       )}
     </div>
