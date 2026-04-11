@@ -57,7 +57,11 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
             </Link>
           ))}
 
-          <div className="h-px bg-border my-4" />
+          <div className="h-px bg-border my-3" />
+
+          <div className="mb-3">
+            <LanguageSwitcher />
+          </div>
 
           <Link to={getPath('about')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.about')}</Link>
           <Link to={getPath('projects')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.projects')}</Link>
@@ -68,10 +72,6 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
           <Link to={getPath('contact')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.contact')}</Link>
 
           <div className="h-px bg-border my-4" />
-
-          <div className="mb-4">
-            <LanguageSwitcher />
-          </div>
 
           <Link to="/admin/login" className="text-muted-foreground hover:text-primary transition-colors py-3 text-sm flex items-center gap-2" onClick={onClose}>
             <LogIn className="w-4 h-4" />
