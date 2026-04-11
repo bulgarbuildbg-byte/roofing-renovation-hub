@@ -79,16 +79,16 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="relative px-12 md:px-16">
+        <div className="relative px-4 md:px-16">
           {/* Soft gradient fade on edges */}
-          <div className="absolute left-12 md:left-16 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-r from-secondary/80 to-transparent z-[5] pointer-events-none" />
-          <div className="absolute right-12 md:right-16 top-0 bottom-0 w-8 md:w-12 bg-gradient-to-l from-secondary/80 to-transparent z-[5] pointer-events-none" />
+          <div className="absolute left-4 md:left-16 top-0 bottom-0 w-3 md:w-12 bg-gradient-to-r from-secondary/80 to-transparent z-[5] pointer-events-none" />
+          <div className="absolute right-4 md:right-16 top-0 bottom-0 w-3 md:w-12 bg-gradient-to-l from-secondary/80 to-transparent z-[5] pointer-events-none" />
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-4">
               {serviceKeys.map((service, index) => (
                 <div
                   key={index}
-                  className="min-w-0 shrink-0 grow-0 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 pl-4"
+                  className="min-w-0 shrink-0 grow-0 basis-[85%] sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 pl-4"
                 >
                   <Link to={getPath(service.routeKey)} className="block group h-full">
                     <Card className="bg-background hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border flex flex-col overflow-hidden cursor-pointer h-full">
@@ -153,7 +153,7 @@ const Services = () => {
           {/* Navigation arrows */}
           <button
             onClick={scrollPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background shadow-lg border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors disabled:opacity-30"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 md:w-10 md:h-10 rounded-full bg-primary text-primary-foreground shadow-xl md:bg-background md:text-muted-foreground md:border md:border-border md:shadow-lg flex items-center justify-center hover:text-primary hover:border-primary transition-colors disabled:opacity-30"
             disabled={!canScrollPrev}
             aria-label="Previous"
           >
@@ -161,7 +161,7 @@ const Services = () => {
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-background shadow-lg border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors disabled:opacity-30"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-9 h-9 md:w-10 md:h-10 rounded-full bg-primary text-primary-foreground shadow-xl md:bg-background md:text-muted-foreground md:border md:border-border md:shadow-lg flex items-center justify-center hover:text-primary hover:border-primary transition-colors disabled:opacity-30"
             disabled={!canScrollNext}
             aria-label="Next"
           >

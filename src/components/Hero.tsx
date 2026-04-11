@@ -54,7 +54,7 @@ const Hero = () => {
             <Button 
               asChild
               size="lg" 
-              className="w-full sm:w-auto h-14 md:h-16 bg-accent hover:bg-accent/90 text-accent-foreground text-base md:text-lg font-bold px-6 md:px-8 shadow-lg"
+              className="w-full sm:w-auto h-12 md:h-16 bg-accent hover:bg-accent/90 text-accent-foreground text-base md:text-lg font-bold px-5 md:px-8 shadow-lg whitespace-nowrap"
             >
               <Link to={getPath('inspection')}>
                 {t('hero.ctaPrimary')}
@@ -64,7 +64,7 @@ const Hero = () => {
               asChild
               size="lg" 
               variant="outline"
-              className="w-full sm:w-auto h-14 md:h-16 bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-primary-foreground hover:bg-primary-foreground hover:text-primary text-base md:text-lg font-bold px-6 md:px-8"
+              className="w-full sm:w-auto h-12 md:h-16 bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-primary-foreground hover:bg-primary-foreground hover:text-primary text-base md:text-lg font-bold px-4 md:px-8"
             >
               <a href="tel:0884997659" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
