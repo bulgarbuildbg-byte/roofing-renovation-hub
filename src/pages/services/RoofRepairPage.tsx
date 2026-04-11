@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import heroRoofRepair from "@/assets/hero-roof-repair.jpg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
@@ -171,7 +172,15 @@ const RoofRepairPage = () => {
       <main className="pt-20">
         {/* 1. HERO */}
         <section className="relative bg-primary text-primary-foreground py-16 md:py-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
+          <img
+            src={heroRoofRepair}
+            alt="Ремонт на покриви Варна"
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+            width={1920}
+            height={1080}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/75 to-primary/60" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
               <Link to={getPath('home')} className="hover:text-primary-foreground">{t('pages.roofRepair.breadcrumb.home')}</Link>
