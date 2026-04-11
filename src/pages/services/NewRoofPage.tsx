@@ -14,6 +14,8 @@ import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { CheckCircle, Home, Shield, Phone, MapPin, Search, Layers, Ruler, HardHat, Clock, Banknote, Hammer } from "lucide-react";
 
+// Hero image
+import heroNewRoof from "@/assets/hero-new-roof.jpg";
 // Process images - New roof construction
 import roofPlanning from "@/assets/process/new-roof-design-plan-01.jpg";
 import roofingMaterials from "@/assets/process/new-roof-structure-diagram-01.jpg";
@@ -180,55 +182,61 @@ const NewRoofPage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-20 lg:py-32 overflow-hidden">
+      <section className="relative min-h-[85vh] md:min-h-screen flex items-center justify-center text-white overflow-hidden pt-20 md:pt-24">
         <div className="absolute inset-0 z-0">
           <img 
-            src={roofFrameConstruction} 
-            alt="Изграждане на дървена покривна конструкция Варна" 
-            className="w-full h-full object-cover opacity-30"
+            src={heroNewRoof} 
+            alt="Изграждане на нов покрив Варна" 
+            fetchPriority="high"
+            decoding="sync"
+            className="absolute inset-0 w-full h-full object-cover"
+            width={1920}
+            height={1080}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.55)_70%,_rgba(15,23,42,0.85)_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 via-[#0f172a]/30 to-transparent" />
         </div>
         
-        <div className="container relative z-10 px-4 mx-auto">
+        <div className="container relative z-10 px-4 mx-auto py-12 md:py-20">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight [text-shadow:_0_3px_16px_rgba(0,0,0,0.9),_0_1px_4px_rgba(0,0,0,0.8)]">
               Изграждане на покриви – професионално строителство и монтаж
             </h1>
-            <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
               Лицензирана строителна компания с над 15 години опит в проектирането и изграждането на покривни конструкции във Варна и Североизточна България. Ние създаваме покриви, които издържат на времето.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mb-10 text-sm md:text-base">
-              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
-                <CheckCircle className="w-5 h-5 text-accent" />
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
+                <CheckCircle className="w-5 h-5 text-green-400" />
                 <span>15+ години опит</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
-                <Shield className="w-5 h-5 text-accent" />
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Shield className="w-5 h-5 text-green-400" />
                 <span>Писмена гаранция</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
-                <HardHat className="w-5 h-5 text-accent" />
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
+                <HardHat className="w-5 h-5 text-green-400" />
                 <span>Сертифицирани екипи</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
-                <Layers className="w-5 h-5 text-accent" />
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
+                <Layers className="w-5 h-5 text-green-400" />
                 <span>Качествени материали</span>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-6 text-lg h-auto">
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-6 text-lg h-auto shadow-lg">
                 <Phone className="mr-2 h-5 w-5" />
                 Безплатен оглед и оферта
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-bold px-8 py-6 text-lg h-auto bg-transparent">
+              <Button size="lg" variant="outline" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white hover:text-primary font-bold px-8 py-6 text-lg h-auto">
                 Вижте цени и услуги
               </Button>
             </div>
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-10" />
       </section>
 
       {/* Expert Introduction */}
