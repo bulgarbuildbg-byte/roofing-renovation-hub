@@ -1,33 +1,34 @@
 
 
-## Подобряване на hero секцията — ясна снимка, фокус в центъра, четим текст
+## Визуални промени в hero секцията на „Ремонт на покриви"
 
-### Какво се променя
-
-Файл: `src/pages/services/RoofRepairPage.tsx` — hero секцията (редове 174-221)
+### Файл: `src/pages/services/RoofRepairPage.tsx` (редове 184-222)
 
 ### Промени
 
-**1. Overlay — от плътен синкав → radial vignette**
-- Премахва се `bg-gradient-to-br from-primary/90 via-primary/75 to-primary/60`
-- Заменя се с radial gradient: центърът е почти прозрачен, краищата потъмняват
-- `bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(0,0,0,0.6)_80%,_rgba(0,0,0,0.8)_100%)]`
-- Допълнително: лек linear gradient отдолу за текстовата зона: `bg-gradient-to-t from-black/70 via-black/30 to-transparent`
+**1. Vignette — от черно → синьо**
+- Ред 184: `rgba(0,0,0,...)` → `rgba(30,58,138,...)` (тъмно синьо ~primary)
+- Ред 186: `from-black/70 via-black/30` → `from-[#1e3a8a]/70 via-[#1e3a8a]/30`
 
-**2. Текстове — backdrop за четимост**
-- Заглавието `h1` получава `[text-shadow:_0_2px_12px_rgba(0,0,0,0.7)]`
-- Подзаглавието: същия text-shadow
+**2. Badges (Безплатен оглед и т.н.) — син фон**
+- Ред 218: `bg-black/40` → `bg-primary/70 backdrop-blur-sm`
 
-**3. Бутони — полупрозрачен фон**
-- Основен CTA: остава `bg-accent` (оранжев) — вече е контрастен, добавя се `shadow-lg`
-- Втори бутон (обаждане): `bg-black/40 backdrop-blur-sm border-white/80` вместо напълно прозрачен
+**3. Заглавие h1 — тъмен фон зад текста**
+- Ред 196: добавя `bg-black/50 inline px-4 py-2 rounded-lg box-decoration-clone` или алтернативно `bg-black/40 backdrop-blur-sm inline-block px-4 py-2 rounded`
 
-**4. Badges (Безплатен оглед и т.н.)**
-- От `bg-primary-foreground/10` → `bg-black/40 backdrop-blur-sm` за по-добра четимост
+**4. Чекмаркове — зелени вместо оранжеви**
+- Ред 219: `text-accent` → `text-green-400`
 
-### Файлове
+**5. Гаранция текст — 15 години**
+- Ред 217: промяна на "Гаранция за изпълнение" → "Гаранция 15 години"
 
-| Файл | Промяна |
-|---|---|
-| `src/pages/services/RoofRepairPage.tsx` | Hero overlay → radial vignette, text-shadow, бутони с backdrop, badges с backdrop |
+**6. Бутон „Обади се" — синкав backdrop**
+- Ред 209: `bg-black/40` → `bg-primary/40`
+
+### Резултат
+- Синя vignette по краищата, чист център
+- Badges със син фон
+- Заглавие с тъмен backdrop за контраст
+- Зелени чекмаркове за доверие
+- Професионален, модерен вид
 
