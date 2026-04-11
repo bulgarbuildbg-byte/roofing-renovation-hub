@@ -3,7 +3,7 @@ import { Phone, CheckCircle, Clock, Shield } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
-import heroImage from "@/assets/hero-roofing-new.png";
+import heroImage from "@/assets/hero-homepage.jpg";
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -21,7 +21,8 @@ const Hero = () => {
           width={1920}
           height={1080}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/80 to-primary/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.55)_70%,_rgba(15,23,42,0.85)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 via-[#0f172a]/30 to-transparent" />
       </div>
       
       <div className="container mx-auto px-4 py-12 md:py-20 relative z-10">
