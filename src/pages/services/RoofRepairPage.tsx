@@ -6,10 +6,14 @@ import FloatingCallButton from "@/components/FloatingCallButton";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
 import PriceCalculator from "@/components/PriceCalculator";
+import TrustIndicators from "@/components/TrustIndicators";
+import CertificationsBar from "@/components/CertificationsBar";
+import Services from "@/components/Services";
+import HowWeWork from "@/components/HowWeWork";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Hammer, ClipboardCheck, Eye, FileText } from "lucide-react";
+import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Eye, FileText, Hammer } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -98,12 +102,8 @@ const RoofRepairPage = () => {
     { title: "Качествени материали", description: "Използваме само доказани материали от водещи европейски производители." },
   ];
 
-  const quickProcess = [
-    { icon: Phone, title: "Свързване", description: "Обадете се или изпратете запитване" },
-    { icon: Search, title: "Оглед", description: "Безплатен оглед на място" },
-    { icon: ClipboardCheck, title: "Оферта", description: "Детайлна оферта без задължение" },
-    { icon: Hammer, title: "Изпълнение", description: "Качествен ремонт с гаранция" },
-  ];
+
+
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -225,7 +225,19 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* 2. PROBLEM */}
+        {/* 2. TRUST INDICATORS */}
+        <TrustIndicators />
+
+        {/* 3. CERTIFICATIONS BAR */}
+        <CertificationsBar />
+
+        {/* 4. SERVICES CAROUSEL */}
+        <Services />
+
+        {/* 5. HOW WE WORK */}
+        <HowWeWork />
+
+        {/* 6. PROBLEM */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
@@ -246,7 +258,7 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* 3. CONSEQUENCES */}
+        {/* 7. CONSEQUENCES */}
         <section className="py-16 bg-destructive/5 border-y border-destructive/20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -271,7 +283,7 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* 4. SOLUTION */}
+        {/* 8. SOLUTION */}
         <section className="py-16 bg-primary/5 border-b border-primary/20">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -296,27 +308,7 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* 5. PROCESS (compact 4-step) */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Как работим</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Прозрачен процес от първия контакт до завършения ремонт</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {quickProcess.map((step, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center mx-auto mb-4">
-                    <step.icon className="w-6 h-6" />
-                  </div>
-                  <div className="text-sm font-bold text-muted-foreground mb-1">Стъпка {index + 1}</div>
-                  <h3 className="font-semibold text-foreground mb-1">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 6. MID CTA */}
+        {/* 9. MID CTA */}
         <section className="py-12 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Имате проблем с покрива?</h2>
@@ -325,7 +317,7 @@ const RoofRepairPage = () => {
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 <Link to={getPath('contact')}>Заяви безплатен оглед</Link>
               </Button>
-              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
+              <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
                 <a href="tel:0884997659">
                   <Phone className="w-5 h-5 mr-2" />
                   088 499 7659
@@ -335,7 +327,7 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* 7. CALCULATOR */}
+        {/* 10. CALCULATOR */}
         <PriceCalculator />
 
         {/* 8. SERVICE DETAILS - Detailed Process with Images */}
