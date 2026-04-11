@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import heroWaterproofing from "@/assets/hero-waterproofing.jpeg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
@@ -157,8 +158,10 @@ const WaterproofingPage = () => {
       <Header />
       <main className="pt-20">
         {/* 1. HERO */}
-        <section className="relative bg-primary text-primary-foreground py-16 md:py-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
+        <section className="relative text-primary-foreground py-16 md:py-24 overflow-hidden">
+          <img src={heroWaterproofing} alt="Полагане на хидроизолация" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.55)_70%,_rgba(15,23,42,0.85)_100%)]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 via-[#0f172a]/30 to-transparent" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
               <Link to={getPath('home')} className="hover:text-primary-foreground">{t('pages.waterproofing.breadcrumb.home')}</Link>
@@ -168,20 +171,20 @@ const WaterproofingPage = () => {
               <span className="text-primary-foreground">{t('pages.waterproofing.breadcrumb.current')}</span>
             </nav>
             <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">{t('pages.waterproofing.hero.title')}</h1>
-              <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-3xl mb-8">{t('pages.waterproofing.hero.subtitle')}</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_3px_16px_rgba(0,0,0,0.9),_0_1px_4px_rgba(0,0,0,0.8)]">{t('pages.waterproofing.hero.title')}</h1>
+              <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-3xl mb-8 [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">{t('pages.waterproofing.hero.subtitle')}</p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 shadow-lg">
                   <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
                 </Button>
-                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
+                <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
                   <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-4 text-sm">
+              <div className="flex flex-nowrap gap-3 text-xs md:text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-1.5 rounded-full">
-                    <CheckCircle className="w-4 h-4 text-accent" />
+                  <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
                     <span className="text-primary-foreground/90">{item}</span>
                   </div>
                 ))}
