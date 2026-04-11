@@ -171,7 +171,7 @@ const RoofRepairPage = () => {
       
       <main className="pt-20">
         {/* 1. HERO */}
-        <section className="relative bg-primary text-primary-foreground py-16 md:py-24 overflow-hidden">
+        <section className="relative bg-black text-white py-16 md:py-24 overflow-hidden">
           <img
             src={heroRoofRepair}
             alt="Ремонт на покриви Варна"
@@ -180,30 +180,33 @@ const RoofRepairPage = () => {
             width={1920}
             height={1080}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/75 to-primary/60" />
+          {/* Radial vignette — center clear, edges dark */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(0,0,0,0.55)_70%,_rgba(0,0,0,0.8)_100%)]" />
+          {/* Bottom gradient for text area */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
           <div className="container mx-auto px-4 relative z-10">
-            <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to={getPath('home')} className="hover:text-primary-foreground">{t('pages.roofRepair.breadcrumb.home')}</Link>
+            <nav className="text-sm mb-6 text-white/70">
+              <Link to={getPath('home')} className="hover:text-white">{t('pages.roofRepair.breadcrumb.home')}</Link>
               <span className="mx-2">/</span>
-              <Link to={getPath('services')} className="hover:text-primary-foreground">{t('pages.roofRepair.breadcrumb.services')}</Link>
+              <Link to={getPath('services')} className="hover:text-white">{t('pages.roofRepair.breadcrumb.services')}</Link>
               <span className="mx-2">/</span>
-              <span className="text-primary-foreground">{t('pages.roofRepair.breadcrumb.current')}</span>
+              <span className="text-white">{t('pages.roofRepair.breadcrumb.current')}</span>
             </nav>
             <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_2px_12px_rgba(0,0,0,0.7)]">
                 {t('pages.roofRepair.hero.title')}
               </h1>
-              <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-3xl mb-8">
+              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mb-8 [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
                 {t('pages.roofRepair.hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 shadow-lg">
                   <Link to={getPath('contact')}>
                     <Eye className="w-5 h-5 mr-2" />
                     Заяви безплатен оглед
                   </Link>
                 </Button>
-                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
+                <Button asChild size="lg" className="bg-black/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
                   <a href="tel:0884997659">
                     <Phone className="w-5 h-5 mr-2" />
                     Обади се сега
@@ -212,9 +215,9 @@ const RoofRepairPage = () => {
               </div>
               <div className="flex flex-wrap gap-4 text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-1.5 rounded-full">
+                  <div key={item} className="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
                     <CheckCircle className="w-4 h-4 text-accent" />
-                    <span className="text-primary-foreground/90">{item}</span>
+                    <span className="text-white/90">{item}</span>
                   </div>
                 ))}
               </div>
