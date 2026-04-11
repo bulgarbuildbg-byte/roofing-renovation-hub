@@ -1,71 +1,62 @@
 
 
-## Мобилни визуални подобрения — начална страница
+## Преструктуриране на страница „Ремонт на покриви" + смяна на снимки в карусела с услуги
 
-### 1. Езиков бутон: видим само преди скрол, после — в менюто
+### Обхват
 
-**Файлове:** `src/components/MobileBottomBar.tsx`, `src/components/Header.tsx`
+Две основни промени:
 
-**MobileBottomBar.tsx:**
-- Добавяне на `isScrolled` state (слушател за scroll > 100px)
-- Когато `isScrolled === true`, LanguageSwitcher се скрива от bottom bar
-- Когато е скрит, двата бутона (Обадете се / Безплатен оглед) заемат цялата ширина
+**А. Преструктуриране на RoofRepairPage.tsx** — нова подредба на секциите по модела на началната страница.
 
-**Header.tsx (MobileMenu):**
-- LanguageSwitcher вече е в менюто (ред 72-74). Ще го преместим по-нагоре — непосредствено под „Услуги" секцията, за да е по-видим.
+**Б. Смяна на снимките в Services.tsx** — карусела навсякъде да използва hero снимките вместо отделните service снимки.
 
 ---
 
-### 2. Hero бутони — по-добро разпределение на място
+### А. Нов ред на секциите в `src/pages/services/RoofRepairPage.tsx`
 
-**Файл:** `src/components/Hero.tsx`
+Текущ ред: Hero → Problem → Consequences → Solution → Process (4-step) → Mid CTA → Calculator → Service Details → Services List → Materials → Pricing → Trust → Areas → FAQ → Final CTA → Links → Related
 
-- Бутон „088 499 7659" — намаляване на `px-6` на `px-4` и `h-14` на `h-12` на мобилен
-- Бутон „Заявете Безплатен Оглед" — леко увеличение на `px` и гарантиране, че текстът е на един ред с `whitespace-nowrap`
+**Нов ред:**
 
----
+1. **Hero** (без промяна)
+2. **TrustIndicators** — импорт на компонента от началната страница
+3. **CertificationsBar** — импорт на компонента от началната страница
+4. **Services** (карусел) — импорт на компонента от началната страница
+5. **HowWeWork** — импорт на компонента от началната страница (заменя текущата compact 4-step секция)
+6. **Problem** (текущата секция „Какви проблеми решаваме")
+7. **Consequences** (текущата „Какво се случва, ако проблемът се отложи")
+8. **Solution** (текущата „Как решаваме проблема")
+9. **Mid CTA блок** — „Имате проблем с покрива?" с бутони „Заявете безплатен оглед" и „Обадете се"
+10. **PriceCalculator** — преместен по-нагоре (преди подробния процес)
+11. **Service Details** (6-стъпков процес със снимки)
+12. **Services List** / **Materials** / **Pricing** / **Trust** / **Areas** / **FAQ**
+13. **Final CTA** → Links → Related
 
-### 3. Лента „Част от България Билд ЕООД" — по-компактна на мобилен
-
-**Файл:** `src/components/CertificationsBar.tsx`
-
-- Текстът е грешен — „България Билд ЕООД" вместо „Булгар Билд ЕООД". Ще се поправи в `src/i18n/locales/bg.ts`
-- Намаляване на `py-4` на `py-2` за секцията на мобилен
-- Намаляване на текста от `text-sm` на `text-xs` на мобилен
-- Иконите от `w-6 h-6` на `w-5 h-5` на мобилен
-- По-малък padding: `py-2 px-2` вместо `py-3 px-4` на мобилен
-
----
-
-### 4. Лента с лога — без застъпване
-
-**Файл:** `src/components/BrandCarousel.tsx`
-
-- Увеличаване на `px-6` на `px-8` за мобилен (повече разстояние между логата)
-- Намаляване на `max-h-12` на `max-h-9` и `max-w-[140px]` на `max-w-[100px]` на мобилен
-- Responsive класове: `px-5 md:px-10` и `max-h-9 md:max-h-12 max-w-[100px] md:max-w-[140px]`
+Премахва се дублиращата „Как работим" compact секция (ред 299-317), тъй като се заменя с пълния HowWeWork компонент.
 
 ---
 
-### 5. Карусел „Нашите услуги" — peek ефект и видими стрелки
+### Б. Смяна на снимки в `src/components/Services.tsx`
 
-**Файл:** `src/components/Services.tsx`
+Заменяме import-ите от `src/assets/services/` с hero снимките за 6-те услуги (без Поддръжка и Метални покриви, тези остават със старите снимки):
 
-- Промяна на `basis-full` на `basis-[85%]` за мобилен — така от дясно се вижда част от следващата карта (peek ефект)
-- Намаляване на `px-12` на `px-4` за мобилен, за да има повече видима площ
-- Стрелки: увеличаване на мобилен от `w-10 h-10` на `w-9 h-9`, промяна на позиция от `left-0`/`right-0` на `left-0`/`right-0` с `bg-primary text-white shadow-xl` за по-висок контраст
-- Намаляване на fade ефекта: от `w-8` на `w-4` на мобилен за да не скрива толкова
-- Добавяне на визуален „swipe" индикатор — малки dot indicators под каросела
+| Услуга | Стара снимка | Нова снимка |
+|---|---|---|
+| Ремонт на покриви | `services/roof-repair.jpg` | `hero-roof-repair.jpg` |
+| Хидроизолация | `services/waterproofing.jpg` | `hero-waterproofing.jpeg` |
+| Нов покрив | `services/new-roof.jpg` | `hero-new-roof.jpg` |
+| Смяна на керемиди | `services/tile-replacement.jpg` | `hero-tile-replacement.jpg` |
+| Ремонт на теч | `services/leak-repair.jpg` | `hero-leak-repair.jpg` |
+| Плоски покриви | `services/flat-roof.jpg` | `hero-flat-roof.jpeg` |
+| Метални покриви | остава `services/metal-roof.jpg` | без промяна |
+| Поддръжка | остава `services/maintenance.jpg` | без промяна |
+
+---
 
 ### Технически детайли
 
 | Файл | Промяна |
 |---|---|
-| `src/components/MobileBottomBar.tsx` | Scroll listener, условно показване на LanguageSwitcher |
-| `src/components/Header.tsx` | Преместване на LanguageSwitcher по-нагоре в мобилното меню |
-| `src/components/Hero.tsx` | Responsive padding за бутоните |
-| `src/components/CertificationsBar.tsx` | По-компактни мобилни размери |
-| `src/i18n/locales/bg.ts` | Поправка „България Билд" → „Булгар Билд" |
-| `src/components/BrandCarousel.tsx` | По-голямо разстояние, по-малки лога на мобилен |
-| `src/components/Services.tsx` | Peek ефект (basis-[85%]), по-контрастни стрелки, по-малък fade |
+| `src/pages/services/RoofRepairPage.tsx` | Импорт на TrustIndicators, CertificationsBar, Services, HowWeWork; преподреждане на секциите; премахване на compact process секция |
+| `src/components/Services.tsx` | Смяна на 6 import пътища от `services/` към `hero-` снимки |
 
