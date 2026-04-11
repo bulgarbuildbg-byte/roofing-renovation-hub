@@ -198,15 +198,26 @@ const NewRoofPage = () => {
         </div>
         
         <div className="container relative z-10 px-4 mx-auto py-12 md:py-20">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl">
+            <nav className="flex items-center gap-2 text-sm text-white/70 mb-6 [text-shadow:_0_1px_4px_rgba(0,0,0,0.5)]">
+              <Link to={getPath('home')} className="hover:text-white transition-colors flex items-center gap-1">
+                <Home className="w-4 h-4" />
+                Начало
+              </Link>
+              <span>/</span>
+              <Link to={getPath('services')} className="hover:text-white transition-colors">Услуги</Link>
+              <span>/</span>
+              <span className="text-white">Изграждане на нов покрив</span>
+            </nav>
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight [text-shadow:_0_3px_16px_rgba(0,0,0,0.9),_0_1px_4px_rgba(0,0,0,0.8)]">
               Изграждане на покриви – професионално строителство и монтаж
             </h1>
-            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
+            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl leading-relaxed [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
               Лицензирана строителна компания с над 15 години опит в проектирането и изграждането на покривни конструкции във Варна и Североизточна България. Ние създаваме покриви, които издържат на времето.
             </p>
             
-            <div className="flex flex-wrap justify-center gap-4 mb-10 text-sm md:text-base">
+            <div className="flex flex-wrap gap-4 mb-10 text-sm md:text-base">
               <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
                 <CheckCircle className="w-5 h-5 text-green-400" />
                 <span>15+ години опит</span>
@@ -225,7 +236,7 @@ const NewRoofPage = () => {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-6 text-lg h-auto shadow-lg">
                 <Phone className="mr-2 h-5 w-5" />
                 Безплатен оглед и оферта
