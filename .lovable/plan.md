@@ -1,21 +1,36 @@
 
 
-## Промени в hero секцията на „Нов покрив" — badges на един ред + деплой
+## Смяна на херо снимката на страница „Хидроизолация" + професионален визуален стил
 
-### Проблем 1: Малките бутони (badges) не са на един ред
-Ред 220: `flex flex-wrap gap-4` позволява пренасяне на нов ред. Трябва да се промени на `flex flex-nowrap gap-3` и да се намалят padding-ите (`px-3 py-1.5`) и текста (`text-xs md:text-sm`), за да се събират на един ред.
+### Файлове
 
-### Проблем 2: Промените не се виждат на домейна
-Промените са само в preview. Трябва да публикувате проекта отново от Lovable, за да се отразят на production домейна.
+| Файл | Промяна |
+|---|---|
+| `src/assets/hero-waterproofing.jpeg` | Копиране на качената снимка |
+| `src/pages/services/WaterproofingPage.tsx` | Hero секция — нова снимка + визуален стил като RoofRepairPage и NewRoofPage |
 
-### Промени във файл: `src/pages/services/NewRoofPage.tsx`
+### Промени в `WaterproofingPage.tsx` (редове 160-191)
 
-**Ред 220** — контейнер на badges:
-- `flex flex-wrap gap-4 mb-10 text-sm md:text-base` → `flex flex-nowrap gap-3 mb-10 text-xs md:text-sm`
+**1. Import** — добавя се `import heroWaterproofing from "@/assets/hero-waterproofing.jpeg";`
 
-**Редове 221-236** — всеки badge:
-- `px-4 py-2` → `px-3 py-1.5`
+**2. Hero секция** — от плосък `bg-primary` фон към снимков фон с overlay:
+- Фоново изображение: `heroWaterproofing` с `object-cover w-full h-full`
+- Radial vignette: `bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.55)_70%,_rgba(15,23,42,0.85)_100%)]`
+- Bottom gradient: `bg-gradient-to-t from-[#0f172a]/70 via-[#0f172a]/30 to-transparent`
 
-### Относно домейна
-След одобрение на промените, трябва да натиснете бутона **Publish** в Lovable, за да се отразят на production сайта.
+**3. Заглавие h1**: добавя се `[text-shadow:_0_3px_16px_rgba(0,0,0,0.9),_0_1px_4px_rgba(0,0,0,0.8)]`
+
+**4. Подзаглавие p**: добавя се `[text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]`
+
+**5. Badges**: от `bg-primary-foreground/10` → `bg-primary/70 backdrop-blur-sm`; иконите от `text-accent` → `text-green-400`
+
+**6. Бутон CTA**: добавя се `shadow-lg`
+
+**7. Бутон втори**: от `bg-transparent border-white` → `bg-primary/40 backdrop-blur-sm border-white/80`
+
+### Резултат
+- Автентична снимка от реален обект (полагане на хидроизолация)
+- Тъмно синьо vignette по краищата
+- Текст със силна сянка без правоъгълен фон
+- Консистентен стил с останалите service страници
 
