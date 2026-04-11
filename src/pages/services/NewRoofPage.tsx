@@ -217,21 +217,21 @@ const NewRoofPage = () => {
               Лицензирана строителна компания с над 15 години опит в проектирането и изграждането на покривни конструкции във Варна и Североизточна България. Ние създаваме покриви, които издържат на времето.
             </p>
             
-            <div className="flex flex-wrap gap-4 mb-10 text-sm md:text-base">
-              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
-                <CheckCircle className="w-5 h-5 text-green-400" />
+            <div className="flex flex-nowrap gap-3 mb-10 text-xs md:text-sm">
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                <CheckCircle className="w-4 h-4 text-green-400" />
                 <span>15+ години опит</span>
               </div>
-              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
-                <Shield className="w-5 h-5 text-green-400" />
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                <Shield className="w-4 h-4 text-green-400" />
                 <span>Писмена гаранция</span>
               </div>
-              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
-                <HardHat className="w-5 h-5 text-green-400" />
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                <HardHat className="w-4 h-4 text-green-400" />
                 <span>Сертифицирани екипи</span>
               </div>
-              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-4 py-2 rounded-full">
-                <Layers className="w-5 h-5 text-green-400" />
+              <div className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                <Layers className="w-4 h-4 text-green-400" />
                 <span>Качествени материали</span>
               </div>
             </div>
