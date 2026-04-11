@@ -181,9 +181,9 @@ const RoofRepairPage = () => {
             height={1080}
           />
           {/* Radial vignette — center clear, edges dark */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(0,0,0,0.55)_70%,_rgba(0,0,0,0.8)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(30,58,138,0.55)_70%,_rgba(30,58,138,0.8)_100%)]" />
           {/* Bottom gradient for text area */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1e3a8a]/70 via-[#1e3a8a]/30 to-transparent" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-white/70">
               <Link to={getPath('home')} className="hover:text-white">{t('pages.roofRepair.breadcrumb.home')}</Link>
@@ -193,7 +193,7 @@ const RoofRepairPage = () => {
               <span className="text-white">{t('pages.roofRepair.breadcrumb.current')}</span>
             </nav>
             <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_2px_12px_rgba(0,0,0,0.7)]">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_2px_12px_rgba(0,0,0,0.7)] bg-black/40 backdrop-blur-sm inline-block px-4 py-2 rounded-lg">
                 {t('pages.roofRepair.hero.title')}
               </h1>
               <p className="text-xl md:text-2xl text-white/90 max-w-3xl mb-8 [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
@@ -206,7 +206,7 @@ const RoofRepairPage = () => {
                     Заяви безплатен оглед
                   </Link>
                 </Button>
-                <Button asChild size="lg" className="bg-black/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
+                <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
                   <a href="tel:0884997659">
                     <Phone className="w-5 h-5 mr-2" />
                     Обади се сега
@@ -214,9 +214,9 @@ const RoofRepairPage = () => {
                 </Button>
               </div>
               <div className="flex flex-wrap gap-4 text-sm">
-                {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                    <CheckCircle className="w-4 h-4 text-accent" />
+                {["Безплатен оглед", "Работа по договор", "Гаранция 15 години", "Реални снимки от обекти"].map((item) => (
+                  <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
                     <span className="text-white/90">{item}</span>
                   </div>
                 ))}
