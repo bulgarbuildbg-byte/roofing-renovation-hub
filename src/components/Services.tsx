@@ -7,12 +7,12 @@ import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 
-import roofRepairImg from "@/assets/services/roof-repair.jpg";
-import leakRepairImg from "@/assets/services/leak-repair.jpg";
-import waterproofingImg from "@/assets/services/waterproofing.jpg";
-import newRoofImg from "@/assets/services/new-roof.jpg";
-import tileReplacementImg from "@/assets/services/tile-replacement.jpg";
-import flatRoofImg from "@/assets/services/flat-roof.jpg";
+import roofRepairImg from "@/assets/hero-roof-repair.jpg";
+import leakRepairImg from "@/assets/hero-leak-repair.jpg";
+import waterproofingImg from "@/assets/hero-waterproofing.jpeg";
+import newRoofImg from "@/assets/hero-new-roof.jpg";
+import tileReplacementImg from "@/assets/hero-tile-replacement.jpg";
+import flatRoofImg from "@/assets/hero-flat-roof.jpeg";
 import metalRoofImg from "@/assets/services/metal-roof.jpg";
 import maintenanceImg from "@/assets/services/maintenance.jpg";
 import type { RouteKey } from "@/i18n/routes";
