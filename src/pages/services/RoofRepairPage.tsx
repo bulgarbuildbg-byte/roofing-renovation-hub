@@ -13,7 +13,7 @@ import HowWeWork from "@/components/HowWeWork";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Hammer, ClipboardCheck, Eye, FileText } from "lucide-react";
+import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Eye, FileText } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -102,12 +102,8 @@ const RoofRepairPage = () => {
     { title: "Качествени материали", description: "Използваме само доказани материали от водещи европейски производители." },
   ];
 
-  const quickProcess = [
-    { icon: Phone, title: "Свързване", description: "Обадете се или изпратете запитване" },
-    { icon: Search, title: "Оглед", description: "Безплатен оглед на място" },
-    { icon: ClipboardCheck, title: "Оферта", description: "Детайлна оферта без задължение" },
-    { icon: Hammer, title: "Изпълнение", description: "Качествен ремонт с гаранция" },
-  ];
+
+
 
   const schemaData = {
     "@context": "https://schema.org",
