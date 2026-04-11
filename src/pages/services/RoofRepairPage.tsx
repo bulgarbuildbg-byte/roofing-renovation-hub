@@ -13,7 +13,7 @@ import HowWeWork from "@/components/HowWeWork";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Eye, FileText } from "lucide-react";
+import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Eye, FileText, Hammer } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
