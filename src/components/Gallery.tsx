@@ -1,4 +1,4 @@
-import { MapPin, Wrench } from "lucide-react";
+import { MapPin, Wrench } from "lucide-react"; // gallery v2
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
