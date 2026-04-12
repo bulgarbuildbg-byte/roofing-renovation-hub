@@ -62,7 +62,7 @@ const FlatRoofPage = () => {
     { title: "Цялостна инспекция", description: "Проверяваме хидроизолацията, водоотводите, парапетите и примикванията." },
     { title: "Професионална подготовка", description: "Почистваме, ремонтираме основата и нанасяме грунд за адхезия." },
     { title: "Качествен монтаж", description: "Полагаме хидроизолация по избраната технология — битумна, PVC или течна." },
-    { title: "Защита и гаранция", description: "Нанасяме защитен слой и предоставяме писмена гаранция до 10 години." },
+    { title: "Защита и гаранция", description: "Нанасяме защитен слой и предоставяме писмена гаранция 15 години." },
   ];
 
   const quickProcess = [
@@ -82,7 +82,7 @@ const FlatRoofPage = () => {
   ];
 
   const benefits = [
-    { icon: Shield, title: "До 10 години гаранция", description: "Дълготрайна гаранция за материали и труд." },
+    { icon: Shield, title: "15 години гаранция", description: "Дълготрайна гаранция за материали и труд." },
     { icon: Wrench, title: "Опитни специалисти", description: "Богат опит с плоски покриви на жилищни и търговски сгради." },
     { icon: Layers, title: "Качествени материали", description: "Работим само с доказани марки — Sika, IKO, Icopal, Firestone." },
     { icon: Clock, title: "Бързо изпълнение", description: "Изпълняваме проектите в кратки срокове без забавяния." }
@@ -126,10 +126,10 @@ const FlatRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Плоски Покриви Варна - от 11 €/кв.м | 10г</title>
-        <meta name="description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. До 10 години гаранция. ☎ 088 499 7659" />
-        <meta property="og:title" content="Плоски Покриви Варна - от 11 €/кв.м | 10г Гаранция" />
-        <meta property="og:description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. До 10 години гаранция." />
+        <title>Ремонт на Плоски Покриви Варна - от 11 €/кв.м | 15г Гаранция</title>
+        <meta name="description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. 15 години гаранция. ☎ 088 499 7659" />
+        <meta property="og:title" content="Ремонт на Плоски Покриви Варна - от 11 €/кв.м | 15г Гаранция" />
+        <meta property="og:description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. 15 години гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/плоски-покриви" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
@@ -156,7 +156,7 @@ const FlatRoofPage = () => {
             </nav>
             <div className="max-w-4xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_3px_16px_rgba(0,0,0,0.9),_0_1px_4px_rgba(0,0,0,0.8)]">Плоски Покриви и Тераси във Варна</h1>
-              <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">Специализирани решения за хидроизолация и ремонт на плоски покриви, тераси и балкони. До 10 години гаранция.</p>
+              <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">Специализирани решения за хидроизолация и ремонт на плоски покриви, тераси и балкони. 15 години гаранция.</p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 shadow-lg"><Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link></Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20"><a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a></Button>
