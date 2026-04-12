@@ -316,14 +316,18 @@ const AnalyticsPage = () => {
   const KpiCard = ({ icon: Icon, label, value, suffix, color, trend }: {
     icon: any; label: string; value: number | string; suffix?: string; color?: string; trend?: number | null;
   }) => (
-    <Card className="border-border/50 shadow-sm hover:shadow-md transition-shadow">
-      <CardHeader className="pb-1">
+    <Card className="border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative group">
+      <div className={`absolute inset-0 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity bg-gradient-to-br from-current to-transparent ${color || "text-primary"}`} />
+      <CardHeader className="pb-1 relative">
         <CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-          <Icon className={`h-3.5 w-3.5 ${color || "text-primary"}`} /> {label}
+          <div className={`p-1.5 rounded-lg bg-gradient-to-br from-current/10 to-current/5 ${color || "text-primary"}`}>
+            <Icon className="h-3.5 w-3.5" />
+          </div>
+          {label}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <p className="text-3xl font-bold">
+      <CardContent className="relative">
+        <p className="text-3xl font-bold tracking-tight">
           {value}
           {suffix && <span className="text-sm font-normal text-muted-foreground ml-1">{suffix}</span>}
         </p>
@@ -337,7 +341,10 @@ const AnalyticsPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">PRO Dashboard</h1>
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+            <BarChart3 className="h-6 w-6 text-primary" />
+            PRO Dashboard
+          </h1>
           <p className="text-sm text-muted-foreground">Маркетинг, лидове и продажби</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
