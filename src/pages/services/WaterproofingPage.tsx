@@ -3,14 +3,13 @@ import heroWaterproofing from "@/assets/hero-waterproofing.jpeg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
-import HowWeWork from "@/components/HowWeWork";
-import RelatedServices from "@/components/RelatedServices";
-import LearnMoreLinks from "@/components/LearnMoreLinks";
+import CompletedProjects from "@/components/CompletedProjects";
+import Testimonials from "@/components/Testimonials";
 import PriceCalculator from "@/components/PriceCalculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle, Droplets, Shield, Clock, Phone, MapPin, AlertTriangle, Search, Layers, Thermometer, Eye, Hammer, ClipboardCheck } from "lucide-react";
+import { CheckCircle, Droplets, Shield, Clock, Phone, AlertTriangle, Layers, Thermometer, Eye, Award, Building, FileCheck, Wrench, SprayCan, PaintBucket, CircleDot, Hammer } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -26,27 +25,36 @@ const WaterproofingPage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
 
-  const relatedServices = [
-    { title: t('nav.flatRoof'), description: t('services.flatRoof.problem'), href: getPath('flatRoof') },
-    { title: t('nav.leakRepair'), description: t('services.leakRepair.problem'), href: getPath('leakRepair') },
-    { title: t('nav.maintenance'), description: t('services.maintenance.problem'), href: getPath('maintenance') },
-  ];
-
-  const learnMoreLinks = [
-    { title: "Видове хидроизолация - пълно ръководство", href: `${getPath('blog' as any)}/видове-хидроизолация-и-кога-да-изберем-всяка` },
-    { title: "Най-честите грешки при покривни ремонти", href: `${getPath('blog' as any)}/най-честите-грешки-при-покривни-ремонти` },
-  ];
-
-  const services = [
-    "Битумна хидроизолация", "PVC мембрани", "Течна хидроизолация",
-    "Хидроизолация на плоски покриви", "Хидроизолация на скатни покриви",
-    "Хидроизолация на тераси и балкони", "Ремонт на стара хидроизолация"
+  const waterproofingServices = [
+    { icon: Layers, title: "Битумна хидроизолация", description: "Полагаме битумна хидроизолация за дълготрайна защита на плоски и скатни покриви." },
+    { icon: SprayCan, title: "Течна хидроизолация", description: "Изпълняваме течна хидроизолация при сложни детайли, фуги и труднодостъпни зони." },
+    { icon: Shield, title: "PVC мембрана", description: "Работим с PVC мембрани за надеждна защита на големи плоски покриви и тераси." },
+    { icon: Wrench, title: "Локален ремонт на течове", description: "Откриваме проблемните участъци и правим частичен ремонт при течове и компрометирани зони." },
+    { icon: PaintBucket, title: "Цялостна хидроизолация", description: "Изграждаме цялостна система, когато старият слой е амортизиран или компрометиран." },
+    { icon: CircleDot, title: "Хидроизолация на плоски покриви и тераси", description: "Изпълняваме системи за плоски покриви, тераси и покривни плочи с правилно отводняване." },
   ];
 
   const types = [
-    { title: "Битумна хидроизолация", description: "Традиционно решение с доказана надеждност. Подходяща за повечето видове покриви.", price: "от 14 €/кв.м" },
-    { title: "PVC мембрана", description: "Модерно и дълготрайно решение. Идеална за плоски покриви и търговски сгради.", price: "от 20 €/кв.м" },
-    { title: "Течна хидроизолация", description: "Перфектна за труднодостъпни места, около комини и детайли.", price: "от 16 €/кв.м" }
+    { title: "Битумна хидроизолация", description: "Традиционно решение с доказана надеждност. Подходяща за повечето видове покриви.", price: "от 14 €/м²" },
+    { title: "Течна хидроизолация", description: "Перфектна за труднодостъпни места, около комини и детайли.", price: "от 16 €/м²" },
+    { title: "PVC мембрана", description: "Модерно и дълготрайно решение. Идеална за плоски покриви и търговски сгради.", price: "от 20 €/м²" },
+  ];
+
+  const whyChooseUs = [
+    { icon: Shield, title: "Работа по ясна технология", description: "Спазваме стриктно технологичните изисквания за всеки вид хидроизолация." },
+    { icon: Award, title: "Качествени материали", description: "Работим с доказани марки — IKO, Icopal, Sika, Firestone." },
+    { icon: Eye, title: "Безплатен оглед до 24 часа", description: "Посещаваме обекта и даваме конкретна оценка без ангажимент." },
+    { icon: FileCheck, title: "Писмена гаранция", description: "Предоставяме 15 години писмена гаранция за изпълнението." },
+    { icon: Building, title: "Реални снимки от обекти", description: "Показваме реални проекти от нашата работа — без stock снимки." },
+    { icon: Hammer, title: "Опит с различни видове покриви", description: "Плоски, скатни, тераси, промишлени — имаме решение за всеки тип." },
+  ];
+
+  const processSteps = [
+    { step: "01", title: "Свързвате се с нас", description: "Обаждате се или изпращате запитване от формата за контакт." },
+    { step: "02", title: "Правим оглед", description: "Посещаваме обекта и проверяваме откъде идва проблемът." },
+    { step: "03", title: "Даваме конкретна оферта", description: "Получавате ясно предложение с обхват на работа и цена." },
+    { step: "04", title: "Изпълняваме хидроизолацията", description: "Работим по договор, по технология и с качествени материали." },
+    { step: "05", title: "Предаваме обекта с гаранция", description: "След завършване получавате писмена гаранция." },
   ];
 
   const whyWaterproofing = [
@@ -62,14 +70,6 @@ const WaterproofingPage = () => {
     { title: "Мухъл и здравословни проблеми", description: "Влажната среда е идеална за мухъл и плесени — вредни за дихателната система, особено за деца и възрастни." },
     { title: "Загуба на енергийна ефективност", description: "Мократа топлоизолация губи до 80% от ефективността си, увеличавайки значително сметките за отопление." },
   ];
-
-  const solutionSteps = [
-    { title: "Детайлна инспекция", description: "Откриваме точните проблемни зони с визуален и технически оглед." },
-    { title: "Професионална подготовка", description: "Почистваме и подготвяме основата за максимална адхезия на материалите." },
-    { title: "Качествени материали", description: "Работим само с доказани марки — IKO, Icopal, Sika, Firestone." },
-    { title: "Прецизен монтаж", description: "Спазваме всички технологични изисквания за дълготраен и надежден резултат." },
-  ];
-
 
   const waterproofingProcess = [
     { step: 1, title: "Подготовка на повърхността", description: "Първата и може би най-важната стъпка е правилната подготовка на основата. Почистваме повърхността от прах, мръсотия, мъхове и стара разрушена хидроизолация.", image: roofSurfacePrep, imageAlt: "Подготовка на покривна повърхност за хидроизолация във Варна" },
@@ -94,21 +94,15 @@ const WaterproofingPage = () => {
     { title: "Мазета и основи", description: "Хидроизолацията на подземни части предпазва от проникване на подпочвени води и капилярна влага." }
   ];
 
-  const serviceAreas = [
-    { area: "Варна център", neighborhoods: ["Централен район", "Одесос", "Морска градина"] },
-    { area: "Варна квартали", neighborhoods: ["кв. Бриз", "кв. Чайка", "кв. Левски", "кв. Аспарухово", "кв. Владиславово", "кв. Младост", "кв. Възраждане"] },
-    { area: "Околни селища", neighborhoods: ["Аксаково", "Белослав", "Девня", "Златни пясъци", "Св. Константин", "Виница"] }
-  ];
-
   const faqs = [
-    { question: "Колко струва хидроизолацията на покрив?", answer: "Цената зависи от избрания тип материал, квадратурата и състоянието на основата. Ориентировъчните цени: битумна еднослойна — от 14 €/кв.м, двуслойна битумна — от 18–22 €/кв.м, PVC мембрана — от 23–28 €/кв.м." },
+    { question: "Колко струва хидроизолация на покрив?", answer: "Цената зависи от избрания тип материал, квадратурата и състоянието на основата. Ориентировъчните цени: битумна — от 14 €/м², течна — от 16 €/м², PVC мембрана — от 20 €/м²." },
     { question: "Колко дълго издържа хидроизолацията?", answer: "Битумната хидроизолация издържа средно 15–25 години. PVC мембраните имат живот от 25–35 години. EPDM каучуковите мембрани могат да издържат 40–50+ години." },
     { question: "Може ли да се полага нова хидроизолация върху старата?", answer: "Да, в редица случаи е възможно, ако старата хидроизолация е добре залепена към основата, без надутини или разслоявания." },
-    { question: "Каква е разликата между еднослойна и двуслойна хидроизолация?", answer: "Двуслойната система осигурява двойна защита. Тя е задължителен стандарт за плоски покриви на жилищни и търговски сгради." },
+    { question: "Коя хидроизолация е най-подходяща?", answer: "Зависи от типа на покрива и бюджета. За плоски покриви — битумна или PVC мембрана. За сложни форми и детайли — течна. За максимална дълготрайност — EPDM." },
     { question: "Може ли да се полага хидроизолация при студено време?", answer: "Битумната хидроизолация изисква минимум +5°C. PVC мембраните технически могат да се заваряват до -5°C." },
-    { question: "Нужна ли е топлоизолация заедно с хидроизолацията?", answer: "При плоски покриви е силно препоръчително да се изпълняват заедно, тъй като мократа топлоизолация губи 70–80% от своята ефективност." },
-    { question: "Издавате ли гаранция и договор?", answer: "Да, за всеки обект подписваме договор и издаваме данъчна фактура. Предоставяме 15 години писмена гаранция." },
-    { question: "Работите ли в цяла Варна и областта?", answer: "Да, покриваме целия град Варна и Област Варна — Аксаково, Белослав, Девня, Златни пясъци и др." }
+    { question: "Давате ли гаранция?", answer: "Да, за всеки обект подписваме договор и издаваме данъчна фактура. Предоставяме 15 години писмена гаранция." },
+    { question: "Работите ли при течащ покрив?", answer: "Да, при спешни случаи реагираме бързо. Правим локален ремонт на течове, а при необходимост — цялостна подмяна на хидроизолацията." },
+    { question: "Подходяща ли е течната хидроизолация за тераса?", answer: "Да, течната хидроизолация е отлично решение за тераси — създава безшевно покритие и може да се оцвети." },
   ];
 
   const schemaData = {
@@ -129,10 +123,10 @@ const WaterproofingPage = () => {
   return (
     <>
       <Helmet>
-        <title>{t('pages.waterproofing.meta.title')}</title>
-        <meta name="description" content="Професионална хидроизолация на покрив. Битумна, PVC мембрана, течна. 15 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
-        <meta property="og:title" content="Хидроизолация на Покрив Варна - от 28лв/кв.м | 15г Гаранция" />
-        <meta property="og:description" content="Професионална хидроизолация на покрив. Битумна, PVC мембрана, течна. 15 години гаранция. Безплатен оглед." />
+        <title>Хидроизолация на Покриви Варна | Битумна, Течна, PVC | 15г Гаранция</title>
+        <meta name="description" content="Професионална хидроизолация на покриви във Варна. Битумна, течна и PVC хидроизолация. Безплатен оглед до 24 часа. Писмена гаранция. ☎ 088 499 7659" />
+        <meta property="og:title" content="Хидроизолация на Покриви Варна | 15г Гаранция" />
+        <meta property="og:description" content="Професионална хидроизолация на покриви във Варна. Битумна, течна и PVC. 15 години гаранция. Безплатен оглед." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/хидроизолация" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
@@ -141,10 +135,10 @@ const WaterproofingPage = () => {
         <meta property="og:locale" content="bg_BG" />
         <meta property="og:site_name" content="Ремонт на Покриви Варна" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Хидроизолация на Покрив Варна - от 28лв/кв.м | 15г Гаранция" />
-        <meta name="twitter:description" content="Професионална хидроизолация на покрив. Битумна, PVC мембрана, течна. 15 години гаранция." />
+        <meta name="twitter:title" content="Хидроизолация на Покриви Варна | 15г Гаранция" />
+        <meta name="twitter:description" content="Професионална хидроизолация на покриви. Битумна, течна, PVC. 15 години гаранция." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
-        <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация" />
+        <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена, битумна хидроизолация, PVC мембрана покрив, течна хидроизолация, ремонт на теч от покрив" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
@@ -154,30 +148,34 @@ const WaterproofingPage = () => {
       <main className="pt-20">
         {/* 1. HERO */}
         <section className="relative text-primary-foreground py-16 md:py-24 overflow-hidden">
-          <img src={heroWaterproofing} alt="Полагане на хидроизолация" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={heroWaterproofing} alt="Хидроизолация на покрив във Варна" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.55)_70%,_rgba(15,23,42,0.85)_100%)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 via-[#0f172a]/30 to-transparent" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-primary-foreground/70">
-              <Link to={getPath('home')} className="hover:text-primary-foreground">{t('pages.waterproofing.breadcrumb.home')}</Link>
+              <Link to={getPath('home')} className="hover:text-primary-foreground">Начало</Link>
               <span className="mx-2">/</span>
-              <Link to={getPath('services')} className="hover:text-primary-foreground">{t('pages.waterproofing.breadcrumb.services')}</Link>
+              <Link to={getPath('services')} className="hover:text-primary-foreground">Услуги</Link>
               <span className="mx-2">/</span>
-              <span className="text-primary-foreground">{t('pages.waterproofing.breadcrumb.current')}</span>
+              <span className="text-primary-foreground">Хидроизолация</span>
             </nav>
             <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_3px_16px_rgba(0,0,0,0.9),_0_1px_4px_rgba(0,0,0,0.8)]">{t('pages.waterproofing.hero.title')}</h1>
-              <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-3xl mb-8 [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">{t('pages.waterproofing.hero.subtitle')}</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_3px_16px_rgba(0,0,0,0.9),_0_1px_4px_rgba(0,0,0,0.8)]">
+                Хидроизолация на покриви във Варна
+              </h1>
+              <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-3xl mb-8 [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
+                Битумна, течна и PVC хидроизолация за плоски и скатни покриви. Безплатен оглед до 24 часа и писмена гаранция.
+              </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 shadow-lg">
-                  <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
+                  <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
                 </Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
+                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
                 </Button>
               </div>
-              <div className="flex flex-nowrap gap-3 text-xs md:text-sm">
-                {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
+              <div className="flex flex-wrap gap-3 text-xs md:text-sm">
+                {["15+ години опит", "Гаранция за изпълнение", "Реални обекти", "Работа по договор"].map((item) => (
                   <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
                     <CheckCircle className="w-4 h-4 text-green-400" />
                     <span className="text-primary-foreground/90">{item}</span>
@@ -188,103 +186,198 @@ const WaterproofingPage = () => {
           </div>
         </section>
 
-        {/* 2. PROBLEM */}
-        <section className="py-16 bg-muted/30">
+        {/* 2. КАКВИ УСЛУГИ ПРЕДЛАГАМЕ */}
+        <section className="py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Защо е необходима хидроизолация?</h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Липсата или лошото състояние на хидроизолацията води до сериозни проблеми</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {whyWaterproofing.map((item, index) => (
-                  <Card key={index} className="border-border bg-card">
-                    <CardContent className="p-6">
-                      <AlertTriangle className="w-8 h-8 text-accent mb-3" />
-                      <h3 className="text-lg font-semibold text-card-foreground mb-2">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                Какви услуги предлагаме при хидроизолация на покрив
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                Предлагаме всички видове хидроизолация за жилищни и търговски сгради
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {waterproofingServices.map((service, index) => {
+                  const Icon = service.icon;
+                  return (
+                    <Card key={index} className="border-border bg-card hover:shadow-lg transition-shadow duration-300">
+                      <CardContent className="p-6">
+                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                          <Icon className="w-6 h-6 text-primary" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-card-foreground mb-2">{service.title}</h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
+                  <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
+                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 3. CONSEQUENCES */}
-        <section className="py-16 bg-destructive/5 border-y border-destructive/20">
+        {/* 3. ПОРТФОЛИО */}
+        <CompletedProjects />
+        <div className="flex flex-col sm:flex-row gap-4 justify-center py-8 bg-muted/30">
+          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
+            <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Искам подобен резултат</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
+            <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+          </Button>
+        </div>
+
+        {/* 4. ВИДОВЕ ХИДРОИЗОЛАЦИЯ */}
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Какво се случва, ако проблемът се отложи</h2>
-              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Навременната хидроизолация предотвратява сериозни последствия</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {consequences.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-destructive/20">
-                    <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm">{item.description}</p>
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Видове хидроизолация</h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Различните ситуации изискват различен подход — ето кога коя система е подходяща</p>
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="border-border">
+                  <CardContent className="p-6">
+                    <Layers className="w-8 h-8 text-primary mb-3" />
+                    <h3 className="text-xl font-semibold text-card-foreground mb-2">Битумна хидроизолация</h3>
+                    <p className="text-muted-foreground text-sm">Подходяща за плоски покриви, покривни плочи и стари покривни системи. Доказана надеждност и достъпна цена.</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border">
+                  <CardContent className="p-6">
+                    <SprayCan className="w-8 h-8 text-primary mb-3" />
+                    <h3 className="text-xl font-semibold text-card-foreground mb-2">Течна хидроизолация</h3>
+                    <p className="text-muted-foreground text-sm">Подходяща при сложни форми, детайли, връзки и труднодостъпни места. Създава безшевно покритие.</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-border">
+                  <CardContent className="p-6">
+                    <Shield className="w-8 h-8 text-primary mb-3" />
+                    <h3 className="text-xl font-semibold text-card-foreground mb-2">PVC мембрана</h3>
+                    <p className="text-muted-foreground text-sm">Подходяща за по-големи площи, индустриални обекти и съвременни плоски покриви. Максимална дълготрайност.</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. КАК РАБОТИМ */}
+        <section className="py-16 md:py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Как работим</h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Ясен процес от първото обаждане до предаването на обекта</p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                {processSteps.map((step, index) => (
+                  <div key={index} className="text-center">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-bold text-xl mx-auto mb-4 shadow-lg">
+                      {step.step}
                     </div>
+                    <h3 className="font-semibold text-foreground mb-2 text-sm">{step.title}</h3>
+                    <p className="text-muted-foreground text-xs leading-relaxed">{step.description}</p>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 4. SOLUTION */}
-        <section className="py-16 bg-primary/5 border-b border-primary/20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Как решаваме проблема</h2>
-              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Професионален подход за дълготраен резултат</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {solutionSteps.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-primary/20">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
+                  <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Безплатен оглед</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
+                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 5. PROCESS */}
-        <HowWeWork />
-
-        {/* 6. MID CTA */}
-        <section className="py-12 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+        {/* 6. CTA ЛЕНТА */}
+        <section className="py-10 bg-slate-800 text-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Нуждаете се от хидроизолация?</h2>
-            <p className="text-primary-foreground/90 mb-6 max-w-xl mx-auto">Не чакайте да се появят течове. Свържете се за безплатен оглед.</p>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Имате теч от покрива?</h2>
+            <p className="text-white/80 mb-6 max-w-xl mx-auto">Не чакайте проблемът да се задълбочи. Свържете се с нас за безплатен оглед и конкретно решение.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <Link to={getPath('contact')}>Заяви безплатен оглед</Link>
+                <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
               </Button>
-              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
                 <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
               </Button>
             </div>
           </div>
         </section>
 
-        {/* 7. CALCULATOR */}
-        <PriceCalculator />
-
-        {/* 8. SERVICE DETAILS */}
-        {/* Detailed Process */}
+        {/* 7. ЦЕНИ */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Процес на хидроизолация - Детайлно описание</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">Ориентировъчни цени за хидроизолация</h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Цените включват материал и труд. Крайната цена зависи от площта, основата, достъпа и състоянието на покрива.</p>
+              <div className="grid md:grid-cols-3 gap-6">
+                {types.map((type, index) => (
+                  <Card key={index} className="border-border bg-card hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <h3 className="text-xl font-semibold text-card-foreground mb-3">{type.title}</h3>
+                      <p className="text-muted-foreground text-sm mb-4">{type.description}</p>
+                      <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 border border-green-200">
+                        <span className="text-lg font-bold text-green-700">{type.price}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <p className="text-muted-foreground text-center mt-6 text-sm">* Цените са ориентировъчни без ДДС. Точната стойност се определя след безплатен оглед.</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
+                  <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Получи точна цена</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
+                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 8. ОТЗИВИ */}
+        <Testimonials />
+
+        {/* 9. CTA ЛЕНТА */}
+        <section className="py-10 bg-slate-800 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Нуждаете се от хидроизолация?</h2>
+            <p className="text-white/80 mb-6 max-w-xl mx-auto">Оставете запитване или се обадете. Ще направим оглед и ще ви дадем конкретно решение за вашия покрив.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
+              </Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
+                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* 10. КАЛКУЛАТОР */}
+        <PriceCalculator />
+
+        {/* 11. ДЕТАЙЛЕН ПРОЦЕС */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Процес на хидроизолация — детайлно</h2>
               <p className="text-muted-foreground text-center mb-12 max-w-3xl mx-auto">Качествената хидроизолация изисква спазване на технология и внимание към детайлите</p>
               <div className="space-y-12">
                 {waterproofingProcess.map((step, index) => (
                   <div key={index} className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}>
                     <div className="w-full md:w-1/2">
-                      <img src={step.image} alt={step.imageAlt} className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg" />
+                      <img src={step.image} alt={step.imageAlt} className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg" loading="lazy" />
                     </div>
                     <div className="w-full md:w-1/2">
                       <div className="flex items-center gap-4 mb-4">
@@ -300,16 +393,59 @@ const WaterproofingPage = () => {
           </div>
         </section>
 
-        {/* Services List */}
+        {/* 12. ВИДОВЕ ХИДРОИЗОЛАЦИЯ ПО ТИПОВЕ ПОКРИВИ */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Видове хидроизолация</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {services.map((service, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-card border border-border">
-                    <Droplets className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-card-foreground">{service}</span>
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Хидроизолация по типове покриви</h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Различните типове покриви изискват специфичен подход</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {roofTypes.map((type, index) => (
+                  <Card key={index} className="border-border">
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4">
+                        <Thermometer className="w-8 h-8 text-primary flex-shrink-0" />
+                        <div>
+                          <h3 className="text-xl font-semibold text-card-foreground mb-2">{type.title}</h3>
+                          <p className="text-muted-foreground">{type.description}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 13. ПРОБЛЕМИ + ПОСЛЕДСТВИЯ */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Какво се случва без хидроизолация</h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Липсата или лошото състояние на хидроизолацията води до сериозни проблеми</p>
+              <div className="grid md:grid-cols-2 gap-6 mb-12">
+                {whyWaterproofing.map((item, index) => (
+                  <Card key={index} className="border-border bg-card">
+                    <CardContent className="p-6">
+                      <AlertTriangle className="w-8 h-8 text-accent mb-3" />
+                      <h3 className="text-lg font-semibold text-card-foreground mb-2">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-center">Кога е време за нова хидроизолация</h3>
+              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Навременната хидроизолация предотвратява сериозни последствия</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {consequences.map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 p-5 bg-muted/50 rounded-xl border border-destructive/20">
+                    <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">{item.title}</h4>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -317,8 +453,8 @@ const WaterproofingPage = () => {
           </div>
         </section>
 
-        {/* Materials */}
-        <section className="py-16 bg-background">
+        {/* 14. МАТЕРИАЛИ */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Видове хидроизолационни материали</h2>
@@ -349,101 +485,54 @@ const WaterproofingPage = () => {
           </div>
         </section>
 
-        {/* Roof Types */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Хидроизолация по типове покриви</h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Различните типове покриви изискват специфичен подход</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {roofTypes.map((type, index) => (
-                  <Card key={index} className="border-border">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <Thermometer className="w-8 h-8 text-primary flex-shrink-0" />
-                        <div>
-                          <h3 className="text-xl font-semibold text-card-foreground mb-2">{type.title}</h3>
-                          <p className="text-muted-foreground">{type.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Types & Pricing */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-foreground text-center mb-4">Методи и цени за хидроизолация</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Цените включват материал и труд. Точната стойност се определя след безплатен оглед.</p>
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {types.map((type, index) => (
-                <Card key={index} className="border-border bg-card">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold text-card-foreground mb-3">{type.title}</h3>
-                    <p className="text-muted-foreground mb-4">{type.description}</p>
-                    <p className="text-2xl font-bold text-primary">{type.price}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <p className="text-muted-foreground text-center mt-8">* Цените са ориентировъчни и могат да варират</p>
-          </div>
-        </section>
-
-        {/* 9. TRUST */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">Защо да изберете нас</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Доверете се на опита и професионализма</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {["15+ години опит", "Работа по договор", "Реални обекти", "Член на КСБ"].map((item) => (
-                <div key={item} className="flex items-center gap-2 justify-center p-3 bg-background rounded-lg border border-border">
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground text-sm font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Service Areas */}
+        {/* 15. ФАКТИ И ДОВЕРИЕ */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Район на обслужване</h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Извършваме хидроизолация на покриви в целия град Варна и региона</p>
-              <div className="grid md:grid-cols-3 gap-6 mb-12">
-                {serviceAreas.map((area, index) => (
-                  <Card key={index} className="border-border">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-4">
-                        <MapPin className="w-5 h-5 text-primary" />
-                        <h3 className="text-lg font-semibold text-card-foreground">{area.area}</h3>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Защо да изберете нас</h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Доверете се на опита и професионализма</p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {whyChooseUs.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="flex items-start gap-4 p-5 bg-muted/30 rounded-xl border border-border">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-primary" />
                       </div>
-                      <ul className="space-y-2">
-                        {area.neighborhoods.map((n, i) => (<li key={i} className="text-muted-foreground text-sm">{n}</li>))}
-                      </ul>
-                    </CardContent>
-                  </Card>
+                      <div>
+                        <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
+                        <p className="text-muted-foreground text-sm">{item.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 max-w-3xl mx-auto">
+                {["15+ години опит", "Писмена гаранция", "Член на КСБ", "Качествени материали"].map((item) => (
+                  <div key={item} className="flex items-center gap-2 justify-center p-3 bg-primary/5 rounded-lg border border-primary/20">
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-foreground text-sm font-medium">{item}</span>
+                  </div>
                 ))}
               </div>
-              <div className="rounded-xl overflow-hidden shadow-lg">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d186237.48652949!2d27.769646!3d43.2140504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a4538baaf3f2cd%3A0x5765bc39bc4f4c!2z0JLQsNGA0L3QsCwg0JHRitC70LPQsNGA0LjRjw!5e0!3m2!1sbg!2sbg!4v1702300000000!5m2!1sbg!2sbg" width="100%" height="400" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Карта на Варна - район на обслужване" />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
+                  <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
+                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ */}
+        {/* 16. FAQ */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Често задавани въпроси</h2>
-              <p className="text-muted-foreground text-center mb-12">Отговори на най-честите въпроси от нашите клиенти</p>
+              <p className="text-muted-foreground text-center mb-12">Отговори на най-честите въпроси за хидроизолация на покриви</p>
               <Accordion type="single" collapsible className="space-y-3">
                 {faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`faq-${index}`} className="bg-card border border-border rounded-xl px-6">
@@ -456,27 +545,22 @@ const WaterproofingPage = () => {
           </div>
         </section>
 
-        {/* 11. FINAL CTA */}
+        {/* 17. ФИНАЛЕН CTA */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Нуждаете се от хидроизолация?</h2>
-            <p className="text-xl text-primary-foreground/90 mb-4 max-w-2xl mx-auto">Не чакайте да се появят течове. Обадете се за безплатен оглед.</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Нуждаете се от хидроизолация на покрив?</h2>
+            <p className="text-xl text-primary-foreground/90 mb-4 max-w-2xl mx-auto">Оставете запитване или се обадете. Ще направим оглед и ще ви дадем конкретно решение за вашия покрив.</p>
             <p className="text-2xl font-bold mb-8">☎ 088 499 7659</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359884997659">Обадете се сега</a>
+                <Link to={getPath('inspection')}>Вземи оферта</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
-                <Link to={getPath('contact')}>{t('pages.waterproofing.cta.inquiryBtn')}</Link>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
+                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обадете се сега</a>
               </Button>
             </div>
           </div>
         </section>
-
-        <div className="container mx-auto px-4 py-12">
-          <LearnMoreLinks links={learnMoreLinks} />
-        </div>
-        <RelatedServices services={relatedServices} />
       </main>
 
       <Footer />
