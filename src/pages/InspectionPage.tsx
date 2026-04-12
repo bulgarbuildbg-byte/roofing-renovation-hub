@@ -127,6 +127,19 @@ const InspectionPage = () => {
         }
       }
 
+      // Auto-log phone to call_log
+      try {
+        await supabase.from("call_log" as any).insert({
+          client_name: form.name.trim(),
+          client_phone: form.phone.trim(),
+          client_email: form.email.trim() || null,
+          call_direction: "inbound",
+          notes: "Автоматично от безплатен оглед",
+          inquiry_id: inquiry.id,
+          created_by: "00000000-0000-0000-0000-000000000000",
+        });
+      } catch {}
+
       setSubmitted(true);
 
       if (typeof window !== "undefined" && (window as any).gtag) {
