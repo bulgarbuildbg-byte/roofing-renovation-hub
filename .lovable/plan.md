@@ -1,88 +1,55 @@
 
 
-## SEO преструктуриране: нова URL структура с латиница, без дублиране
+## Уеднаквяване на текстове: гаранция, опит и имена на услуги
 
-### Обобщение
+### 1. Гаранция → навсякъде „15 години гаранция"
 
-Пълна промяна на URL структурата: от кирилица към латинска транслитерация за BG, нови SEO-оптимизирани slug-ове за EN, премахване на дублирани/припокриващи се страници, 301 redirect-и от стари URL-и.
+Текущо състояние: смесени стойности — „5 години", „до 10 години", „10-15 години", „до 10г".
 
-### 1. Нова slug карта (routes.ts)
+**Файлове за промяна:**
 
-**Премахване на `tileReplacement` и `waterproofingVarna`** — съдържанието им се влива в `roofRepair` (сега = ремонт на керемидени покриви) и `waterproofing`.
-
-**Нов RouteKey `tileRoofRepair`** заменя `tileReplacement` с ново съдържание.
-
-**Нови BG slug-ове (латиница):**
-
-| RouteKey | Стар BG slug | Нов BG slug |
-|---|---|---|
-| roofRepair | ремонт-на-покриви | remont-na-pokrivi |
-| tileRoofRepair (нов) | смяна-керемиди | remont-na-keremideni-pokrivi |
-| leakRepair | ремонт-течове | remont-na-techove-pokriv |
-| waterproofing | хидроизолация | hidroizolacia-na-pokriv |
-| newRoof | изграждане-на-покрив | nov-pokriv |
-| flatRoof | плоски-покриви | remont-na-ploski-pokrivi |
-| metalRoof | метални-покриви | metalni-pokrivi |
-| maintenance | поддръжка-на-покриви | poddruzhka-na-pokrivi |
-
-Останалите (about, projects, blog, faq, contact, etc.) също минават на латиница:
-`za-nas`, `proekti`, `blog`, `vaprosi`, `kontakti`, `otzyvi`, `kalkulator`, `bezplaten-ogled`, `kak-rabotim`, `tseni-remont-pokriv`
-
-**Нови EN slug-ове:**
-
-| RouteKey | Нов EN slug |
+| Файл | Какво се сменя |
 |---|---|
-| roofRepair | roof-repair-varna |
-| tileRoofRepair | tile-roof-repair-varna |
-| leakRepair | roof-leak-repair |
-| waterproofing | roof-waterproofing |
-| newRoof | new-roof-construction |
-| flatRoof | flat-roof-repair |
-| metalRoof | metal-roof-installation |
-| maintenance | roof-maintenance |
+| `src/i18n/locales/bg.ts` | `hero.badge2`: „До 10г гаранция" → „15 години гаранция"; `trust.warranty`: „Гаранция до 10 год." → „15 години гаранция"; `footer.trustWarranty`: „Писмена гаранция до 10 год." → „Писмена гаранция 15 години"; `services.waterproofing.benefits`: „10 години гаранция" → „15 години гаранция" |
+| `src/i18n/locales/en.ts` | Същите ключове на английски |
+| `src/pages/ServicesPage.tsx` | Ред 81: „10-15 години гаранция" → „15 години гаранция" |
+| `src/pages/ReviewsPage.tsx` | Ред 11: „5 години гаранция" → „15 години гаранция"; Ред 191: „До 10 години писмена гаранция" → „15 години писмена гаранция" |
+| `src/pages/FAQPage.tsx` | Ред 26: уеднаквяване на текста — „15 години гаранция" |
+| `src/pages/services/WaterproofingPage.tsx` | Мета тагове и FAQ: „до 10 години" → „15 години"; OG titles |
+| `src/pages/services/TileReplacementPage.tsx` | Ред 87: „Гаранция до 5 години" → „15 години гаранция" |
+| `src/pages/services/MetalRoofPage.tsx` | Ред 71: „гаранция" → „15 години гаранция" |
+| `src/components/Testimonials.tsx` | Ред 53: „5 години гаранция" → „15 години гаранция" |
+| `src/pages/Index.tsx` | JSON-LD: „до 10 години" → „15 години" |
 
-**Премахва се:** `waterproofingVarna` (RouteKey) — сливане с `waterproofing`.
+### 2. Опит → навсякъде „15+ години опит"
 
-### 2. Redirect-и (App.tsx)
+Вече е почти навсякъде „15+ години опит" — само трябва проверка и корекция на евентуални отклонения в service pages.
 
-Всички стари кирилски URL-и → нови латински:
-```
-/ремонт-на-покриви → /bg/remont-na-pokrivi
-/смяна-керемиди → /bg/remont-na-keremideni-pokrivi
-/хидроизолация → /bg/hidroizolacia-na-pokriv
-/хидроизолация-варна → /bg/hidroizolacia-na-pokriv
-```
-И вътрешни redirect-и за стари /:lang/ URL-и (LanguageLayout ще ги хваща автоматично).
+### 3. Имена на услуги в менюто → съвпадение с URL/заглавие
 
-### 3. Компонент промени
+**Промени в `src/i18n/locales/bg.ts` (nav секция):**
 
-| Файл | Промяна |
+| Стар текст | Нов текст |
 |---|---|
-| `src/i18n/routes.ts` | Нова slug карта; премахване на `waterproofingVarna`, `tileReplacement` → `tileRoofRepair`; slug-ове на латиница за всички 10 езика |
-| `src/components/LocalizedPageRouter.tsx` | Премахване на `WaterproofingVarnaPage` import; `tileReplacement` → `tileRoofRepair` с `TileReplacementPage` (пренаименуван) |
-| `src/App.tsx` | Обновяване на redirect-ите от стари кирилски URL-и към нови латински |
-| `src/components/Header.tsx` | Обновяване на `serviceLinks` — `tileReplacement` → `tileRoofRepair`, премахване на `waterproofingVarna` |
-| `src/components/Footer.tsx` | Същото — обновяване на `serviceRoutes` |
-| `src/components/HreflangTags.tsx` | Без промяна (работи динамично от routes.ts) |
-| `src/i18n/locales/bg.ts` | Преименуване на ключове `tileReplacement` → `tileRoofRepair`; сливане на `waterproofingVarna` съдържание в `waterproofing` |
-| `src/i18n/locales/en.ts` | Същото |
-| `public/sitemap-bg.xml` | Обновяване на всички URL-и с новите латински slug-ове |
-| `public/sitemap-en.xml` | Обновяване с новите EN slug-ове |
-| Останалите 8 sitemap-а | Обновяване на slug-ове за съответните езици |
+| `roofRepair`: „Ремонт на покриви" | Остава (ОК) |
+| `leakRepair`: „Ремонт на течове" | „Ремонт на течове на покрив" |
+| `waterproofing`: „Хидроизолация" | „Хидроизолация на покрив" |
+| `newRoof`: „Нов покрив" | „Изграждане на нов покрив" |
+| `tileRoofRepair`: „Смяна на керемиди" | „Ремонт на керемидени покриви" |
+| `flatRoof`: „Плоски покриви" | „Ремонт на плоски покриви" |
+| `metalRoof`: „Метални покриви" | Остава (ОК) |
+| `maintenance`: „Поддръжка" | „Поддръжка на покриви" |
 
-### 4. Вътрешно линкване
+Същите промени в `services` секцията (title полетата) и в `src/i18n/locales/en.ts`.
 
-- `roofRepair` (главна услуга) линква към: tileRoofRepair, leakRepair, waterproofing, newRoof
-- Всяка подстраница линква обратно към roofRepair + 2-3 свързани услуги
-- Вече е реализирано чрез `RelatedServices` компонент — ще се обновят routeKey-овете
+**Същите ключове се използват автоматично** в Header, Footer и Services компонентите чрез `t('nav.xxx')`, така че промяната в локализацията ще се отрази навсякъде.
 
-### 5. Какво се премахва
+### Общо засегнати файлове: ~12
 
-- `waterproofingVarna` страница и RouteKey — съдържанието се влива в `waterproofing`
-- Стари кирилски slug-ове (остават само като redirect-и)
-- URL-и без `/bg/` или `/en/` префикс (вече не съществуват директно)
-
-### Технически детайли
-
-Общо ~15 файла ще бъдат променени. Промените са предимно в slug конфигурацията и redirect-ите. Компонентите на страниците остават, само се пренасочват чрез новата slug карта. HreflangTags и canonical-ите работят автоматично от routes.ts.
+- `src/i18n/locales/bg.ts` — основни промени (nav + trust + hero + services)
+- `src/i18n/locales/en.ts` — огледални промени
+- Останалите 8 locale файла — warranty/experience стойности
+- `src/pages/ServicesPage.tsx`, `ReviewsPage.tsx`, `FAQPage.tsx`, `Index.tsx` — hardcoded текстове
+- `src/pages/services/WaterproofingPage.tsx`, `TileReplacementPage.tsx`, `MetalRoofPage.tsx` — hardcoded текстове и мета тагове
+- `src/components/Testimonials.tsx` — fallback отзив
 
