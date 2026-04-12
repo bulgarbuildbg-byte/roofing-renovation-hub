@@ -50,26 +50,26 @@ const App = () => (
             {/* Root: detect language and redirect */}
             <Route path="/" element={<LanguageRedirect />} />
 
-            {/* Old Bulgarian URLs: redirect to /bg/... for backward compat */}
+            {/* Old bare URLs without /bg/ prefix — redirect to new Latin BG slugs */}
             <Route path="/services" element={<Navigate to="/bg/services" replace />} />
-            <Route path="/за-нас" element={<Navigate to="/bg/за-нас" replace />} />
-            <Route path="/проекти" element={<Navigate to="/bg/проекти" replace />} />
-            <Route path="/въпроси" element={<Navigate to="/bg/въпроси" replace />} />
-            <Route path="/контакти" element={<Navigate to="/bg/контакти" replace />} />
-            <Route path="/отзиви" element={<Navigate to="/bg/отзиви" replace />} />
-            <Route path="/ремонт-на-покриви" element={<Navigate to="/bg/ремонт-на-покриви" replace />} />
-            <Route path="/ремонт-течове" element={<Navigate to="/bg/ремонт-течове" replace />} />
-            <Route path="/хидроизолация" element={<Navigate to="/bg/хидроизолация" replace />} />
-            <Route path="/хидроизолация-варна" element={<Navigate to="/bg/хидроизолация-варна" replace />} />
-            <Route path="/изграждане-на-покрив" element={<Navigate to="/bg/изграждане-на-покрив" replace />} />
-            <Route path="/смяна-керемиди" element={<Navigate to="/bg/смяна-керемиди" replace />} />
-            <Route path="/плоски-покриви" element={<Navigate to="/bg/плоски-покриви" replace />} />
-            <Route path="/метални-покриви" element={<Navigate to="/bg/метални-покриви" replace />} />
-            <Route path="/поддръжка-на-покриви" element={<Navigate to="/bg/поддръжка-на-покриви" replace />} />
-            <Route path="/блог" element={<Navigate to="/bg/блог" replace />} />
-            <Route path="/блог/:slug" element={<Navigate to="/bg/блог" replace />} />
-            <Route path="/калкулатор" element={<Navigate to="/bg/калкулатор" replace />} />
-            <Route path="/безплатен-оглед" element={<Navigate to="/bg/безплатен-оглед" replace />} />
+            <Route path="/за-нас" element={<Navigate to="/bg/za-nas" replace />} />
+            <Route path="/проекти" element={<Navigate to="/bg/proekti" replace />} />
+            <Route path="/въпроси" element={<Navigate to="/bg/vaprosi" replace />} />
+            <Route path="/контакти" element={<Navigate to="/bg/kontakti" replace />} />
+            <Route path="/отзиви" element={<Navigate to="/bg/otzyvi" replace />} />
+            <Route path="/ремонт-на-покриви" element={<Navigate to="/bg/remont-na-pokrivi" replace />} />
+            <Route path="/ремонт-течове" element={<Navigate to="/bg/remont-na-techove-pokriv" replace />} />
+            <Route path="/хидроизолация" element={<Navigate to="/bg/hidroizolacia-na-pokriv" replace />} />
+            <Route path="/хидроизолация-варна" element={<Navigate to="/bg/hidroizolacia-na-pokriv" replace />} />
+            <Route path="/изграждане-на-покрив" element={<Navigate to="/bg/nov-pokriv" replace />} />
+            <Route path="/смяна-керемиди" element={<Navigate to="/bg/remont-na-keremideni-pokrivi" replace />} />
+            <Route path="/плоски-покриви" element={<Navigate to="/bg/remont-na-ploski-pokrivi" replace />} />
+            <Route path="/метални-покриви" element={<Navigate to="/bg/metalni-pokrivi" replace />} />
+            <Route path="/поддръжка-на-покриви" element={<Navigate to="/bg/poddruzhka-na-pokrivi" replace />} />
+            <Route path="/блог" element={<Navigate to="/bg/blog" replace />} />
+            <Route path="/блог/:slug" element={<Navigate to="/bg/blog" replace />} />
+            <Route path="/калкулатор" element={<Navigate to="/bg/kalkulator" replace />} />
+            <Route path="/безплатен-оглед" element={<Navigate to="/bg/bezplaten-ogled" replace />} />
 
             {/* Language-prefixed public routes */}
             <Route path="/:lang/*" element={<LanguageLayout />}>
