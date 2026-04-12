@@ -4,21 +4,22 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
-import project1 from "@/assets/portfolio/residential-tile-roof.jpg";
-import project2 from "@/assets/portfolio/apartment-building.jpg";
-import project3 from "@/assets/portfolio/family-house.jpg";
-import project4 from "@/assets/portfolio/villa-roof.jpg";
-import project5 from "@/assets/portfolio/commercial-building.jpg";
-import after1 from "@/assets/portfolio/panel-block.jpg";
+import asparuhovoImg from "@/assets/portfolio/asparuhovo-varna.jpeg";
+import kavarnaImg from "@/assets/portfolio/kavarna-hotel.jpeg";
+import trakataImg from "@/assets/portfolio/trakata-varna.jpg";
+import oblastImg from "@/assets/portfolio/oblast-varna.jpeg";
+import makedoniaImg from "@/assets/portfolio/makedonia-25-varna.jpeg";
+import podpolkovnikImg from "@/assets/portfolio/podpolkovnik-varna.jpeg";
+import shoshkovaImg from "@/assets/portfolio/shoshkova-gradina-varna.jpeg";
 
-// Project data stays hardcoded as it's location-specific content
 const projects = [
-  { image: project1, title: "Жилищна Сграда - кв. Левски", description: "Пълна реконструкция на покрив с нови керемиди Bramac и хидроизолация.", location: "кв. Левски, Варна", type: "Реконструкция на покрив", duration: "2 седмици" },
-  { image: project2, title: "Търговски Обект - Център", description: "Монтаж на метален покрив с термоизолация за търговска сграда.", location: "Център, Варна", type: "Нов метален покрив", duration: "10 дни" },
-  { image: project3, title: "Семейна Къща - кв. Чайка", description: "Ремонт на стар покрив и цялостна хидроизолация.", location: "кв. Чайка, Варна", type: "Ремонт и хидроизолация", duration: "1 седмица" },
-  { image: project4, title: "Вила - с. Звездица", description: "Монтаж на нови керемиди на семейна вила.", location: "с. Звездица, Варна", type: "Монтаж на керемиди", duration: "5 дни" },
-  { image: project5, title: "Жилищна Сграда - кв. Аспарухово", description: "Детайлна работа по монтаж на керемиди.", location: "кв. Аспарухово, Варна", type: "Ремонт на покрив", duration: "1 седмица" },
-  { image: after1, title: "Панелен Блок - кв. Владиславово", description: "Цялостна подмяна на керемиден покрив с нови материали.", location: "кв. Владиславово, Варна", type: "Пълна реконструкция", duration: "3 седмици" },
+  { image: asparuhovoImg, title: "Жилищен блок кв. Аспарухово", description: "Пълна реконструкция на покрива – демонтаж на стари материали, нова хидроизолация и покривно покритие.", location: "кв. Аспарухово, Варна", type: "Цялостна реконструкция", duration: "3 седмици" },
+  { image: kavarnaImg, title: "Хотелска сграда Каварна", description: "Хидроизолация на хотелска сграда с PVC мембрана и укрепване на критични зони.", location: "гр. Каварна", type: "Хидроизолация", duration: "2 седмици" },
+  { image: trakataImg, title: "Вила м-т Траката", description: "Смяна на стари керемиди и монтаж на нови с подобрена хидроизолация и вентилация.", location: "м-т Траката, Варна", type: "Подмяна на керемиди", duration: "1 седмица" },
+  { image: oblastImg, title: "Жилищна сграда обл. Варна", description: "Спешен ремонт на течащ покрив – локализация на течовете и пълно отстраняване с гаранция.", location: "обл. Варна", type: "Течащ покрив", duration: "5 дни" },
+  { image: makedoniaImg, title: "Плосък покрив ул. Македония 25", description: "Двуслойна PVC хидроизолация на плосък покрив с 10-годишна гаранция.", location: "ул. Македония 25, Варна", type: "Плосък покрив", duration: "1 седмица" },
+  { image: podpolkovnikImg, title: "Ремонт на покрив ул. Подполковник", description: "Цялостна реконструкция – нова дървена конструкция, мембрана и керамични керемиди.", location: "ул. Подполковник, Варна", type: "Реконструкция", duration: "2 седмици" },
+  { image: shoshkovaImg, title: "Пълна смяна на покрив Шошкова градина 7", description: "Демонтаж на стария покрив и изграждане на нов – греди, мембрана, керемиди.", location: "Шошкова градина 7, Варна", type: "Пълна реконструкция", duration: "3 седмици" },
 ];
 
 const Gallery = () => {
