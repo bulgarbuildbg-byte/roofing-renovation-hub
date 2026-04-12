@@ -78,7 +78,7 @@ const howWeWorkSteps = [
   { icon: Search, title: "Оглед", description: "Безплатен оглед на място" },
   { icon: FileText, title: "Оферта", description: "Ясна оферта без скрити разходи" },
   { icon: Hammer, title: "Изпълнение", description: "Качествено изпълнение с договор" },
-  { icon: Shield, title: "Гаранция", description: "10-15 години гаранция" },
+  { icon: Shield, title: "Гаранция", description: "15 години гаранция" },
 ];
 
 const paymentSteps = [

@@ -112,7 +112,7 @@ const WaterproofingPage = () => {
     { question: "Каква е разликата между еднослойна и двуслойна хидроизолация?", answer: "Двуслойната система осигурява двойна защита. Тя е задължителен стандарт за плоски покриви на жилищни и търговски сгради." },
     { question: "Може ли да се полага хидроизолация при студено време?", answer: "Битумната хидроизолация изисква минимум +5°C. PVC мембраните технически могат да се заваряват до -5°C." },
     { question: "Нужна ли е топлоизолация заедно с хидроизолацията?", answer: "При плоски покриви е силно препоръчително да се изпълняват заедно, тъй като мократа топлоизолация губи 70–80% от своята ефективност." },
-    { question: "Издавате ли гаранция и договор?", answer: "Да, за всеки обект подписваме договор и издаваме данъчна фактура. Стандартната ни гаранция е 5 години, а при премиум системи — до 10 години." },
+    { question: "Издавате ли гаранция и договор?", answer: "Да, за всеки обект подписваме договор и издаваме данъчна фактура. Предоставяме 15 години писмена гаранция." },
     { question: "Работите ли в цяла Варна и областта?", answer: "Да, покриваме целия град Варна и Област Варна — Аксаково, Белослав, Девня, Златни пясъци и др." }
   ];
 
@@ -121,7 +121,7 @@ const WaterproofingPage = () => {
     "name": "Хидроизолация на покриви Варна",
     "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359884997659", "email": "remontnapokrivivarna@abv.bg", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } },
     "areaServed": [{ "@type": "City", "name": "Варна" }, { "@type": "Place", "name": "Аксаково" }, { "@type": "Place", "name": "Златни пясъци" }, { "@type": "Place", "name": "Белослав" }],
-    "description": "Професионална хидроизолация на покриви във Варна - битумна, PVC мембрана, течна хидроизолация. 5 години гаранция.",
+    "description": "Професионална хидроизолация на покриви във Варна - битумна, PVC мембрана, течна хидроизолация. 15 години гаранция.",
     "offers": { "@type": "AggregateOffer", "lowPrice": "14", "highPrice": "20", "priceCurrency": "EUR", "offerCount": "3" }
   };
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer } })) };
@@ -135,9 +135,9 @@ const WaterproofingPage = () => {
     <>
       <Helmet>
         <title>{t('pages.waterproofing.meta.title')}</title>
-        <meta name="description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
-        <meta property="og:title" content="Хидроизолация Покрив Варна - от 28лв/кв.м | 10г Гаранция" />
-        <meta property="og:description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция. Безплатен оглед." />
+        <meta name="description" content="Професионална хидроизолация на покрив. Битумна, PVC мембрана, течна. 15 години гаранция. Безплатен оглед. ☎ 088 499 7659" />
+        <meta property="og:title" content="Хидроизолация на Покрив Варна - от 28лв/кв.м | 15г Гаранция" />
+        <meta property="og:description" content="Професионална хидроизолация на покрив. Битумна, PVC мембрана, течна. 15 години гаранция. Безплатен оглед." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/хидроизолация" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
@@ -146,8 +146,8 @@ const WaterproofingPage = () => {
         <meta property="og:locale" content="bg_BG" />
         <meta property="og:site_name" content="Ремонт на Покриви Варна" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Хидроизолация Покрив Варна - от 28лв/кв.м | 10г Гаранция" />
-        <meta name="twitter:description" content="Професионална хидроизолация. Битумна, PVC мембрана, течна. До 10 години гаранция." />
+        <meta name="twitter:title" content="Хидроизолация на Покрив Варна - от 28лв/кв.м | 15г Гаранция" />
+        <meta name="twitter:description" content="Професионална хидроизолация на покрив. Битумна, PVC мембрана, течна. 15 години гаранция." />
         <meta name="twitter:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta name="keywords" content="хидроизолация покрив варна, хидроизолация цена варна, битумна хидроизолация варна, PVC мембрана покрив, течна хидроизолация" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>

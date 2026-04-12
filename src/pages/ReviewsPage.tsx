@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const reviews = [
   {
-    text: "Бърза реакция, ясни цени и отлично качество. Покривът вече не тече и получих 5 години гаранция. Горещо препоръчвам на всички!",
+    text: "Бърза реакция, ясни цени и отлично качество. Покривът вече не тече и получих 15 години гаранция. Горещо препоръчвам на всички!",
     author: "Иван Димитров",
     location: "Варна, кв. Чайка",
     rating: 5,
@@ -188,7 +188,7 @@ const ReviewsPage = () => {
               <div className="text-center">
                 <CheckCircle className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold text-foreground mb-2">Гарантирано Качество</h3>
-                <p className="text-muted-foreground">До 10 години писмена гаранция на всички работи</p>
+                <p className="text-muted-foreground">15 години писмена гаранция на всички работи</p>
               </div>
               <div className="text-center">
                 <CheckCircle className="w-12 h-12 text-primary mx-auto mb-4" />
