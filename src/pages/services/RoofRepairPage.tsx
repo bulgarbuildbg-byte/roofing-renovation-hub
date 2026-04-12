@@ -3,17 +3,17 @@ import heroRoofRepair from "@/assets/hero-roof-repair.jpg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
-import RelatedServices from "@/components/RelatedServices";
-import LearnMoreLinks from "@/components/LearnMoreLinks";
 import PriceCalculator from "@/components/PriceCalculator";
 import TrustIndicators from "@/components/TrustIndicators";
 import CertificationsBar from "@/components/CertificationsBar";
 import Services from "@/components/Services";
 import HowWeWork from "@/components/HowWeWork";
+import CompletedProjects from "@/components/CompletedProjects";
+import Testimonials from "@/components/Testimonials";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Eye, FileText, Hammer } from "lucide-react";
+import { CheckCircle, Wrench, Shield, Clock, Phone, MapPin, AlertTriangle, Eye, FileText, Hammer, Award, Users, Calendar } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -29,29 +29,11 @@ const RoofRepairPage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
 
-  const relatedServices = [
-    { title: t('pages.roofRepair.related.0.title'), description: t('pages.roofRepair.related.0.desc'), href: getPath('leakRepair') },
-    { title: t('pages.roofRepair.related.1.title'), description: t('pages.roofRepair.related.1.desc'), href: getPath('tileRoofRepair') },
-    { title: t('pages.roofRepair.related.2.title'), description: t('pages.roofRepair.related.2.desc'), href: getPath('maintenance') },
-  ];
-
-  const learnMoreLinks = [
-    { title: t('pages.roofRepair.learnMore.0'), href: `/${t('pages.roofRepair.blogSlug')}/5-признака-че-покривът-се-нуждае-от-ремонт` },
-    { title: t('pages.roofRepair.learnMore.1'), href: `/${t('pages.roofRepair.blogSlug')}/най-честите-грешки-при-покривни-ремонти` },
-  ];
-
-  const services = Array.from({ length: 7 }, (_, i) => t(`pages.roofRepair.servicesList.${i}`));
-
   const benefits = [
     { icon: Shield, title: t('pages.roofRepair.benefits.0.title'), description: t('pages.roofRepair.benefits.0.desc') },
     { icon: Wrench, title: t('pages.roofRepair.benefits.1.title'), description: t('pages.roofRepair.benefits.1.desc') },
     { icon: Clock, title: t('pages.roofRepair.benefits.2.title'), description: t('pages.roofRepair.benefits.2.desc') },
   ];
-
-  const priceRanges = Array.from({ length: 5 }, (_, i) => ({
-    service: t(`pages.roofRepair.prices.${i}.service`),
-    price: t(`pages.roofRepair.prices.${i}.price`),
-  }));
 
   const commonProblems = Array.from({ length: 5 }, (_, i) => ({
     title: t(`pages.roofRepair.problems.${i}.title`),
@@ -77,17 +59,6 @@ const RoofRepairPage = () => {
     description: t(`pages.roofRepair.materials.${i}.desc`),
   }));
 
-  const serviceAreas = [
-    { area: t('pages.roofRepair.areas.0.name'), neighborhoods: [t('pages.roofRepair.areas.0.n0'), t('pages.roofRepair.areas.0.n1'), t('pages.roofRepair.areas.0.n2')] },
-    { area: t('pages.roofRepair.areas.1.name'), neighborhoods: Array.from({ length: 8 }, (_, i) => t(`pages.roofRepair.areas.1.n${i}`)) },
-    { area: t('pages.roofRepair.areas.2.name'), neighborhoods: Array.from({ length: 7 }, (_, i) => t(`pages.roofRepair.areas.2.n${i}`)) },
-  ];
-
-  const faqs = Array.from({ length: 6 }, (_, i) => ({
-    question: t(`pages.roofRepair.faqs.${i}.q`),
-    answer: t(`pages.roofRepair.faqs.${i}.a`),
-  }));
-
   const consequences = [
     { title: "По-големи щети", description: "Малък теч може да причини мокра изолация, гнили летви и повредена конструкция за месеци." },
     { title: "По-високи разходи", description: "Отложеният ремонт винаги излиза по-скъпо. Малка кръпка днес може да спести хиляди утре." },
@@ -95,15 +66,10 @@ const RoofRepairPage = () => {
     { title: "Влага и мухъл в дома", description: "Течовете водят до мухъл по стени и тавани, което е вредно за здравето на цялото семейство." },
   ];
 
-  const solutions = [
-    { title: "Професионален оглед", description: "Откриваме точния източник на проблема с визуална и техническа инспекция." },
-    { title: "Точна диагностика", description: "Определяме обхвата на повредите и необходимите ремонтни дейности." },
-    { title: "Избор на решение", description: "Предлагаме оптималния вариант за ремонт според вашия бюджет и нужди." },
-    { title: "Качествени материали", description: "Използваме само доказани материали от водещи европейски производители." },
-  ];
-
-
-
+  const faqs = Array.from({ length: 6 }, (_, i) => ({
+    question: t(`pages.roofRepair.faqs.${i}.q`),
+    answer: t(`pages.roofRepair.faqs.${i}.a`),
+  }));
 
   const schemaData = {
     "@context": "https://schema.org",
@@ -180,9 +146,7 @@ const RoofRepairPage = () => {
             width={1920}
             height={1080}
           />
-          {/* Radial vignette — center clear, edges dark */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.55)_70%,_rgba(15,23,42,0.85)_100%)]" />
-          {/* Bottom gradient for text area */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 via-[#0f172a]/30 to-transparent" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-white/70">
@@ -231,106 +195,158 @@ const RoofRepairPage = () => {
         {/* 3. CERTIFICATIONS BAR */}
         <CertificationsBar />
 
-        {/* 4. SERVICES CAROUSEL */}
+        {/* 4. SERVICES CAROUSEL (с цени в картичките) */}
         <Services />
+        
+        {/* Двоен CTA след услугите */}
+        <div className="bg-background py-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+              <Link to={getPath('contact')}>
+                <Eye className="w-5 h-5 mr-2" />
+                Заяви безплатен оглед
+              </Link>
+            </Button>
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8">
+              <a href="tel:0884997659">
+                <Phone className="w-5 h-5 mr-2" />
+                088 499 7659
+              </a>
+            </Button>
+          </div>
+        </div>
 
-        {/* 5. HOW WE WORK */}
+        {/* 5. ПОРТФОЛИО */}
+        <CompletedProjects />
+
+        {/* Двоен CTA след портфолио */}
+        <div className="bg-background py-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center px-4">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+              <Link to={getPath('contact')}>
+                <FileText className="w-5 h-5 mr-2" />
+                Получи оферта
+              </Link>
+            </Button>
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8">
+              <a href="tel:0884997659">
+                <Phone className="w-5 h-5 mr-2" />
+                Обади се сега
+              </a>
+            </Button>
+          </div>
+        </div>
+
+        {/* 6. КАК РАБОТИМ */}
         <HowWeWork />
 
-        {/* 6. PROBLEM */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">{t('pages.roofRepair.problemsSection.title')}</h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">{t('pages.roofRepair.problemsSection.subtitle')}</p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {commonProblems.map((problem, index) => (
-                  <Card key={index} className="border-border bg-card">
-                    <CardContent className="p-6">
-                      <AlertTriangle className="w-8 h-8 text-accent mb-3" />
-                      <h3 className="text-lg font-semibold text-card-foreground mb-2">{problem.title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{problem.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 7. CONSEQUENCES */}
-        <section className="py-16 bg-destructive/5 border-y border-destructive/20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                Какво се случва, ако проблемът се отложи
-              </h2>
-              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-                Навременният ремонт предотвратява сериозни последствия
-              </p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {consequences.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-destructive/20">
-                    <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 8. SOLUTION */}
-        <section className="py-16 bg-primary/5 border-b border-primary/20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                Как решаваме проблема
-              </h2>
-              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-                Професионален подход за дълготраен резултат
-              </p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {solutions.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-primary/20">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 9. MID CTA */}
-        <section className="py-12 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+        {/* CTA РАЗДЕЛИТЕЛНА ЛЕНТА 1 */}
+        <section className="py-10 bg-slate-800 text-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Имате проблем с покрива?</h2>
-            <p className="text-primary-foreground/90 mb-6 max-w-xl mx-auto">Не чакайте проблемът да се задълбочи. Свържете се с нас за безплатна консултация.</p>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Имате проблем с покрива? Не чакайте да стане по-лошо.</h2>
+            <p className="text-white/80 mb-6 max-w-xl mx-auto">Свържете се с нас за безплатна консултация и оглед на място.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <Link to={getPath('contact')}>Заяви безплатен оглед</Link>
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+                <Link to={getPath('contact')}>
+                  <Eye className="w-5 h-5 mr-2" />
+                  Заяви безплатен оглед
+                </Link>
               </Button>
-              <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20 text-lg px-8">
                 <a href="tel:0884997659">
                   <Phone className="w-5 h-5 mr-2" />
-                  088 499 7659
+                  Обади се сега
                 </a>
               </Button>
             </div>
           </div>
         </section>
 
-        {/* 10. CALCULATOR */}
+        {/* 7. ЗАЩО ДА ИЗБЕРЕТЕ НАС */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">Защо да изберете нас</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Доверете се на опита и професионализма</p>
+            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+              {benefits.map((benefit, index) => (
+                <Card key={index} className="border-border bg-card">
+                  <CardContent className="p-6 text-center">
+                    <benefit.icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-card-foreground mb-2">{benefit.title}</h3>
+                    <p className="text-muted-foreground">{benefit.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+              {["15+ години опит", "Работа по договор", "Реални обекти", "Член на КСБ"].map((item) => (
+                <div key={item} className="flex items-center gap-2 justify-center p-3 bg-muted/30 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <span className="text-foreground text-sm font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 8. ПОЛУЧЕТЕ ТОЧНА ЦЕНА */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Получете точна цена за вашия ремонт</h2>
+              <p className="text-muted-foreground text-lg mb-3">
+                Всеки покрив е различен. Свържете се с нас за безплатен оглед и ще получите точна оферта, съобразена с вашия конкретен случай.
+              </p>
+              <p className="text-muted-foreground mb-8">
+                Без скрити разходи. Без ангажимент. Само ясна цена.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+                  <Link to={getPath('contact')}>
+                    <Eye className="w-5 h-5 mr-2" />
+                    Заяви безплатен оглед
+                  </Link>
+                </Button>
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8">
+                  <a href="tel:0884997659">
+                    <Phone className="w-5 h-5 mr-2" />
+                    088 499 7659
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 9. ОТЗИВИ */}
+        <Testimonials />
+
+        {/* 10. КАЛКУЛАТОР */}
         <PriceCalculator />
 
-        {/* 8. SERVICE DETAILS - Detailed Process with Images */}
+        {/* CTA РАЗДЕЛИТЕЛНА ЛЕНТА 2 */}
+        <section className="py-10 bg-slate-800 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Нуждаете се от професионален ремонт на покрива?</h2>
+            <p className="text-white/80 mb-6 max-w-xl mx-auto">Нашият екип е готов да помогне. Обадете се или заявете оглед онлайн.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+                <Link to={getPath('contact')}>
+                  <FileText className="w-5 h-5 mr-2" />
+                  Получи оферта
+                </Link>
+              </Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20 text-lg px-8">
+                <a href="tel:0884997659">
+                  <Phone className="w-5 h-5 mr-2" />
+                  Обади се сега
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* 11. ПОДРОБЕН ПРОЦЕС (образователно) */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
@@ -356,16 +372,39 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* Services List */}
+        {/* 12. ПРОБЛЕМИ + ПОСЛЕДСТВИЯ (образователно) */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-foreground mb-8 text-center">{t('pages.roofRepair.servicesSection.title')}</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {services.map((service, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-card border border-border">
-                    <CheckCircle className="w-6 h-6 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-card-foreground">{service}</span>
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">{t('pages.roofRepair.problemsSection.title')}</h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">{t('pages.roofRepair.problemsSection.subtitle')}</p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                {commonProblems.map((problem, index) => (
+                  <Card key={index} className="border-border bg-card">
+                    <CardContent className="p-6">
+                      <AlertTriangle className="w-8 h-8 text-accent mb-3" />
+                      <h3 className="text-lg font-semibold text-card-foreground mb-2">{problem.title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{problem.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Последствия */}
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
+                Какво се случва, ако проблемът се отложи
+              </h2>
+              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+                Навременният ремонт предотвратява сериозни последствия
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {consequences.map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-destructive/20">
+                    <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -373,7 +412,7 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* Materials */}
+        {/* 13. МАТЕРИАЛИ (образователно) */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
@@ -398,87 +437,45 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* Pricing */}
+        {/* 14. ФАКТИ И ДОВЕРИЕ */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold text-foreground text-center mb-4">{t('pages.roofRepair.pricingSection.title')}</h2>
-              <p className="text-muted-foreground text-center mb-8">{t('pages.roofRepair.pricingSection.subtitle')}</p>
-              <div className="space-y-4">
-                {priceRanges.map((item, index) => (
-                  <div key={index} className="flex justify-between items-center p-4 rounded-lg bg-card border border-border">
-                    <span className="text-foreground font-medium">{item.service}</span>
-                    <span className="text-primary font-bold text-lg">{item.price}</span>
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Факти и доверие</h2>
+              <p className="text-muted-foreground mb-10 max-w-2xl mx-auto">Числата говорят сами за себе си</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                {[
+                  { icon: Calendar, label: "15+ години опит", desc: "В покривните ремонти" },
+                  { icon: Shield, label: "Гаранция до 15 г.", desc: "На труд и материали" },
+                  { icon: Users, label: "500+ обекта", desc: "Завършени проекти" },
+                  { icon: Award, label: "Член на КСБ", desc: "Камара на строителите" },
+                ].map((item, index) => (
+                  <div key={index} className="flex flex-col items-center gap-3 p-5 bg-background rounded-xl border border-border">
+                    <item.icon className="w-10 h-10 text-primary" />
+                    <span className="font-bold text-foreground text-sm">{item.label}</span>
+                    <span className="text-muted-foreground text-xs">{item.desc}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-muted-foreground text-center mt-6">{t('pages.roofRepair.pricingSection.note')}</p>
-            </div>
-          </div>
-        </section>
-
-        {/* 9. TRUST */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">Защо да изберете нас</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Доверете се на опита и професионализма</p>
-            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-              {benefits.map((benefit, index) => (
-                <Card key={index} className="border-border bg-card">
-                  <CardContent className="p-6 text-center">
-                    <benefit.icon className="w-12 h-12 text-primary mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-card-foreground mb-2">{benefit.title}</h3>
-                    <p className="text-muted-foreground">{benefit.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {["15+ години опит", "Работа по договор", "Реални обекти", "Член на КСБ"].map((item) => (
-                <div key={item} className="flex items-center gap-2 justify-center p-3 bg-muted/30 rounded-lg">
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-foreground text-sm font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Service Areas */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">{t('pages.roofRepair.areasSection.title')}</h2>
-              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">{t('pages.roofRepair.areasSection.subtitle')}</p>
-              <div className="grid md:grid-cols-3 gap-6 mb-12">
-                {serviceAreas.map((area, index) => (
-                  <Card key={index} className="border-border">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-2 mb-4">
-                        <MapPin className="w-5 h-5 text-primary" />
-                        <h3 className="text-lg font-semibold text-card-foreground">{area.area}</h3>
-                      </div>
-                      <ul className="space-y-2">
-                        {area.neighborhoods.map((neighborhood, i) => (
-                          <li key={i} className="text-muted-foreground text-sm">{neighborhood}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              <div className="rounded-xl overflow-hidden shadow-lg">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d186237.48652949!2d27.769646!3d43.2140504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a4538baaf3f2cd%3A0x5765bc39bc4f4c!2z0JLQsNGA0L3QsCwg0JHRitC70LPQsNGA0LjRjw!5e0!3m2!1sbg!2sbg!4v1702300000000!5m2!1sbg!2sbg"
-                  width="100%" height="400" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-                  title={t('pages.roofRepair.areasSection.mapTitle')}
-                />
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
+                  <Link to={getPath('contact')}>
+                    <Eye className="w-5 h-5 mr-2" />
+                    Заяви безплатен оглед
+                  </Link>
+                </Button>
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8">
+                  <a href="tel:0884997659">
+                    <Phone className="w-5 h-5 mr-2" />
+                    Обади се сега
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ */}
+        {/* 15. FAQ */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto">
@@ -496,7 +493,7 @@ const RoofRepairPage = () => {
           </div>
         </section>
 
-        {/* 11. FINAL CTA */}
+        {/* 16. ФИНАЛЕН CTA */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('pages.roofRepair.cta.title')}</h2>
@@ -512,11 +509,6 @@ const RoofRepairPage = () => {
             </div>
           </div>
         </section>
-
-        <div className="container mx-auto px-4 py-12">
-          <LearnMoreLinks links={learnMoreLinks} />
-        </div>
-        <RelatedServices services={relatedServices} />
       </main>
 
       <Footer />
