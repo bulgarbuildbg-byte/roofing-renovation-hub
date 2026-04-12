@@ -66,6 +66,8 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
           <Link to={getPath('about')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.about')}</Link>
           <Link to={getPath('projects')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.projects')}</Link>
           <Link to={getPath('reviews')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.reviews')}</Link>
+          <Link to={getPath('pricing')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.pricing')}</Link>
+          <Link to={getPath('howWeWork')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.howWeWork')}</Link>
           <Link to={getPath('calculator')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.calculator')}</Link>
           <Link to={getPath('blog')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.blog')}</Link>
           <Link to={getPath('faq')} className="text-foreground hover:text-primary transition-colors py-3 text-lg" onClick={onClose}>{t('nav.faq')}</Link>
@@ -138,6 +140,8 @@ const FullMenuPanel = ({ isOpen, onClose, serviceLinks, t, getPath }: FullMenuPa
           <Link to={getPath('about')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.about')}</Link>
           <Link to={getPath('projects')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.projects')}</Link>
           <Link to={getPath('reviews')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.reviews')}</Link>
+          <Link to={getPath('pricing')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.pricing')}</Link>
+          <Link to={getPath('howWeWork')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.howWeWork')}</Link>
           <Link to={getPath('calculator')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.calculator')}</Link>
           <Link to={getPath('blog')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.blog')}</Link>
           <Link to={getPath('faq')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.faq')}</Link>

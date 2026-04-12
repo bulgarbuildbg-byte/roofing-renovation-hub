@@ -94,7 +94,7 @@ const CompletedProjects = () => {
                   key={index}
                   className="min-w-0 shrink-0 grow-0 basis-full sm:basis-1/2 lg:basis-1/4 pl-4"
                 >
-                  <div className="group rounded-xl overflow-hidden bg-background shadow-md hover:shadow-xl transition-all duration-300 border border-border/50">
+                  <Link to={getPath("projects")} className="block group rounded-xl overflow-hidden bg-background shadow-md hover:shadow-xl transition-all duration-300 border border-border/50">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <img
                         src={project.image}
@@ -117,7 +117,7 @@ const CompletedProjects = () => {
                         {t(project.serviceKey)}
                       </p>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               ))}
             </div>

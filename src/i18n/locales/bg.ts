@@ -6,6 +6,7 @@ const bg = {
     roofRepair: "Ремонт на покриви", leakRepair: "Ремонт на течове", waterproofing: "Хидроизолация",
     newRoof: "Нов покрив", tileReplacement: "Смяна на керемиди", flatRoof: "Плоски покриви",
     metalRoof: "Метални покриви", maintenance: "Поддръжка",
+    pricing: "Цени", howWeWork: "Как работим",
   },
   hero: {
     badge1: "15+ години опит", badge2: "До 10г гаранция", badge3: "Оглед до 24ч",
