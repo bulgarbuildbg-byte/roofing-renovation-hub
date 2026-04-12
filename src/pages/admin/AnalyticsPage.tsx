@@ -658,7 +658,7 @@ const AnalyticsPage = () => {
                       <div className="space-y-2">
                         {callsByPage.map((p, i) => (
                           <div key={p.path} className="flex items-center justify-between text-sm">
-                            <span className="text-muted-foreground truncate max-w-[250px]">{i + 1}. <span className="text-foreground">{p.path}</span></span>
+                            <span className="text-muted-foreground truncate max-w-[250px]" title={p.path}>{i + 1}. <span className="text-foreground">{PATH_LABELS[p.path] || p.path}</span></span>
                             <span className="font-bold">{p.count}</span>
                           </div>
                         ))}
