@@ -1,22 +1,17 @@
 
 
-## Уеднаквяване на секция „Как работим" във всички service страници
+## Разширяване на dropdown панела „Услуги" в десктоп навигацията
 
 ### Проблем
 
-`RoofRepairPage` вече използва споделения `<HowWeWork />` компонент от началната страница. Останалите 5 service страници имат собствени hardcoded inline секции с различни текстове и дизайн.
+`DropdownMenuContent` на line 252 в `Header.tsx` има фиксирана ширина `w-48` (192px). Българските имена на услугите са дълги и се чупят на два реда.
 
 ### Решение
 
-Замяна на inline секциите в 5 файла с `import HowWeWork` + `<HowWeWork />`:
+Промяна в `src/components/Header.tsx`, line 252:
 
-| Файл | Промяна |
-|---|---|
-| `src/pages/services/MetalRoofPage.tsx` | Премахване на inline секция → `<HowWeWork />` |
-| `src/pages/services/FlatRoofPage.tsx` | Премахване на inline секция → `<HowWeWork />` |
-| `src/pages/services/RoofLeakRepairPage.tsx` | Премахване на inline секция → `<HowWeWork />` |
-| `src/pages/services/TileReplacementPage.tsx` | Премахване на inline секция → `<HowWeWork />` |
-| `src/pages/services/WaterproofingPage.tsx` | Премахване на inline секция → `<HowWeWork />` |
+- `w-48` → `w-64` (256px) — достатъчно за най-дългите имена
+- Добавяне на `whitespace-nowrap` към dropdown items, за да не се чупят текстовете
 
-Всяка промяна е: добавяне на `import HowWeWork from "@/components/HowWeWork"` и замяна на `<section>...</section>` блока с `<HowWeWork />`.
+Една промяна, един файл, без странични ефекти.
 
