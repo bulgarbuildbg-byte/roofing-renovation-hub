@@ -4,14 +4,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Upload, X, MapPin, Image, FolderOpen, Eye, EyeOff, ArrowUp, ArrowDown } from "lucide-react";
+import { Plus, Pencil, Trash2, Upload, X, MapPin, Image, FolderOpen, Eye, EyeOff, ArrowUp, ArrowDown, Camera } from "lucide-react";
 
 interface Project {
   id: string;
@@ -64,6 +64,7 @@ const ProjectsManagementPage = () => {
 
   const activeCount = projects?.filter(p => p.is_active).length || 0;
   const hiddenCount = (projects?.length || 0) - activeCount;
+  const withImages = projects?.filter(p => p.image_urls?.length > 0).length || 0;
 
   const uploadImages = async (files: FileList): Promise<string[]> => {
     const urls: string[] = [];
@@ -165,133 +166,168 @@ const ProjectsManagementPage = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Управление на проекти</h1>
-          <p className="text-sm text-muted-foreground">Проектите се показват автоматично на сайта</p>
-        </div>
-        <Dialog open={isDialogOpen} onOpenChange={(o) => { if (!o) resetForm(); setIsDialogOpen(o); }}>
-          <DialogTrigger asChild>
-            <Button><Plus className="w-4 h-4 mr-2" />Добави проект</Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>{editingId ? "Редактирай проект" : "Нов проект"}</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div><Label>Заглавие *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required /></div>
-              <div><Label>Локация *</Label><Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} required placeholder="кв. Аспарухово, Варна" /></div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Категория</Label>
-                  <Select value={form.category} onValueChange={handleCategoryChange}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>{CATEGORIES.map(c => <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>)}</SelectContent>
-                  </Select>
-                </div>
-                <div><Label>Година</Label><Input value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} placeholder="2024" /></div>
-              </div>
-              <div><Label>Описание</Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3} /></div>
-              <div><Label>Материали</Label><Input value={form.materials} onChange={(e) => setForm({ ...form, materials: e.target.value })} placeholder="Tondach керемиди · Bauder мембрана" /></div>
-              <div>
-                <Label>Снимки</Label>
-                <div className="mt-2">
-                  <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handleFileUpload} />
-                  <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
-                    <Upload className="w-4 h-4 mr-2" />{uploading ? "Качване..." : "Качи снимки"}
-                  </Button>
-                </div>
-                {form.image_urls.length > 0 && (
-                  <div className="grid grid-cols-3 gap-2 mt-3">
-                    {form.image_urls.map((url, i) => (
-                      <div key={i} className="relative group">
-                        <img src={url} alt="" className="w-full h-20 object-cover rounded-md" />
-                        <button type="button" onClick={() => removeImage(i)} className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <X className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div><Label>Ред (sort order)</Label><Input type="number" value={form.sort_order} onChange={(e) => setForm({ ...form, sort_order: Number(e.target.value) })} /></div>
-                <div className="flex items-end">
-                  <div className="flex items-center gap-3">
-                    <Switch checked={form.is_active} onCheckedChange={(c) => setForm({ ...form, is_active: c })} />
-                    <Label>Активен</Label>
-                  </div>
-                </div>
-              </div>
-              <Button type="submit" className="w-full" disabled={upsertMutation.isPending}>
-                {editingId ? "Запази промени" : "Добави проект"}
+      {/* Hero header */}
+      <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl p-6 border border-primary/10">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <FolderOpen className="h-6 w-6 text-primary" />
+              Управление на проекти
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">Проектите се показват автоматично на сайта</p>
+          </div>
+          <Dialog open={isDialogOpen} onOpenChange={(o) => { if (!o) resetForm(); setIsDialogOpen(o); }}>
+            <DialogTrigger asChild>
+              <Button className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
+                <Plus className="w-4 h-4 mr-2" />Добави проект
               </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
-      </div>
+            </DialogTrigger>
+            <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>{editingId ? "Редактирай проект" : "Нов проект"}</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div><Label>Заглавие *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required /></div>
+                <div><Label>Локация *</Label><Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} required placeholder="кв. Аспарухово, Варна" /></div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Категория</Label>
+                    <Select value={form.category} onValueChange={handleCategoryChange}>
+                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectContent>{CATEGORIES.map(c => <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>)}</SelectContent>
+                    </Select>
+                  </div>
+                  <div><Label>Година</Label><Input value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} placeholder="2024" /></div>
+                </div>
+                <div><Label>Описание</Label><Textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={3} /></div>
+                <div><Label>Материали</Label><Input value={form.materials} onChange={(e) => setForm({ ...form, materials: e.target.value })} placeholder="Tondach керемиди · Bauder мембрана" /></div>
+                <div>
+                  <Label>Снимки</Label>
+                  <div className="mt-2">
+                    <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handleFileUpload} />
+                    <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
+                      <Upload className="w-4 h-4 mr-2" />{uploading ? "Качване..." : "Качи снимки"}
+                    </Button>
+                  </div>
+                  {form.image_urls.length > 0 && (
+                    <div className="grid grid-cols-3 gap-2 mt-3">
+                      {form.image_urls.map((url, i) => (
+                        <div key={i} className="relative group">
+                          <img src={url} alt="" className="w-full h-20 object-cover rounded-md" />
+                          <button type="button" onClick={() => removeImage(i)} className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div><Label>Ред (sort order)</Label><Input type="number" value={form.sort_order} onChange={(e) => setForm({ ...form, sort_order: Number(e.target.value) })} /></div>
+                  <div className="flex items-end">
+                    <div className="flex items-center gap-3">
+                      <Switch checked={form.is_active} onCheckedChange={(c) => setForm({ ...form, is_active: c })} />
+                      <Label>Активен</Label>
+                    </div>
+                  </div>
+                </div>
+                <Button type="submit" className="w-full" disabled={upsertMutation.isPending}>
+                  {editingId ? "Запази промени" : "Добави проект"}
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="pb-1"><CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5"><FolderOpen className="h-3.5 w-3.5 text-primary" /> Общо</CardTitle></CardHeader>
-          <CardContent><p className="text-3xl font-bold">{projects?.length || 0}</p></CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-1"><CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5"><Eye className="h-3.5 w-3.5 text-green-500" /> Активни</CardTitle></CardHeader>
-          <CardContent><p className="text-3xl font-bold">{activeCount}</p></CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-1"><CardTitle className="text-xs font-medium text-muted-foreground flex items-center gap-1.5"><EyeOff className="h-3.5 w-3.5 text-muted-foreground" /> Скрити</CardTitle></CardHeader>
-          <CardContent><p className="text-3xl font-bold">{hiddenCount}</p></CardContent>
-        </Card>
+        {/* Stats row */}
+        <div className="grid grid-cols-3 gap-3 mt-5">
+          <div className="bg-card rounded-xl p-4 border border-border/50 shadow-sm">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+              <FolderOpen className="h-3.5 w-3.5 text-primary" /> Общо проекти
+            </div>
+            <p className="text-2xl font-bold text-foreground">{projects?.length || 0}</p>
+          </div>
+          <div className="bg-card rounded-xl p-4 border border-border/50 shadow-sm">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+              <Eye className="h-3.5 w-3.5 text-green-500" /> Активни
+            </div>
+            <p className="text-2xl font-bold text-green-600">{activeCount}</p>
+          </div>
+          <div className="bg-card rounded-xl p-4 border border-border/50 shadow-sm">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+              <Camera className="h-3.5 w-3.5 text-blue-500" /> Със снимки
+            </div>
+            <p className="text-2xl font-bold text-blue-600">{withImages}</p>
+          </div>
+        </div>
       </div>
 
       {isLoading ? (
         <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>
       ) : (
-        <div className="space-y-3">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {projects?.map((p, idx) => (
-            <Card key={p.id} className={`group hover:shadow-md transition-shadow ${!p.is_active ? "opacity-60" : ""}`}>
-              <CardContent className="p-4 flex items-start gap-4">
-                <div className="w-24 h-16 rounded-lg overflow-hidden shrink-0 bg-muted">
-                  {p.image_urls?.[0] ? (
-                    <img src={p.image_urls[0]} alt={p.title} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center"><Image className="w-6 h-6 text-muted-foreground" /></div>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-foreground">{p.title}</span>
-                    {!p.is_active && <Badge variant="secondary">Скрит</Badge>}
-                    <Badge variant="outline" className="text-xs">{p.category_label || p.category}</Badge>
+            <Card key={p.id} className={`group overflow-hidden hover:shadow-lg transition-all duration-300 border-border/50 ${!p.is_active ? "opacity-60" : ""}`}>
+              {/* Image */}
+              <div className="relative aspect-video bg-muted overflow-hidden">
+                {p.image_urls?.[0] ? (
+                  <img src={p.image_urls[0]} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground gap-1">
+                    <Image className="w-8 h-8" />
+                    <span className="text-xs">Няма снимка</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="w-3 h-3" /> {p.location}
-                    {p.date && <span>· {p.date}</span>}
-                    <span>· {p.image_urls?.length || 0} снимки</span>
-                  </div>
+                )}
+                {/* Overlay buttons */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+                  <Button size="sm" variant="secondary" className="h-8 shadow-lg" onClick={() => openEdit(p)}>
+                    <Pencil className="w-3 h-3 mr-1" /> Редактирай
+                  </Button>
+                  <Button size="sm" variant="destructive" className="h-8 shadow-lg" onClick={() => { if (confirm("Изтриване на проекта?")) deleteMutation.mutate(p.id); }}>
+                    <Trash2 className="w-3 h-3" />
+                  </Button>
                 </div>
-                <div className="flex gap-1 shrink-0">
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => moveMutation.mutate({ id: p.id, direction: "up" })} disabled={idx === 0}>
-                    <ArrowUp className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => moveMutation.mutate({ id: p.id, direction: "down" })} disabled={idx === (projects?.length || 0) - 1}>
-                    <ArrowDown className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEdit(p)}>
-                    <Pencil className="w-4 h-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => { if (confirm("Изтриване на проекта?")) deleteMutation.mutate(p.id); }}>
-                    <Trash2 className="w-4 h-4 text-destructive" />
-                  </Button>
+                {/* Status badges */}
+                <div className="absolute top-2 left-2 flex gap-1.5">
+                  <Badge className={`text-[10px] ${p.is_active ? "bg-green-500/90 hover:bg-green-500" : "bg-muted-foreground/70"}`}>
+                    {p.is_active ? "Активен" : "Скрит"}
+                  </Badge>
+                  <Badge variant="outline" className="bg-card/80 backdrop-blur text-[10px]">
+                    {p.category_label || p.category}
+                  </Badge>
+                </div>
+                {/* Image count */}
+                {p.image_urls?.length > 0 && (
+                  <span className="absolute top-2 right-2 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded flex items-center gap-1">
+                    <Camera className="w-3 h-3" /> {p.image_urls.length}
+                  </span>
+                )}
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-bold text-foreground text-sm mb-1 line-clamp-1">{p.title}</h3>
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+                  <MapPin className="w-3 h-3" /> {p.location}
+                  {p.date && <span>· {p.date}</span>}
+                </div>
+                {p.description && (
+                  <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{p.description}</p>
+                )}
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-muted-foreground">Ред: {p.sort_order}</span>
+                  <div className="flex gap-0.5">
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => moveMutation.mutate({ id: p.id, direction: "up" })} disabled={idx === 0}>
+                      <ArrowUp className="w-3 h-3" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => moveMutation.mutate({ id: p.id, direction: "down" })} disabled={idx === (projects?.length || 0) - 1}>
+                      <ArrowDown className="w-3 h-3" />
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           ))}
           {projects?.length === 0 && (
-            <p className="text-center text-muted-foreground py-8">Няма добавени проекти.</p>
+            <p className="text-center text-muted-foreground py-8 col-span-full">Няма добавени проекти.</p>
           )}
         </div>
       )}
