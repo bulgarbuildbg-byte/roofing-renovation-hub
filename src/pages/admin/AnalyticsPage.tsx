@@ -34,6 +34,32 @@ const SOURCE_CONFIG: Record<string, { label: string; color: string }> = {
   unknown:  { label: "Непознат",           color: "#94a3b8" },
 };
 
+const PATH_LABELS: Record<string, string> = {
+  "/bg": "Начало",
+  "/bg/": "Начало",
+  "/bg/remont-na-pokrivi": "Ремонт на покриви",
+  "/bg/remont-na-techove-pokriv": "Ремонт на течове на покрив",
+  "/bg/hidroizolacia-na-pokriv": "Хидроизолация на покрив",
+  "/bg/nov-pokriv": "Изграждане на нов покрив",
+  "/bg/remont-na-keremideni-pokrivi": "Ремонт на керемидени покриви",
+  "/bg/remont-na-ploski-pokrivi": "Ремонт на плоски покриви",
+  "/bg/metalni-pokrivi": "Метални покриви",
+  "/bg/poddruzhka-na-pokrivi": "Поддръжка на покриви",
+  "/bg/za-nas": "За нас",
+  "/bg/proekti": "Проекти",
+  "/bg/otzyvi": "Отзиви",
+  "/bg/kontakti": "Контакти",
+  "/bg/vaprosi": "Често задавани въпроси",
+  "/bg/blog": "Блог",
+  "/bg/kalkulator": "Калкулатор",
+  "/bg/bezplaten-ogled": "Безплатен оглед",
+  "/bg/kak-rabotim": "Как работим",
+  "/bg/ceni": "Цени",
+  "/bg/uslugi": "Услуги",
+  "/en": "Home (EN)",
+  "/en/": "Home (EN)",
+};
+
 const AnalyticsPage = () => {
   const [activePreset, setActivePreset] = useState<PresetKey>("this_month");
   const [dateRange, setDateRange] = useState<DateRange | undefined>(() => {
@@ -419,7 +445,7 @@ const AnalyticsPage = () => {
                     <div className="space-y-2">
                       {topPages.map((p, i) => (
                         <div key={p.path} className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground truncate max-w-[200px]">{i + 1}. <span className="text-foreground">{p.path}</span></span>
+                          <span className="text-muted-foreground truncate max-w-[250px]" title={p.path}>{i + 1}. <span className="text-foreground">{PATH_LABELS[p.path] || p.path}</span></span>
                           <span className="font-medium">{p.views}</span>
                         </div>
                       ))}
