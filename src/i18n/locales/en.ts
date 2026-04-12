@@ -307,12 +307,6 @@ const en = {
       intro: { title: "Why is regular roof maintenance important?" },
       cta: { title: "Maintain your roof", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
     },
-      meta: { title: "Waterproofing Varna | Bitumen, PVC, Liquid - Prices & Warranty", desc: "Waterproofing for roofs and terraces. Prices from €14/sqm. 15+ years experience. Free inspection: 088 499 7659" },
-      breadcrumb: { home: "Home", waterproofing: "Waterproofing", current: "Waterproofing Varna" },
-      hero: { title: "Waterproofing Varna - Bitumen, PVC and Liquid with Warranty", subtitle: "Stop leaks for good. Licensed construction company with over 15 years of experience.", callBtn: "Free inspection: 088 499 7659", inquiryBtn: "Send inquiry" },
-      intro: { title: "Waterproofing - The Most Important Investment in Roof Longevity" },
-      cta: { title: "Need waterproofing?", subtitle: "Contact us for a free inspection.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
-    },
   },
   inspection: {
     meta: { title: "Free Roof Inspection Varna | 088 499 7659", desc: "Request a free roof inspection. We respond within 24 hours. Professional diagnosis and quote." },
