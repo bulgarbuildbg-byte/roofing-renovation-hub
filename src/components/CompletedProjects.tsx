@@ -6,24 +6,26 @@ import { Button } from "@/components/ui/button";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 
-import apartmentImg from "@/assets/portfolio/apartment-building.jpg";
-import commercialImg from "@/assets/portfolio/commercial-building.jpg";
-import familyImg from "@/assets/portfolio/family-house.jpg";
-import panelImg from "@/assets/portfolio/panel-block.jpg";
-import tileRoofImg from "@/assets/portfolio/residential-tile-roof.jpg";
-import villaImg from "@/assets/portfolio/villa-roof.jpg";
+import asparuhovoImg from "@/assets/portfolio/asparuhovo-varna.jpeg";
+import kavarnaImg from "@/assets/portfolio/kavarna-hotel.jpeg";
+import trakataImg from "@/assets/portfolio/trakata-varna.jpg";
+import oblastImg from "@/assets/portfolio/oblast-varna.jpeg";
+import makedoniaImg from "@/assets/portfolio/makedonia-25-varna.jpeg";
+import podpolkovnikImg from "@/assets/portfolio/podpolkovnik-varna.jpeg";
+import shoshkovaImg from "@/assets/portfolio/shoshkova-gradina-varna.jpeg";
 
 const CompletedProjects = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
 
   const projects = [
-    { image: familyImg, titleKey: "completedProjects.project1Title", locationKey: "completedProjects.project1Location", serviceKey: "completedProjects.project1Service" },
-    { image: apartmentImg, titleKey: "completedProjects.project2Title", locationKey: "completedProjects.project2Location", serviceKey: "completedProjects.project2Service" },
-    { image: villaImg, titleKey: "completedProjects.project3Title", locationKey: "completedProjects.project3Location", serviceKey: "completedProjects.project3Service" },
-    { image: commercialImg, titleKey: "completedProjects.project4Title", locationKey: "completedProjects.project4Location", serviceKey: "completedProjects.project4Service" },
-    { image: tileRoofImg, titleKey: "completedProjects.project5Title", locationKey: "completedProjects.project5Location", serviceKey: "completedProjects.project5Service" },
-    { image: panelImg, titleKey: "completedProjects.project6Title", locationKey: "completedProjects.project6Location", serviceKey: "completedProjects.project6Service" },
+    { image: asparuhovoImg, titleKey: "completedProjects.project1Title", locationKey: "completedProjects.project1Location", serviceKey: "completedProjects.project1Service" },
+    { image: kavarnaImg, titleKey: "completedProjects.project2Title", locationKey: "completedProjects.project2Location", serviceKey: "completedProjects.project2Service" },
+    { image: trakataImg, titleKey: "completedProjects.project3Title", locationKey: "completedProjects.project3Location", serviceKey: "completedProjects.project3Service" },
+    { image: oblastImg, titleKey: "completedProjects.project4Title", locationKey: "completedProjects.project4Location", serviceKey: "completedProjects.project4Service" },
+    { image: makedoniaImg, titleKey: "completedProjects.project5Title", locationKey: "completedProjects.project5Location", serviceKey: "completedProjects.project5Service" },
+    { image: podpolkovnikImg, titleKey: "completedProjects.project6Title", locationKey: "completedProjects.project6Location", serviceKey: "completedProjects.project6Service" },
+    { image: shoshkovaImg, titleKey: "completedProjects.project7Title", locationKey: "completedProjects.project7Location", serviceKey: "completedProjects.project7Service" },
   ];
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
