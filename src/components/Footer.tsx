@@ -20,7 +20,7 @@ const Footer = () => {
     { key: "leakRepair", routeKey: "leakRepair" },
     { key: "waterproofing", routeKey: "waterproofing" },
     { key: "newRoof", routeKey: "newRoof" },
-    { key: "tileReplacement", routeKey: "tileReplacement" },
+    { key: "tileRoofRepair", routeKey: "tileRoofRepair" },
     { key: "flatRoof", routeKey: "flatRoof" },
     { key: "metalRoof", routeKey: "metalRoof" },
     { key: "maintenance", routeKey: "maintenance" },
