@@ -1,22 +1,22 @@
 
 
-## Смяна на снимките в BeforeAfterGallery (Преди/След) на главната страница
+## Смяна на снимките в секция „Нашите Проекти" (Gallery)
 
-Секцията „Нашите завършени проекти" (CompletedProjects) вече използва новите 7 снимки. Но секцията „Преди и След" (BeforeAfterGallery) все още използва старите portfolio снимки като "след" изображения.
+Секцията Gallery на главната страница все още използва старите 6 снимки. Ще ги заменя със същите 7 нови снимки от страницата Проекти.
 
 ### Промяна
 
-**Файл:** `src/components/BeforeAfterGallery.tsx`
+**Файл:** `src/components/Gallery.tsx`
 
-Замяна на 3-те "after" снимки с нови от портфолиото:
-
-| Слайд | Стара "after" снимка | Нова "after" снимка | Локация |
-|---|---|---|---|
-| 1 — Реконструкция с керемиди | `portfolio/residential-tile-roof.jpg` | `portfolio/asparuhovo-varna.jpeg` | кв. Аспарухово, Варна |
-| 2 — Обновяване на покрив | `portfolio/villa-roof.jpg` | `portfolio/trakata-varna.jpg` | м-т Траката, Варна |
-| 3 — Хидроизолация | `portfolio/apartment-building.jpg` | `portfolio/makedonia-25-varna.jpeg` | ул. Македония, Варна |
-
-Ще се обновят и `location` полетата в масива `transformations`, за да съответстват на реалните локации.
-
-"Before" снимките (`before-after-1.jpg`, `process/old-roof-removal.jpg`, `process/roof-leak-damage.jpg`) остават без промяна.
+- Замяна на 6-те стари import-а с новите 7:
+  - `asparuhovo-varna.jpeg`, `kavarna-hotel.jpeg`, `trakata-varna.jpg`, `oblast-varna.jpeg`, `makedonia-25-varna.jpeg`, `podpolkovnik-varna.jpeg`, `shoshkova-gradina-varna.jpeg`
+- Обновяване на масива `projects` — 7 записа с реални заглавия, локации и описания (същите като в ProjectsPage):
+  1. Жилищен блок кв. Аспарухово — ремонт на покрив
+  2. Хотелска сграда — Каварна
+  3. Вила м-т Траката — нов покрив
+  4. Жилищна сграда — обл. Варна
+  5. Плосък покрив ул. Македония 25 — хидроизолация
+  6. Ремонт на покрив — ул. Подполковник
+  7. Пълна смяна на покрив — Шошкова градина 7
+- Грида вече ще показва 7 карти вместо 6 (3 колони × 2 реда + 1)
 
