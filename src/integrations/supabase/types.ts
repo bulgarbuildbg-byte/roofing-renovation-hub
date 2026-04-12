@@ -596,6 +596,54 @@ export type Database = {
         }
         Relationships: []
       }
+      projects: {
+        Row: {
+          category: string
+          category_label: string | null
+          created_at: string
+          date: string | null
+          description: string | null
+          id: string
+          image_urls: string[]
+          is_active: boolean
+          location: string
+          materials: string | null
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          category_label?: string | null
+          created_at?: string
+          date?: string | null
+          description?: string | null
+          id?: string
+          image_urls?: string[]
+          is_active?: boolean
+          location?: string
+          materials?: string | null
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          category_label?: string | null
+          created_at?: string
+          date?: string | null
+          description?: string | null
+          id?: string
+          image_urls?: string[]
+          is_active?: boolean
+          location?: string
+          materials?: string | null
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       quotes: {
         Row: {
           created_at: string
