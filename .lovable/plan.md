@@ -1,62 +1,30 @@
 
 
-## Преструктуриране на страница „Ремонт на покриви" + смяна на снимки в карусела с услуги
+## Смяна на снимките в „Нашите завършени проекти" — 7 нови снимки
 
-### Обхват
+### Снимки (7 бр.)
 
-Две основни промени:
+| # | Файл (upload) | Ново име в assets | Заглавие | Локация |
+|---|---|---|---|---|
+| 1 | аспарухово_варна.jpeg | portfolio/asparuhovo-varna.jpeg | Жилищен блок кв. Аспарухово | Варна |
+| 2 | каварна_хотел.jpeg | portfolio/kavarna-hotel.jpeg | Хотелска сграда | Каварна |
+| 3 | м-т_траката.JPG | portfolio/trakata-varna.jpg | Вила м-т Траката | Варна |
+| 4 | област_варна.jpeg | portfolio/oblast-varna.jpeg | Жилищна сграда | обл. Варна |
+| 5 | ул_македония_25_варна.jpeg | portfolio/makedonia-25-varna.jpeg | Плосък покрив ул. Македония | Варна |
+| 6 | ул_подпоколвник_варна.jpeg | portfolio/podpolkovnik-varna.jpeg | Ремонт на покрив | Варна |
+| 7 | шошкова_градина_7_варна.jpeg | portfolio/shoshkova-gradina-varna.jpeg | Пълна смяна на покрив | Варна |
 
-**А. Преструктуриране на RoofRepairPage.tsx** — нова подредба на секциите по модела на началната страница.
-
-**Б. Смяна на снимките в Services.tsx** — карусела навсякъде да използва hero снимките вместо отделните service снимки.
-
----
-
-### А. Нов ред на секциите в `src/pages/services/RoofRepairPage.tsx`
-
-Текущ ред: Hero → Problem → Consequences → Solution → Process (4-step) → Mid CTA → Calculator → Service Details → Services List → Materials → Pricing → Trust → Areas → FAQ → Final CTA → Links → Related
-
-**Нов ред:**
-
-1. **Hero** (без промяна)
-2. **TrustIndicators** — импорт на компонента от началната страница
-3. **CertificationsBar** — импорт на компонента от началната страница
-4. **Services** (карусел) — импорт на компонента от началната страница
-5. **HowWeWork** — импорт на компонента от началната страница (заменя текущата compact 4-step секция)
-6. **Problem** (текущата секция „Какви проблеми решаваме")
-7. **Consequences** (текущата „Какво се случва, ако проблемът се отложи")
-8. **Solution** (текущата „Как решаваме проблема")
-9. **Mid CTA блок** — „Имате проблем с покрива?" с бутони „Заявете безплатен оглед" и „Обадете се"
-10. **PriceCalculator** — преместен по-нагоре (преди подробния процес)
-11. **Service Details** (6-стъпков процес със снимки)
-12. **Services List** / **Materials** / **Pricing** / **Trust** / **Areas** / **FAQ**
-13. **Final CTA** → Links → Related
-
-Премахва се дублиращата „Как работим" compact секция (ред 299-317), тъй като се заменя с пълния HowWeWork компонент.
-
----
-
-### Б. Смяна на снимки в `src/components/Services.tsx`
-
-Заменяме import-ите от `src/assets/services/` с hero снимките за 6-те услуги (без Поддръжка и Метални покриви, тези остават със старите снимки):
-
-| Услуга | Стара снимка | Нова снимка |
-|---|---|---|
-| Ремонт на покриви | `services/roof-repair.jpg` | `hero-roof-repair.jpg` |
-| Хидроизолация | `services/waterproofing.jpg` | `hero-waterproofing.jpeg` |
-| Нов покрив | `services/new-roof.jpg` | `hero-new-roof.jpg` |
-| Смяна на керемиди | `services/tile-replacement.jpg` | `hero-tile-replacement.jpg` |
-| Ремонт на теч | `services/leak-repair.jpg` | `hero-leak-repair.jpg` |
-| Плоски покриви | `services/flat-roof.jpg` | `hero-flat-roof.jpeg` |
-| Метални покриви | остава `services/metal-roof.jpg` | без промяна |
-| Поддръжка | остава `services/maintenance.jpg` | без промяна |
-
----
-
-### Технически детайли
+### Промени по файлове
 
 | Файл | Промяна |
 |---|---|
-| `src/pages/services/RoofRepairPage.tsx` | Импорт на TrustIndicators, CertificationsBar, Services, HowWeWork; преподреждане на секциите; премахване на compact process секция |
-| `src/components/Services.tsx` | Смяна на 6 import пътища от `services/` към `hero-` снимки |
+| `src/assets/portfolio/` | Копиране на 7 нови снимки |
+| `src/components/CompletedProjects.tsx` | Замяна на 6-те стари import-а със 7 нови; масив `projects` — 7 записа вместо 6 |
+| `src/i18n/locales/bg.ts` | Актуализация на `completedProjects` — 7 проекта с реални имена на улици/локации и тип услуга |
+
+### Детайли
+
+- Старите 6 снимки от `portfolio/` остават на диска, но вече няма да се импортират
+- Каруселът работи с `loop: true`, така че 7 карти ще се въртят безпроблемно
+- `basis-1/4` на desktop = 4 видими + 3 скрити — добро разпределение
 
