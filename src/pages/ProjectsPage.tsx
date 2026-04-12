@@ -8,13 +8,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { MapPin, Calendar, Package, ChevronRight, Phone } from "lucide-react";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 
-import project1 from "@/assets/portfolio/residential-tile-roof.jpg";
-import project2 from "@/assets/portfolio/apartment-building.jpg";
-import project3 from "@/assets/portfolio/family-house.jpg";
-import project4 from "@/assets/portfolio/villa-roof.jpg";
-import project5 from "@/assets/portfolio/commercial-building.jpg";
-import project6 from "@/assets/portfolio/panel-block.jpg";
+import asparuhovoImg from "@/assets/portfolio/asparuhovo-varna.jpeg";
+import kavarnaImg from "@/assets/portfolio/kavarna-hotel.jpeg";
+import trakataImg from "@/assets/portfolio/trakata-varna.jpg";
+import oblastImg from "@/assets/portfolio/oblast-varna.jpeg";
+import makedoniaImg from "@/assets/portfolio/makedonia-25-varna.jpeg";
+import podpolkovnikImg from "@/assets/portfolio/podpolkovnik-varna.jpeg";
+import shoshkovaImg from "@/assets/portfolio/shoshkova-gradina-varna.jpeg";
 
 const FILTER_CATEGORIES = [
   { id: "all", label: "Всички проекти" },
@@ -27,69 +29,80 @@ const FILTER_CATEGORIES = [
 
 const projects = [
   {
-    title: "Цялостна реконструкция на покрив",
-    location: "кв. Левски, Варна",
-    date: "2024",
-    category: "renovation",
-    categoryLabel: "Цялостна реконструкция",
-    description: "Пълна подмяна на покривна конструкция на жилищна сграда – демонтаж, нови греди, хидроизолационна мембрана и Tondach керемиди.",
-    materials: "Tondach керемиди · Bauder мембрана · Isover изолация",
-    image: project1,
-  },
-  {
-    title: "Хидроизолация на плосък покрив",
-    location: "кв. Чайка, Варна",
-    date: "2024",
-    category: "flat_roof",
-    categoryLabel: "Плосък покрив",
-    description: "Двуслойна PVC хидроизолационна система на търговски обект с площ 480 м². Гаранция 10 години.",
-    materials: "Bauder PVC мембрана · Sika праймер · Rockwool изолация",
-    image: project2,
-  },
-  {
-    title: "Изграждане на нов скатен покрив",
-    location: "с. Приселци, обл. Варна",
-    date: "2024",
-    category: "renovation",
-    categoryLabel: "Цялостна реконструкция",
-    description: "Проектиране и изграждане на нова дървена покривна конструкция с мауерлат, столици и ребра. Монтаж на Bramac керемиди.",
-    materials: "Bramac керемиди · Dorken Delta мембрана · дъбова конструкция",
-    image: project3,
-  },
-  {
-    title: "Ремонт след буря – спешен",
+    title: "Жилищен блок кв. Аспарухово",
     location: "кв. Аспарухово, Варна",
+    date: "2024",
+    category: "renovation",
+    categoryLabel: "Цялостна реконструкция",
+    description: "Пълна реконструкция на покрива на жилищен блок – демонтаж на стари материали, нова хидроизолация и покривно покритие.",
+    materials: "Tondach керемиди · Bauder мембрана · Isover изолация",
+    image: asparuhovoImg,
+  },
+  {
+    title: "Хотелска сграда Каварна",
+    location: "гр. Каварна",
+    date: "2024",
+    category: "waterproofing",
+    categoryLabel: "Хидроизолация",
+    description: "Хидроизолация на хотелска сграда с PVC мембрана. Укрепване на критични зони около климатици и покривни елементи.",
+    materials: "Bauder PVC мембрана · Sika праймер · Rockwool изолация",
+    image: kavarnaImg,
+  },
+  {
+    title: "Вила м-т Траката",
+    location: "м-т Траката, Варна",
+    date: "2024",
+    category: "tiles",
+    categoryLabel: "Подмяна на керемиди",
+    description: "Смяна на стари керемиди и монтаж на нови с подобрена хидроизолация и вентилация на покривното пространство.",
+    materials: "Bramac керемиди · Dorken Delta мембрана · дъбова конструкция",
+    image: trakataImg,
+  },
+  {
+    title: "Жилищна сграда обл. Варна",
+    location: "обл. Варна",
     date: "2024",
     category: "leak_repair",
     categoryLabel: "Течащ покрив",
-    description: "Спешен ремонт след силна буря – замяна на 240 счупени керемиди, уплътняване около комин и хидроизолация на засегнатите зони.",
+    description: "Спешен ремонт на течащ покрив на жилищна сграда – локализация на течовете и пълно отстраняване с гаранция.",
     materials: "Creaton керемиди · Vedag битумна лента · силиконов уплътнител",
-    image: project4,
+    image: oblastImg,
   },
   {
-    title: "Подмяна на керемиди – 5-етажна сграда",
-    location: "кв. Владиславово, Варна",
+    title: "Плосък покрив ул. Македония 25",
+    location: "ул. Македония 25, Варна",
+    date: "2024",
+    category: "flat_roof",
+    categoryLabel: "Плосък покрив",
+    description: "Двуслойна PVC хидроизолация на плосък покрив. Пълно обновяване на изолацията с 10-годишна гаранция.",
+    materials: "Icopal APP мембрана · Sika праймер · топлоизолация XPS",
+    image: makedoniaImg,
+  },
+  {
+    title: "Ремонт на покрив ул. Подполковник",
+    location: "ул. Подполковник, Варна",
     date: "2023",
-    category: "tiles",
-    categoryLabel: "Подмяна на керемиди",
-    description: "Демонтаж на стари бетонни керемиди и монтаж на нови Tondach керамични. Поставени снегозадържатели и нови ламаринени улуци.",
+    category: "renovation",
+    categoryLabel: "Цялостна реконструкция",
+    description: "Цялостна реконструкция на покрива – нова дървена конструкция, мембрана и монтаж на керамични керемиди.",
     materials: "Tondach керамични керемиди · Onduline подложен слой · алуминиеви улуци",
-    image: project5,
+    image: podpolkovnikImg,
   },
   {
-    title: "Хидроизолация с битумни мембрани",
-    location: "гр. Аксаково",
+    title: "Пълна смяна на покрив Шошкова градина 7",
+    location: "Шошкова градина 7, Варна",
     date: "2023",
-    category: "waterproofing",
-    categoryLabel: "Хидроизолация",
-    description: "Изграждане на двуслойна битумна хидроизолация чрез запояване. Укрепване около тераси, перваза и парапети. Пълна гаранция 7 години.",
-    materials: "Icopal APP мембрана · Vedag SBS · Sika праймер",
-    image: project6,
+    category: "renovation",
+    categoryLabel: "Цялостна реконструкция",
+    description: "Демонтаж на стария покрив и изграждане на нов – греди, мембрана, керемиди и ламаринени елементи.",
+    materials: "Bramac керемиди · Bauder мембрана · стоманена конструкция",
+    image: shoshkovaImg,
   },
 ];
 
 const ProjectsPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const { getPath } = useLocalizedPath();
 
   const filtered = activeFilter === "all"
     ? projects
@@ -134,7 +147,7 @@ const ProjectsPage = () => {
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10 font-bold px-8">
-                <Link to="/контакти">Безплатен оглед</Link>
+                <Link to={getPath('inspection')}>Безплатен оглед</Link>
               </Button>
             </div>
           </div>
@@ -257,7 +270,7 @@ const ProjectsPage = () => {
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/60 text-primary-foreground hover:bg-primary-foreground/10 font-bold px-8">
-                <Link to="/контакти" className="flex items-center gap-2">
+                <Link to={getPath('inspection')} className="flex items-center gap-2">
                   Запитване за оферта
                   <ChevronRight className="w-5 h-5" />
                 </Link>

@@ -30,6 +30,8 @@ const Footer = () => {
     { key: "about", routeKey: "about" },
     { key: "projects", routeKey: "projects" },
     { key: "reviews", routeKey: "reviews" },
+    { key: "pricing", routeKey: "pricing" },
+    { key: "howWeWork", routeKey: "howWeWork" },
     { key: "calculator", routeKey: "calculator" },
     { key: "blog", routeKey: "blog" },
     { key: "faq", routeKey: "faq" },
