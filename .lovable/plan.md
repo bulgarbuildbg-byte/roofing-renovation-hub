@@ -1,67 +1,64 @@
 
 
-## Цялостно подобрение на админ панела: дизайн, проекти, отзиви, обаждания и имейл база
+## Спешни поправки: снимки на проекти, аватари в админа, визуален редизайн
 
-### Обобщение
+### Проблем 1: Липсващи снимки в проектите
 
-Модернизация на админ панела с по-добър визуален дизайн, seed-ване на проектите в DB, автоматично логване на телефони/имейли от запитвания, и централизирана контактна база.
+Проектите в DB бяха seed-нати с празни `image_urls: []`. Снимките съществуват в `src/assets/portfolio/` но не са свързани с DB записите. Решението е двустранно:
 
-### 1. Seed на проектите в базата данни
+**a) Обновяване на `image_urls` в DB** — чрез миграция, ще се попълни всеки запис с правилния URL от Vite (тъй като снимките са локални assets, не в storage). Но тъй като Vite bundler-ът хешира пътищата, по-добрият подход е:
 
-Проектите от `ProjectsPage.tsx` (7 hardcoded проекта) все още не са в DB (0 записа). Ще се seed-нат чрез insert tool, за да се показват веднага в админа и на сайта.
+**b) Качване на снимките в `project-images` storage bucket** и обновяване на DB записите с публичните URL-и. Алтернативно — използване на fallback подход в компонентите.
 
-### 2. Автоматично логване на телефони при ново запитване
+**Избран подход:** Ще добавя fallback mapping в `Gallery.tsx`, `CompletedProjects.tsx` и `ProjectsPage.tsx` — ако `image_urls` е празен, ще се използва локалната снимка от `src/assets/portfolio/` по mapping на заглавието. Също ще обновя seed данните в DB с правилни image URL-и чрез upload на снимките в storage bucket.
 
-При всяко ново запитване (от `MultiStepInquiryForm`, `PriceCalculator`, `InspectionPage`) телефонният номер автоматично ще се записва в `call_log` с `call_direction: 'inbound'` и бележка „Автоматично от запитване".
+**Файлове:**
+- Нов файл: `src/lib/projectImageMap.ts` — mapping заглавие → import path
+- `src/components/Gallery.tsx` — fallback логика
+- `src/components/CompletedProjects.tsx` — fallback логика  
+- `src/pages/ProjectsPage.tsx` — fallback логика
 
-**Файлове:** `src/components/MultiStepInquiryForm.tsx`, `src/components/PriceCalculator.tsx`, `src/pages/InspectionPage.tsx`
+### Проблем 2: Аватари на отзиви в админ панела
 
-### 3. Централизирана имейл база (нова секция „Контакти")
+Testimonials в DB имат `avatar_url: null`. На сайта снимките идват от hardcoded fallback в `ReviewsPage.tsx`. В админа `AvatarImage` показва `null` src → показва fallback initials. Ще се добави визуално placeholder „Няма снимка" текст в списъка на отзивите, за да е ясно. Основната поправка е — при преглед на отзивите в админа да се покаже ясно кои имат снимка и кои нямат.
 
-Нова секция в админ панела — „Контакти" (или „Имейл база") — която агрегира всички уникални имейли от `inquiries` таблицата. Показва: име, имейл, телефон, дата, статус на съгласие (email_consent). С бутон за CSV експорт за имейл маркетинг.
+**Файл:** `src/pages/admin/TestimonialsManagementPage.tsx`
 
-**Нов файл:** `src/pages/admin/ContactDatabasePage.tsx`
-**Промени:** `src/pages/admin/AdminDashboardPage.tsx` (нов nav item), `src/App.tsx` (нов route)
+### Проблем 3: Визуален редизайн на админ панела
 
-### 4. Модерен дизайн на админ панела
+Текущият дизайн е функционален но базов. Ще се направят реални визуални промени:
 
-Визуално подобрение на ProjectsManagementPage и TestimonialsManagementPage:
-- Премахване на `min-h-screen bg-secondary` wrapper-а (вече е вътре в layout-а на AdminDashboard)
-- Добавяне на stat карти в горната част (общо проекти, активни, скрити)
-- По-модерни card-ове с gradient accent, hover ефекти, по-добра типография
-- Drag-and-drop подредба (визуално с бутони нагоре/надолу)
+**AdminDashboardPage.tsx (sidebar):**
+- Gradient header вместо plain border
+- Групиране на nav items с section headers (Основни, Маркетинг, Съдържание, Управление)
+- Active state с gradient accent вместо solid primary
+- По-малки, по-компактни nav items с hover анимации
 
-**Файлове:** `src/pages/admin/ProjectsManagementPage.tsx`, `src/pages/admin/TestimonialsManagementPage.tsx`
+**ProjectsManagementPage.tsx:**
+- Hero-style header с gradient background и статистики
+- Проектите показани като image cards вместо списък
+- Grid layout 2-3 колони с thumbnail preview
+- Hover overlay с бутони за edit/delete
 
-### 5. Подобрения на аналитиките
+**TestimonialsManagementPage.tsx:**
+- Подобен gradient header
+- По-модерни карти с по-добра типография
+- Цветни badge-ове за статус
 
-- По-модерни KPI карти с gradient backgrounds
-- По-ясни labels и tooltips на графиките
-- Подобрен responsive layout
+**AnalyticsPage.tsx:**
+- Gradient KPI карти
+- По-модерен layout
 
-**Файл:** `src/pages/admin/AnalyticsPage.tsx`
-
-### 6. Проверка на Call Log функционалността
-
-CallLogPage работи — но uses `as any` cast за `call_log` таблицата (TypeScript workaround). Ще се провери и подобри визуално.
-
-**Файл:** `src/pages/admin/CallLogPage.tsx`
-
----
-
-### Общо засегнати файлове: ~10
+**Общо засегнати файлове: ~8**
 
 | Файл | Промяна |
 |---|---|
-| DB insert | Seed 7 проекта в `projects` таблица |
-| `src/components/MultiStepInquiryForm.tsx` | Auto-log phone to call_log after inquiry |
-| `src/components/PriceCalculator.tsx` | Same |
-| `src/pages/InspectionPage.tsx` | Same |
-| `src/pages/admin/ContactDatabasePage.tsx` | Нова страница — агрегирани контакти |
-| `src/pages/admin/AdminDashboardPage.tsx` | Нов nav item + модерен sidebar |
-| `src/App.tsx` | Нов route /admin/contacts |
-| `src/pages/admin/ProjectsManagementPage.tsx` | Визуално подобрение |
-| `src/pages/admin/TestimonialsManagementPage.tsx` | Визуално подобрение |
-| `src/pages/admin/AnalyticsPage.tsx` | Визуално подобрение |
-| `src/pages/admin/CallLogPage.tsx` | Визуално подобрение |
+| `src/lib/projectImageMap.ts` | Нов — mapping проект → локална снимка |
+| `src/components/Gallery.tsx` | Fallback за снимки от local assets |
+| `src/components/CompletedProjects.tsx` | Fallback за снимки от local assets |
+| `src/pages/ProjectsPage.tsx` | Fallback за снимки от local assets |
+| `src/pages/admin/AdminDashboardPage.tsx` | Визуален редизайн на sidebar |
+| `src/pages/admin/ProjectsManagementPage.tsx` | Image card grid + gradient header |
+| `src/pages/admin/TestimonialsManagementPage.tsx` | По-модерен дизайн + avatar status |
+| `src/pages/admin/AnalyticsPage.tsx` | Gradient KPI карти |
 
