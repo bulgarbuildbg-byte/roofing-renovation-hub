@@ -102,6 +102,7 @@ const projects = [
 
 const ProjectsPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const { getPath } = useLocalizedPath();
 
   const filtered = activeFilter === "all"
     ? projects
