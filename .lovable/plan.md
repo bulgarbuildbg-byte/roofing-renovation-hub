@@ -1,46 +1,48 @@
 
 
-## Преструктуриране на RoofRepairPage за Google Ads конверсия
+## Преструктуриране на WaterproofingPage за Google Ads конверсия
 
 ### Текущ ред
-1. Hero → 2. TrustIndicators → 3. CertificationsBar → 4. Services (с цени) → 5. HowWeWork → 6. Problems → 7. Consequences → 8. Solution → 9. Mid CTA → 10. Calculator → 11. Detailed Process → 12. Services List → 13. Materials → 14. Pricing (отделна) → 15. Why Choose Us → 16. Service Areas → 17. FAQ → 18. Final CTA → LearnMoreLinks → RelatedServices
+1. Hero → 2. Problem → 3. Consequences → 4. Solution → 5. HowWeWork → 6. Mid CTA → 7. Calculator → 8. Detailed Process → 9. Services List → 10. Materials → 11. Roof Types → 12. Types & Pricing → 13. Why Choose Us → 14. Service Areas → 15. FAQ → 16. Final CTA → LearnMoreLinks → RelatedServices
 
 ### Нов ред (конверсионен)
-1. **Hero** (без промяна — два CTA бутона)
-2. **TrustIndicators + CertificationsBar** (без промяна)
-3. **Services carousel** (с цени в картичките — основна секция) + двоен CTA под нея
-4. **CompletedProjects** (портфолио carousel от началната) + двоен CTA
-5. **HowWeWork** (как работим)
-6. CTA разделителна лента (`bg-slate-800`)
-7. **Защо да изберете нас** (benefits + trust badges)
-8. **„Получете точна цена"** — нова кратка секция с текст + двоен CTA
-9. **Testimonials** (отзиви от началната)
+1. **Hero** — обновен H1 „Хидроизолация на покриви във Варна", подзаглавие с ключови думи (битумна, течна, PVC), trust badges (15+ години опит, Гаранция, Реални обекти, Работа по договор), двоен CTA
+2. **Какви услуги предлагаме** — 6 нови карти (Битумна, Течна, PVC мембрана, Локален ремонт на течове, Цялостна хидроизолация, Плоски покриви и тераси) с кратко описание + двоен CTA
+3. **CompletedProjects** — портфолио carousel + двоен CTA
+4. **Защо да изберете нас** — преместена нагоре, trust badges
+5. **Как работим** — inline 5-стъпков процес (Свързване → Оглед → Оферта → Изпълнение → Гаранция) + двоен CTA
+6. CTA разделителна лента (`bg-slate-800`) — „Имате теч от покрива? Не чакайте проблемът да се задълбочи."
+7. **Цени** — 3 карти със зелени price badges (Битумна от 14€, Течна от 16€, PVC от 20€) + двоен CTA
+8. **Testimonials** — отзиви компонент
+9. CTA разделителна лента
 10. **PriceCalculator**
-11. CTA разделителна лента
-12. **Detailed Process** (6-стъпков с снимки) — образователно
-13. **Problems** + **Consequences** — образователно
-14. **Materials** — образователно
-15. **Факти и доверие** — нова секция (гаранции, опит, обекти, КСБ) + CTA
-16. **FAQ**
-17. **Финален CTA** (bg-primary)
+11. **Detailed Process** (6 стъпки с снимки) — образователно
+12. **Видове хидроизолация по типове покриви** (roofTypes)
+13. **Problem** + **Consequences** — образователно, преместено надолу
+14. **Materials** — видове материали
+15. **Факти и доверие** — нова секция (гаранция, опит, КСБ, материали) + двоен CTA
+16. **FAQ** — 8 въпроса
+17. **Финален CTA** (`bg-primary`)
 
 ### Какво се премахва
-- Отделна секция „Pricing" (ред 401–418) — цените са в Services картичките
-- Секция „Solution" (ред 286–309) — заменена от „Получете точна цена"
-- Секция „Services List" (ред 359–374) — дублира Services carousel
-- Service Areas (ред 447–479) — преместена в долната част или премахната
 - `LearnMoreLinks` и `RelatedServices` — минимизиране на изходни точки
+- `HowWeWork` компонент (заменен от inline 5-стъпков процес)
+- Service Areas секция (с картата)
+- Дублиращата се „Services List" секция (ред 303–318)
+- Секция „Solution" (ред 233–252) — заменена от „Получете точна цена" логика в ценовата секция
 
 ### Какво се добавя
 - `import CompletedProjects` и `import Testimonials`
-- Нова секция „Получете точна цена" — 2-3 реда текст + двоен CTA
-- Нова секция „Факти и доверие" — 4 trust badges + CTA
-- 2 CTA разделителни ленти между секциите
-- Двойни CTA бутони (оглед + телефон) след Services, Portfolio, и в лентите
+- Нова секция „Какви услуги предлагаме" — 6 карти с конкретни дейности по хидроизолация
+- Inline 5-стъпков процес „Как работим"
+- Секция „Цени" с зелени price badges (`bg-green-50 text-green-700 border-green-200`)
+- Секция „Факти и доверие" с trust badges + CTA
+- 2 CTA разделителни ленти (`bg-slate-800`) с двойни бутони
+- Двойни CTA бутони навсякъде (оглед + телефон `tel:0884997659`)
 
 ### Засегнат файл
 
 | Файл | Промяна |
 |---|---|
-| `src/pages/services/RoofRepairPage.tsx` | Пълно пренареждане, нови секции, премахване на дублирани |
+| `src/pages/services/WaterproofingPage.tsx` | Пълно пренареждане, нови секции, обновен hero, премахване на дублирани |
 
