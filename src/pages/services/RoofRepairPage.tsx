@@ -31,7 +31,7 @@ const RoofRepairPage = () => {
 
   const relatedServices = [
     { title: t('pages.roofRepair.related.0.title'), description: t('pages.roofRepair.related.0.desc'), href: getPath('leakRepair') },
-    { title: t('pages.roofRepair.related.1.title'), description: t('pages.roofRepair.related.1.desc'), href: getPath('tileReplacement') },
+    { title: t('pages.roofRepair.related.1.title'), description: t('pages.roofRepair.related.1.desc'), href: getPath('tileRoofRepair') },
     { title: t('pages.roofRepair.related.2.title'), description: t('pages.roofRepair.related.2.desc'), href: getPath('maintenance') },
   ];
 

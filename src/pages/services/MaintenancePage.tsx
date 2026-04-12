@@ -26,7 +26,7 @@ const MaintenancePage = () => {
 
   const relatedServices = [
     { title: "Ремонт на Покриви", description: "Професионален ремонт при открити проблеми по време на поддръжка.", href: getPath('roofRepair') },
-    { title: "Смяна на Керемиди", description: "Подмяна на повредени керемиди преди да причинят течове.", href: getPath('tileReplacement') },
+    { title: "Смяна на Керемиди", description: "Подмяна на повредени керемиди преди да причинят течове.", href: getPath('tileRoofRepair') },
     { title: "Хидроизолация", description: "Превантивна хидроизолация за защита на покрива.", href: getPath('waterproofing') }
   ];
 

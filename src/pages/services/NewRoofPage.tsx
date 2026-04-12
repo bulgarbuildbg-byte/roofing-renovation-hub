@@ -43,7 +43,7 @@ const NewRoofPage = () => {
     {
       title: "Смяна на Керемиди",
       description: "Подмяна на стари керемиди с нови качествени материали.",
-      href: getPath('tileReplacement')
+      href: getPath('tileRoofRepair')
     },
     {
       title: "Хидроизолация",
@@ -700,7 +700,7 @@ const NewRoofPage = () => {
               <ul className="space-y-2">
                 <li><Link to={getPath('roofRepair')} className="hover:text-accent">[Ремонт на покриви]</Link></li>
                 <li><Link to={getPath('waterproofing')} className="hover:text-accent">[Хидроизолация]</Link></li>
-                <li><Link to={getPath('tileReplacement')} className="hover:text-accent">[Смяна на керемиди]</Link></li>
+                <li><Link to={getPath('tileRoofRepair')} className="hover:text-accent">[Смяна на керемиди]</Link></li>
                 <li><Link to={getPath('metalRoof')} className="hover:text-accent">Метални покриви</Link></li>
               </ul>
             </div>
