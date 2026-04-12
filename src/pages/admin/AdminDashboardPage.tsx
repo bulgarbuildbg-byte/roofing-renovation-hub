@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink, BarChart3, Megaphone, MessageSquare, Database, Link2, Mail, Star, PhoneCall, FolderOpen } from "lucide-react";
+import { Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink, BarChart3, Megaphone, MessageSquare, Database, Link2, Mail, Star, PhoneCall, FolderOpen, Contact } from "lucide-react";
 import logo from "@/assets/logo-horizontal.jpeg";
 
 const AdminDashboardPage = () => {
@@ -14,6 +14,7 @@ const AdminDashboardPage = () => {
   const navItems = [
     { to: "/admin/analytics", label: "Аналитика", icon: BarChart3 },
     { to: "/admin/leads", label: "CRM Лийдове", icon: Database },
+    { to: "/admin/contacts", label: "Контактна база", icon: Contact },
     { to: "/admin/inquiries", label: "Запитвания", icon: Inbox },
     { to: "/admin/quotes", label: "Оферти", icon: FileText },
     { to: "/admin/campaigns", label: "Маркетинг", icon: Megaphone },
