@@ -34,6 +34,7 @@ const EmailCampaignListPage = lazy(() => import("./pages/admin/EmailCampaignList
 const EmailCampaignEditorPage = lazy(() => import("./pages/admin/EmailCampaignEditorPage"));
 const TestimonialsManagementPage = lazy(() => import("./pages/admin/TestimonialsManagementPage"));
 const CallLogPage = lazy(() => import("./pages/admin/CallLogPage"));
+const ProjectsManagementPage = lazy(() => import("./pages/admin/ProjectsManagementPage"));
 
 const queryClient = new QueryClient();
 
@@ -99,6 +100,7 @@ const App = () => (
               <Route path="email-campaigns/new" element={<Suspense fallback={null}><EmailCampaignEditorPage /></Suspense>} />
               <Route path="email-campaigns/:id/edit" element={<Suspense fallback={null}><EmailCampaignEditorPage /></Suspense>} />
               <Route path="calls" element={<Suspense fallback={null}><CallLogPage /></Suspense>} />
+              <Route path="projects" element={<Suspense fallback={null}><ProjectsManagementPage /></Suspense>} />
               <Route path="staff" element={<Suspense fallback={null}><ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute></Suspense>} />
             </Route>
 
