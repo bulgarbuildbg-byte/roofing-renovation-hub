@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
 import before1 from "@/assets/before-after-1.jpg";
+import before2 from "@/assets/process/old-roof-removal.jpg";
+import before3 from "@/assets/process/roof-leak-damage.jpg";
 import after1 from "@/assets/portfolio/asparuhovo-varna.jpeg";
 import after2 from "@/assets/portfolio/trakata-varna.jpg";
 import after3 from "@/assets/portfolio/makedonia-25-varna.jpeg";
