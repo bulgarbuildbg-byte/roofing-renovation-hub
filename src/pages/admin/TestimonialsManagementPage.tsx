@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "sonner";
-import { Plus, Pencil, Trash2, Star, BadgeCheck, ArrowLeft } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, BadgeCheck, ArrowLeft, Upload } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Testimonial {
@@ -49,6 +49,22 @@ const TestimonialsManagementPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.[0]) return;
+    setUploading(true);
+    const file = e.target.files[0];
+    const ext = file.name.split(".").pop();
+    const path = `${crypto.randomUUID()}.${ext}`;
+    const { error } = await supabase.storage.from("testimonial-avatars").upload(path, file);
+    if (error) { toast.error("Грешка при качване"); setUploading(false); return; }
+    const { data: urlData } = supabase.storage.from("testimonial-avatars").getPublicUrl(path);
+    setForm(prev => ({ ...prev, avatar_url: urlData.publicUrl }));
+    setUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
   const { data: testimonials, isLoading } = useQuery({
     queryKey: ["admin-testimonials"],
@@ -183,8 +199,20 @@ const TestimonialsManagementPage = () => {
                   </div>
                 </div>
                 <div>
-                  <Label>URL на снимка (аватар)</Label>
-                  <Input value={form.avatar_url} onChange={(e) => setForm({ ...form, avatar_url: e.target.value })} placeholder="https://..." />
+                  <Label>Снимка (аватар)</Label>
+                  <div className="flex items-center gap-3 mt-1">
+                    {form.avatar_url && (
+                      <Avatar className="h-12 w-12">
+                        <AvatarImage src={form.avatar_url} />
+                        <AvatarFallback>{form.author_name?.[0] || "?"}</AvatarFallback>
+                      </Avatar>
+                    )}
+                    <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
+                    <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={uploading}>
+                      <Upload className="w-4 h-4 mr-2" />{uploading ? "Качване..." : "Качи снимка"}
+                    </Button>
+                  </div>
+                  <Input value={form.avatar_url} onChange={(e) => setForm({ ...form, avatar_url: e.target.value })} placeholder="или въведи URL" className="mt-2" />
                 </div>
                 <div>
                   <Label>Тип услуга</Label>
