@@ -249,7 +249,7 @@ const Header = () => {
                   {t('nav.services')}
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" sideOffset={8} className="w-48 z-[70]">
+                <DropdownMenuContent align="start" sideOffset={8} className="w-64 z-[70]">
                   {serviceLinks.map((link) => (
                     <DropdownMenuItem key={link.routeKey} asChild>
                       <Link to={getPath(link.routeKey)} className="w-full cursor-pointer">
