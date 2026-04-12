@@ -35,6 +35,7 @@ const EmailCampaignEditorPage = lazy(() => import("./pages/admin/EmailCampaignEd
 const TestimonialsManagementPage = lazy(() => import("./pages/admin/TestimonialsManagementPage"));
 const CallLogPage = lazy(() => import("./pages/admin/CallLogPage"));
 const ProjectsManagementPage = lazy(() => import("./pages/admin/ProjectsManagementPage"));
+const ContactDatabasePage = lazy(() => import("./pages/admin/ContactDatabasePage"));
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,7 @@ const App = () => (
             <Route path="/admin" element={<Suspense fallback={null}><ProtectedRoute><AdminDashboardPage /></ProtectedRoute></Suspense>}>
               <Route path="analytics" element={<Suspense fallback={null}><AnalyticsPage /></Suspense>} />
               <Route path="leads" element={<Suspense fallback={null}><LeadDatabasePage /></Suspense>} />
+              <Route path="contacts" element={<Suspense fallback={null}><ContactDatabasePage /></Suspense>} />
               <Route path="inquiries" element={<Suspense fallback={null}><InquiryListPage /></Suspense>} />
               <Route path="inquiries/:id" element={<Suspense fallback={null}><InquiryDetailPage /></Suspense>} />
               <Route path="inquiries/:id/quote" element={<Suspense fallback={null}><QuoteEditorPage /></Suspense>} />

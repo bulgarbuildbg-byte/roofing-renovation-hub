@@ -293,6 +293,19 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
       }
     }
 
+    // Auto-log phone to call_log
+    try {
+      await supabase.from("call_log" as any).insert({
+        client_name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
+        client_phone: formData.phone.trim(),
+        client_email: formData.email.trim() || null,
+        call_direction: "inbound",
+        notes: "Автоматично от калкулатор",
+        inquiry_id: inquiry.id,
+        created_by: "00000000-0000-0000-0000-000000000000",
+      });
+    } catch {}
+
     trackEvent("button_click", "calculator_inquiry_submit");
     setSubmitted(true);
     setSubmitting(false);
