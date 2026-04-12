@@ -3,14 +3,13 @@ import heroTileReplacement from "@/assets/hero-tile-replacement.jpg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
-import HowWeWork from "@/components/HowWeWork";
 import CTASection from "@/components/CTASection";
-import RelatedServices from "@/components/RelatedServices";
-import LearnMoreLinks from "@/components/LearnMoreLinks";
 import PriceCalculator from "@/components/PriceCalculator";
+import CompletedProjects from "@/components/CompletedProjects";
+import Testimonials from "@/components/Testimonials";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Phone, CheckCircle, Layers, Shield, Ruler, Palette, MapPin, Clock, Wrench, AlertTriangle, Search, Eye, Hammer, ClipboardCheck } from "lucide-react";
+import { Phone, CheckCircle, Layers, Shield, Ruler, Palette, MapPin, Clock, AlertTriangle, Search, Eye, Award, ShieldCheck, FileCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
@@ -25,16 +24,6 @@ import completedTileRoof from "@/assets/process/tile-replacement-full-01.jpg";
 const TileReplacementPage = () => {
   const { t } = useTranslation();
   const { getPath } = useLocalizedPath();
-
-  const relatedServices = [
-    { title: "Ремонт на Покриви", description: "Цялостен ремонт на покривната конструкция и покритие.", href: getPath('roofRepair') },
-    { title: "Поддръжка на Покриви", description: "Редовна профилактика за предотвратяване на повреди.", href: getPath('maintenance') },
-    { title: "Изграждане на Нов Покрив", description: "Пълно изграждане на нов покрив с качествени материали.", href: getPath('newRoof') }
-  ];
-  const learnMoreLinks = [
-    { title: "Как да изберем правилните керемиди", href: "/блог/как-да-изберем-керемиди-за-нов-покрив" },
-    { title: "5 признака, че покривът се нуждае от ремонт", href: "/блог/5-признака-че-покривът-се-нуждае-от-ремонт" }
-  ];
 
   const services = ["Смяна на единични счупени керемиди", "Частична подмяна на покривното покритие", "Пълна смяна на всички керемиди", "Подмяна на ламарина и капаци", "Ремонт на билото и ръбовете", "Смяна на снегозадържатели", "Подмяна на подпокривна мембрана", "Монтаж на вентилационни керемиди"];
 
@@ -59,14 +48,6 @@ const TileReplacementPage = () => {
     { title: "Мухъл и влага в дома", description: "Течовете водят до мухъл по стени и тавани — вреден за здравето на семейството." },
   ];
 
-  const solutionSteps = [
-    { title: "Детайлен оглед", description: "Оценяваме състоянието на керемидите, летвите и подпокривната мембрана." },
-    { title: "Подбор на керемиди", description: "Намираме максимално близки по размер, профил и цвят керемиди." },
-    { title: "Прецизен монтаж", description: "Спазваме всички технологични изисквания на производителите." },
-    { title: "Финална проверка", description: "Проверяваме монтажа и предоставяме писмена гаранция." },
-  ];
-
-
   const process = [
     { step: 1, title: "Оглед и оценка на състоянието", description: "Нашият специалист извършва детайлен оглед на покрива - визуална инспекция отвън и отвътре.", image: roofInspection, imageAlt: "Оглед на покрив за оценка състоянието на керемиди" },
     { step: 2, title: "Подбор на подходящи керемиди", description: "При частична подмяна търсим керемиди, максимално близки до съществуващите. При пълна подмяна ви консултираме.", image: tileSamples, imageAlt: "Подбор на керемиди за подмяна" },
@@ -81,21 +62,6 @@ const TileReplacementPage = () => {
     { icon: Ruler, title: "Прецизен Монтаж", description: "Нашите майстори имат богат опит с керемидени покриви." },
     { icon: Shield, title: "15 години гаранция", description: "Предоставяме писмена гаранция за монтажа." },
     { icon: Clock, title: "Бързо Изпълнение", description: "Подменяме керемиди бързо и качествено." }
-  ];
-
-  const priceRanges = [
-    { service: "Подмяна на единична керемида", price: "от 4 €/бр", note: "Включва материал и труд" },
-    { service: "Частична подмяна (до 20 кв.м)", price: "от 13 €/кв.м", note: "Материали + монтаж" },
-    { service: "Пълна подмяна на керемиди", price: "от 18 €/кв.м", note: "Демонтаж, материали, монтаж" },
-    { service: "Подмяна с нови летви", price: "от 23 €/кв.м", note: "Включва летви и мембрана" },
-    { service: "Ремонт на било и ръбове", price: "от 8 €/м", note: "Капаци и уплътнение" },
-    { service: "Монтаж на снегозадържатели", price: "от 13 €/м", note: "Материал и монтаж" }
-  ];
-
-  const serviceAreas = [
-    { area: "Варна център", neighborhoods: ["Централен район", "Одесос", "Морска градина", "Гръцка махала", "Чаталджа"] },
-    { area: "Варна квартали", neighborhoods: ["кв. Бриз", "кв. Чайка", "кв. Левски", "кв. Аспарухово", "кв. Владиславово", "кв. Младост", "кв. Възраждане", "кв. Трошево", "кв. Галата", "кв. Виница"] },
-    { area: "Околни селища", neighborhoods: ["Аксаково", "Белослав", "Девня", "Суворово", "Долни чифлик", "Златни пясъци", "Св. Константин", "Каменар", "Тополи"] }
   ];
 
   const faqs = [
@@ -137,7 +103,7 @@ const TileReplacementPage = () => {
 
       <Header />
       <main className="pt-20">
-        {/* 1. HERO */}
+        {/* 1. HERO — без промяна */}
         <section className="relative text-primary-foreground py-16 md:py-24 overflow-hidden">
           <img src={heroTileReplacement} alt="Смяна на керемиди – реален обект" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.55)_70%,_rgba(15,23,42,0.85)_100%)]" />
@@ -170,82 +136,139 @@ const TileReplacementPage = () => {
           </div>
         </section>
 
-        {/* 2. PROBLEM */}
-        <section className="py-16 bg-muted/30">
+        {/* 2. КАК РЕШАВАМЕ ПРОБЛЕМА — съкратен до bullets + CTA */}
+        <section className="py-12 md:py-16 bg-primary/5 border-b border-primary/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Кога е Необходима Смяна на Керемиди?</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Разпознайте признаците, че вашият покрив се нуждае от подмяна</p>
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              {reasons.map((reason, index) => (
-                <Card key={index} className="bg-card border-border">
-                  <CardContent className="p-6">
-                    <AlertTriangle className="w-8 h-8 text-accent mb-3" />
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{reason.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-3">{reason.description}</p>
-                    <ul className="space-y-1">{reason.signs.map((sign, idx) => (<li key={idx} className="text-sm text-muted-foreground flex items-center gap-2"><Search className="w-4 h-4 text-primary" />{sign}</li>))}</ul>
-                  </CardContent>
-                </Card>
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Как решаваме проблема</h2>
+              <div className="grid sm:grid-cols-2 gap-4 text-left mb-8">
+                <div className="flex items-start gap-3 p-4 bg-background rounded-xl border border-primary/20">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground text-sm"><strong>Детайлен оглед</strong> — оценяваме керемиди, летви и мембрана</span>
+                </div>
+                <div className="flex items-start gap-3 p-4 bg-background rounded-xl border border-primary/20">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground text-sm"><strong>Подбор на керемиди</strong> — максимално близки по размер и цвят</span>
+                </div>
+                <div className="flex items-start gap-3 p-4 bg-background rounded-xl border border-primary/20">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground text-sm"><strong>Прецизен монтаж</strong> — спазваме всички технологични изисквания</span>
+                </div>
+                <div className="flex items-start gap-3 p-4 bg-background rounded-xl border border-primary/20">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-foreground text-sm"><strong>Писмена гаранция</strong> — проверяваме и гарантираме резултата</span>
+                </div>
+              </div>
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold px-8">
+                <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. ПОРТФОЛИО CAROUSEL + CTA */}
+        <CompletedProjects />
+        <section className="py-8 bg-muted/30">
+          <div className="container mx-auto px-4 text-center">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold px-8">
+              <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обадете се: 088 499 7659</a>
+            </Button>
+          </div>
+        </section>
+
+        {/* 4. ЗАЩО ДА ИЗБЕРЕТЕ НАС */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">Защо Да Изберете Нас</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              {benefits.map((benefit, index) => (
+                <Card key={index} className="bg-card border-border"><CardContent className="p-6 text-center">
+                  <benefit.icon className="w-14 h-14 text-primary mx-auto mb-4" />
+                  <h3 className="font-semibold text-foreground mb-2">{benefit.title}</h3>
+                  <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                </CardContent></Card>
               ))}
             </div>
           </div>
         </section>
 
-        {/* 3. CONSEQUENCES */}
-        <section className="py-16 bg-destructive/5 border-y border-destructive/20">
+        {/* 5. ПРОЦЕС НА СМЯНА НА КЕРЕМИДИ (6-стъпков с снимки) */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Какво се случва, ако проблемът се отложи</h2>
-              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Навременната подмяна предотвратява сериозни последствия</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {consequences.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-destructive/20">
-                    <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
-                    <div><h3 className="font-semibold text-foreground mb-1">{item.title}</h3><p className="text-muted-foreground text-sm">{item.description}</p></div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Процес на Смяна на Керемиди</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Професионален подход стъпка по стъпка</p>
+            <div className="space-y-12 max-w-5xl mx-auto">
+              {process.map((item, index) => (
+                <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 items-center`}>
+                  <div className="lg:w-1/2"><img src={item.image} alt={item.imageAlt} className="rounded-lg shadow-lg w-full h-64 object-cover" /></div>
+                  <div className="lg:w-1/2">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold">{item.step}</div>
+                      <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+                    </div>
+                    <p className="text-muted-foreground">{item.description}</p>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 6. ЦЯЛОСТНА СМЯНА — съкратен текст (3-4 реда) */}
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Цялостна Смяна на Керемиди</h2>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                Извършваме пълна подмяна на керемидени покриви — от демонтаж на старото покритие до монтаж на нови керемиди, летви и мембрана. Работим с бетонни, керамични и марсилски керемиди от водещи производители. Всеки проект включва безплатен оглед, писмена оферта и гаранция до 15 години.
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center mt-6">
+                {services.map((s) => (
+                  <span key={s} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-muted/50 rounded-full text-sm text-foreground">
+                    <CheckCircle className="w-3.5 h-3.5 text-primary" />{s}
+                  </span>
                 ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* 4. SOLUTION */}
-        <section className="py-16 bg-primary/5 border-b border-primary/20">
+        {/* 7. НОВА СЕКЦИЯ ЦЕНИ — 3 реда + 1 изречение + CTA */}
+        <section className="py-12 md:py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Как решаваме проблема</h2>
-              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Професионален подход за дълготраен резултат</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                {solutionSteps.map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-primary/20">
-                    <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
-                    <div><h3 className="font-semibold text-foreground mb-1">{item.title}</h3><p className="text-muted-foreground text-sm">{item.description}</p></div>
-                  </div>
-                ))}
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Цени за Смяна на Керемиди</h2>
+            <p className="text-muted-foreground text-center mb-8 max-w-xl mx-auto">Точната цена се определя след безплатен оглед на място.</p>
+            <div className="max-w-2xl mx-auto">
+              <div className="bg-card rounded-xl overflow-hidden border border-border shadow-sm">
+                <div className="flex flex-col md:flex-row md:items-center justify-between p-5 border-b border-border">
+                  <div><span className="font-semibold text-foreground">Частична подмяна</span><span className="text-muted-foreground text-sm block md:inline md:ml-2">до 20 кв.м, материали + монтаж</span></div>
+                  <span className="text-primary font-bold text-lg mt-1 md:mt-0">от 13 €/кв.м</span>
+                </div>
+                <div className="flex flex-col md:flex-row md:items-center justify-between p-5 border-b border-border">
+                  <div><span className="font-semibold text-foreground">Пренареждане / ремонт</span><span className="text-muted-foreground text-sm block md:inline md:ml-2">демонтаж и монтаж</span></div>
+                  <span className="text-primary font-bold text-lg mt-1 md:mt-0">от 18 €/кв.м</span>
+                </div>
+                <div className="flex flex-col md:flex-row md:items-center justify-between p-5">
+                  <div><span className="font-semibold text-foreground">Пълна подмяна с нови летви</span><span className="text-muted-foreground text-sm block md:inline md:ml-2">летви, мембрана, керемиди</span></div>
+                  <span className="text-primary font-bold text-lg mt-1 md:mt-0">от 23 €/кв.м</span>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* 5. PROCESS */}
-        <HowWeWork />
-
-        {/* 6. MID CTA */}
-        <section className="py-12 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">Имате счупени или стари керемиди?</h2>
-            <p className="text-primary-foreground/90 mb-6 max-w-xl mx-auto">Не чакайте проблемът да се задълбочи. Свържете се за безплатна консултация.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground"><Link to={getPath('contact')}>Заяви безплатен оглед</Link></Button>
-              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />088 499 7659</a></Button>
+            <div className="text-center mt-8">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold px-8">
+                <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Поискайте безплатна оферта</Link>
+              </Button>
             </div>
           </div>
         </section>
 
-        {/* 7. CALCULATOR */}
+        {/* 8. ОТЗИВИ */}
+        <Testimonials />
+
+        {/* 9. КАЛКУЛАТОР */}
         <PriceCalculator />
 
-        {/* 8. SERVICE DETAILS */}
-        {/* Tile Types */}
+        {/* 10. ВИДОВЕ КЕРЕМИДИ */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Видове Керемиди, с Които Работим</h2>
@@ -282,39 +305,36 @@ const TileReplacementPage = () => {
           </div>
         </section>
 
-        {/* Detailed Process */}
+        {/* 11. КОГА Е НЕОБХОДИМА СМЯНА + ПОСЛЕДСТВИЯ — образователни секции надолу */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Процес на Смяна на Керемиди</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Професионален подход стъпка по стъпка</p>
-            <div className="space-y-12 max-w-5xl mx-auto">
-              {process.map((item, index) => (
-                <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 items-center`}>
-                  <div className="lg:w-1/2"><img src={item.image} alt={item.imageAlt} className="rounded-lg shadow-lg w-full h-64 object-cover" /></div>
-                  <div className="lg:w-1/2">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold">{item.step}</div>
-                      <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
-                    </div>
-                    <p className="text-muted-foreground">{item.description}</p>
-                  </div>
-                </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Кога е Необходима Смяна на Керемиди?</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Разпознайте признаците, че вашият покрив се нуждае от подмяна</p>
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {reasons.map((reason, index) => (
+                <Card key={index} className="bg-card border-border">
+                  <CardContent className="p-6">
+                    <AlertTriangle className="w-8 h-8 text-accent mb-3" />
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{reason.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-3">{reason.description}</p>
+                    <ul className="space-y-1">{reason.signs.map((sign, idx) => (<li key={idx} className="text-sm text-muted-foreground flex items-center gap-2"><Search className="w-4 h-4 text-primary" />{sign}</li>))}</ul>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Pricing */}
-        <section className="py-16 bg-muted/30">
+        <section className="py-16 bg-destructive/5 border-y border-destructive/20">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Цени за Смяна на Керемиди</h2>
-            <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Прозрачно ценообразуване. Точната цена се определя след оглед.</p>
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-card rounded-lg overflow-hidden border border-border">
-                {priceRanges.map((item, index) => (
-                  <div key={index} className={`flex flex-col md:flex-row md:items-center justify-between p-4 ${index !== priceRanges.length - 1 ? 'border-b border-border' : ''}`}>
-                    <div className="mb-2 md:mb-0"><span className="font-semibold text-foreground">{item.service}</span><span className="text-muted-foreground text-sm block md:inline md:ml-2">({item.note})</span></div>
-                    <span className="text-primary font-bold text-lg">{item.price}</span>
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Какво се случва, ако проблемът се отложи</h2>
+              <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">Навременната подмяна предотвратява сериозни последствия</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {consequences.map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 p-5 bg-background rounded-xl border border-destructive/20">
+                    <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
+                    <div><h3 className="font-semibold text-foreground mb-1">{item.title}</h3><p className="text-muted-foreground text-sm">{item.description}</p></div>
                   </div>
                 ))}
               </div>
@@ -322,61 +342,47 @@ const TileReplacementPage = () => {
           </div>
         </section>
 
-        {/* 9. TRUST */}
-        <section className="py-16 bg-background">
+        {/* 12. ФАКТИ И ДОВЕРИЕ + CTA */}
+        <section className="py-12 md:py-16 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">Защо Да Изберете Нас</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
-              {benefits.map((benefit, index) => (
-                <Card key={index} className="bg-card border-border"><CardContent className="p-6 text-center">
-                  <benefit.icon className="w-14 h-14 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold text-foreground mb-2">{benefit.title}</h3>
-                  <p className="text-muted-foreground text-sm">{benefit.description}</p>
-                </CardContent></Card>
-              ))}
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {["15+ години опит", "Работа по договор", "Реални обекти", "Член на КСБ"].map((item) => (
-                <div key={item} className="flex items-center gap-2 justify-center p-3 bg-muted/30 rounded-lg">
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" /><span className="text-foreground text-sm font-medium">{item}</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-10 text-center">Факти и Доверие</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
+              {[
+                { icon: Award, label: "15+ години опит" },
+                { icon: ShieldCheck, label: "Член на КСБ" },
+                { icon: FileCheck, label: "Работа по договор" },
+                { icon: Shield, label: "До 15г гаранция" },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-3 p-4 bg-muted/30 rounded-xl border border-border">
+                  <item.icon className="w-8 h-8 text-primary flex-shrink-0" />
+                  <span className="text-foreground font-semibold text-sm">{item.label}</span>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Service Areas */}
-        <section className="py-16 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Райони, Които Обслужваме</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Извършваме смяна на керемиди в цяла Варна и околните места</p>
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
-              {serviceAreas.map((area, index) => (
-                <div key={index}><h3 className="font-semibold text-foreground mb-4 flex items-center gap-2"><MapPin className="w-5 h-5 text-primary" />{area.area}</h3>
-                <ul className="space-y-2">{area.neighborhoods.map((n, idx) => (<li key={idx} className="text-muted-foreground text-sm flex items-center gap-2"><CheckCircle className="w-4 h-4 text-primary" />{n}</li>))}</ul></div>
-              ))}
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-8">
+              Работим само с материали от доказани производители — Bramac, Tondach, Wienerberger. Всеки проект е документиран с реални снимки и подписан договор.
+            </p>
+            <div className="text-center">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold px-8">
+                <Link to={getPath('contact')}><Phone className="w-5 h-5 mr-2" />Свържете се с нас</Link>
+              </Button>
             </div>
-            <div className="max-w-4xl mx-auto"><div className="rounded-lg overflow-hidden shadow-lg">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d93422.83869498367!2d27.8261!3d43.2141!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a4538baaf3f891%3A0x5765ae67f35e9f47!2z0JLQsNGA0L3QsA!5e0!3m2!1sbg!2sbg!4v1699524000000!5m2!1sbg!2sbg" width="100%" height="300" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Карта на Варна" />
-            </div></div>
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="py-16 bg-background">
+        {/* 13. FAQ */}
+        <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Често Задавани Въпроси</h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Отговори на най-честите въпроси</p>
             <div className="max-w-3xl mx-auto space-y-6">
-              {faqs.map((faq, index) => (<div key={index} className="bg-muted/30 rounded-lg p-6"><h3 className="font-semibold text-foreground mb-3 text-lg">{faq.question}</h3><p className="text-muted-foreground">{faq.answer}</p></div>))}
+              {faqs.map((faq, index) => (<div key={index} className="bg-background rounded-lg p-6 border border-border"><h3 className="font-semibold text-foreground mb-3 text-lg">{faq.question}</h3><p className="text-muted-foreground">{faq.answer}</p></div>))}
             </div>
           </div>
         </section>
 
-        {/* 11. FINAL CTA */}
+        {/* 14. ФИНАЛЕН CTA */}
         <CTASection title="Нуждаете се от Смяна на Керемиди?" subtitle="Получете безплатен оглед и честна оферта без задължение" />
-        <div className="container mx-auto px-4 py-12"><LearnMoreLinks links={learnMoreLinks} /></div>
-        <RelatedServices services={relatedServices} />
       </main>
       <Footer />
       <FloatingCallButton />
