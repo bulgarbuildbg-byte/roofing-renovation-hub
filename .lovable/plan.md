@@ -1,75 +1,67 @@
 
 
-## Четири подобрения: Login fix, Analytics URL-и, Управление на проекти, Подобрени отзиви
+## Цялостно подобрение на админ панела: дизайн, проекти, отзиви, обаждания и имейл база
 
-### 1. Фиксиране на логина в админ панела
+### Обобщение
 
-**Проблем:** След `signIn()`, `navigate("/admin")` се изпълнява преди `checkRoles()` да завърши. `ProtectedRoute` вижда `isStaff = false` и пренасочва обратно към login.
+Модернизация на админ панела с по-добър визуален дизайн, seed-ване на проектите в DB, автоматично логване на телефони/имейли от запитвания, и централизирана контактна база.
 
-**Решение:** В `AuthContext.tsx` — `signIn` функцията ще изчака `checkRoles()` да завърши преди да върне резултат. Премахване на `setTimeout` wrapper-а в `onAuthStateChange` и директно await-ване на `checkRoles`.
+### 1. Seed на проектите в базата данни
 
-**Файл:** `src/contexts/AuthContext.tsx`
+Проектите от `ProjectsPage.tsx` (7 hardcoded проекта) все още не са в DB (0 записа). Ще се seed-нат чрез insert tool, за да се показват веднага в админа и на сайта.
 
----
+### 2. Автоматично логване на телефони при ново запитване
 
-### 2. Топ страници в аналитиките — показване на човешки имена
+При всяко ново запитване (от `MultiStepInquiryForm`, `PriceCalculator`, `InspectionPage`) телефонният номер автоматично ще се записва в `call_log` с `call_direction: 'inbound'` и бележка „Автоматично от запитване".
 
-**Проблем:** В AnalyticsPage топ страниците показват суровите `page_path` стойности (напр. `/bg/remont-na-pokrivi`).
+**Файлове:** `src/components/MultiStepInquiryForm.tsx`, `src/components/PriceCalculator.tsx`, `src/pages/InspectionPage.tsx`
 
-**Решение:** Добавяне на mapping обект `PATH_LABELS` който превежда URL-ите в четими имена (напр. `/bg/remont-na-pokrivi` → „Ремонт на покриви"). Показване на label-а + path-а в таблицата.
+### 3. Централизирана имейл база (нова секция „Контакти")
+
+Нова секция в админ панела — „Контакти" (или „Имейл база") — която агрегира всички уникални имейли от `inquiries` таблицата. Показва: име, имейл, телефон, дата, статус на съгласие (email_consent). С бутон за CSV експорт за имейл маркетинг.
+
+**Нов файл:** `src/pages/admin/ContactDatabasePage.tsx`
+**Промени:** `src/pages/admin/AdminDashboardPage.tsx` (нов nav item), `src/App.tsx` (нов route)
+
+### 4. Модерен дизайн на админ панела
+
+Визуално подобрение на ProjectsManagementPage и TestimonialsManagementPage:
+- Премахване на `min-h-screen bg-secondary` wrapper-а (вече е вътре в layout-а на AdminDashboard)
+- Добавяне на stat карти в горната част (общо проекти, активни, скрити)
+- По-модерни card-ове с gradient accent, hover ефекти, по-добра типография
+- Drag-and-drop подредба (визуално с бутони нагоре/надолу)
+
+**Файлове:** `src/pages/admin/ProjectsManagementPage.tsx`, `src/pages/admin/TestimonialsManagementPage.tsx`
+
+### 5. Подобрения на аналитиките
+
+- По-модерни KPI карти с gradient backgrounds
+- По-ясни labels и tooltips на графиките
+- Подобрен responsive layout
 
 **Файл:** `src/pages/admin/AnalyticsPage.tsx`
 
----
+### 6. Проверка на Call Log функционалността
 
-### 3. Управление на проекти от админ панела
+CallLogPage работи — но uses `as any` cast за `call_log` таблицата (TypeScript workaround). Ще се провери и подобри визуално.
 
-Нова DB таблица `projects` + нова админ страница + обновяване на ProjectsPage да чете от DB.
-
-**DB миграция:**
-- Таблица `projects` с колони: `id`, `title`, `location`, `date`, `category`, `category_label`, `description`, `materials`, `image_urls` (text[]), `is_active`, `sort_order`, `created_at`, `updated_at`
-- RLS: admin/staff CRUD, anyone SELECT where `is_active = true`
-- Публичен storage bucket `project-images`
-
-**Нови файлове:**
-- `src/pages/admin/ProjectsManagementPage.tsx` — CRUD за проекти с batch image upload (подобно на TestimonialsManagementPage)
-
-**Промени:**
-- `src/pages/admin/AdminDashboardPage.tsx` — добавяне на nav item „Проекти"
-- `src/App.tsx` — добавяне на route `/admin/projects`
-- `src/pages/ProjectsPage.tsx` — зареждане на проекти от DB вместо hardcoded масив (с fallback към текущите данни)
-- `src/components/Gallery.tsx` — зареждане от DB
-- `src/components/CompletedProjects.tsx` — зареждане от DB
+**Файл:** `src/pages/admin/CallLogPage.tsx`
 
 ---
 
-### 4. Подобрения на отзивите
-
-**Текущо:** TestimonialsManagementPage вече поддържа CRUD. Но:
-- Няма upload на снимка (само URL поле)
-- ReviewsPage използва hardcoded отзиви
-
-**Промени:**
-
-- `src/pages/admin/TestimonialsManagementPage.tsx` — добавяне на file upload бутон за аватар (upload в storage bucket `testimonial-avatars`)
-- `src/pages/ReviewsPage.tsx` — зареждане на отзиви от DB (от `testimonials` таблица) вместо hardcoded масив, с fallback
-- DB миграция: публичен storage bucket `testimonial-avatars`
-
----
-
-### Технически детайли
+### Общо засегнати файлове: ~10
 
 | Файл | Промяна |
 |---|---|
-| `src/contexts/AuthContext.tsx` | `signIn` await-ва `checkRoles`; премахване на `setTimeout` |
-| `src/pages/admin/AnalyticsPage.tsx` | PATH_LABELS mapping за топ страници |
-| DB миграция | Таблица `projects` + bucket `project-images` + bucket `testimonial-avatars` |
-| `src/pages/admin/ProjectsManagementPage.tsx` | Нова страница — CRUD за проекти с batch image upload |
-| `src/pages/admin/AdminDashboardPage.tsx` | Nav item за Проекти |
-| `src/App.tsx` | Route `/admin/projects` |
-| `src/pages/ProjectsPage.tsx` | Зареждане от DB |
-| `src/components/Gallery.tsx` | Зареждане от DB |
-| `src/components/CompletedProjects.tsx` | Зареждане от DB |
-| `src/pages/admin/TestimonialsManagementPage.tsx` | File upload за аватар |
-| `src/pages/ReviewsPage.tsx` | Зареждане от DB |
+| DB insert | Seed 7 проекта в `projects` таблица |
+| `src/components/MultiStepInquiryForm.tsx` | Auto-log phone to call_log after inquiry |
+| `src/components/PriceCalculator.tsx` | Same |
+| `src/pages/InspectionPage.tsx` | Same |
+| `src/pages/admin/ContactDatabasePage.tsx` | Нова страница — агрегирани контакти |
+| `src/pages/admin/AdminDashboardPage.tsx` | Нов nav item + модерен sidebar |
+| `src/App.tsx` | Нов route /admin/contacts |
+| `src/pages/admin/ProjectsManagementPage.tsx` | Визуално подобрение |
+| `src/pages/admin/TestimonialsManagementPage.tsx` | Визуално подобрение |
+| `src/pages/admin/AnalyticsPage.tsx` | Визуално подобрение |
+| `src/pages/admin/CallLogPage.tsx` | Визуално подобрение |
 
