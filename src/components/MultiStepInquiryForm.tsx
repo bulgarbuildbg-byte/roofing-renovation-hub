@@ -125,6 +125,19 @@ const MultiStepInquiryForm = () => {
       }
     }
 
+    // Auto-log phone to call_log
+    try {
+      await supabase.from("call_log" as any).insert({
+        client_name: form.name,
+        client_phone: form.phone,
+        client_email: form.email || null,
+        call_direction: "inbound",
+        notes: "Автоматично от запитване (MultiStep форма)",
+        inquiry_id: inquiry.id,
+        created_by: "00000000-0000-0000-0000-000000000000",
+      });
+    } catch {}
+
     trackEvent("button_click", "offer_button");
     setSubmitted(true);
     setSubmitting(false);
