@@ -147,7 +147,7 @@ const ProjectsPage = () => {
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10 font-bold px-8">
-                <Link to="/контакти">Безплатен оглед</Link>
+                <Link to={getPath('inspection')}>Безплатен оглед</Link>
               </Button>
             </div>
           </div>
@@ -270,7 +270,7 @@ const ProjectsPage = () => {
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/60 text-primary-foreground hover:bg-primary-foreground/10 font-bold px-8">
-                <Link to="/контакти" className="flex items-center gap-2">
+                <Link to={getPath('inspection')} className="flex items-center gap-2">
                   Запитване за оферта
                   <ChevronRight className="w-5 h-5" />
                 </Link>
