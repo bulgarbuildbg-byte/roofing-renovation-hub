@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
 import RelatedServices from "@/components/RelatedServices";
+import HowWeWork from "@/components/HowWeWork";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
 import PriceCalculator from "@/components/PriceCalculator";
 import { Button } from "@/components/ui/button";
@@ -65,12 +66,6 @@ const FlatRoofPage = () => {
     { title: "Защита и гаранция", description: "Нанасяме защитен слой и предоставяме писмена гаранция 15 години." },
   ];
 
-  const quickProcess = [
-    { icon: Phone, title: "Свързване", description: "Обадете се или изпратете запитване" },
-    { icon: Search, title: "Оглед", description: "Безплатен оглед на място" },
-    { icon: ClipboardCheck, title: "Оферта", description: "Детайлна оферта без задължение" },
-    { icon: Hammer, title: "Изпълнение", description: "Качествен монтаж с гаранция" },
-  ];
 
   const process = [
     { step: 1, title: "Инспекция и оценка", description: "Извършваме цялостен преглед на плоския покрив.", image: flatRoofInspection, imageAlt: "Инспекция на плосък покрив" },
@@ -221,22 +216,7 @@ const FlatRoofPage = () => {
         </section>
 
         {/* 5. PROCESS */}
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">Как работим</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">Прозрачен процес от първия контакт до завършения проект</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {quickProcess.map((step, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center mx-auto mb-4"><step.icon className="w-6 h-6" /></div>
-                  <div className="text-sm font-bold text-muted-foreground mb-1">Стъпка {index + 1}</div>
-                  <h3 className="font-semibold text-foreground mb-1">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <HowWeWork />
 
         {/* 6. MID CTA */}
         <section className="py-12 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
