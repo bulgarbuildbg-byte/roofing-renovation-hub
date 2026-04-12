@@ -15,7 +15,7 @@ const pricingServices: { key: string; routeKey: RouteKey; price: string }[] = [
   { key: "newRoof", routeKey: "newRoof", price: "68 €/м²" },
   { key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },
   { key: "leakRepair", routeKey: "leakRepair", price: "22 €" },
-  { key: "tileReplacement", routeKey: "tileReplacement", price: "18 €/м²" },
+  { key: "tileRoofRepair", routeKey: "tileRoofRepair", price: "18 €/м²" },
   { key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
   { key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
 ];

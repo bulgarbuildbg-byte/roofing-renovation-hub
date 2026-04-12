@@ -11,7 +11,7 @@ import roofRepairImg from "@/assets/hero-roof-repair.jpg";
 import leakRepairImg from "@/assets/hero-leak-repair.jpg";
 import waterproofingImg from "@/assets/hero-waterproofing.jpeg";
 import newRoofImg from "@/assets/hero-new-roof.jpg";
-import tileReplacementImg from "@/assets/hero-tile-replacement.jpg";
+import tileRoofRepairImg from "@/assets/hero-tile-replacement.jpg";
 import flatRoofImg from "@/assets/hero-flat-roof.jpeg";
 import metalRoofImg from "@/assets/services/metal-roof.jpg";
 import maintenanceImg from "@/assets/services/maintenance.jpg";
@@ -21,7 +21,7 @@ const serviceKeys: { image: string; key: string; routeKey: RouteKey; price: stri
   { image: roofRepairImg, key: "roofRepair", routeKey: "roofRepair", price: "19 €/м²" },
   { image: waterproofingImg, key: "waterproofing", routeKey: "waterproofing", price: "9 €/м²" },
   { image: newRoofImg, key: "newRoof", routeKey: "newRoof", price: "68 €/м²" },
-  { image: tileReplacementImg, key: "tileReplacement", routeKey: "tileReplacement", price: "18 €/м²" },
+  { image: tileRoofRepairImg, key: "tileRoofRepair", routeKey: "tileRoofRepair", price: "18 €/м²" },
   { image: leakRepairImg, key: "leakRepair", routeKey: "leakRepair", price: "22 €" },
   { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
   { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },

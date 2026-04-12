@@ -200,7 +200,7 @@ const Header = () => {
     { label: t('nav.leakRepair'), routeKey: 'leakRepair' },
     { label: t('nav.waterproofing'), routeKey: 'waterproofing' },
     { label: t('nav.newRoof'), routeKey: 'newRoof' },
-    { label: t('nav.tileReplacement'), routeKey: 'tileReplacement' },
+    { label: t('nav.tileRoofRepair'), routeKey: 'tileRoofRepair' },
     { label: t('nav.flatRoof'), routeKey: 'flatRoof' },
     { label: t('nav.metalRoof'), routeKey: 'metalRoof' },
     { label: t('nav.maintenance'), routeKey: 'maintenance' },
