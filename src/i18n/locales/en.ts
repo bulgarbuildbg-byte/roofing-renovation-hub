@@ -4,7 +4,7 @@ const en = {
     reviews: "Reviews", calculator: "Calculator", blog: "Blog", faq: "FAQ", contact: "Contact",
     freeInspection: "Free Inspection", callUs: "Call Us", teamLogin: "Team Login",
     roofRepair: "Roof Repair", leakRepair: "Leak Repair", waterproofing: "Waterproofing",
-    newRoof: "New Roof", tileReplacement: "Tile Replacement", flatRoof: "Flat Roofs",
+    newRoof: "New Roof", tileRoofRepair: "Tile Replacement", flatRoof: "Flat Roofs",
     metalRoof: "Metal Roofs", maintenance: "Maintenance",
   },
   hero: {
@@ -26,7 +26,7 @@ const en = {
     leakRepair: { title: "Leak Repair", problem: "Urgent roof leak problem?", includes: "Fast response,Accurate diagnosis,Temporary protection", benefits: "We respond within hours for emergencies" },
     waterproofing: { title: "Waterproofing", problem: "Moisture and leaks through roof or terrace?", includes: "Membrane waterproofing,Bitumen coatings,Liquid waterproofing", benefits: "10-year warranty and full moisture protection" },
     newRoof: { title: "New Roof", problem: "Need a new roof for your home?", includes: "Design,Wooden structure,Roof covering", benefits: "Modern, durable roof with up to 50 years lifespan" },
-    tileReplacement: { title: "Tile Replacement", problem: "Broken or old tiles?", includes: "Individual tiles,Partial replacement,Full replacement", benefits: "Quality materials with long-lasting warranty" },
+    tileRoofRepair: { title: "Tile Replacement", problem: "Broken or old tiles?", includes: "Individual tiles,Partial replacement,Full replacement", benefits: "Quality materials with long-lasting warranty" },
     flatRoof: { title: "Flat Roofs", problem: "Problems with flat roof or terrace?", includes: "Waterproofing,PVC membranes,Bitumen coatings", benefits: "Specialized solutions for flat surfaces" },
     metalRoof: { title: "Metal Roofs", problem: "Want a modern and durable roof?", includes: "Metal tiles,Sheet metal roofs,Trapezoidal sheets", benefits: "Up to 50 years warranty, lightweight construction" },
     maintenance: { title: "Maintenance", problem: "Want your roof to last longer?", includes: "Seasonal inspections,Cleaning,Preventive repair", benefits: "Extend your roof's lifespan by 30%" },
@@ -282,7 +282,7 @@ const en = {
       hero: { title: "New Roof Construction - Professional Building and Installation", subtitle: "Licensed construction company with over 15 years of experience.", inspectionBtn: "Free Inspection & Quote", pricesBtn: "View Prices & Services" },
       cta: { title: "Need a new roof?", subtitle: "Contact us for a free inspection.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
     },
-    tileReplacement: {
+    tileRoofRepair: {
       meta: { title: "Tile Replacement Varna - from €4/pc | 5yr Warranty", desc: "Professional tile replacement. Fast installation, 5yr warranty. ☎ 088 499 7659" },
       breadcrumb: { home: "Home", services: "Services", current: "Tile Replacement" },
       hero: { title: "Tile Replacement Varna - Professional Service", subtitle: "Professional replacement of broken, old or damaged tiles.", callBtn: "Call Us", quoteBtn: "Free Quote" },
@@ -307,7 +307,6 @@ const en = {
       intro: { title: "Why is regular roof maintenance important?" },
       cta: { title: "Maintain your roof", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
     },
-    waterproofingVarna: {
       meta: { title: "Waterproofing Varna | Bitumen, PVC, Liquid - Prices & Warranty", desc: "Waterproofing for roofs and terraces. Prices from €14/sqm. 15+ years experience. Free inspection: 088 499 7659" },
       breadcrumb: { home: "Home", waterproofing: "Waterproofing", current: "Waterproofing Varna" },
       hero: { title: "Waterproofing Varna - Bitumen, PVC and Liquid with Warranty", subtitle: "Stop leaks for good. Licensed construction company with over 15 years of experience.", callBtn: "Free inspection: 088 499 7659", inquiryBtn: "Send inquiry" },
@@ -425,7 +424,7 @@ const en = {
       newRoof: "Full construction — framing, insulation, and roofing cover.",
       metalRoof: "Installation of metal tiles or trapezoidal sheeting.",
       leakRepair: "Emergency leak elimination and preventive protection.",
-      tileReplacement: "Single tile or partial/full tile replacement.",
+      tileRoofRepair: "Single tile or partial/full tile replacement.",
       flatRoof: "Waterproofing and repair of flat roofs with PVC or bitumen.",
       maintenance: "Seasonal inspections, cleaning, and preventive repairs.",
     },
