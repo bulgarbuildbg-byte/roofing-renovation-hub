@@ -4,16 +4,14 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
 import before1 from "@/assets/before-after-1.jpg";
-import after1 from "@/assets/portfolio/residential-tile-roof.jpg";
-import before2 from "@/assets/process/old-roof-removal.jpg";
-import after2 from "@/assets/portfolio/villa-roof.jpg";
-import before3 from "@/assets/process/roof-leak-damage.jpg";
-import after3 from "@/assets/portfolio/apartment-building.jpg";
+import after1 from "@/assets/portfolio/asparuhovo-varna.jpeg";
+import after2 from "@/assets/portfolio/trakata-varna.jpg";
+import after3 from "@/assets/portfolio/makedonia-25-varna.jpeg";
 
 const transformations = [
-  { id: 1, title: "Реконструкция на покрив с керемиди", location: "кв. Левски, Варна", beforeImage: before1, afterImage: after1, description: "Пълна подмяна на стари, повредени керемиди с нови" },
-  { id: 2, title: "Обновяване на метален покрив", location: "Промишлена зона, Варна", beforeImage: before2, afterImage: after2, description: "Премахване на ръжда и монтаж на нов метален покрив" },
-  { id: 3, title: "Хидроизолация на плосък покрив", location: "ж.к. Младост, Варна", beforeImage: before3, afterImage: after3, description: "Ремонт на пукнатини и нова хидроизолационна мембрана" },
+  { id: 1, title: "Реконструкция на покрив с керемиди", location: "кв. Аспарухово, Варна", beforeImage: before1, afterImage: after1, description: "Пълна подмяна на стари, повредени керемиди с нови" },
+  { id: 2, title: "Обновяване на метален покрив", location: "м-т Траката, Варна", beforeImage: before2, afterImage: after2, description: "Премахване на ръжда и монтаж на нов метален покрив" },
+  { id: 3, title: "Хидроизолация на плосък покрив", location: "ул. Македония, Варна", beforeImage: before3, afterImage: after3, description: "Ремонт на пукнатини и нова хидроизолационна мембрана" },
 ];
 
 const BeforeAfterGallery = () => {
