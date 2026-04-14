@@ -45,7 +45,7 @@ const RoofRepairSigns = () => {
         <meta property="og:title" content="5 признака, че покривът се нуждае от ремонт | Варна" />
         <meta property="og:description" content="Разберете кои са най-честите признаци за проблеми с покрива - течове, липсващи керемиди, провисване. Кога е време за спешен ремонт?" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/5-признака-че-покривът-се-нуждае-от-ремонт" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/blog/5-признака-че-покривът-се-нуждае-от-ремонт" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

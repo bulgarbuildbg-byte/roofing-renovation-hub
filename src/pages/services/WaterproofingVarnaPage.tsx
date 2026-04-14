@@ -269,7 +269,7 @@ const WaterproofingVarnaPage = () => {
         <meta property="og:title" content="Хидроизолация Варна | Битумна, PVC, Течна – Цени от 14 €/кв.м" />
         <meta property="og:description" content="Професионална хидроизолация на покриви и тераси. Битумни мембрани, PVC, течна хидроизолация. Над 15г опит. Безплатен оглед: 088 499 7659" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/хидроизолация-варна" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/hidroizolacia-na-pokriv" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

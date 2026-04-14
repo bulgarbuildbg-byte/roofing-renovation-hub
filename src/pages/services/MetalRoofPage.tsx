@@ -121,7 +121,7 @@ const MetalRoofPage = () => {
         <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м | 50г Гаранция" />
         <meta property="og:description" content="Монтаж на метални покриви — керемиди, ламарина, стоящ фалц. До 50 години гаранция." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/метални-покриви" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/metalni-pokrivi" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:locale" content="bg_BG" />
         <meta property="og:site_name" content="Ремонт на Покриви Варна" />

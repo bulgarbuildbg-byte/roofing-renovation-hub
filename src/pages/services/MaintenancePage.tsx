@@ -232,7 +232,7 @@ const MaintenancePage = () => {
         <meta property="og:title" content="Поддръжка на Покриви Варна – от 149 € | Годишни пакети" />
         <meta property="og:description" content="Редовната поддръжка предотвратява скъпи ремонти. Годишни пакети от 149 до 799 €." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/поддръжка-на-покриви" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/poddruzhka-na-pokrivi" />
         <meta property="og:locale" content="bg_BG" />
         <meta property="og:site_name" content="Ремонт на Покриви Варна" />
         <meta name="keywords" content="поддръжка покриви варна, почистване улуци варна, годишна поддръжка покрив, профилактика покрив варна" />

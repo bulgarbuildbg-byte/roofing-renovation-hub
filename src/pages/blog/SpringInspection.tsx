@@ -18,7 +18,7 @@ const SpringInspection = () => {
         <meta property="og:title" content="Пролетна инспекция на покрива | Какво да проверите след зимата" />
         <meta property="og:description" content="След тежката зима покривът ви може да е претърпял щети. Ето какво трябва да проверите и как да предотвратите скъпи ремонти." />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/пролетна-инспекция-на-покрива" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/blog/пролетна-инспекция-на-покрива" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

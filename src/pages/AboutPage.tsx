@@ -45,6 +45,7 @@ const AboutPage = () => {
         <meta property="og:title" content="За Нас - Ремонт на Покриви Варна | 15+ Години" />
         <meta property="og:description" content="Над 15 години опит в покривните услуги. Квалифициран екип и качествени материали." />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/za-nas" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

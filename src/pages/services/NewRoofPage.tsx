@@ -164,7 +164,7 @@ const NewRoofPage = () => {
         <meta property="og:title" content="Изграждане на Нов Покрив Варна | Професионален Монтаж" />
         <meta property="og:description" content="Професионално изграждане на покриви. Дървени конструкции, всички материали, хидроизолация. Над 15г опит. Безплатен оглед: 088 499 7659" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/изграждане-на-покрив" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/nov-pokriv" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
