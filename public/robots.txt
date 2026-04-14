@@ -22,3 +22,9 @@ Sitemap: https://www.remontnapokrivivarna.bg/sitemap-bg.xml
 Sitemap: https://www.remontnapokrivivarna.bg/sitemap-en.xml
 Sitemap: https://www.remontnapokrivivarna.bg/sitemap-de.xml
 Sitemap: https://www.remontnapokrivivarna.bg/sitemap-ru.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-fi.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-sv.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-no.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-fr.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-nl.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap-ua.xml
