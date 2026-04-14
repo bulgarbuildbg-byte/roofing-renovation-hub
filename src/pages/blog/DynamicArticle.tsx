@@ -51,7 +51,7 @@ const DynamicArticle = () => {
     description: article.excerpt || "",
     datePublished: article.published_at || article.created_at,
     image: article.cover_image_url || "",
-    url: `https://www.remontnapokrivivarna.bg/блог/${article.slug}`,
+    url: `https://www.remontnapokrivivarna.bg/bg/blog/${article.slug}`,
   };
 
   return (
@@ -62,7 +62,7 @@ const DynamicArticle = () => {
         <meta property="og:title" content={article.title} />
         <meta property="og:description" content={article.excerpt || article.title} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://www.remontnapokrivivarna.bg/bg/блог/${article.slug}`} />
+        <meta property="og:url" content={`https://www.remontnapokrivivarna.bg/bg/blog/${article.slug}`} />
         <meta property="og:image" content={article.cover_image_url || "https://www.remontnapokrivivarna.bg/og-image.jpg"} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

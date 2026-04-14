@@ -34,7 +34,7 @@ const WaterproofingTypes = () => {
         <meta property="og:title" content="Видове хидроизолация: Битумна, PVC и Течна | Пълен Наръчник" />
         <meta property="og:description" content="Пълен наръчник за хидроизолационни материали. Научете коя хидроизолация е най-подходяща за вашия покрив." />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/блог/видове-хидроизолация-и-кога-да-изберем-всяка" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/blog/видове-хидроизолация-и-кога-да-изберем-всяка" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

@@ -148,7 +148,7 @@ const RoofLeakRepairPage = () => {
         <meta property="og:title" content={t('pages.leakRepair.meta.ogTitle')} />
         <meta property="og:description" content={t('pages.leakRepair.meta.desc')} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/ремонт-течове" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/remont-na-techove-pokriv" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

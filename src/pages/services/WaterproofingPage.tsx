@@ -128,7 +128,7 @@ const WaterproofingPage = () => {
         <meta property="og:title" content="Хидроизолация на Покриви Варна | 15г Гаранция" />
         <meta property="og:description" content="Професионална хидроизолация на покриви във Варна. Битумна, течна и PVC. 15 години гаранция. Безплатен оглед." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/хидроизолация" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/hidroizolacia-na-pokriv" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
