@@ -14,20 +14,29 @@ import RoofMaintenanceGuide from "./RoofMaintenanceGuide";
 import DynamicArticle from "./DynamicArticle";
 
 const staticArticles: Record<string, React.ComponentType> = {
+  // New Latin slugs
+  "podgotovka-pokriv-za-zimata": WinterRoofPreparation,
+  "5-priznaka-remont-na-pokriv": RoofRepairSigns,
+  "vidove-hidroizolacia-narachnik": WaterproofingTypes,
+  "proletna-inspekcia-na-pokriva": SpringInspection,
+  "greshki-pri-remont-na-pokriv": CommonMistakes,
+  "izbor-na-keremidi-za-pokriv": ChoosingTiles,
+  "tsena-remont-pokriv-varna-2026": RoofRepairCostVarna,
+  "smyana-na-keremidi-cena-i-narachnik": TileReplacementGuide,
+  "tech-ot-pokriva-prichini-i-reshenia": RoofLeakCauses,
+  "poddruzhka-na-pokriv-rakovodstvo-2026": RoofMaintenanceGuide,
+  // Old Cyrillic slugs (backward compat)
   "как-да-подготвим-покрива-за-зимата": WinterRoofPreparation,
   "5-признака-че-покривът-се-нуждае-от-ремонт": RoofRepairSigns,
   "видове-хидроизолация-и-кога-да-изберем-всяка": WaterproofingTypes,
   "пролетна-инспекция-на-покрива": SpringInspection,
   "най-честите-грешки-при-покривни-ремонти": CommonMistakes,
   "избор-на-керемиди-за-нов-покрив": ChoosingTiles,
-  "tsena-remont-pokriv-varna-2026": RoofRepairCostVarna,
-  "smyana-na-keremidi-cena-i-narachnik": TileReplacementGuide,
-  "tech-ot-pokriva-prichini-i-reshenia": RoofLeakCauses,
-  "poddruzhka-na-pokriv-rakovodstvo-2026": RoofMaintenanceGuide,
 };
 
 const BlogArticle = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { '*': restPath } = useParams();
+  const slug = restPath?.split('/').pop() || "";
   const [isDynamic, setIsDynamic] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -35,7 +44,6 @@ const BlogArticle = () => {
     if (staticArticles[slug]) {
       setIsDynamic(false);
     } else {
-      // Check if it's a dynamic article
       supabase
         .from("articles")
         .select("id")
@@ -48,7 +56,7 @@ const BlogArticle = () => {
     }
   }, [slug]);
 
-  if (!slug) return <Navigate to="/блог" replace />;
+  if (!slug) return <Navigate to="/bg/blog" replace />;
 
   // Static article
   if (isDynamic === false && staticArticles[slug]) {
@@ -61,12 +69,12 @@ const BlogArticle = () => {
     return <DynamicArticle />;
   }
 
-  // Loading or not found
+  // Loading
   if (isDynamic === null) {
     return <div className="flex justify-center py-32"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>;
   }
 
-  return <Navigate to="/блог" replace />;
+  return <Navigate to="/bg/blog" replace />;
 };
 
 export default BlogArticle;

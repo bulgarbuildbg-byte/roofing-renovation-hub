@@ -63,7 +63,7 @@ const blogPosts = [
     tags: ["поддръжка", "чеклист", "превенция"]
   },
   {
-    id: "как-да-подготвим-покрива-за-зимата",
+    id: "podgotovka-pokriv-za-zimata",
     title: "Как да подготвим покрива за зимата: Пълно ръководство",
     excerpt: "Научете как да подготвите покрива си за студените месеци с нашите експертни съвети. От инспекция до превантивни мерки - всичко, което трябва да знаете.",
     image: winterPreparation,
@@ -73,58 +73,58 @@ const blogPosts = [
     tags: ["зима", "поддръжка", "съвети"]
   },
   {
-    id: "5-признака-че-покривът-се-нуждае-от-ремонт",
+    id: "5-priznaka-remont-na-pokriv",
     title: "5 признака, че покривът ви се нуждае от спешен ремонт",
-    excerpt: "Разберете кои са най-честите признаци за проблеми с покрива и кога е време да се обадите на специалист. Не пропускайте тези важни сигнали!",
+    excerpt: "Течове, липсващи керемиди, провисване — разберете кога покривът ви се нуждае от спешен ремонт. Цени от 150 EUR, реални примери от Варна.",
     image: roofRepairSigns,
     date: "2024-11-15",
-    readTime: "6 мин",
+    readTime: "12 мин",
     category: "Ремонт",
     tags: ["ремонт", "диагностика", "течове"]
   },
   {
-    id: "видове-хидроизолация-и-кога-да-изберем-всяка",
+    id: "vidove-hidroizolacia-narachnik",
     title: "Видове хидроизолация и кога да изберем всяка от тях",
-    excerpt: "Пълен наръчник за различните видове хидроизолационни материали - битумни, PVC мембрани, течна хидроизолация. Научете коя е най-подходяща за вашия покрив.",
+    excerpt: "Битумна 8-15 €/м², PVC мембрана 15-25 €/м², течна 12-20 €/м². Пълно сравнение, ценови таблици и реални примери от Варна.",
     image: waterproofingTypes,
     date: "2024-11-01",
-    readTime: "10 мин",
+    readTime: "14 мин",
     category: "Хидроизолация",
     tags: ["хидроизолация", "материали", "технологии"]
   },
   {
-    id: "пролетна-инспекция-на-покрива",
+    id: "proletna-inspekcia-na-pokriva",
     title: "Пролетна инспекция на покрива: Какво да проверите след зимата",
-    excerpt: "След тежката зима покривът ви може да е претърпял щети. Ето какво трябва да проверите и как да предотвратите скъпи ремонти.",
+    excerpt: "Пълен чеклист с 12 точки за пролетна инспекция. Цена на професионален оглед 50-150 EUR. Какво да проверите и кога да повикате специалист.",
     image: springInspection,
     date: "2024-10-20",
-    readTime: "7 мин",
+    readTime: "12 мин",
     category: "Сезонна поддръжка",
     tags: ["пролет", "инспекция", "поддръжка"]
   },
   {
-    id: "най-честите-грешки-при-покривни-ремонти",
+    id: "greshki-pri-remont-na-pokriv",
     title: "Най-честите грешки при покривни ремонти и как да ги избегнете",
-    excerpt: "Избягвайте скъпите грешки при ремонт на покрив. Научете какви са най-честите проблеми и как професионалистите ги решават правилно.",
+    excerpt: "10 скъпи грешки, които виждаме всеки ден. Как да спестите 500-3,000 EUR и да получите качествен ремонт от първия път.",
     image: commonMistakes,
     date: "2024-10-05",
-    readTime: "9 мин",
+    readTime: "13 мин",
     category: "Ремонт",
     tags: ["грешки", "ремонт", "съвети"]
   },
   {
-    id: "избор-на-керемиди-за-нов-покрив",
+    id: "izbor-na-keremidi-za-pokriv",
     title: "Как да изберем правилните керемиди за нов покрив",
-    excerpt: "Керамични, бетонни или метални керемиди? Разгледайте предимствата и недостатъците на всеки тип и направете правилния избор за вашия дом.",
+    excerpt: "Глинени 25-40 €/м², бетонни 18-28 €/м², метални 15-25 €/м². Пълно сравнение, плюсове и минуси, реални цени за монтаж във Варна.",
     image: choosingTiles,
     date: "2024-09-18",
-    readTime: "11 мин",
+    readTime: "13 мин",
     category: "Нов покрив",
     tags: ["керемиди", "материали", "нов покрив"]
   }
 ];
 
-const categories = ["Всички", "Сезонна поддръжка", "Ремонт", "Хидроизолация", "Нов покрив"];
+const categories = ["Всички", "Сезонна поддръжка", "Ремонт", "Хидроизолация", "Нов покрив", "Цени"];
 
 const BlogPage = () => {
   const [dynamicPosts, setDynamicPosts] = useState<any[]>([]);
@@ -160,7 +160,7 @@ const BlogPage = () => {
     "@type": "Blog",
     "name": "Блог за покриви и хидроизолация - RemontNaPokriviVarna",
     "description": "Експертни статии, съвети и ръководства за ремонт на покриви, хидроизолация и поддръжка от професионалисти във Варна",
-    "url": "https://www.remontnapokrivivarna.bg/блог",
+    "url": "https://www.remontnapokrivivarna.bg/bg/blog",
     "publisher": {
       "@type": "LocalBusiness",
       "name": "RemontNaPokriviVarna",
@@ -176,7 +176,7 @@ const BlogPage = () => {
       "headline": post.title,
       "description": post.excerpt,
       "datePublished": post.date,
-      "url": `https://www.remontnapokrivivarna.bg/блог/${post.id}`
+      "url": `https://www.remontnapokrivivarna.bg/bg/blog/${post.id}`
     }))
   };
 
@@ -184,20 +184,21 @@ const BlogPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" },
-      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.remontnapokrivivarna.bg/блог" }
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg/bg" },
+      { "@type": "ListItem", "position": 2, "name": "Блог", "item": "https://www.remontnapokrivivarna.bg/bg/blog" }
     ]
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Блог за Покриви Варна - Съвети и Ръководства</title>
-        <meta name="description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви. Експертни съвети от професионалисти." />
+        <title>Блог за Покриви Варна - Съвети и Ръководства | 2026</title>
+        <meta name="description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви. Експертни съвети, ценови наръчници и ръководства от професионалисти във Варна." />
         <meta name="keywords" content="блог покриви, съвети за покриви, ремонт покрив, хидроизолация съвети, поддръжка на покрив, Варна" />
         <meta property="og:title" content="Блог за Покриви Варна - Съвети и Ръководства" />
         <meta property="og:description" content="Полезни статии за поддръжка, ремонт и хидроизолация на покриви." />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/blog" />
         <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
@@ -209,7 +210,7 @@ const BlogPage = () => {
         <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/20 py-16 md:py-24">
           <div className="container mx-auto px-4">
             <nav className="text-sm text-muted-foreground mb-6">
-              <Link to="/" className="hover:text-primary">Начало</Link>
+              <Link to="/bg" className="hover:text-primary">Начало</Link>
               <span className="mx-2">/</span>
               <span className="text-foreground">Блог</span>
             </nav>
@@ -246,7 +247,7 @@ const BlogPage = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-foreground mb-8">Препоръчана Статия за Покриви</h2>
             
-            <Link to={`/блог/${allPosts[0].id}`} className="block">
+            <Link to={`/bg/blog/${allPosts[0].id}`} className="block">
               <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group">
                 <div className="grid md:grid-cols-2 gap-0">
                   <div className="relative h-64 md:h-auto">
@@ -295,7 +296,7 @@ const BlogPage = () => {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {allPosts.slice(1).map((post) => (
-                <Link key={post.id} to={`/блог/${post.id}`}>
+                <Link key={post.id} to={`/bg/blog/${post.id}`}>
                   <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group">
                     <div className="relative h-48">
                       <img 

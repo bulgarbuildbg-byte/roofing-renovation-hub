@@ -10,6 +10,12 @@ import LanguageLayout from "@/components/LanguageLayout";
 import LanguageRedirect from "@/components/LanguageRedirect";
 import LocalizedPageRouter from "@/components/LocalizedPageRouter";
 import NotFound from "./pages/NotFound";
+import { useParams, Navigate as Nav } from "react-router-dom";
+
+const OldBlogSlugRedirect = () => {
+  const { slug } = useParams<{ slug: string }>();
+  return <Nav to={`/bg/blog/${slug || ""}`} replace />;
+};
 import ScrollToTop from "./components/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 
@@ -69,7 +75,7 @@ const App = () => (
             <Route path="/метални-покриви" element={<Navigate to="/bg/metalni-pokrivi" replace />} />
             <Route path="/поддръжка-на-покриви" element={<Navigate to="/bg/poddruzhka-na-pokrivi" replace />} />
             <Route path="/блог" element={<Navigate to="/bg/blog" replace />} />
-            <Route path="/блог/:slug" element={<Navigate to="/bg/blog" replace />} />
+            <Route path="/блог/:slug" element={<OldBlogSlugRedirect />} />
             <Route path="/калкулатор" element={<Navigate to="/bg/kalkulator" replace />} />
             <Route path="/безплатен-оглед" element={<Navigate to="/bg/bezplaten-ogled" replace />} />
 
