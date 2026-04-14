@@ -16,8 +16,52 @@ import waterproofingTypes from "@/assets/blog/waterproofing-types.jpg";
 import springInspection from "@/assets/blog/spring-inspection.jpg";
 import commonMistakes from "@/assets/blog/common-mistakes.jpg";
 import choosingTiles from "@/assets/blog/choosing-tiles.jpg";
+import roofRepairCost from "@/assets/blog/roof-repair-cost.jpg";
+import tileReplacementGuide from "@/assets/blog/tile-replacement-guide.jpg";
+import roofLeakCauses from "@/assets/blog/roof-leak-causes.jpg";
+import roofMaintenanceGuide from "@/assets/blog/roof-maintenance-guide.jpg";
 
 const blogPosts = [
+  {
+    id: "tsena-remont-pokriv-varna-2026",
+    title: "Цена за ремонт на покрив във Варна 2026 — Пълен ценови наръчник",
+    excerpt: "Актуални цени за ремонт на покриви: керемиден 20-35 €/м², плосък 15-25 €/м², метален 18-30 €/м². Ценова таблица, реални примери и съвети за спестяване.",
+    image: roofRepairCost,
+    date: "2026-04-14",
+    readTime: "15 мин",
+    category: "Цени",
+    tags: ["цени", "ремонт", "Варна"]
+  },
+  {
+    id: "smyana-na-keremidi-cena-i-narachnik",
+    title: "Смяна на керемиди — Кога, как и колко струва през 2026",
+    excerpt: "Глинени керемиди 25-40 €/м², бетонни 18-28 €/м². Кога да смените, видове керемиди, процес стъпка по стъпка и реални примери от Варна.",
+    image: tileReplacementGuide,
+    date: "2026-04-14",
+    readTime: "14 мин",
+    category: "Ремонт",
+    tags: ["керемиди", "смяна", "цени"]
+  },
+  {
+    id: "tech-ot-pokriva-prichini-i-reshenia",
+    title: "Теч от покрива — Причини, решения и цени за ремонт",
+    excerpt: "8 най-чести причини за течове и как да ги отстраните. Цени от 150 EUR. Спешна реакция до 24ч. Какво да направите веднага при теч.",
+    image: roofLeakCauses,
+    date: "2026-04-14",
+    readTime: "13 мин",
+    category: "Ремонт",
+    tags: ["течове", "спешен ремонт", "диагностика"]
+  },
+  {
+    id: "poddruzhka-na-pokriv-rakovodstvo-2026",
+    title: "Поддръжка на покрив — Пълно ръководство за 2026",
+    excerpt: "Сезонен чеклист за поддръжка: 100-300 €/год. спестяват 3,000-15,000 € ремонти. Какво, кога и как да проверявате.",
+    image: roofMaintenanceGuide,
+    date: "2026-04-14",
+    readTime: "12 мин",
+    category: "Сезонна поддръжка",
+    tags: ["поддръжка", "чеклист", "превенция"]
+  },
   {
     id: "как-да-подготвим-покрива-за-зимата",
     title: "Как да подготвим покрива за зимата: Пълно ръководство",
