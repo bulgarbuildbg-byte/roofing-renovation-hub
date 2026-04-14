@@ -7,6 +7,10 @@ import WaterproofingTypes from "./WaterproofingTypes";
 import SpringInspection from "./SpringInspection";
 import CommonMistakes from "./CommonMistakes";
 import ChoosingTiles from "./ChoosingTiles";
+import RoofRepairCostVarna from "./RoofRepairCostVarna";
+import TileReplacementGuide from "./TileReplacementGuide";
+import RoofLeakCauses from "./RoofLeakCauses";
+import RoofMaintenanceGuide from "./RoofMaintenanceGuide";
 import DynamicArticle from "./DynamicArticle";
 
 const staticArticles: Record<string, React.ComponentType> = {
@@ -16,6 +20,10 @@ const staticArticles: Record<string, React.ComponentType> = {
   "пролетна-инспекция-на-покрива": SpringInspection,
   "най-честите-грешки-при-покривни-ремонти": CommonMistakes,
   "избор-на-керемиди-за-нов-покрив": ChoosingTiles,
+  "tsena-remont-pokriv-varna-2026": RoofRepairCostVarna,
+  "smyana-na-keremidi-cena-i-narachnik": TileReplacementGuide,
+  "tech-ot-pokriva-prichini-i-reshenia": RoofLeakCauses,
+  "poddruzhka-na-pokriv-rakovodstvo-2026": RoofMaintenanceGuide,
 };
 
 const BlogArticle = () => {
