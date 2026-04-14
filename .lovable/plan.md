@@ -1,60 +1,73 @@
 
 
-## План: SEO блог оптимизация + 4 нови authority статии (3000+ думи)
+## План: Поправка на навигацията в блога + разширяване на 5 стари статии
 
-### Нови статии (4 бр., всяка 3000+ думи)
+### Проблем 1 — Линковете в блога не работят (3 бъга)
 
-| # | Файл | SEO заглавие (H1) | Основна ключова дума |
-|---|---|---|---|
-| 1 | `src/pages/blog/RoofRepairCostVarna.tsx` | Цена за ремонт на покрив във Варна 2026 — Пълен ценови наръчник | цена ремонт покрив Варна |
-| 2 | `src/pages/blog/TileReplacementGuide.tsx` | Смяна на керемиди — Кога, как и колко струва | смяна на керемиди цена |
-| 3 | `src/pages/blog/RoofLeakCauses.tsx` | Теч от покрива — Причини, решения и цени за ремонт | теч от покрив |
-| 4 | `src/pages/blog/RoofMaintenanceGuide.tsx` | Поддръжка на покрив — Пълно ръководство за 2026 | поддръжка на покрив |
+**Бъг A**: `BlogPage.tsx` линкове сочат към `/блог/${post.id}` (Cyrillic). В `App.tsx` ред 72, `/блог/:slug` прави redirect към `/bg/blog` **без slug-а**. Затова при клик → redirect обратно към блог листа.
 
-### Структура на всяка статия (единен шаблон)
+**Бъг B**: `BlogArticle.tsx` чете `useParams<{ slug: string }>()`, но route pattern-ът е `/:lang/*` — няма `:slug` параметър. `slug` е винаги `undefined`.
 
-1. **Hero** с cover image, breadcrumbs, дата, категория
-2. **Въведение** — реален проблем, защо е важно (300+ думи)
-3. **Основно съдържание** — детайлни секции с H2/H3 йерархия (1800+ думи)
-4. **Ценова секция** — реални диапазони в EUR, таблици
-5. **Реални примери** — 2-3 казуса от Варна с квартал и описание
-6. **FAQ секция** — 6-8 въпроса с FAQPage JSON-LD schema
-7. **CTA секция** — „Заяви безплатен оглед" + „Обади се: 088 499 7659"
-8. Вътрешни линкове към service pages (`/bg/remont-na-pokrivi`, `/bg/hidroizolacia-na-pokriv`, etc.)
+**Бъг C**: Вътрешните линкове в самите статии (напр. „Обратно към блога") сочат към `/блог` вместо `/bg/blog`.
 
-### LLMO оптимизация (във всяка статия)
-
-- Директни отговори на въпроси в първите 2 изречения на всеки параграф
-- Ясни числа и данни (цени, срокове, площи)
-- Списъци и таблици за лесно извличане от AI
-- Кратки, информативни изречения без празен маркетинг текст
-
-### SEO meta за всяка статия
-
-- Уникален `<title>` с ключова дума + „Варна 2026"
-- Уникален `<meta description>` (150-160 символа)
-- `og:url` с Latin slug (`/bg/blog/tsena-remont-pokriv-varna-2026`)
-- BlogPosting + FAQPage + BreadcrumbList JSON-LD schemas
-
-### Промени по BlogPage.tsx
-
-- Добави 4-те нови статии в `blogPosts` масива
-- Обнови категориите (добави „Цени")
-- Обнови `og:url` на Latin slug
-- Обнови schema URLs от Cyrillic на Latin
-
-### Промени по BlogArticle.tsx
-
-- Добави 4-те нови slug → component mapping-а в `staticArticles`
-
-### Засегнати файлове
+### Поправки за навигацията
 
 | Файл | Промяна |
 |---|---|
-| `src/pages/blog/RoofRepairCostVarna.tsx` | **НОВ** — 3000+ думи |
-| `src/pages/blog/TileReplacementGuide.tsx` | **НОВ** — 3000+ думи |
-| `src/pages/blog/RoofLeakCauses.tsx` | **НОВ** — 3000+ думи |
-| `src/pages/blog/RoofMaintenanceGuide.tsx` | **НОВ** — 3000+ думи |
-| `src/pages/blog/BlogArticle.tsx` | Добави 4 нови slug mapping-а |
-| `src/pages/BlogPage.tsx` | Добави 4 нови записа + обнови URLs |
+| `BlogPage.tsx` | Линкове от `/блог/${id}` → `/bg/blog/${id}` (ред 249 и 298) |
+| `App.tsx` | Ред 72: `/блог/:slug` redirect → `/bg/blog/:slug` (запази slug) |
+| `BlogArticle.tsx` | Извлечи slug от `*` wildcard param: `const { '*': restPath } = useParams(); const slug = restPath?.split('/').pop()` |
+| 5-те стари статии | Вътрешни линкове: `/блог` → `/bg/blog` |
+
+### Проблем 2 — 5 стари статии са кратки и непълни
+
+Текущо: SpringInspection (178 реда), CommonMistakes (271), ChoosingTiles (286), RoofRepairSigns (358), WaterproofingTypes (402). Новите статии са 468+ реда.
+
+Тези 5 статии трябва да се **пренапишат** по шаблона на новите 4 (RoofRepairCostVarna, TileReplacementGuide, RoofLeakCauses, RoofMaintenanceGuide):
+
+| Статия | Нова структура |
+|---|---|
+| **RoofRepairSigns** — 5 признака за спешен ремонт | Hero + детайлни 5 признака с цени + FAQ 6-8 въпроса + JSON-LD + CTA |
+| **WaterproofingTypes** — Видове хидроизолация | Hero + 4 типа с ценови таблици + сравнителна таблица + FAQ + CTA |
+| **ChoosingTiles** — Избор на керемиди | Hero + 4 типа керемиди с цени + таблица за сравнение + FAQ + CTA |
+| **CommonMistakes** — Грешки при ремонти | Hero + 8-10 грешки детайлно + как да ги избегнете + FAQ + CTA |
+| **SpringInspection** — Пролетна инспекция | Hero + чеклист с цени + сезонни особености Варна + FAQ + CTA |
+
+Всяка пренаписана статия ще съдържа:
+- 3000+ думи реално съдържание
+- JSON-LD schemas (BlogPosting, FAQPage, BreadcrumbList)
+- Ценови таблици и реални примери от Варна
+- 6-8 FAQ въпроса
+- Вътрешни линкове към service pages (Latin slugs)
+- Двоен CTA (безплатен оглед + телефон)
+- og:url с Latin slug
+
+### Slugs — миграция на Cyrillic към Latin
+
+Старите Cyrillic slug-ове ще бъдат заменени с Latin:
+
+| Стар slug | Нов slug |
+|---|---|
+| `5-признака-че-покривът-се-нуждае-от-ремонт` | `5-priznaka-remont-na-pokriv` |
+| `видове-хидроизолация-и-кога-да-изберем-всяка` | `vidove-hidroizolacia-narachnik` |
+| `избор-на-керемиди-за-нов-покрив` | `izbor-na-keremidi-za-pokriv` |
+| `най-честите-грешки-при-покривни-ремонти` | `greshki-pri-remont-na-pokriv` |
+| `пролетна-инспекция-на-покрива` | `proletna-inspekcia-na-pokriva` |
+| `как-да-подготвим-покрива-за-зимата` | `podgotovka-pokriv-za-zimata` |
+
+Mapping в `BlogArticle.tsx` ще включва и старите и новите slug-ове (старите за redirect).
+
+### Засегнати файлове (общо ~15)
+
+| Файл | Промяна |
+|---|---|
+| `src/App.tsx` | Fix redirect ред 72 |
+| `src/pages/BlogPage.tsx` | Fix линкове + нови Latin slugs |
+| `src/pages/blog/BlogArticle.tsx` | Fix slug extraction + нови mappings |
+| `src/pages/blog/RoofRepairSigns.tsx` | Пренаписване 3000+ думи |
+| `src/pages/blog/WaterproofingTypes.tsx` | Пренаписване 3000+ думи |
+| `src/pages/blog/ChoosingTiles.tsx` | Пренаписване 3000+ думи |
+| `src/pages/blog/CommonMistakes.tsx` | Пренаписване 3000+ думи |
+| `src/pages/blog/SpringInspection.tsx` | Пренаписване 3000+ думи |
+| `src/pages/blog/WinterRoofPreparation.tsx` | Fix вътрешни линкове + Latin slug |
 
