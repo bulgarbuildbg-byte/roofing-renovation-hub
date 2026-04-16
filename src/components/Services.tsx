@@ -26,6 +26,7 @@ const serviceKeys: { image: string; key: string; routeKey: RouteKey; price: stri
   { image: flatRoofImg, key: "flatRoof", routeKey: "flatRoof", price: "9 €/м²" },
   { image: metalRoofImg, key: "metalRoof", routeKey: "metalRoof", price: "18 €/м²" },
   { image: maintenanceImg, key: "maintenance", routeKey: "maintenance", price: "69 €/месец" },
+  { image: roofRepairImg, key: "solarSystems", routeKey: "solarSystems", price: "5 500 €" },
 ];
 
 
