@@ -1,51 +1,85 @@
-import { useState, useRef, useEffect } from "react"; // force reload
+import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ChatMessage from "./ChatMessage";
+import { useChatFunnel } from "@/hooks/useChatFunnel";
 import { useChat } from "@/hooks/useChat";
 import { cn } from "@/lib/utils";
 
-const QUICK_QUESTIONS = [
-  "Колко струва ремонт на покрив?",
-  "Предлагате ли гаранция?",
-  "Работите ли в събота?",
-  "Имам течове по покрива",
+const INITIAL_BUTTONS = [
+  { label: "🚨 Имам теч / спешен проблем", value: "LEAK" },
+  { label: "📋 Искам оферта", value: "QUOTE" },
+  { label: "📞 Искам да ми се обадите", value: "CALLBACK" },
+  { label: "🔍 Искам безплатен оглед", value: "INSPECTION" },
+  { label: "🏠 Ремонт на покрив", value: "ROOF_REPAIR" },
+  { label: "☀️ Соларна система", value: "SOLAR" },
+  { label: "❓ Имам въпрос", value: "QUESTION" },
 ];
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const { messages, isLoading, error, sendMessage, clearMessages } = useChat();
+  const [textInput, setTextInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-scroll to bottom when new messages arrive
+  const funnel = useChatFunnel();
+  const aiChat = useChat();
+
+  // Auto-scroll
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [funnel.messages, aiChat.messages]);
 
-  // Focus input when chat opens
+  // Focus input
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen && funnel.showInput && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen]);
+  }, [isOpen, funnel.showInput]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleInitialClick = (value: string) => {
+    funnel.addUser(INITIAL_BUTTONS.find(b => b.value === value)?.label || value);
+    funnel.startFlow(value as any);
+  };
+
+  const handleTextSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (input.trim()) {
-      sendMessage(input);
-      setInput("");
+    if (!textInput.trim()) return;
+    const text = textInput.trim();
+    setTextInput("");
+
+    if (funnel.currentFlow === "QUESTION") {
+      funnel.addUser(text);
+      // Send to AI
+      aiChat.sendMessage(text).then(() => {
+        funnel.showAfterQuestionCTA();
+      });
+    } else {
+      funnel.handleTextInput(text);
     }
   };
 
-  const handleQuickQuestion = (question: string) => {
-    sendMessage(question);
+  const handleReset = () => {
+    funnel.reset();
+    aiChat.clearMessages();
   };
+
+  const isStartScreen = funnel.messages.length === 0;
+
+  // Merge AI messages into funnel display
+  const allMessages = [...funnel.messages];
+  if (funnel.currentFlow === "QUESTION" && aiChat.messages.length > 0) {
+    const lastAiMsg = aiChat.messages[aiChat.messages.length - 1];
+    if (lastAiMsg?.role === "assistant") {
+      allMessages.push({ role: "bot", content: lastAiMsg.content });
+    }
+  }
+
+  const showTextInput = funnel.showInput || funnel.currentFlow === "QUESTION";
 
   return (
     <>
@@ -67,9 +101,7 @@ const ChatBot = () => {
         <div
           className={cn(
             "fixed z-50 bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden",
-            // Mobile: full screen with padding
             "inset-4 md:inset-auto",
-            // Desktop: fixed size in bottom-left
             "md:bottom-6 md:left-6 md:w-[380px] md:h-[550px]"
           )}
         >
@@ -80,11 +112,11 @@ const ChatBot = () => {
               <span className="font-semibold">Чат с нас</span>
             </div>
             <div className="flex items-center gap-1">
-              {messages.length > 0 && (
+              {!isStartScreen && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={clearMessages}
+                  onClick={handleReset}
                   className="h-8 w-8 text-primary-foreground hover:bg-primary-foreground/20"
                   title="Нов разговор"
                 >
@@ -104,41 +136,36 @@ const ChatBot = () => {
 
           {/* Messages area */}
           <ScrollArea className="flex-1 p-4" ref={scrollRef}>
-            {messages.length === 0 ? (
+            {isStartScreen ? (
               <div className="space-y-4">
                 <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3 text-sm">
                   <p className="font-medium mb-1">Здравейте! 👋</p>
-                  <p className="text-muted-foreground">
-                    Как мога да ви помогна с вашия покрив? Задайте въпрос или изберете от опциите по-долу.
-                  </p>
+                  <p className="text-muted-foreground">Как можем да ви помогнем?</p>
                 </div>
-                
-                {/* Quick questions */}
-                <div className="space-y-2">
-                  <p className="text-xs text-muted-foreground px-1">Често задавани въпроси:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {QUICK_QUESTIONS.map((question) => (
-                      <button
-                        key={question}
-                        onClick={() => handleQuickQuestion(question)}
-                        className="text-xs px-3 py-1.5 rounded-full border border-border hover:bg-muted transition-colors"
-                      >
-                        {question}
-                      </button>
-                    ))}
-                  </div>
+                <div className="grid grid-cols-1 gap-1.5">
+                  {INITIAL_BUTTONS.map(b => (
+                    <button
+                      key={b.value}
+                      onClick={() => handleInitialClick(b.value)}
+                      className="text-left text-sm px-3 py-2 rounded-xl border border-border hover:bg-muted transition-colors"
+                    >
+                      {b.label}
+                    </button>
+                  ))}
                 </div>
               </div>
             ) : (
               <div>
-                {messages.map((message, index) => (
+                {allMessages.map((msg, i) => (
                   <ChatMessage
-                    key={index}
-                    role={message.role}
-                    content={message.content}
+                    key={i}
+                    message={msg}
+                    onButtonClick={funnel.handleButtonClick}
+                    onFormSubmit={funnel.handleFormSubmit}
+                    isLast={i === allMessages.length - 1}
                   />
                 ))}
-                {isLoading && messages[messages.length - 1]?.role === "user" && (
+                {(aiChat.isLoading || funnel.isSubmitting) && (
                   <div className="flex justify-start mb-3">
                     <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
                       <div className="flex gap-1">
@@ -151,38 +178,26 @@ const ChatBot = () => {
                 )}
               </div>
             )}
-
-            {/* Error message */}
-            {error && (
-              <div className="bg-destructive/10 text-destructive text-sm rounded-lg px-3 py-2 mt-2">
-                {error}
-              </div>
-            )}
           </ScrollArea>
 
-          {/* Input form */}
-          <form
-            onSubmit={handleSubmit}
-            className="p-3 border-t border-border bg-background"
-          >
-            <div className="flex gap-2">
-              <Input
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Напишете съобщение..."
-                disabled={isLoading}
-                className="flex-1"
-              />
-              <Button
-                type="submit"
-                size="icon"
-                disabled={isLoading || !input.trim()}
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </div>
-          </form>
+          {/* Input form — only visible when text input is needed */}
+          {showTextInput && !isStartScreen && (
+            <form onSubmit={handleTextSubmit} className="p-3 border-t border-border bg-background">
+              <div className="flex gap-2">
+                <Input
+                  ref={inputRef}
+                  value={textInput}
+                  onChange={e => setTextInput(e.target.value)}
+                  placeholder={funnel.currentFlow === "QUESTION" ? "Напишете въпрос..." : "Напишете отговор..."}
+                  disabled={aiChat.isLoading}
+                  className="flex-1"
+                />
+                <Button type="submit" size="icon" disabled={aiChat.isLoading || !textInput.trim()}>
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
+            </form>
+          )}
         </div>
       )}
     </>
