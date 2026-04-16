@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Phone, CheckCircle, Clock, Shield } from "lucide-react";
+import { Phone, CheckCircle, Clock, Shield, Calculator } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import heroImage from "@/assets/hero-homepage.jpg";
+import CalculatorDialog from "@/components/CalculatorDialog";
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -50,27 +51,36 @@ const Hero = () => {
             {t('hero.subtitle')}
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 animate-fade-in">
-            <Button 
-              asChild
-              size="lg" 
-              className="w-full sm:w-auto h-12 md:h-16 bg-accent hover:bg-accent/90 text-accent-foreground text-base md:text-lg font-bold px-5 md:px-8 shadow-lg whitespace-nowrap"
-            >
-              <Link to={getPath('inspection')}>
-                {t('hero.ctaPrimary')}
-              </Link>
-            </Button>
-            <Button 
-              asChild
-              size="lg" 
-              variant="outline"
-              className="w-full sm:w-auto h-12 md:h-16 bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-primary-foreground hover:bg-primary-foreground hover:text-primary text-base md:text-lg font-bold px-4 md:px-8"
-            >
-              <a href="tel:0884997659" className="flex items-center justify-center gap-2">
-                <Phone className="w-5 h-5" />
-                {t('hero.ctaPhone')}
-              </a>
-            </Button>
+          {/* CTA row: primary group left + calculator right */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 animate-fade-in">
+            {/* Primary CTA group */}
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              <Button 
+                asChild
+                size="lg" 
+                className="w-full sm:w-auto h-12 md:h-16 bg-accent hover:bg-accent/90 text-accent-foreground text-base md:text-lg font-bold px-5 md:px-8 shadow-lg whitespace-nowrap"
+              >
+                <Link to={getPath('inspection')}>
+                  {t('hero.ctaPrimary')}
+                </Link>
+              </Button>
+              <Button 
+                asChild
+                size="lg" 
+                variant="outline"
+                className="w-full sm:w-auto h-12 md:h-16 bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-primary-foreground hover:bg-primary-foreground hover:text-primary text-base md:text-lg font-bold px-4 md:px-8"
+              >
+                <a href="tel:0884997659" className="flex items-center justify-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  {t('hero.ctaPhone')}
+                </a>
+              </Button>
+            </div>
+
+            {/* Secondary calculator button — visually lighter, separate */}
+            <div className="flex justify-center lg:justify-end">
+              <CalculatorDialog type="roof" />
+            </div>
           </div>
           
           <p className="mt-6 text-primary-foreground/80 text-sm md:text-base">

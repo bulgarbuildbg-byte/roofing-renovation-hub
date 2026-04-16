@@ -118,22 +118,22 @@ const ChatBot = () => {
           className={cn(
             "fixed z-50 animate-fade-in",
             "bottom-[88px] right-4 lg:right-6",
-            "w-[320px] max-w-[calc(100vw-2rem)]"
+            "w-[280px] lg:w-[320px] max-w-[calc(100vw-2rem)]"
           )}
         >
-          <div className="bg-white rounded-2xl shadow-xl border border-border/50 p-5 relative">
-            {/* Close */}
+          <div className="bg-white rounded-2xl shadow-xl border border-border/50 px-4 pb-4 pt-10 lg:pt-12 relative">
+            {/* Close — high-contrast rounded button */}
             <button
               onClick={dismissPrompt}
-              className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors"
+              className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Затвори"
             >
               <X className="w-4 h-4" />
             </button>
 
-            {/* Avatar + Text */}
-            <div className="flex flex-col items-center text-center mb-4">
-              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/20 mb-3">
+            {/* Avatar — half-protruding above card */}
+            <div className="absolute left-1/2 -translate-x-1/2 -top-7 lg:-top-8">
+              <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-full overflow-hidden border-3 border-white shadow-lg">
                 <img
                   src={chatAvatar}
                   alt="Консултант"
@@ -143,20 +143,24 @@ const ChatBot = () => {
                   height={64}
                 />
               </div>
-              <p className="text-sm font-semibold text-foreground leading-snug">
-                Здравейте! Имате нужда
-                <br />
-                от оглед или оферта?
-              </p>
+              {/* Green online dot */}
+              <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
             </div>
 
+            {/* Text */}
+            <p className="text-xs lg:text-sm font-semibold text-foreground leading-snug text-center mb-3">
+              Здравейте! Имате нужда
+              <br />
+              от оглед или оферта?
+            </p>
+
             {/* Primary CTAs — orange/accent */}
-            <div className="space-y-2 mb-3">
+            <div className="space-y-1.5 mb-2">
               {PRIMARY_BUTTONS.map((b) => (
                 <button
                   key={b.value}
                   onClick={() => handleButtonClick(b.value)}
-                  className="w-full text-sm font-medium px-4 py-2.5 rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
+                  className="w-full text-xs lg:text-sm font-medium px-3 py-2 lg:py-2.5 rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
                 >
                   {b.label}
                 </button>
@@ -169,7 +173,7 @@ const ChatBot = () => {
                 <button
                   key={b.value}
                   onClick={() => handleButtonClick(b.value)}
-                  className="text-xs font-medium px-2 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  className="text-[10px] lg:text-xs font-medium px-1.5 py-1.5 lg:py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
                   {b.label}
                 </button>
@@ -177,7 +181,7 @@ const ChatBot = () => {
             </div>
             <button
               onClick={() => handleButtonClick("QUESTION")}
-              className="w-full mt-1.5 text-xs font-medium px-2 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              className="w-full mt-1.5 text-[10px] lg:text-xs font-medium px-2 py-1.5 lg:py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               ❓ Имам въпрос
             </button>
