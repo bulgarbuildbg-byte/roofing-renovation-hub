@@ -1,218 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- Homepage -->
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg"/>
   </url>
-
-  <!-- Services overview -->
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/services</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Service pages -->
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/remont-na-pokrivi</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/remont-na-keremideni-pokrivi</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/remont-na-techove-pokriv</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/hidroizolacia-na-pokriv</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/hidroizolacia-varna</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/nov-pokriv</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/remont-na-ploski-pokrivi</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/metalni-pokrivi</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/poddruzhka-na-pokrivi</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Info pages -->
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/za-nas</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/otzyvi</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/proekti</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/vaprosi</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/kontakti</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/kalkulator</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/tseni-remont-pokriv</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/kak-rabotim</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Free Inspection landing page -->
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/free-inspection"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/kostenlose-inspektion"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/besplatnyj-osmotr"/>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/ilmainen-tarkastus"/>
-    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/gratis-inspektion"/>
-    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/gratis-inspeksjon"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/inspection-gratuite"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/gratis-inspectie"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/bezkoshtovnyj-ohlyad"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled"/>
-  </url>
-
-  <!-- Blog index -->
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Blog articles -->
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/tsena-remont-pokriv-varna-2026</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/smyana-na-keremidi-cena-i-narachnik</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/tech-ot-pokriva-prichini-i-reshenia</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/poddruzhka-na-pokriv-rakovodstvo-2026</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/5-priznaka-remont-na-pokriv</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/vidove-hidroizolacia-narachnik</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/izbor-na-keremidi-za-pokriv</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/greshki-pri-remont-na-pokriv</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.remontnapokrivivarna.bg/bg/blog/proletna-inspekcia-na-pokriva</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Solar pages -->
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/solarni-sistemi</loc>
     <lastmod>2026-04-16</lastmod>
@@ -237,17 +96,146 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Financing page -->
   <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/roof-repair-financing"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/dachsanierung-finanzierung"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/kattoremontin-rahoitus"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/takreparation-finansiering"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/takreparasjon-finansiering"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/financement-reparation-toiture"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/dakreparatie-financiering"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/finansirovanie-remonta-kryshi"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/finansuvannya-remontu-dahu"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv"/>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/tseni-remont-pokriv</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/free-inspection"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/kostenlose-inspektion"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/ilmainen-tarkastus"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/gratis-inspektion"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/gratis-inspeksjon"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/inspection-gratuite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/gratis-inspectie"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/besplatnyj-osmotr"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/bezkoshtovnyj-ohlyad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled"/>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/za-nas</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/proekti</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/otzyvi</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/kak-rabotim</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/kontakti</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/kalkulator</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/vaprosi</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/tsena-remont-pokriv-varna-2026</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/smyana-na-keremidi-cena-i-narachnik</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/tech-ot-pokriva-prichini-i-reshenia</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/poddruzhka-na-pokriv-rakovodstvo-2026</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/5-priznaka-remont-na-pokriv</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/vidove-hidroizolacia-narachnik</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/izbor-na-keremidi-za-pokriv</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/greshki-pri-remont-na-pokriv</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/blog/proletna-inspekcia-na-pokriva</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
