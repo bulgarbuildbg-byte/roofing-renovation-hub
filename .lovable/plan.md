@@ -1,37 +1,49 @@
 
 
-## План: Badge/Chip стил за „Изчисли цена" бутона
+## План: Глобално позициониране на ChatBot + FloatingCallButton
 
-### Промяна
+### Проблем
 
-**Файл: `src/components/CalculatorDialog.tsx`** — Redesign на trigger бутона от underline link към pill badge/chip.
+- `ChatBot` е само в `Index.tsx` — не присъства на другите ~35 страници
+- `FloatingCallButton` е импортиран поотделно във всяка страница (35+ файла)
+- Двата компонента не са координирани позиционно
 
-Нов стил:
-```
-inline-flex items-center gap-1.5 
-bg-[#F3F6FA] hover:bg-[#E8EDF4] 
-text-slate-700 
-border border-blue-300/60 hover:border-blue-400
-rounded-full 
-text-xs md:text-sm font-medium
-h-8 md:h-9 px-3 md:px-3.5
-transition-colors cursor-pointer
-```
+### Решение
 
-- Pill shape (`rounded-full`)
-- Светъл фон (`#F3F6FA`), тъмен текст (`slate-700`)
-- Лек outline в синьо (`border-blue-300/60`)
-- Компактен: 32px mobile / 36px desktop
-- Без underline, без сянка
-- Hover: леко потъмняване на фона + по-видим border
+Преместване на `ChatBot` и `FloatingCallButton` в `LanguageLayout.tsx` — общият wrapper за всички публични страници. Това ги прави глобални без промяна на отделните pages.
 
-Премахва се `mt-2` и `underline` класовете. Визуално ще изглежда като инструментален chip, не CTA.
+### Промени по файлове
 
-Позицията в Hero.tsx остава непроменена — вече е отделен вдясно на desktop и центриран на mobile.
-
-### Засегнат файл
-
-| Файл | Промяна |
+| Файл | Действие |
 |---|---|
-| `src/components/CalculatorDialog.tsx` | Нов badge/chip стил на trigger бутона |
+| `src/components/LanguageLayout.tsx` | + import ChatBot, FloatingCallButton, MobileBottomBar; render глобално |
+| `src/pages/Index.tsx` | - премахване на ChatBot, FloatingCallButton, MobileBottomBar imports и usage |
+| 35+ service/blog/other pages | - премахване на `FloatingCallButton` import и usage от всяка страница |
+
+### Детайли
+
+**LanguageLayout.tsx** ще стане:
+```tsx
+<>
+  <HreflangTags />
+  <Outlet />
+  <FloatingCallButton />
+  <MobileBottomBar />
+  <Suspense fallback={null}>
+    <ChatBot />
+  </Suspense>
+</>
+```
+
+**Позициониране** (без промяна на CSS — текущото е коректно):
+- ChatBot bubble: `bottom-[88px] right-4 lg:right-6` (над MobileBottomBar)
+- FloatingCallButton: `bottom-6 right-6` (desktop only, `hidden lg:flex`)
+- ChatBot prompt: `bottom-[88px] right-4 lg:right-6`
+- На desktop двата са един до друг в долния десен ъгъл
+
+**Поведение** остава същото — ChatBot се появява след scroll > 300px.
+
+### Обхват на cleanup
+
+Премахване на `FloatingCallButton` от ~35 файла + `ChatBot` и `MobileBottomBar` от Index.tsx. Самите компоненти не се променят.
 
