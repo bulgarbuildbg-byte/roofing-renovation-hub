@@ -1,57 +1,53 @@
 
 
-## План: Добавяне на „Изчисли цена" бутон в Hero секцията на всички service страници
+## План: UI/UX оптимизация на Hero бутони + Chat Widget мобилна версия
 
-### Какво се прави
+### 1. Hero секция — „Изчисли цена" бутон вдясно
 
-Добавяне на трети, визуално по-лек бутон „Изчисли цена" под двата основни CTA бутона във всяка service страница. При натискане отваря PriceCalculator като dialog/popup директно, без пренасочване.
+**Файл:** `src/components/Hero.tsx`
 
-### Подход
+Текущата структура е `flex-col sm:flex-row` с 2 бутона вляво. Промяната:
 
-**1. PriceCalculator — expose external trigger**
-
-Компонентът `PriceCalculator.tsx` вече работи като Dialog. Ще добавя `open` и `onOpenChange` props, за да може да се управлява отвън (от hero бутона).
-
-**2. Нов бутон във всяка Hero секция**
-
-Под съществуващия `flex` ред с двата бутона, ще се добави:
+- Обвиване на целия CTA блок в `flex justify-between items-end` контейнер
+- Лявата група (оглед + обади се) остава непроменена
+- Дясно: нов compact outline бутон „Изчисли цена" с `Calculator` икона
+- На mobile: бутонът пада под основните два (full width, по-лек стил)
+- Използва `CalculatorDialog` компонента (вече съществува)
 
 ```text
-[Заяви безплатен оглед]  [Обади се сега]     ← запазват се
-           ⌊ 🧮 Изчисли цена ⌋               ← нов, link-style
+Desktop layout:
+[Заяви безплатен оглед] [Обади се]          [🧮 Изчисли цена]
+←── primary group ──→                       ←── secondary ──→
+
+Mobile layout:
+[Заяви безплатен оглед]
+[Обади се]
+        🧮 Изчисли цена  ← link-style, centered
 ```
 
-- Стил: `text-white/80 underline hover:text-white` (text link, не пълен бутон)
-- Икона: `Calculator` (малка, 4×4)
-- Не е равностоен на primary/secondary CTA
+Стил на новия бутон: `border border-white/50 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20` — compact, outline, визуално secondary.
 
-**3. Засегнати файлове (13 service страници)**
+### 2. Chat Widget — мобилна компактност
 
-| Файл | Hero промяна |
+**Файл:** `src/components/ChatBot.tsx`
+
+**Prompt Card (mobile):**
+- Ширина: `w-[280px]` на mobile вместо `w-[320px]` (макс ~60% от 375px екран)
+- Аватар: намален до `w-12 h-12` на mobile, позициониран с `-mt-8` (50% извън картата) + `relative` wrapper с `pt-8` за padding
+- Close (X): увеличен до `w-6 h-6` с `p-1` touch target, `bg-gray-100 rounded-full` за по-добър контраст
+- Текст: по-компактен `text-xs` на mobile
+
+**Prompt Card (desktop):**
+- Аватар: `w-14 h-14`, също полу-излизащ с `-mt-9` за depth ефект
+- Останалото без промяна
+
+**Expanded Chat (mobile):**
+- Запазва `inset-2` fullscreen поведение (необходимо за funnel flows)
+
+### Засегнати файлове
+
+| Файл | Промяна |
 |---|---|
-| `RoofRepairPage.tsx` | + калкулатор бутон + PriceCalculator dialog |
-| `WaterproofingPage.tsx` | + калкулатор бутон |
-| `NewRoofPage.tsx` | + калкулатор бутон |
-| `MetalRoofPage.tsx` | + калкулатор бутон |
-| `RoofLeakRepairPage.tsx` | + калкулатор бутон |
-| `TileReplacementPage.tsx` | + калкулатор бутон |
-| `FlatRoofPage.tsx` | + калкулатор бутон |
-| `MaintenancePage.tsx` | + калкулатор бутон |
-| `WaterproofingVarnaPage.tsx` | + калкулатор бутон |
-| `SolarSystemsPage.tsx` | + SolarCalculator dialog |
-| `SolarHousePage.tsx` | + SolarCalculator dialog |
-| `SolarBuildingsPage.tsx` | + SolarCalculator dialog |
-| `SolarFarmsPage.tsx` | + SolarCalculator dialog |
-| `PriceCalculator.tsx` | + `open`/`onOpenChange` props |
-| `SolarCalculator.tsx` | + Dialog wrapper с external trigger |
-
-### Поведение
-
-1. Потребител натиска „Изчисли цена"
-2. Отваря се PriceCalculator (за покривни) или SolarCalculator (за соларни) като overlay
-3. Калкулаторът задава тип покрив → квадратура → състояние
-4. Показва ориентировъчна цена + препоръка
-5. След резултата: „Искате ли точна оферта?" с бутони „Да" и „Обади ми се"
-
-Стъпка 5 вече е имплементирана в PriceCalculator (inquiry form след калкулация).
+| `src/components/Hero.tsx` | Restructure CTA layout, add CalculatorDialog вдясно |
+| `src/components/ChatBot.tsx` | Compact prompt card, half-protruding avatar, bigger X button |
 
