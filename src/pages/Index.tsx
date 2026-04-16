@@ -179,12 +179,6 @@ const Index = () => {
         subtitle={t('cta.emergencySubtitle')}
       />
       <Footer />
-      <FloatingCallButton />
-      <MobileBottomBar />
-      <Suspense fallback={null}>
-        <ChatBot />
-      </Suspense>
-      <div className="h-20 md:hidden" />
     </div>
   );
 };
