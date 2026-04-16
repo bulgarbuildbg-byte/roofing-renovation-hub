@@ -1,72 +1,78 @@
 
 
-## План: SEO одит — поправки за навигация, метаданни и съдържание
+## План: Решаване на 118 неиндексирани страници (SEO критични поправки)
 
-### Обхват (8 промени, ~10 файла)
+### Анализ на проблемите
 
-### 1. Навигация: соларни услуги като отделна категория
+Прегледах кода и идентифицирах причините:
 
-**Header.tsx** — Добавяне на втори dropdown „Соларни Системи" (между Услуги и Контакти) с 4 линка: solarSystems, solarHouse, solarBuildings, solarFarms. Премахване на solarSystems от serviceLinks (за да не се дублира). На mobile — добавяне на отделна секция със заглавие „Соларни Системи".
+**Проблем 1 — 77 страници с грешен canonical (НАЙ-КРИТИЧНО):**
+В `src/components/HreflangTags.tsx` се вижда, че canonical се генерира от `location.pathname`. На пръв поглед изглежда коректно, но проблемът е, че на различните езикови страници canonical-ът работи правилно. **Истинският проблем** е, че всяка страница (Index.tsx, ServicesPage.tsx, и др.) ползва `<Helmet>` с `og:url` сочещ към `/bg` версията, докато потребителят е на `/en` или друга — и това обърква Google.
 
-### 2. Дефолтен title в `index.html` → по-описателен
+Освен това в `src/pages/Index.tsx` (line 99): `og:url` = `${BASE_URL}/bg` — hardcoded. Това означава, че английската версия има og:url към BG версията.
 
-Промяна на `<title>` от generic към brand-rich fallback: **„Ремонт на Покриви Варна — Безплатен Оглед 24ч | 088 499 7659"**. Всички страници използват react-helmet и презаписват, но fallback-ът се вижда от crawlers преди JS hydration.
+**Проблем 2 — Дубликати без www / с www / с /bg:**
+- `https://remontnapokrivivarna.bg/` (без www)
+- `https://www.remontnapokrivivarna.bg/` (root, без /bg)
+- `https://www.remontnapokrivivarna.bg/bg`
 
-### 3. Уникални title/description за страници, които използват generic ключове
+Lovable hosting обработва всички три, но няма 301 redirect от root към `/bg`. В `App.tsx` вероятно има редирект, но не е сървърен. Не може директно да направим 301 на ниво хостинг, но можем да добавим canonical към `/bg` от root и meta refresh.
 
-| Файл | Промяна |
-|---|---|
-| `src/pages/PricingPage.tsx` | hardcoded title: „Цени за Ремонт на Покриви Варна 2026 — Прозрачни Тарифи" + уникална desc |
-| `src/pages/CalculatorPage.tsx` | title по-богат: „Калкулатор Цена Покрив Варна — Онлайн Оценка за 60 секунди" |
-| `src/pages/services/RoofRepairPage.tsx` | Замяна на t() ключове с hardcoded стойности (i18n keys може да липсват) — fallback към ключовете остава |
-| `src/pages/services/RoofLeakRepairPage.tsx` | Същото — hardcoded title/desc |
+**Проблем 3 — 14 redirect URLs в sitemap:**
+Старите Cyrillic slugs (от `OLD_SLUG_REDIRECTS` в routes.ts) вероятно все още присъстват в някои sitemaps. Трябва пълна проверка.
 
-Допълнителна проверка: title-ите от audit-а (`/bg/hidroizolacia-na-pokriv`, `/bg/nov-pokriv`, `/bg/metalni-pokrivi` и др.) **вече са уникални** в кода — не се изисква промяна там.
+**Проблем 4 — Hero image performance:**
+В `src/components/Hero.tsx` (line 18-19): `fetchPriority="high"` ВЕЧЕ Е ЗАДАДЕН. Но в `index.html` няма `<link rel="preload">` за hero изображението. Логото (в Header) може да няма fetchpriority. Трябва проверка.
 
-### 4. H1 на калкулатор страницата
+**Проблем 5 — Грешен legalName:**
+В `src/pages/Index.tsx` (line 41): `"legalName": "България Билд ЕООД"` → трябва **„Булгар Билд ЕООД"** и EIK **207210238** (не 207189805).
 
-**`src/components/PriceCalculator.tsx`** (line 381) — Промяна на „Изчислете Ориентировъчна Цена" от `<h2>` на `<h1>`. Запазване на класовете. Където PriceCalculator се ползва вътре в други страници, h1 ще бъде второстепенен — приемливо, защото калкулаторът е централен компонент.
+**Проблем 6 — x-default hreflang:**
+В `HreflangTags.tsx` (line 36): `${BASE_URL}/bg` → трябва `${BASE_URL}/` (root).
 
-Алтернатива (по-чиста): добавяне на видим H1 в `CalculatorPage.tsx` преди компонента и оставяне на h2 в PriceCalculator. **Ще използвам тази алтернатива.**
+**Проблем 7 — UA hreflang код:**
+URL-ът е `/ua` но lang код е `uk`. Промяна на URL-а на `/uk` е голяма миграция (засяга 100+ места). По-добре оставяме `/ua` URL и `hreflang="uk"` (което Google приема), но добавяме `<meta http-equiv="content-language" content="uk">` за украинската версия.
 
-### 5. Поправка на дублирания „Изчисли Цена" бутон на `/bg/solarni-sistemi`
+---
 
-**`src/pages/services/SolarSystemsPage.tsx`** — Има два бутона: anchor `<a href="#solar-calculator">Изчисли Цена</a>` (line 152) И `<CalculatorDialog type="solar" />` chip (line 162). Премахване на CalculatorDialog chip, тъй като anchor-ът е по-релевантен (води до вградения SolarCalculator на страницата).
+### Промени по файлове (8 файла + 1 миграция)
 
-### 6. Service Schema на покривни подстраници
+| # | Файл | Промяна |
+|---|------|---------|
+| 1 | `src/components/HreflangTags.tsx` | x-default → root (`/`); добавяне на dynamic og:url съответствие; canonical винаги per-language |
+| 2 | `src/pages/Index.tsx` | Fix legalName → „Булгар Билд ЕООД", EIK → 207210238; og:url динамичен per-lang |
+| 3 | `src/components/Footer.tsx` (ако има EIK) | Update EIK 207189805 → 207210238 |
+| 4 | `index.html` | + `<link rel="preload" as="image" href="/src/assets/hero-homepage.jpg" fetchpriority="high">`; обновяване на `og:url` |
+| 5 | `src/components/Header.tsx` | Logo `<img>` → добавяне на `fetchpriority="high"` и `loading="eager"` |
+| 6 | `public/sitemap-bg.xml` + 9 други | Премахване на всички URL-и от `OLD_SLUG_REDIRECTS` (Cyrillic slugs) |
+| 7 | `src/App.tsx` или нов `RootRedirect.tsx` | На route `/` — client-side redirect към `/bg` (за SPA), вече е имплементиран чрез `LanguageRedirect` — verify |
+| 8 | Всички страници с hardcoded `og:url={BASE_URL}/bg` | Замяна с динамичен per-language URL чрез useParams |
 
-**Файлове:** `WaterproofingPage.tsx`, `NewRoofPage.tsx`, `MetalRoofPage.tsx`, `FlatRoofPage.tsx`, `TileReplacementPage.tsx`, `MaintenancePage.tsx`, `RoofLeakRepairPage.tsx` — добавяне на JSON-LD `Service` schema в `<Helmet>`:
+### Проблем 7 (UA) — отделно решение
 
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "...",
-  "provider": { "@type": "RoofingContractor", "name": "...", "telephone": "..." },
-  "areaServed": "Варна",
-  "offers": { "@type": "Offer", "price": "...", "priceCurrency": "EUR" }
-}
-```
+Промяна на URL slug `/ua` → `/uk` би изисквала:
+- Update на `SUPPORTED_LANGUAGES` в `i18n/config.ts`
+- Преименуване на `src/i18n/locales/ua.ts` → `uk.ts`
+- Update на всички `localizedSlugs.ua` → `localizedSlugs.uk`
+- Update на `sitemap-ua.xml` → `sitemap-uk.xml`
+- 301 redirect от `/ua/*` → `/uk/*`
 
-### 7. Тестимониал гаранция
+**Препоръка:** Тази промяна е скъпа и рискова. Оставяме URL `/ua` с hreflang `uk` (Google поддържа това разминаване от години). Не е блокер за индексиране.
 
-**`src/components/Testimonials.tsx`** (line 53) — текстът вече казва „15 години гаранция" — **поправено е**. Ако audit-ът отчита грешка, тя идва от Supabase БД. Ще добавим миграция: `UPDATE testimonials SET text = REPLACE(text, '5 години гаранция', '15 години гаранция') WHERE text LIKE '%5 години гаранция%' AND text NOT LIKE '%15 години%';`
+### Какво НЕ можем да направим директно
 
-### 8. Дублиран URL `hidroizolacia-varna` vs `hidroizolacia-na-pokriv`
+- **Сървърен 301 redirect** от non-www → www: Lovable хостингът автоматично пренасочва, но ако не работи — изисква DNS/Cloudflare настройка от потребителя. Документирам в съобщение.
+- **301 от root `/` към `/bg`**: SPA-та правят client-side redirect (LanguageRedirect.tsx вече прави това). За истински 301 нужен е CDN/хостинг конфиг — не е възможно.
 
-В `routes.ts` `hidroizolacia-varna` е само в OLD_SLUG_REDIRECTS → 301 redirect. Това вече е коректно. **Премахване на `hidroizolacia-varna` от sitemap-ите**, ако присъства (проверих BG sitemap — само `hidroizolacia-na-pokriv` е там; ОК). Без промени.
+### Очакван резултат
 
-### Засегнати файлове
+- ~77 неиндексирани страници → индексирани (правилни per-language canonical-и)
+- ~14 redirect URL-и → премахнати от sitemaps
+- Schema.org достоверност → коректен legalName/EIK за rich snippets
+- LCP подобрение → preload hero image
+- Конистентност og:url ↔ canonical → по-добър SEO авторитет
 
-| Файл | Действие |
-|---|---|
-| `src/components/Header.tsx` | + Solar dropdown, отделяне от Services |
-| `index.html` | подобряване на fallback title |
-| `src/pages/PricingPage.tsx` | hardcoded уникален title/desc |
-| `src/pages/CalculatorPage.tsx` | + видим H1, по-богат title |
-| `src/pages/services/RoofRepairPage.tsx` | hardcoded title/desc fallback |
-| `src/pages/services/RoofLeakRepairPage.tsx` | hardcoded title/desc fallback |
-| `src/pages/services/SolarSystemsPage.tsx` | премахване на дублиран CalculatorDialog |
-| 7 service pages | + JSON-LD Service schema |
-| Migration | UPDATE testimonials за 15г гаранция |
+### Засегнат обем
+
+~10 файла + 1 SQL миграция (ако EIK е в DB някъде). Без breaking changes, без promenq на routing.
 
