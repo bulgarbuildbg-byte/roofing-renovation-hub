@@ -1,49 +1,70 @@
 
 
-## План: Глобално позициониране на ChatBot + FloatingCallButton
+## План: Пълни sitemaps за всички 10 езика + robots.txt оптимизация
 
 ### Проблем
 
-- `ChatBot` е само в `Index.tsx` — не присъства на другите ~35 страници
-- `FloatingCallButton` е импортиран поотделно във всяка страница (35+ файла)
-- Двата компонента не са координирани позиционно
+BG sitemap-ът съдържа ~35 URL-а (всички услуги, блог, соларни, финансиране). Останалите 9 езикови sitemaps (EN, DE, RU, FI, SV, NO, FR, NL, UA) имат само ~13-15 URL-а и им липсват:
+
+| Липсващи страници | Брой |
+|---|---|
+| projects, reviews, calculator, faq, howWeWork, pricing | 6 |
+| solarSystems, solarHouse, solarBuildings, solarFarms | 4 |
+| financing | 1 |
+| contact (в EN, RU) | 1 |
 
 ### Решение
 
-Преместване на `ChatBot` и `FloatingCallButton` в `LanguageLayout.tsx` — общият wrapper за всички публични страници. Това ги прави глобални без промяна на отделните pages.
+Пълно презаписване на всички 10 sitemaps + sitemap index с единна структура, генерирана от `routes.ts` slugs.
 
 ### Промени по файлове
 
 | Файл | Действие |
 |---|---|
-| `src/components/LanguageLayout.tsx` | + import ChatBot, FloatingCallButton, MobileBottomBar; render глобално |
-| `src/pages/Index.tsx` | - премахване на ChatBot, FloatingCallButton, MobileBottomBar imports и usage |
-| 35+ service/blog/other pages | - премахване на `FloatingCallButton` import и usage от всяка страница |
+| `public/sitemap.xml` | Update lastmod → 2026-04-16 |
+| `public/sitemap-bg.xml` | Запазва се (вече е пълен), lastmod update |
+| `public/sitemap-en.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/sitemap-de.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/sitemap-ru.xml` | Пълно презаписване — добавяне на ~13 липсващи URL-а |
+| `public/sitemap-fi.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/sitemap-sv.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/sitemap-no.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/sitemap-fr.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/sitemap-nl.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/sitemap-ua.xml` | Пълно презаписване — добавяне на ~12 липсващи URL-а |
+| `public/robots.txt` | Опростяване — само `Sitemap: sitemap.xml` (index вече сочи към всички sub-sitemaps) |
 
-### Детайли
+### Структура на всеки езиков sitemap
 
-**LanguageLayout.tsx** ще стане:
-```tsx
-<>
-  <HreflangTags />
-  <Outlet />
-  <FloatingCallButton />
-  <MobileBottomBar />
-  <Suspense fallback={null}>
-    <ChatBot />
-  </Suspense>
-</>
+Всеки файл ще съдържа **25 URL-а** (всички routes от `routes.ts`), организирани по приоритет:
+
+```text
+1.0  homepage
+0.9  services, roofRepair, tileRoofRepair, waterproofing, newRoof, inspection, solarSystems, financing, pricing
+0.8  leakRepair, flatRoof, metalRoof, maintenance, solarHouse, solarBuildings, solarFarms, contact, calculator
+0.7  about, projects, reviews, howWeWork, blog, faq
 ```
 
-**Позициониране** (без промяна на CSS — текущото е коректно):
-- ChatBot bubble: `bottom-[88px] right-4 lg:right-6` (над MobileBottomBar)
-- FloatingCallButton: `bottom-6 right-6` (desktop only, `hidden lg:flex`)
-- ChatBot prompt: `bottom-[88px] right-4 lg:right-6`
-- На desktop двата са един до друг в долния десен ъгъл
+### Hreflang cross-references
 
-**Поведение** остава същото — ChatBot се появява след scroll > 300px.
+Ключови страници с пълни 10-езикови `xhtml:link` алтернати:
+- **homepage** — всички 10 езика + x-default=bg
+- **inspection** — всички 10 езика + x-default=bg
+- **financing** — всички 10 езика + x-default=bg
 
-### Обхват на cleanup
+### Robots.txt оптимизация
 
-Премахване на `FloatingCallButton` от ~35 файла + `ChatBot` и `MobileBottomBar` от Index.tsx. Самите компоненти не се променят.
+```text
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap.xml
+```
+
+Опростено — един Sitemap entry към index файла (който вече реферира всички 10 sub-sitemaps). Премахване на дублиращите се директни reference-и.
+
+### Техническа бележка
+
+Slugs-ите се вземат директно от `src/i18n/routes.ts` — няма ръчно въвеждане, без риск от грешки.
 
