@@ -108,6 +108,7 @@ const SolarBuildingsPage = () => {
                 <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" /> 088 499 7659</a>
               </Button>
             </div>
+            <CalculatorDialog type="solar" />
           </div>
         </div>
       </section>

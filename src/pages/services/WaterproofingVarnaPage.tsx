@@ -351,6 +351,9 @@ const WaterproofingVarnaPage = () => {
                 <Link to="/bg/контакти">Изпратете запитване</Link>
               </Button>
             </div>
+            <div className="flex justify-center mt-2">
+              <CalculatorDialog type="roof" />
+            </div>
           </div>
         </div>
       </section>

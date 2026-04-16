@@ -205,6 +205,7 @@ const RoofLeakRepairPage = () => {
                   </a>
                 </Button>
               </div>
+              <CalculatorDialog type="roof" />
               
               <div className="flex flex-nowrap gap-3 text-xs md:text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
