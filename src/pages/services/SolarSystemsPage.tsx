@@ -7,6 +7,7 @@ import HowWeWork from "@/components/HowWeWork";
 import CompletedProjects from "@/components/CompletedProjects";
 import Testimonials from "@/components/Testimonials";
 import { Button } from "@/components/ui/button";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Sun, Zap, Shield, Home, Building, TrendingUp, Wrench, CheckCircle, Phone, ArrowRight, Lightbulb, Battery, Leaf, DollarSign, Clock, Award } from "lucide-react";

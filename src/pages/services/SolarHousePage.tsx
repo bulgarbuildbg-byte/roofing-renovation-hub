@@ -6,6 +6,7 @@ import TrustIndicators from "@/components/TrustIndicators";
 import SolarCalculator from "@/components/SolarCalculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Link } from "react-router-dom";
 import { Sun, Shield, Phone, ArrowRight, CheckCircle, Zap, Home, Battery, Wrench, Award, Clock, TrendingUp } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";

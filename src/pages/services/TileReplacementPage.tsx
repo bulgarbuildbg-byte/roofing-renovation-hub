@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
 import PriceCalculator from "@/components/PriceCalculator";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import CompletedProjects from "@/components/CompletedProjects";
 import Testimonials from "@/components/Testimonials";
 import { Button } from "@/components/ui/button";

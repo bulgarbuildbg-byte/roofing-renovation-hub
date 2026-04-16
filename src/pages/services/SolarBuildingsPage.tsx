@@ -5,6 +5,7 @@ import FloatingCallButton from "@/components/FloatingCallButton";
 import TrustIndicators from "@/components/TrustIndicators";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Link } from "react-router-dom";
 import { Building, Shield, Phone, ArrowRight, CheckCircle, Zap, Users, TrendingDown, Wrench, Sun, DollarSign } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
