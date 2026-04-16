@@ -15,6 +15,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'za-nas', projects: 'proekti', reviews: 'otzyvi', calculator: 'kalkulator',
     blog: 'blog', faq: 'vaprosi', contact: 'kontakti', inspection: 'bezplaten-ogled', howWeWork: 'kak-rabotim',
     pricing: 'tseni-remont-pokriv',
+    solarSystems: 'solarni-sistemi', solarHouse: 'solarni-sistemi-za-kashta', solarBuildings: 'solarni-sistemi-za-blokove', solarFarms: 'solarni-centrali',
   },
   en: {
     home: '', services: 'services', roofRepair: 'roof-repair-varna', leakRepair: 'roof-leak-repair',
@@ -24,6 +25,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'about', projects: 'projects', reviews: 'reviews', calculator: 'calculator',
     blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'free-inspection', howWeWork: 'how-we-work',
     pricing: 'roof-repair-prices',
+    solarSystems: 'solar-systems', solarHouse: 'solar-systems-for-homes', solarBuildings: 'solar-systems-for-buildings', solarFarms: 'solar-farms',
   },
   de: {
     home: '', services: 'dienstleistungen', roofRepair: 'dachreparatur-varna', leakRepair: 'leckage-reparatur-varna',
@@ -33,6 +35,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'ueber-uns', projects: 'projekte', reviews: 'bewertungen', calculator: 'kalkulator',
     blog: 'blog', faq: 'faq', contact: 'kontakt', inspection: 'kostenlose-inspektion', howWeWork: 'wie-wir-arbeiten',
     pricing: 'dachsanierung-preise',
+    solarSystems: 'solaranlagen', solarHouse: 'solaranlagen-fuer-haeuser', solarBuildings: 'solaranlagen-fuer-gebaeude', solarFarms: 'solarkraftwerke',
   },
   fi: {
     home: '', services: 'palvelut', roofRepair: 'kattokorjaus-varna', leakRepair: 'vuotokorjaus-varna',
@@ -42,6 +45,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'meista', projects: 'projektit', reviews: 'arvostelut', calculator: 'laskin',
     blog: 'blogi', faq: 'ukk', contact: 'yhteystiedot', inspection: 'ilmainen-tarkastus', howWeWork: 'miten-tyoskentelemme',
     pricing: 'kattokorjaus-hinnat',
+    solarSystems: 'aurinkopaneelit', solarHouse: 'aurinkopaneelit-taloille', solarBuildings: 'aurinkopaneelit-rakennuksille', solarFarms: 'aurinkovoimalat',
   },
   sv: {
     home: '', services: 'tjanster', roofRepair: 'takreparation-varna', leakRepair: 'lackage-reparation-varna',
@@ -51,6 +55,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'om-oss', projects: 'projekt', reviews: 'omdomen', calculator: 'kalkylator',
     blog: 'blogg', faq: 'vanliga-fragor', contact: 'kontakt', inspection: 'gratis-inspektion', howWeWork: 'sa-arbetar-vi',
     pricing: 'takreparation-priser',
+    solarSystems: 'solcellssystem', solarHouse: 'solceller-for-hus', solarBuildings: 'solceller-for-byggnader', solarFarms: 'solcellsparker',
   },
   no: {
     home: '', services: 'tjenester', roofRepair: 'takreparasjon-varna', leakRepair: 'lekkasje-reparasjon-varna',
@@ -60,6 +65,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'om-oss', projects: 'prosjekter', reviews: 'anmeldelser', calculator: 'kalkulator',
     blog: 'blogg', faq: 'vanlige-sporsmal', contact: 'kontakt', inspection: 'gratis-inspeksjon', howWeWork: 'slik-jobber-vi',
     pricing: 'takreparasjon-priser',
+    solarSystems: 'solcellesystemer', solarHouse: 'solceller-for-boliger', solarBuildings: 'solceller-for-bygninger', solarFarms: 'solcelleparker',
   },
   fr: {
     home: '', services: 'services', roofRepair: 'reparation-toiture-varna', leakRepair: 'reparation-fuite-varna',
@@ -69,6 +75,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'a-propos', projects: 'projets', reviews: 'avis', calculator: 'calculateur',
     blog: 'blog', faq: 'faq', contact: 'contact', inspection: 'inspection-gratuite', howWeWork: 'comment-nous-travaillons',
     pricing: 'prix-reparation-toiture',
+    solarSystems: 'panneaux-solaires', solarHouse: 'panneaux-solaires-maison', solarBuildings: 'panneaux-solaires-immeubles', solarFarms: 'centrales-solaires',
   },
   nl: {
     home: '', services: 'diensten', roofRepair: 'dakreparatie-varna', leakRepair: 'lekkage-reparatie-varna',
@@ -78,6 +85,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'over-ons', projects: 'projecten', reviews: 'beoordelingen', calculator: 'calculator',
     blog: 'blog', faq: 'veelgestelde-vragen', contact: 'contact', inspection: 'gratis-inspectie', howWeWork: 'hoe-we-werken',
     pricing: 'dakreparatie-prijzen',
+    solarSystems: 'zonnepanelen', solarHouse: 'zonnepanelen-voor-woningen', solarBuildings: 'zonnepanelen-voor-gebouwen', solarFarms: 'zonneparken',
   },
   ru: {
     home: '', services: 'uslugi', roofRepair: 'remont-kryshi-varna', leakRepair: 'remont-protechek-varna',
@@ -87,6 +95,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'o-nas', projects: 'proekty', reviews: 'otzyvy', calculator: 'kalkulyator',
     blog: 'blog', faq: 'voprosy', contact: 'kontakty', inspection: 'besplatnyj-osmotr', howWeWork: 'kak-my-rabotaem',
     pricing: 'tseny-remonta-kryshi',
+    solarSystems: 'solnechnye-sistemy', solarHouse: 'solnechnye-sistemy-dlya-domov', solarBuildings: 'solnechnye-sistemy-dlya-zdanij', solarFarms: 'solnechnye-elektrostantsii',
   },
   ua: {
     home: '', services: 'poslugy', roofRepair: 'remont-dahu-varna', leakRepair: 'remont-protikan-varna',
@@ -96,6 +105,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     about: 'pro-nas', projects: 'proekty', reviews: 'vidguky', calculator: 'kalkulyator',
     blog: 'blog', faq: 'pytannya', contact: 'kontakty', inspection: 'bezkoshtovnyj-ohlyad', howWeWork: 'yak-my-pratsyuyemo',
     pricing: 'tsiny-remontu-dahu',
+    solarSystems: 'sonyachni-systemy', solarHouse: 'sonyachni-systemy-dlya-budynkiv', solarBuildings: 'sonyachni-systemy-dlya-budivel', solarFarms: 'sonyachni-elektrostantsii',
   },
 };
 

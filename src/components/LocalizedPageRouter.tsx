@@ -16,6 +16,10 @@ import TileReplacementPage from "@/pages/services/TileReplacementPage";
 import FlatRoofPage from "@/pages/services/FlatRoofPage";
 import MetalRoofPage from "@/pages/services/MetalRoofPage";
 import MaintenancePage from "@/pages/services/MaintenancePage";
+import SolarSystemsPage from "@/pages/services/SolarSystemsPage";
+import SolarHousePage from "@/pages/services/SolarHousePage";
+import SolarBuildingsPage from "@/pages/services/SolarBuildingsPage";
+import SolarFarmsPage from "@/pages/services/SolarFarmsPage";
 import BlogPage from "@/pages/BlogPage";
 import BlogArticle from "@/pages/blog/BlogArticle";
 import CalculatorPage from "@/pages/CalculatorPage";
@@ -40,6 +44,10 @@ const PAGE_MAP: Record<RouteKey, React.ComponentType> = {
   flatRoof: FlatRoofPage,
   metalRoof: MetalRoofPage,
   maintenance: MaintenancePage,
+  solarSystems: SolarSystemsPage,
+  solarHouse: SolarHousePage,
+  solarBuildings: SolarBuildingsPage,
+  solarFarms: SolarFarmsPage,
   blog: BlogPage,
   calculator: CalculatorPage,
   inspection: InspectionPage,
@@ -52,10 +60,8 @@ const LocalizedPageRouter = () => {
   const currentLang = (SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage) ? lang : 'bg') as SupportedLanguage;
   const slug = restPath || '';
 
-  // No slug = home page
   if (!slug) return <Index />;
 
-  // Redirect old Cyrillic BG slugs to new Latin ones
   if (currentLang === 'bg') {
     const slugParts = slug.split('/');
     const mainSlug = slugParts[0];
@@ -66,7 +72,6 @@ const LocalizedPageRouter = () => {
     }
   }
 
-  // Check if it's a blog article (blog-slug/article-slug pattern)
   const blogSlugParts = slug.split('/');
   if (blogSlugParts.length === 2) {
     const parentKey = findRouteKeyBySlug(blogSlugParts[0], currentLang);
