@@ -1,101 +1,80 @@
 
 
-## План: Модерен "от бъдещето" редизайн на админ панела + нови функционалности
+## План: Поправка на 10 проблема от SEO одита
 
-### Визуална концепция
+### Стъпка 1 — КРИТИЧНИ (3 бъга в `bg.ts`)
 
-Тъмен (dark mode) админ панел с glass-morphism ефекти, неонови акценти, smooth анимации и gradient карти — стил вдъхновен от модерни SaaS dashboard-и (Linear, Vercel, Raycast).
+**Файл:** `src/i18n/locales/bg.ts` (ред 128-130)
 
-### 1. Нов dark-themed sidebar с glass ефект
+| Проблем | Сега | Поправка |
+|---|---|---|
+| „115 години гаранция" | `с 115 години гаранция` | `с 15 години гаранция` |
+| Грешна цена в title | `от 13 €/кв.м` | `от 19 €/кв.м` |
+| Грешна гаранция в title | `5г` | `15г` |
+| Грешен meta desc | `5г гаранция` | `15г гаранция` |
+| Грешен og:title | `от 13 €/кв.м \| 5г` | `от 19 €/кв.м \| 15г` |
 
-**Файл:** `AdminDashboardPage.tsx`
+### Стъпка 2 — Цена на ServicesPage
 
-- Тъмен sidebar с `backdrop-blur` и subtle gradient border
-- Animated hover effects с glow на иконките
-- Notification badges на Запитвания и Обаждания (live count от DB)
-- Collapse/expand с smooth transition
-- User avatar + role badge в долната секция
-- Pulse dot на нови/непрочетени items
+**Файл:** `src/pages/ServicesPage.tsx`
 
-### 2. Welcome dashboard (нова начална страница `/admin/analytics`)
+Заглавието и title казват „от 35 €/м²" — това е цена за „Частичен ремонт" пакет, не за базовия ремонт. Промяна:
+- Title: `Покривни Услуги Варна – Ремонт, Хидроизолация, Нов Покрив | 15г Гаранция`
+- H1: `Покривни Услуги Варна – Пълен Спектър от Решения`
+- Така няма конфликт с „от 19 €/м²" на другите страници
 
-**Файл:** `AnalyticsPage.tsx` — пълен redesign
+Също: поправка на blog линковете от Cyrillic `/блог/...` → `/bg/blog/...` с Latin slugs.
 
-- **Hero stats row** — 4 glassmorphism KPI карти с animated counters и sparkline mini-графики
-- **Gradient background** на заглавието с particle/mesh ефект
-- **Live activity feed** — последни 10 действия (ново запитване, обаждане, нова оферта) в реално време
-- **Revenue pipeline** — визуална Kanban-style фуния с drag-feel анимации
-- **Heatmap** на трафик по часове (7-дневен grid)
-- **AI insights panel** — автоматични съвети на база данните ("Трафикът от Google нарасна с 23% тази седмица")
+Добавяне на breadcrumb навигация и BreadcrumbList JSON-LD schema.
 
-### 3. Нови липсващи модули
+### Стъпка 3 — Уникални title/meta за TileReplacementPage
 
-| Модул | Описание |
-|---|---|
-| **Notification center** | Bell icon в header-а, dropdown с последни действия, mark as read |
-| **Quick actions bar** | Command palette (Ctrl+K) за бърз достъп до всяка секция |
-| **Activity timeline** | На dashboard-а — хронологичен feed на всички CRM действия |
-| **Task/To-do system** | Вътрешни задачи за екипа (нова таблица `tasks`) |
-| **Revenue tracker** | Pipeline от оферти → договори → плащания с визуална фуния |
+**Файл:** `src/pages/services/TileReplacementPage.tsx` (ред 94-95)
 
-### 4. Redesign на всички list pages
+| Поле | Сега | Поправка |
+|---|---|---|
+| Title | `Смяна Керемиди Варна - от 4 €/бр \| 5г` | `Смяна на Керемиди Варна - от 4 €/бр \| 15г Гаранция` |
+| Meta desc | `5г гаранция` | `15 години гаранция` |
+| OG title | `5г Гаранция` | `15г Гаранция` |
 
-**Файлове:** `InquiryListPage.tsx`, `QuoteListPage.tsx`, `CallLogPage.tsx`, `ContactDatabasePage.tsx`
+### Стъпка 4 — MetalRoofPage title корекция
 
-- Заменяне на plain `<Table>` с card-based grid layout + list toggle
-- Animated status pills с gradient backgrounds
-- Hover preview cards (quick peek без навигация)
-- Bulk actions toolbar (multi-select)
-- Skeleton loading states вместо spinner
+**Файл:** `src/pages/services/MetalRoofPage.tsx` (ред 119)
 
-### 5. Подобрен Login page
+Title `от 6 €/кв.м` — твърде ниска цена спрямо pricing page `от 18 €/м²`. Промяна на:
+- Title: `Метални Покриви Варна - от 18 €/кв.м | До 50г Гаранция`
 
-**Файл:** `AdminLoginPage.tsx`
+### Стъпка 5 — Уникални meta descriptions за контакти/отзиви
 
-- Animated gradient background
-- Glassmorphism login card
-- Typing animation на заглавието
+Страниците вече имат уникални title и meta descriptions (потвърдих горе). Потребителят е посочил generic titles — вероятно е виждал cached версии. Ще проверя и добавя `og:url` и `og:title` където липсват.
 
-### 6. Global design tokens за админа
+### Стъпка 6 — Google Reviews линк на ReviewsPage
 
-**Файл:** `src/index.css`
+**Файл:** `src/pages/ReviewsPage.tsx`
 
-- Добави admin-specific CSS custom properties за dark glass theme
-- Нови utility класове за glow, glass, gradient-border ефекти
+Добавяне на видим бутон „Вижте ни в Google" с линк към Google Business Profile (или placeholder URL).
 
-### 7. Database — нова таблица `admin_tasks`
+### Стъпка 7 — Breadcrumb на ServicesPage
 
-Миграция за вътрешни задачи на екипа:
+**Файл:** `src/pages/ServicesPage.tsx`
 
-```sql
-CREATE TABLE admin_tasks (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  title TEXT NOT NULL,
-  description TEXT,
-  status TEXT NOT NULL DEFAULT 'todo', -- todo, in_progress, done
-  priority TEXT NOT NULL DEFAULT 'medium', -- low, medium, high, urgent
-  assigned_to UUID REFERENCES auth.users(id),
-  due_date DATE,
-  created_by UUID NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
-```
+Добавяне на визуален breadcrumb `Начало > Услуги` + JSON-LD BreadcrumbList schema.
 
-С RLS политики за admin/staff достъп.
+### Стъпка 8 — Отзив „5 години"
+
+Потвърдих, че отзивът на Петър Стоянов вече казва „15 години гаранция" — няма проблем. Няма промяна.
+
+### Стъпка 9 — Sitemap езици
+
+Потребителят казва, че ако няма реален превод, sitemap-овете за fi/sv/no/fr/nl/ua трябва да се премахнат. Но сайтът ИМА реални преводи (i18n файлове за всички 10 езика). Няма промяна — ще потвърдя на потребителя.
 
 ### Засегнати файлове
 
 | Файл | Промяна |
 |---|---|
-| `src/index.css` | +admin dark theme CSS tokens |
-| `src/pages/admin/AdminDashboardPage.tsx` | Пълен redesign — dark glass sidebar + notification badges |
-| `src/pages/admin/AnalyticsPage.tsx` | Пълен redesign — futuristic dashboard с live feed |
-| `src/pages/admin/AdminLoginPage.tsx` | Animated gradient + glass card |
-| `src/pages/admin/InquiryListPage.tsx` | Card-based redesign |
-| `src/pages/admin/QuoteListPage.tsx` | Card-based redesign |
-| `src/pages/admin/InquiryDetailPage.tsx` | Glass theme + timeline |
-| DB migration | Нова таблица `admin_tasks` |
-
-Поради обема на промените, ще направя на 2-3 стъпки: първо sidebar + dashboard + login redesign, после list pages и tasks модула.
+| `src/i18n/locales/bg.ts` | Fix „115 г.", „13 €", „5г" → правилни стойности |
+| `src/pages/ServicesPage.tsx` | Fix title/H1, breadcrumb, blog links |
+| `src/pages/services/TileReplacementPage.tsx` | Fix „5г" → „15г" в title/meta |
+| `src/pages/services/MetalRoofPage.tsx` | Fix цена в title от 6 → 18 €/м² |
+| `src/pages/ReviewsPage.tsx` | Добави Google Reviews линк |
 
