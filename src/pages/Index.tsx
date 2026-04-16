@@ -14,8 +14,6 @@ import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
-import MobileBottomBar from "@/components/MobileBottomBar";
 
 // Below-the-fold sections — lazy loaded to keep initial bundle small
 const Gallery = lazy(() => import("@/components/Gallery"));
