@@ -1,84 +1,107 @@
 
 
-## План: Guided Funnel Chatbot — Дигитален Търговец
+## План: Модерен Sales Assistant Chat Widget
 
-Пълно преработване на ChatBot компонента от AI Q&A чат в **button-driven guided funnel** със 7 сценария, вграден калкулатор и автоматично събиране на лидове.
+Пълно преструктуриране на ChatBot компонента от стандартен support чат в **conversion-focused sales assistant card** с аватар, CTA йерархия и scroll-triggered появяване.
 
-### Архитектура
+### Промени
 
-Основната логика е **client-side state machine** (не AI). AI се използва САМО за flow "Имам въпрос". Всички останали flows са предефинирани стъпки с бутони.
+**1. `src/components/ChatBot.tsx`** — Пълен redesign
+
+Три визуални състояния:
 
 ```text
-ChatBot.tsx (UI shell — header, scroll, input)
-  └── useChatFunnel.ts (state machine hook)
-        ├── Flow definitions (7 flows)
-        ├── Step rendering logic  
-        ├── Calculator logic (roof + solar)
-        └── Lead submission (→ Supabase inquiries)
+[Collapsed]     → Chat bubble (долу дясно) с зелена online точка
+[Prompt Card]   → Floating card над bubble-а с аватар + бутони
+[Expanded Chat] → Пълен chat mode (както досега, бял фон)
 ```
 
-### Нови/променени файлове
+**Prompt Card структура:**
+- Бял фон, `rounded-2xl`, `shadow-xl`, макс ширина 340px
+- Кръгъл аватар отгоре (64×64, мъж с работни дрехи — ще използваме placeholder URL от UI Faces или DiceBear с `adventurer` стил)
+- Текст: „Здравейте! Имате нужда от оглед или оферта?"
+- 2 оранжеви primary бутона (`bg-accent`): „Искам безплатен оглед" + „Искам оферта"
+- 5 сини secondary бутона (`bg-primary`): Теч, Обадете ми се, Ремонт, Солар, Въпрос
+- Close бутон (X) горе дясно
+
+**Scroll-triggered появяване:**
+- Prompt Card се показва след `scrollY > 300` (лек scroll)
+- `animate-fade-in` + `translate-y` анимация
+- При затваряне → `sessionStorage` flag, не се показва пак в сесията
+- Chat bubble остава винаги видим (с online точка)
+
+**Позициониране:**
+- Desktop (lg+): `fixed bottom-[88px] right-6` — точно над FloatingCallButton
+- Mobile (<lg): `fixed bottom-[72px] right-4` — над MobileBottomBar
+- При expanded chat на mobile: почти fullscreen (`inset-2`)
+
+**Chat bubble redesign:**
+- Бял фон с primary border вместо solid primary
+- MessageCircle икона
+- Зелена точка (8×8, `bg-green-500`, `animate-pulse`) горе дясно на bubble-а
+- При hover: лек scale
+
+**2. `src/components/FloatingCallButton.tsx`** — Малка корекция
+
+- Добавяне на `id="floating-call"` за позиционен контекст
+- Намаляване на z-index до `z-40` (chatbot е `z-50`)
+
+**3. `src/components/ChatMessage.tsx`** — Без промяна
+
+Запазва се — вече поддържа бутони, форми и калкулатор карти.
+
+**4. `src/hooks/useChatFunnel.ts`** — Без промяна
+
+Цялата flow логика остава.
+
+### Визуална йерархия на Prompt Card
+
+```text
+┌─────────────────────────┐
+│              [X]        │
+│       ┌──────┐          │
+│       │avatar│          │
+│       └──────┘          │
+│  Здравейте! Имате нужда │
+│  от оглед или оферта?   │
+│                         │
+│ ┌─────────────────────┐ │
+│ │ 🔍 Безплатен оглед  │ │  ← orange
+│ └─────────────────────┘ │
+│ ┌─────────────────────┐ │
+│ │ 📋 Искам оферта     │ │  ← orange
+│ └─────────────────────┘ │
+│                         │
+│ ┌──────┐ ┌──────┐      │
+│ │ Теч  │ │Обади │      │  ← blue, smaller
+│ └──────┘ └──────┘      │
+│ ┌──────┐ ┌──────┐      │
+│ │Ремонт│ │Солар │      │
+│ └──────┘ └──────┘      │
+│ ┌──────────────────┐   │
+│ │  Имам въпрос     │   │
+│ └──────────────────┘   │
+└─────────────────────────┘
+          ┌────┐
+          │ 💬 │ ● ← green dot
+          └────┘
+    ┌────────────────────┐
+    │ 📞 088 499 7659    │  ← existing call button
+    └────────────────────┘
+```
+
+### Засегнати файлове
 
 | Файл | Промяна |
 |---|---|
-| `src/hooks/useChatFunnel.ts` | НОВ — state machine с 7 flows, calculator logic, lead submission |
-| `src/components/ChatBot.tsx` | Пълен redesign — рендерира funnel стъпки, бутони, калкулатор панели, contact форми |
-| `src/components/ChatMessage.tsx` | Добавяне на поддръжка за бутони, calculator cards, contact forms в съобщенията |
-| `src/hooks/useChat.ts` | Запазва се — използва се само за flow "Имам въпрос" |
-| `supabase/functions/chat/index.ts` | Без промяна |
+| `src/components/ChatBot.tsx` | Пълен redesign — 3 състояния, prompt card, scroll trigger |
+| `src/components/FloatingCallButton.tsx` | z-index корекция |
 
-### State Machine — `useChatFunnel.ts`
+### Аватар
 
-**Типове съобщения** (разширен Message):
-```
-type FunnelMessage = {
-  role: "bot" | "user";
-  content: string;
-  buttons?: { label: string; value: string; icon?: string }[];
-  calculator?: "roof" | "solar";
-  contactForm?: "quick" | "full" | "callback";
-  resultCard?: { kw?: number; price?: number; saving?: number; payback?: number };
-}
-```
+Ще използвам DiceBear API за генериране на реалистичен мъжки аватар:
+`https://api.dicebear.com/7.x/adventurer/svg?seed=constructor&backgroundColor=f5f5f5`
 
-**7 Flows:**
-
-1. **LEAK** (Спешен проблем) → Тип покрив → Квадратура → Адрес → "Искате ли да ви се обадим?" → Да/Оферта → Lead capture
-2. **QUOTE** (Оферта) → Какво трябва → Тип имот → Тип покрив → Квадратура → Адрес → Име/Телефон/Имейл → Потвърждение
-3. **CALLBACK** (Обадете ми се) → Име → Телефон → За какво → Потвърждение (под 10 сек)
-4. **INSPECTION** (Безплатен оглед) → Адрес → Тип имот → Проблем → Теч? → Име/Телефон → Потвърждение
-5. **ROOF_REPAIR** (Ремонт) → Проблем → Тип покрив → Квадратура → Адрес → Inline калкулатор → "Искате точна оферта?" → Lead
-6. **SOLAR** (Соларна система) → Тип проект → Състояние покрив → Месечна сметка → Адрес → Inline калкулатор → Lead
-7. **QUESTION** (Свободен въпрос) → AI chat (useChat) → След отговор: "Искате оферта?" → Lead flow
-
-### Калкулатор в чата
-
-Вграден панел (не модал, не пренасочване) — показва се като разширено съобщение:
-
-**Покривен калкулатор:** Използва priceMatrix от PriceCalculator.tsx (min/max € × м²).
-
-**Соларен калкулатор:** Използва формулата от SolarCalculator.tsx (мощност = сметка/25, цена = kW × 1100€, спестяване = сметка × 0.8 × 12 / 2).
-
-### Lead Submission
-
-Всеки flow завършва с insert в `inquiries` таблицата с:
-- `name`, `phone`, `email`, `address`, `description` (събрани данни)
-- `service_type` (mapped от flow-а)
-- `session_id`, `referrer_source` (от analytics)
-
-### UI Design (ChatBot.tsx)
-
-- **Начален екран:** "Как можем да ви помогнем?" + 7 бутона в grid (2 колони mobile)
-- **Bot съобщения:** Bubble с текст + optional бутони отдолу
-- **User отговори:** Показват избрания бутон като user bubble
-- **Contact форми:** Inline в чата — име/телефон/имейл/адрес полета
-- **Calculator панели:** Compact card с резултати (4 метрики в 2×2 grid)
-- **Потвърждение:** Зелена карта с ✅ + "Ще се свържем с вас"
-- **Input полето:** Скрито когато има бутони за избор, видимо само при свободен текст
-
-### Стъпки на изпълнение
-
-1. Създаване на `useChatFunnel.ts` — цялата flow логика
-2. Redesign на `ChatBot.tsx` — нов UI с бутони, форми, калкулатори
-3. Update на `ChatMessage.tsx` — поддръжка за rich content типове
+Или по-добре — статичен professional headshot от Unsplash (безплатен, без attribution):
+`https://images.unsplash.com/photo-1560250097-0b93528c311a?w=128&h=128&fit=crop&crop=face`
 
