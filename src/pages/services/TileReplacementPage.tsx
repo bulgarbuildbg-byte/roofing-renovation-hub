@@ -91,10 +91,10 @@ const TileReplacementPage = () => {
   return (
     <>
       <Helmet>
-        <title>Смяна Керемиди Варна - от 4 €/бр | 5г Гаранция</title>
-        <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция. ☎ 088 499 7659" />
-        <meta property="og:title" content="Смяна на Керемиди Варна - от 4 €/бр | 5г Гаранция" />
-        <meta property="og:description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 5г гаранция." />
+        <title>Смяна на Керемиди Варна - от 4 €/бр | 15г Гаранция</title>
+        <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 15 години гаранция. ☎ 088 499 7659" />
+        <meta property="og:title" content="Смяна на Керемиди Варна - от 4 €/бр | 15г Гаранция" />
+        <meta property="og:description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 15 години гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/remont-na-keremideni-pokrivi" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
