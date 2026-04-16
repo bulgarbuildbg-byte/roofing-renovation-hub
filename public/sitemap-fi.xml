@@ -1,27 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url><loc>https://www.remontnapokrivivarna.bg/fi</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/palvelut</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/kattokorjaus-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/tiilikattokorjaus-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/vuotokorjaus-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/vedeneristys-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/uusi-katto-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/tasakatot-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/metallikatot-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/katon-huolto-varna</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/fi/ilmainen-tarkastus</loc>
-    <lastmod>2026-04-12</lastmod>
+    <loc>https://www.remontnapokrivivarna.bg/fi</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg"/>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/palvelut</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/kattokorjaus-varna</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/tiilikattokorjaus-varna</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/vuotokorjaus-varna</loc>
+    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/vedeneristys-varna</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/uusi-katto-varna</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/tasakatot-varna</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/metallikatot-varna</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/katon-huolto-varna</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/aurinkopaneelit</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/aurinkopaneelit-taloille</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/aurinkopaneelit-rakennuksille</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/aurinkovoimalat</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/kattoremontin-rahoitus</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/roof-repair-financing"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/dachsanierung-finanzierung"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/kattoremontin-rahoitus"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/takreparation-finansiering"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/takreparasjon-finansiering"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/financement-reparation-toiture"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/dakreparatie-financiering"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/finansirovanie-remonta-kryshi"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/finansuvannya-remontu-dahu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv"/>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/kattokorjaus-hinnat</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/ilmainen-tarkastus</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/free-inspection"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/kostenlose-inspektion"/>
     <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/ilmainen-tarkastus"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/gratis-inspektion"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/gratis-inspeksjon"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/inspection-gratuite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/gratis-inspectie"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/besplatnyj-osmotr"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/bezkoshtovnyj-ohlyad"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/bezplaten-ogled"/>
   </url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/meista</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/yhteystiedot</loc><lastmod>2026-04-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.remontnapokrivivarna.bg/fi/blogi</loc><lastmod>2026-04-12</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/meista</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/projektit</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/arvostelut</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/miten-tyoskentelemme</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/yhteystiedot</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/laskin</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/blogi</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/fi/ukk</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
