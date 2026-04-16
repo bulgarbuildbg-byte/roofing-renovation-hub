@@ -119,11 +119,11 @@ const ContactForm = ({ type, onSubmit }: { type: "quick" | "full" | "callback"; 
 
 // ---- Confirmation Card ----
 const ConfirmationCard = () => (
-  <div className="mt-2 rounded-xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 p-3 flex items-start gap-2">
-    <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+  <div className="mt-2 rounded-xl bg-accent/30 border border-accent p-3 flex items-start gap-2">
+    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
     <div>
-      <p className="font-semibold text-green-800 dark:text-green-200 text-sm">Заявката е изпратена!</p>
-      <p className="text-xs text-green-700 dark:text-green-300 mt-0.5">Ще се свържем с вас възможно най-скоро.</p>
+      <p className="font-semibold text-foreground text-sm">Заявката е изпратена!</p>
+      <p className="text-xs text-muted-foreground mt-0.5">Ще се свържем с вас възможно най-скоро.</p>
     </div>
   </div>
 );
