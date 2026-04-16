@@ -15,7 +15,7 @@ const CalculatorDialog = ({ type = "roof" }: CalculatorDialogProps) => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-1.5 text-white/80 hover:text-white underline underline-offset-4 text-sm md:text-base transition-colors mt-2"
+        className="inline-flex items-center gap-1.5 bg-[#F3F6FA] hover:bg-[#E8EDF4] text-slate-700 border border-blue-300/60 hover:border-blue-400 rounded-full text-xs md:text-sm font-medium h-8 md:h-9 px-3 md:px-3.5 transition-colors cursor-pointer"
       >
         <Calculator className="w-4 h-4" />
         Изчисли цена
