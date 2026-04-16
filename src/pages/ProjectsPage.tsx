@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import BeforeAfterGallery from "@/components/BeforeAfterGallery";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -197,7 +196,6 @@ const ProjectsPage = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

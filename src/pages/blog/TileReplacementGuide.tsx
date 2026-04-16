@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Calendar, Clock, ArrowLeft, Phone, CheckCircle } from "lucide-react";
@@ -334,7 +333,6 @@ const TileReplacementGuide = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </div>
   );
 };

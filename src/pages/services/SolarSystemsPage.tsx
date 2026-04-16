@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import TrustIndicators from "@/components/TrustIndicators";
 import HowWeWork from "@/components/HowWeWork";
 import CompletedProjects from "@/components/CompletedProjects";
@@ -386,7 +385,6 @@ const SolarSystemsPage = () => {
       </section>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Calendar, Clock, ArrowLeft, Phone, Tag, Share2 } from "lucide-react";
@@ -389,7 +388,6 @@ const WinterRoofPreparation = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </div>
   );
 };

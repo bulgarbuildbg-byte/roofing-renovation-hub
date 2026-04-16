@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Shield, CheckCircle, Send, ArrowLeft, ArrowRight, Upload, X, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -491,7 +490,6 @@ const InspectionPage = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

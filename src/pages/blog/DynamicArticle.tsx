@@ -4,7 +4,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import ReactMarkdown from "react-markdown";
 import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -131,7 +130,6 @@ const DynamicArticle = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { ClipboardCheck, FileText, Hammer, Award, CheckCircle, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import MobileBottomBar from "@/components/MobileBottomBar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -161,7 +160,6 @@ const HowWeWorkPage = () => {
       </section>
 
       <Footer />
-      <FloatingCallButton />
       <MobileBottomBar />
       <div className="h-20 md:hidden" />
     </div>

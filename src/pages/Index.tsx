@@ -14,15 +14,12 @@ import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
-import MobileBottomBar from "@/components/MobileBottomBar";
 
 // Below-the-fold sections — lazy loaded to keep initial bundle small
 const Gallery = lazy(() => import("@/components/Gallery"));
 const BeforeAfterGallery = lazy(() => import("@/components/BeforeAfterGallery"));
 const PriceCalculator = lazy(() => import("@/components/PriceCalculator"));
 const HomeFAQ = lazy(() => import("@/components/HomeFAQ"));
-const ChatBot = lazy(() => import("@/components/ChatBot"));
 const CompletedProjects = lazy(() => import("@/components/CompletedProjects"));
 
 const Index = () => {
@@ -182,12 +179,6 @@ const Index = () => {
         subtitle={t('cta.emergencySubtitle')}
       />
       <Footer />
-      <FloatingCallButton />
-      <MobileBottomBar />
-      <Suspense fallback={null}>
-        <ChatBot />
-      </Suspense>
-      <div className="h-20 md:hidden" />
     </div>
   );
 };

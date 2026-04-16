@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet";
 import heroWaterproofing from "@/assets/hero-waterproofing.jpeg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import CompletedProjects from "@/components/CompletedProjects";
 import Testimonials from "@/components/Testimonials";
 import PriceCalculator from "@/components/PriceCalculator";
@@ -566,7 +565,6 @@ const WaterproofingPage = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import TrustIndicators from "@/components/TrustIndicators";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -235,7 +234,6 @@ const SolarFarmsPage = () => {
       </section>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

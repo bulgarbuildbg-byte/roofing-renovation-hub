@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet";
 import heroLeakRepair from "@/assets/hero-leak-repair.jpg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import HowWeWork from "@/components/HowWeWork";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
@@ -511,7 +510,6 @@ const RoofLeakRepairPage = () => {
       </main>
       
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

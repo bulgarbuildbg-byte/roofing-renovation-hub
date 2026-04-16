@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
@@ -792,7 +791,6 @@ const WaterproofingVarnaPage = () => {
       <RelatedServices services={relatedServices} />
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
 import CalculatorDialog from "@/components/CalculatorDialog";
@@ -627,7 +626,6 @@ const MaintenancePage = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

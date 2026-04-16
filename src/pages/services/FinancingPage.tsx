@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import TrustIndicators from "@/components/TrustIndicators";
 import Testimonials from "@/components/Testimonials";
 import FinancingCalculator from "@/components/FinancingCalculator";
@@ -540,7 +539,6 @@ const FinancingPage = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };
