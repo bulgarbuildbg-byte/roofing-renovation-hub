@@ -5,7 +5,7 @@ const bg = {
     freeInspection: "Безплатен оглед", callUs: "Обадете се", teamLogin: "Вход за екип",
     roofRepair: "Ремонт на покриви", leakRepair: "Ремонт на течове на покрив", waterproofing: "Хидроизолация на покрив",
     newRoof: "Изграждане на нов покрив", tileRoofRepair: "Ремонт на керемидени покриви", flatRoof: "Ремонт на плоски покриви",
-    metalRoof: "Метални покриви", maintenance: "Поддръжка на покриви", solarSystems: "Соларни системи",
+    metalRoof: "Метални покриви", maintenance: "Поддръжка на покриви", solarSystems: "Соларни системи", financing: "Финансиране",
     pricing: "Цени", howWeWork: "Как работим",
   },
   hero: {
