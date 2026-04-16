@@ -3,7 +3,8 @@ import { SupportedLanguage } from './config';
 export type RouteKey =
   | 'home' | 'services' | 'roofRepair' | 'leakRepair' | 'waterproofing'
   | 'newRoof' | 'tileRoofRepair' | 'flatRoof' | 'metalRoof' | 'maintenance'
-  | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact' | 'inspection' | 'howWeWork' | 'pricing';
+  | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact' | 'inspection' | 'howWeWork' | 'pricing'
+  | 'solarSystems' | 'solarHouse' | 'solarBuildings' | 'solarFarms';
 
 export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>> = {
   bg: {
