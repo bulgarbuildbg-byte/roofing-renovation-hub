@@ -151,6 +151,20 @@ const FullMenuPanel = ({ isOpen, onClose, serviceLinks, solarLinks, t, getPath }
 
           <div className="h-px bg-border my-4" />
 
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Соларни Системи</p>
+          {solarLinks.map((link) => (
+            <Link
+              key={link.routeKey}
+              to={getPath(link.routeKey)}
+              className="text-foreground hover:text-primary transition-colors py-2.5 text-base border-b border-border/50"
+              onClick={onClose}
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          <div className="h-px bg-border my-4" />
+
           <Link to={getPath('about')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.about')}</Link>
           <Link to={getPath('projects')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.projects')}</Link>
           <Link to={getPath('reviews')} className="text-foreground hover:text-primary transition-colors py-2.5 text-base" onClick={onClose}>{t('nav.reviews')}</Link>
