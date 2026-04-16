@@ -159,7 +159,6 @@ const SolarSystemsPage = () => {
                 </a>
               </Button>
             </div>
-            <CalculatorDialog type="solar" />
           </div>
         </div>
       </section>
