@@ -7,6 +7,7 @@ import RelatedServices from "@/components/RelatedServices";
 import HowWeWork from "@/components/HowWeWork";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
 import PriceCalculator from "@/components/PriceCalculator";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Shield, Zap, Clock, Palette, Layers, Wind, MapPin, Wrench, AlertTriangle, Search, Eye, Hammer, ClipboardCheck } from "lucide-react";
@@ -149,6 +150,7 @@ const MetalRoofPage = () => {
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8"><Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link></Button>
                 <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a></Button>
               </div>
+              <CalculatorDialog type="roof" />
               <div className="flex flex-wrap gap-4 text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
                   <div key={item} className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-1.5 rounded-full"><CheckCircle className="w-4 h-4 text-accent" /><span className="text-primary-foreground/90">{item}</span></div>

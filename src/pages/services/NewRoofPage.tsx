@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
 import { Button } from "@/components/ui/button";
@@ -244,6 +245,7 @@ const NewRoofPage = () => {
               <Button size="lg" variant="outline" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white hover:text-primary font-bold px-8 py-6 text-lg h-auto">
                 Вижте цени и услуги
               </Button>
+              <CalculatorDialog type="roof" />
             </div>
           </div>
         </div>

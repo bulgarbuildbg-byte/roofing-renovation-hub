@@ -5,6 +5,7 @@ import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -349,6 +350,9 @@ const WaterproofingVarnaPage = () => {
               >
                 <Link to="/bg/контакти">Изпратете запитване</Link>
               </Button>
+            </div>
+            <div className="flex justify-center mt-2">
+              <CalculatorDialog type="roof" />
             </div>
           </div>
         </div>

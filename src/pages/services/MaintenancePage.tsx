@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -274,6 +275,7 @@ const MaintenancePage = () => {
                   Обади се
                 </a>
               </Button>
+              <CalculatorDialog type="roof" />
             </div>
           </div>
         </section>

@@ -7,6 +7,7 @@ import HowWeWork from "@/components/HowWeWork";
 import RelatedServices from "@/components/RelatedServices";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
 import PriceCalculator from "@/components/PriceCalculator";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, AlertTriangle, Droplets, Clock, Shield, Wrench, MapPin, Search, Eye, Hammer, ClipboardCheck } from "lucide-react";
@@ -204,6 +205,7 @@ const RoofLeakRepairPage = () => {
                   </a>
                 </Button>
               </div>
+              <CalculatorDialog type="roof" />
               
               <div className="flex flex-nowrap gap-3 text-xs md:text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (

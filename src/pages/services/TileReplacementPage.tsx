@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
 import PriceCalculator from "@/components/PriceCalculator";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import CompletedProjects from "@/components/CompletedProjects";
 import Testimonials from "@/components/Testimonials";
 import { Button } from "@/components/ui/button";
@@ -136,6 +137,7 @@ const TileReplacementPage = () => {
                   <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
                 </Button>
               </div>
+              <CalculatorDialog type="roof" />
               <div className="flex flex-nowrap gap-3 text-xs md:text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
                   <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
