@@ -1,80 +1,138 @@
 
 
-## План: Поправка на 10 проблема от SEO одита
+## План: Соларни системи — 4 нови страници + калкулатор + routing
 
-### Стъпка 1 — КРИТИЧНИ (3 бъга в `bg.ts`)
+### Обхват
 
-**Файл:** `src/i18n/locales/bg.ts` (ред 128-130)
+Създаване на 4 нови високоефективни страници за услугата „Соларни системи" (3000+ думи всяка за основната), следвайки съществуващите patterns (RoofRepairPage, LocalizedPageRouter, routes.ts).
 
-| Проблем | Сега | Поправка |
+### 1. Routing — нови RouteKeys и slugs
+
+**Файлове:** `src/i18n/routes.ts`, `src/components/LocalizedPageRouter.tsx`
+
+Добавяне на 4 нови route keys:
+
+| RouteKey | BG slug | EN slug |
 |---|---|---|
-| „115 години гаранция" | `с 115 години гаранция` | `с 15 години гаранция` |
-| Грешна цена в title | `от 13 €/кв.м` | `от 19 €/кв.м` |
-| Грешна гаранция в title | `5г` | `15г` |
-| Грешен meta desc | `5г гаранция` | `15г гаранция` |
-| Грешен og:title | `от 13 €/кв.м \| 5г` | `от 19 €/кв.м \| 15г` |
+| `solarSystems` | `solarni-sistemi` | `solar-systems` |
+| `solarHouse` | `solarni-sistemi-za-kashta` | `solar-systems-for-homes` |
+| `solarBuildings` | `solarni-sistemi-za-blokove` | `solar-systems-for-buildings` |
+| `solarFarms` | `solarni-centrali` | `solar-farms` |
 
-### Стъпка 2 — Цена на ServicesPage
+Добавяне на slug-ове за всичките 10 езика. Регистриране в `PAGE_MAP` в `LocalizedPageRouter.tsx`.
 
-**Файл:** `src/pages/ServicesPage.tsx`
+### 2. Основна страница — `SolarSystemsPage.tsx`
 
-Заглавието и title казват „от 35 €/м²" — това е цена за „Частичен ремонт" пакет, не за базовия ремонт. Промяна:
-- Title: `Покривни Услуги Варна – Ремонт, Хидроизолация, Нов Покрив | 15г Гаранция`
-- H1: `Покривни Услуги Варна – Пълен Спектър от Решения`
-- Така няма конфликт с „от 19 €/м²" на другите страници
+**Файл:** `src/pages/services/SolarSystemsPage.tsx` (~800 реда, 3000+ думи)
 
-Също: поправка на blog линковете от Cyrillic `/блог/...` → `/bg/blog/...` с Latin slugs.
+Структура (13 секции по образец на RoofRepairPage):
 
-Добавяне на breadcrumb навигация и BreadcrumbList JSON-LD schema.
+1. **Helmet** — SEO meta, OG, Service + FAQ + Breadcrumb JSON-LD schemas
+2. **Hero** — „Соларни системи за къщи, сгради и инвестиции" + dual CTA (Изчисли цена + Обади се)
+3. **TrustIndicators**
+4. **Какво предлагаме** — 4 карти (Проектиране, Доставка, Монтаж, Пускане)
+5. **Уникално предимство** — „Покрив + Солар = Всичко от една фирма" (ключов differentiator, подробен текст с иконки)
+6. **3 типа решения** — карти с линкове към подстраниците
+7. **Как работи системата** — опростена визуализация (слънце → панели → инвертор → дом/мрежа)
+8. **Предимства** — 6 карти (по-ниски сметки, независимост, инвестиция, екология, стойност на имота, бърза възвръщаемост)
+9. **HowWeWork** (процес)
+10. **CompletedProjects**
+11. **Testimonials**
+12. **FAQ** — 8 въпроса за соларни системи
+13. **CTA финал** — dual CTA
 
-### Стъпка 3 — Уникални title/meta за TileReplacementPage
+### 3. Подстраница за къщи — `SolarHousePage.tsx`
 
-**Файл:** `src/pages/services/TileReplacementPage.tsx` (ред 94-95)
+**Файл:** `src/pages/services/SolarHousePage.tsx` (~700 реда)
 
-| Поле | Сега | Поправка |
-|---|---|---|
-| Title | `Смяна Керемиди Варна - от 4 €/бр \| 5г` | `Смяна на Керемиди Варна - от 4 €/бр \| 15г Гаранция` |
-| Meta desc | `5г гаранция` | `15 години гаранция` |
-| OG title | `5г Гаранция` | `15г Гаранция` |
+Секции:
+1. **Hero** — „Соларна система за къща – до 80% по-ниски сметки"
+2. **Проблем → Решение** — скъпи сметки → соларна система
+3. **Конкретен продукт** — 8 kW система с батерия (спецификации, цена)
+4. **Покрив + Солар** — отделна секция: стар покрив → ремонтираме; нов → защитаваме
+5. **Ценови пакети** — 3 пакета (5kW, 8kW, 12kW) с карти
+6. **Процес** — 6 стъпки (Запитване → Консултация → Оферта → Доставка → Монтаж → Пускане)
+7. **Соларен калкулатор** — нов компонент `SolarCalculator.tsx`
+8. **Гаранции** — панели, инвертор, монтаж
+9. **FAQ** + **CTA**
 
-### Стъпка 4 — MetalRoofPage title корекция
+### 4. Подстраница за блокове — `SolarBuildingsPage.tsx`
 
-**Файл:** `src/pages/services/MetalRoofPage.tsx` (ред 119)
+**Файл:** `src/pages/services/SolarBuildingsPage.tsx` (~500 реда)
 
-Title `от 6 €/кв.м` — твърде ниска цена спрямо pricing page `от 18 €/м²`. Промяна на:
-- Title: `Метални Покриви Варна - от 18 €/кв.м | До 50г Гаранция`
+Фокус: общи части, асансьори, намаляване разходи за вход. Секции: Hero, Проблем/Решение, Предимства за етажна собственост, Ценови модели, Покрив + Солар, Процес, CTA.
 
-### Стъпка 5 — Уникални meta descriptions за контакти/отзиви
+### 5. Подстраница за централи — `SolarFarmsPage.tsx`
 
-Страниците вече имат уникални title и meta descriptions (потвърдих горе). Потребителят е посочил generic titles — вероятно е виждал cached версии. Ще проверя и добавя `og:url` и `og:title` където липсват.
+**Файл:** `src/pages/services/SolarFarmsPage.tsx` (~500 реда)
 
-### Стъпка 6 — Google Reviews линк на ReviewsPage
+Фокус: ROI, инвестиция, печалба, мащаб. Секции: Hero, Инвестиционен калкулатор, ROI таблица, Мащаби (50kW–1MW), Процес, CTA.
 
-**Файл:** `src/pages/ReviewsPage.tsx`
+### 6. Нов компонент — `SolarCalculator.tsx`
 
-Добавяне на видим бутон „Вижте ни в Google" с линк към Google Business Profile (или placeholder URL).
+**Файл:** `src/components/SolarCalculator.tsx` (~300 реда)
 
-### Стъпка 7 — Breadcrumb на ServicesPage
+Вграден калкулатор (не модал, inline):
 
-**Файл:** `src/pages/ServicesPage.tsx`
+**Input:**
+- Месечна сметка за ток (slider 50–500 лв)
+- Квадратура на покрива (slider 30–300 м²)
+- Тип покрив (скатен/плосък/метален)
 
-Добавяне на визуален breadcrumb `Начало > Услуги` + JSON-LD BreadcrumbList schema.
+**Output (real-time):**
+- Препоръчана мощност (kW)
+- Ориентировъчна цена (€)
+- Годишно спестяване (€)
+- Срок за изплащане (години)
 
-### Стъпка 8 — Отзив „5 години"
+Формула: мощност = месечна_сметка / 25; цена = мощност × 1100€; спестяване = месечна_сметка × 0.8 × 12 / 2; payback = цена / спестяване.
 
-Потвърдих, че отзивът на Петър Стоянов вече казва „15 години гаранция" — няма проблем. Няма промяна.
+С CTA бутон „Получи точна оферта" → линк към контактна форма.
 
-### Стъпка 9 — Sitemap езици
+### 7. Обновяване на Services carousel
 
-Потребителят казва, че ако няма реален превод, sitemap-овете за fi/sv/no/fr/nl/ua трябва да се премахнат. Но сайтът ИМА реални преводи (i18n файлове за всички 10 езика). Няма промяна — ще потвърдя на потребителя.
+**Файл:** `src/components/Services.tsx`
+
+Добавяне на „Соларни системи" като нов елемент в `serviceKeys[]` с подходящо placeholder изображение и цена „от 4 500 €".
+
+### 8. Header навигация
+
+**Файл:** `src/components/Header.tsx`
+
+Добавяне на „Соларни системи" в dropdown менюто за услуги.
+
+### 9. Sitemap
+
+**Файл:** `public/sitemap-bg.xml`
+
+Добавяне на 4 нови URL-а с priority 0.9/0.8.
+
+### 10. i18n translations
+
+**Файл:** `src/i18n/locales/bg.ts`
+
+Добавяне на всички translation keys за 4-те соларни страници (meta, hero, sections, FAQ).
 
 ### Засегнати файлове
 
 | Файл | Промяна |
 |---|---|
-| `src/i18n/locales/bg.ts` | Fix „115 г.", „13 €", „5г" → правилни стойности |
-| `src/pages/ServicesPage.tsx` | Fix title/H1, breadcrumb, blog links |
-| `src/pages/services/TileReplacementPage.tsx` | Fix „5г" → „15г" в title/meta |
-| `src/pages/services/MetalRoofPage.tsx` | Fix цена в title от 6 → 18 €/м² |
-| `src/pages/ReviewsPage.tsx` | Добави Google Reviews линк |
+| `src/i18n/routes.ts` | +4 RouteKeys, slugs за 10 езика |
+| `src/components/LocalizedPageRouter.tsx` | +4 imports и PAGE_MAP entries |
+| `src/pages/services/SolarSystemsPage.tsx` | НОВ — основна страница 3000+ думи |
+| `src/pages/services/SolarHousePage.tsx` | НОВ — къщи |
+| `src/pages/services/SolarBuildingsPage.tsx` | НОВ — блокове |
+| `src/pages/services/SolarFarmsPage.tsx` | НОВ — централи |
+| `src/components/SolarCalculator.tsx` | НОВ — inline калкулатор |
+| `src/components/Services.tsx` | +1 service card |
+| `src/components/Header.tsx` | +1 nav item |
+| `src/i18n/locales/bg.ts` | +translation keys |
+| `public/sitemap-bg.xml` | +4 URLs |
+
+### Изпълнение
+
+Поради обема (~3500 реда нов код), ще направя на 3 стъпки:
+1. Routing + основна страница + калкулатор
+2. 3 подстраници
+3. Services carousel + Header + Sitemap + translations
 
