@@ -204,8 +204,14 @@ const Header = () => {
     { label: t('nav.flatRoof'), routeKey: 'flatRoof' },
     { label: t('nav.metalRoof'), routeKey: 'metalRoof' },
     { label: t('nav.maintenance'), routeKey: 'maintenance' },
-    { label: t('nav.solarSystems'), routeKey: 'solarSystems' },
     { label: t('nav.financing'), routeKey: 'financing' },
+  ];
+
+  const solarLinks: ServiceLink[] = [
+    { label: t('nav.solarSystems') || 'Соларни Системи', routeKey: 'solarSystems' },
+    { label: 'Соларни Системи за Къща', routeKey: 'solarHouse' },
+    { label: 'Соларни Системи за Сгради', routeKey: 'solarBuildings' },
+    { label: 'Соларни Централи', routeKey: 'solarFarms' },
   ];
 
   return (
