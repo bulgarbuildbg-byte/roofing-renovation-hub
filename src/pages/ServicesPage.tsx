@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import PriceCalculator from "@/components/PriceCalculator";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -386,7 +385,6 @@ const ServicesPage = () => {
         </main>
 
         <Footer />
-        <FloatingCallButton />
       </div>
     </>
   );

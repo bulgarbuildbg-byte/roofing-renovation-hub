@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet";
 import heroRoofRepair from "@/assets/hero-roof-repair.jpg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import PriceCalculator from "@/components/PriceCalculator";
 import CalculatorDialog from "@/components/CalculatorDialog";
 import TrustIndicators from "@/components/TrustIndicators";
@@ -514,7 +513,6 @@ const RoofRepairPage = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

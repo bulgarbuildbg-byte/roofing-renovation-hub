@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import Contact from "@/components/Contact";
 
 const ContactPage = () => {
@@ -125,7 +124,6 @@ const ContactPage = () => {
       </main>
 
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

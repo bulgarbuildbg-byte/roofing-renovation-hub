@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
 import RelatedServices from "@/components/RelatedServices";
 import HowWeWork from "@/components/HowWeWork";
@@ -365,7 +364,6 @@ const FlatRoofPage = () => {
         <RelatedServices services={relatedServices} />
       </main>
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };

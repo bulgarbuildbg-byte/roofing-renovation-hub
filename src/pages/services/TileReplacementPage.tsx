@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet";
 import heroTileReplacement from "@/assets/hero-tile-replacement.jpg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
 import PriceCalculator from "@/components/PriceCalculator";
 import CalculatorDialog from "@/components/CalculatorDialog";
@@ -456,7 +455,6 @@ const TileReplacementPage = () => {
         <CTASection title="Нуждаете се от Смяна на Керемиди?" subtitle="Получете безплатен оглед и честна оферта без задължение" />
       </main>
       <Footer />
-      <FloatingCallButton />
     </>
   );
 };
