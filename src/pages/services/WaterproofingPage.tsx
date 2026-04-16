@@ -6,6 +6,7 @@ import FloatingCallButton from "@/components/FloatingCallButton";
 import CompletedProjects from "@/components/CompletedProjects";
 import Testimonials from "@/components/Testimonials";
 import PriceCalculator from "@/components/PriceCalculator";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -174,6 +175,7 @@ const WaterproofingPage = () => {
                   <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
                 </Button>
               </div>
+              <CalculatorDialog type="roof" />
               <div className="flex flex-wrap gap-3 text-xs md:text-sm">
                 {["15+ години опит", "Гаранция за изпълнение", "Реални обекти", "Работа по договор"].map((item) => (
                   <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">

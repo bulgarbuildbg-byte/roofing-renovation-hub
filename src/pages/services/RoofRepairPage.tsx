@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import PriceCalculator from "@/components/PriceCalculator";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import TrustIndicators from "@/components/TrustIndicators";
 import CertificationsBar from "@/components/CertificationsBar";
 import Services from "@/components/Services";
@@ -177,6 +178,7 @@ const RoofRepairPage = () => {
                   </a>
                 </Button>
               </div>
+              <CalculatorDialog type="roof" />
               <div className="flex flex-wrap gap-4 text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция 15 години", "Реални снимки от обекти"].map((item) => (
                   <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">

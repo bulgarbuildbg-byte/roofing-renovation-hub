@@ -7,6 +7,7 @@ import RelatedServices from "@/components/RelatedServices";
 import HowWeWork from "@/components/HowWeWork";
 import LearnMoreLinks from "@/components/LearnMoreLinks";
 import PriceCalculator from "@/components/PriceCalculator";
+import CalculatorDialog from "@/components/CalculatorDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, CheckCircle, Layers, Shield, Droplets, Sun, MapPin, Clock, Wrench, AlertTriangle, Home, Search, Eye, Hammer, ClipboardCheck } from "lucide-react";
@@ -156,6 +157,7 @@ const FlatRoofPage = () => {
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 shadow-lg"><Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link></Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20"><a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a></Button>
               </div>
+              <CalculatorDialog type="roof" />
               <div className="flex flex-nowrap gap-3 text-xs md:text-sm">
                 {["Безплатен оглед", "Работа по договор", "Гаранция за изпълнение", "Реални снимки от обекти"].map((item) => (
                   <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full"><CheckCircle className="w-4 h-4 text-green-400" /><span className="text-primary-foreground/90">{item}</span></div>
