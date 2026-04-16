@@ -40,8 +40,8 @@ const CalculatorPage = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>Калкулатор Цена Покрив Варна - Онлайн</title>
-        <meta name="description" content="Изчислете ориентировъчна цена за ремонт на покрив онлайн. Безплатен калкулатор с мигновен резултат." />
+        <title>Калкулатор Цена Покрив Варна — Онлайн Оценка за 60 секунди</title>
+        <meta name="description" content="Безплатен онлайн калкулатор за ремонт, хидроизолация и нов покрив във Варна. Получете ориентировъчна цена в евро за 60 секунди. ☎ 088 499 7659" />
         <meta name="keywords" content="цена ремонт покрив Варна, калкулатор покрив, колко струва нов покрив, цена хидроизолация, ремонт покрив цени" />
         <meta property="og:title" content="Калкулатор Цена Покрив Варна - Онлайн" />
         <meta property="og:description" content="Изчислете ориентировъчна цена за ремонт на покрив онлайн. Безплатен калкулатор." />
@@ -53,6 +53,16 @@ const CalculatorPage = () => {
 
       <Header />
       <div className="pt-20">
+        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary py-10 md:py-14">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3">
+              Калкулатор Цена Покрив Варна
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Получете ориентировъчна цена за ремонт, хидроизолация или нов покрив за по-малко от 60 секунди.
+            </p>
+          </div>
+        </section>
         <PriceCalculator />
         <CTASection
           title="Искате точна оферта?"

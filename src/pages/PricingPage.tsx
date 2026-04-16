@@ -40,8 +40,8 @@ const PricingPage = () => {
     <>
       <Helmet>
         <html lang={currentLang} />
-        <title>{t('pricing.title')} | RemontNaPokriviVarna</title>
-        <meta name="description" content={t('pricing.subtitle')} />
+        <title>Цени за Ремонт на Покриви Варна 2026 — Прозрачни Тарифи в Евро</title>
+        <meta name="description" content="Актуални цени за ремонт на покриви, хидроизолация, нов покрив и поддръжка във Варна. Прозрачни тарифи в евро, безплатен оглед, 15г гаранция. ☎ 088 499 7659" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <Header />
