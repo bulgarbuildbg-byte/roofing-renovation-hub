@@ -67,7 +67,7 @@ const bg = {
     copyright: "RemontNaPokriviVarna. Всички права запазени.",
     parentCompany: "Ремонт на Покриви Варна е специализирано покривно подразделение на",
     parentCompanyName: "BulgarBuild Construction Company",
-    companyInfo: "Булгар Билд ЕООД · ЕИК: 207189805",
+    companyInfo: "Булгар Билд ЕООД · ЕИК: 207210238",
     trustPartOf: "Част от Булгар Билд ЕООД",
     trustKsb: "Член на Камарата на строителите",
     trustWarranty: "Писмена гаранция 15 години",
@@ -75,7 +75,7 @@ const bg = {
   certifications: {
     partOf: "Част от Булгар Билд ЕООД",
     ksbMember: "Член на Камарата на строителите в България",
-    certified: "Сертифицирана компания · ЕИК: 207189805",
+    certified: "Сертифицирана компания · ЕИК: 207210238",
   },
   faq: {
     title: "Често Задавани Въпроси", subtitle: "Отговори на най-честите въпроси за нашите услуги",

@@ -10,7 +10,7 @@ import { ArrowLeft, Save, Eye, Download, Mail, MessageCircle, Phone as PhoneIcon
 import { useToast } from "@/hooks/use-toast";
 
 const COMPANY_INFO = {
-  name: "България Билд ЕООД",
+  name: "Булгар Билд ЕООД",
   brand: "Булгар Билд",
   subtitle: "Ремонт на Покриви Варна",
   address: "ул. Уста Колю Фичето 25 А, Варна",

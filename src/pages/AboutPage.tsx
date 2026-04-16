@@ -50,7 +50,7 @@ const AboutPage = () => {
             "@context": "https://schema.org",
             "@type": "RoofingContractor",
             "name": "Ремонт на Покриви Варна",
-            "description": "Специализирано покривно подразделение на България Билд ЕООД",
+            "description": "Специализирано покривно подразделение на Булгар Билд ЕООД",
             "url": "https://www.remontnapokrivivarna.bg",
             "telephone": "+359884997659",
             "email": "remontnapokrivivarna@abv.bg",
@@ -62,7 +62,7 @@ const AboutPage = () => {
             },
             "parentOrganization": {
               "@type": "Organization",
-              "name": "България Билд ЕООД",
+              "name": "Булгар Билд ЕООД",
               "url": "https://bulgarbuild.com",
               "sameAs": "https://bulgarbuild.com/about"
             },
@@ -84,7 +84,7 @@ const AboutPage = () => {
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto text-center">
               Специализирано покривно подразделение на{" "}
               <a href="https://bulgarbuild.com" target="_blank" rel="noopener noreferrer" className="underline font-semibold">
-                България Билд ЕООД
+                Булгар Билд ЕООД
               </a>
             </p>
           </div>
@@ -98,7 +98,7 @@ const AboutPage = () => {
               <p className="text-muted-foreground text-lg mb-6">
                 RemontNaPokriviVarna е специализирано покривно подразделение на{" "}
                 <a href="https://bulgarbuild.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline font-semibold">
-                  България Билд ЕООД (Bulgari Build EOOD)
+                  Булгар Билд ЕООД (Bulgari Build EOOD)
                 </a>{" "}
                 — водеща строителна компания, напълно сертифицирана и лицензирана. Този специализиран 
                 покривен бранш беше създаден, за да предоставя фокусирана експертиза, по-високо качество 
@@ -127,7 +127,7 @@ const AboutPage = () => {
                 <a href="https://bulgarbuild.com/about" className="text-accent hover:underline font-semibold">
                   BulgarBuild
                 </a>
-                {" "}(България Билд ЕООД, ЕИК: 207189805) — водеща строителна компания с пълен спектър от 
+                {" "}(Булгар Билд ЕООД, ЕИК: 207210238) — водеща строителна компания с пълен спектър от 
                 строителни услуги. Компанията-майка изпълнява цялостни строителни проекти — от основи до 
                 довършителни работи, а нашият специализиран бранш се фокусира изцяло върху покривни решения.
               </p>

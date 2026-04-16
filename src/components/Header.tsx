@@ -253,6 +253,11 @@ const Header = () => {
               <img
                 src={logo}
                 alt="RemontNaPokriviVarna - Ремонт на покриви Варна"
+                fetchPriority="high"
+                loading="eager"
+                decoding="sync"
+                width={320}
+                height={80}
                 className={`w-auto transition-all duration-300 ${isScrolled ? 'h-12 md:h-16' : 'h-14 md:h-20'}`}
               />
             </Link>

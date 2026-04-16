@@ -31,7 +31,9 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "RoofingContractor",
     "name": "Ремонт на Покриви Варна",
-    "legalName": "България Билд ЕООД",
+    "legalName": "Булгар Билд ЕООД",
+    "vatID": "BG207210238",
+    "taxID": "207210238",
     "image": `${BASE_URL}/og-image.jpg`,
     "logo": { "@type": "ImageObject", "url": `${BASE_URL}/favicon.png` },
     "description": "Професионален ремонт на покриви, хидроизолация и изграждане на нови покриви във Варна и региона. Над 15 години опит, писмена гаранция 15 години.",
@@ -89,7 +91,7 @@ const Index = () => {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "България Билд ЕООД",
+    "name": "Булгар Билд ЕООД",
     "alternateName": "Ремонт на Покриви Варна",
     "url": BASE_URL,
     "logo": `${BASE_URL}/favicon.png`,
@@ -120,11 +122,10 @@ const Index = () => {
         <meta property="og:title" content={t('meta.homeTitle')} />
         <meta property="og:description" content={t('meta.homeDesc')} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${BASE_URL}/bg`} />
+        {/* og:url and og:locale are set per-language by HreflangTags */}
         <meta property="og:image" content={`${BASE_URL}/og-image.jpg`} />
         <meta property="og:image:width" content="1920" />
         <meta property="og:image:height" content="1080" />
-        <meta property="og:locale" content="bg_BG" />
         <meta property="og:site_name" content="Ремонт на Покриви Варна" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t('meta.homeTitle')} />
