@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 type LineItem = { description: string; qty: number; unit: string; unit_price: number; notes: string };
 
 const COMPANY_INFO = {
-  name: "България Билд ЕООД",
+  name: "Булгар Билд ЕООД",
   brand: "Булгар Билд",
   subtitle: "Ремонт на Покриви Варна",
   address: "ул. Уста Колю Фичето 25 А, Варна",

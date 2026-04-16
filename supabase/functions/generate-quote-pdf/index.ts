@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const COMPANY_INFO = {
-  name: "България Билд ЕООД",
+  name: "Булгар Билд ЕООД",
   brand: "Ремонт на Покриви Варна",
   address: "ул. Уста Колю Фичето 25 А, Варна",
   phone: "088 499 7659",
