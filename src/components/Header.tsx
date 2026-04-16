@@ -367,6 +367,7 @@ const Header = () => {
         onClose={() => setIsMenuOpen(false)}
         isScrolled={isScrolled}
         serviceLinks={serviceLinks}
+        solarLinks={solarLinks}
         scrollToSection={scrollToSection}
         t={t}
         getPath={getPath}
@@ -377,6 +378,7 @@ const Header = () => {
         isOpen={isFullMenuOpen}
         onClose={() => setIsFullMenuOpen(false)}
         serviceLinks={serviceLinks}
+        solarLinks={solarLinks}
         t={t}
         getPath={getPath}
         currentLang={currentLang}
