@@ -237,4 +237,17 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Financing page -->
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/roof-repair-financing"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/dachsanierung-finanzierung"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/finansirovanie-remonta-kryshi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/finansirane-remont-na-pokriv"/>
+  </url>
 </urlset>
