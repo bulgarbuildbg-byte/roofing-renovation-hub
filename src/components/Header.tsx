@@ -30,7 +30,7 @@ interface MobileMenuProps {
   getPath: (key: RouteKey) => string;
 }
 
-const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection, t, getPath }: MobileMenuProps) => {
+const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, solarLinks, scrollToSection, t, getPath }: MobileMenuProps & { solarLinks: ServiceLink[] }) => {
   if (!isOpen) return null;
 
   return createPortal(
@@ -47,6 +47,20 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, scrollToSection
         <nav className="flex flex-col p-6 pb-32">
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">{t('nav.services')}</p>
           {serviceLinks.map((link) => (
+            <Link
+              key={link.routeKey}
+              to={getPath(link.routeKey)}
+              className="text-foreground hover:text-primary transition-colors py-3 text-lg border-b border-border"
+              onClick={onClose}
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          <div className="h-px bg-border my-3" />
+
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Соларни Системи</p>
+          {solarLinks.map((link) => (
             <Link
               key={link.routeKey}
               to={getPath(link.routeKey)}
@@ -109,7 +123,7 @@ interface FullMenuPanelProps {
   currentLang: string;
 }
 
-const FullMenuPanel = ({ isOpen, onClose, serviceLinks, t, getPath }: FullMenuPanelProps) => {
+const FullMenuPanel = ({ isOpen, onClose, serviceLinks, solarLinks, t, getPath }: FullMenuPanelProps & { solarLinks: ServiceLink[] }) => {
   if (!isOpen) return null;
 
   return createPortal(
