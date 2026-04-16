@@ -268,6 +268,23 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
+              {/* Solar Systems dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium h-11">
+                  Соларни Системи
+                  <ChevronDown className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" sideOffset={8} className="w-64 z-[70]">
+                  {solarLinks.map((link) => (
+                    <DropdownMenuItem key={link.routeKey} asChild>
+                      <Link to={getPath(link.routeKey)} className="w-full cursor-pointer">
+                        {link.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               {/* Contact link */}
               <Link
                 to={getPath('contact')}
