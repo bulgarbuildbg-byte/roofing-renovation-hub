@@ -205,6 +205,7 @@ const Header = () => {
     { label: t('nav.metalRoof'), routeKey: 'metalRoof' },
     { label: t('nav.maintenance'), routeKey: 'maintenance' },
     { label: t('nav.solarSystems'), routeKey: 'solarSystems' },
+    { label: t('nav.financing'), routeKey: 'financing' },
   ];
 
   return (
