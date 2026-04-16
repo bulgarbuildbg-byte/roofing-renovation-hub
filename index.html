@@ -9,8 +9,9 @@
     <link rel="dns-prefetch" href="https://vpsbqrxrjrwjmttnptfr.supabase.co" />
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
 
-    <!-- Preload LCP hero image (homepage) -->
-    <link rel="preload" as="image" href="/src/assets/hero-homepage.jpg" fetchpriority="high" />
+    <!-- Hero LCP image is preloaded via fetchPriority="high" on the <img> tag in Hero.tsx
+         (Vite hashes asset filenames at build time, so a static <link rel="preload"> with a
+         literal path would 404 in production). -->
 
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/jpeg" sizes="32x32" href="/favicon.jpeg" />
