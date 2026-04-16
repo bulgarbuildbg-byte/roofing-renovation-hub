@@ -88,9 +88,9 @@ const paymentSteps = [
 ];
 
 const blogLinks = [
-  { title: "Кога да ремонтирате покрива?", href: "/блог/признаци-че-покривът-ви-се-нуждае-от-ремонт" },
-  { title: "Как да разпознаете проблем навреме", href: "/блог/пролетна-инспекция-на-покрива" },
-  { title: "Подготовка на покрива за зимата", href: "/блог/как-да-подготвим-покрива-за-зимата" },
+  { title: "Кога да ремонтирате покрива?", href: "/bg/blog/5-priznaka-remont-na-pokriv" },
+  { title: "Как да разпознаете проблем навреме", href: "/bg/blog/proletna-inspekcia-na-pokriva" },
+  { title: "Подготовка на покрива за зимата", href: "/bg/blog/podgotovka-na-pokriva-za-zimata" },
 ];
 
 const ServicesPage = () => {
@@ -100,12 +100,14 @@ const ServicesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Ремонт на покриви Варна – от 35 €/м²</title>
-        <meta name="description" content="Решаваме течове, подменяме керемиди и изграждаме нови покриви във Варна. Безплатен оглед. ☎ 088 499 7659" />
+        <title>Покривни Услуги Варна – Ремонт, Хидроизолация, Нов Покрив | 15г Гаранция</title>
+        <meta name="description" content="Пълен спектър покривни услуги във Варна: ремонт от 19 €/м², хидроизолация от 9 €/м², нови покриви. 15 години гаранция. ☎ 088 499 7659" />
         <meta name="keywords" content="ремонт покриви варна цени, монтаж покриви варна, хидроизолация покриви, покривни услуги варна" />
-        <meta property="og:title" content="Ремонт на покриви Варна – от 35 €/м²" />
-        <meta property="og:description" content="Решаваме течове, подменяме керемиди и изграждаме нови покриви. Безплатен оглед." />
+        <meta property="og:title" content="Покривни Услуги Варна – Ремонт, Хидроизолация, Нов Покрив | 15г Гаранция" />
+        <meta property="og:description" content="Пълен спектър покривни услуги: ремонт, хидроизолация, нови покриви. 15 години гаранция." />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/services" />
+        <script type="application/ld+json">{JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Начало","item":"https://www.remontnapokrivivarna.bg"},{"@type":"ListItem","position":2,"name":"Услуги","item":"https://www.remontnapokrivivarna.bg/bg/services"}]})}</script>
       </Helmet>
 
       <div className="min-h-screen">
@@ -115,14 +117,15 @@ const ServicesPage = () => {
           {/* 1. Hero Section */}
           <section className="pt-32 pb-16 bg-secondary">
             <div className="container mx-auto px-4">
-              <Link to={getPath('home')} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-8">
-                <ArrowLeft className="w-4 h-4" />
-                Обратно към начало
-              </Link>
+              <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+                <Link to={getPath('home')} className="hover:text-primary transition-colors">Начало</Link>
+                <span>/</span>
+                <span className="text-foreground font-medium">Услуги</span>
+              </nav>
               
               <div className="max-w-3xl">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                  Ремонт на покриви във Варна – от 35 €/м²
+                  Покривни Услуги Варна – Пълен Спектър от Решения
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
                   Решаваме течове, подменяме керемиди и изграждаме нови покриви. Безплатен оглед и честна оферта.

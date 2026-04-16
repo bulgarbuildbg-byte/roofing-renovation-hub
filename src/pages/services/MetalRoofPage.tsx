@@ -116,9 +116,9 @@ const MetalRoofPage = () => {
   return (
     <>
       <Helmet>
-        <title>Метални Покриви Варна - от 6 €/кв.м | 50г</title>
-        <meta name="description" content="Монтаж на метални покриви — керемиди, ламарина, стоящ фалц. До 50 години гаранция. ☎ 088 499 7659" />
-        <meta property="og:title" content="Метални Покриви Варна - от 6 €/кв.м | 50г Гаранция" />
+        <title>Метални Покриви Варна - от 18 €/кв.м | До 50г Гаранция</title>
+        <meta name="description" content="Монтаж на метални покриви — керемиди, ламарина, стоящ фалц. От 18 €/кв.м. До 50 години гаранция. ☎ 088 499 7659" />
+        <meta property="og:title" content="Метални Покриви Варна - от 18 €/кв.м | До 50г Гаранция" />
         <meta property="og:description" content="Монтаж на метални покриви — керемиди, ламарина, стоящ фалц. До 50 години гаранция." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/metalni-pokrivi" />

@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCallButton from "@/components/FloatingCallButton";
 import CTASection from "@/components/CTASection";
-import { Star, Quote, CheckCircle } from "lucide-react";
+import { Star, Quote, CheckCircle, ExternalLink } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
@@ -90,6 +90,15 @@ const ReviewsPage = () => {
                 <p className="text-primary-foreground/80 text-sm">от {totalReviews} отзива</p>
               </div>
             </div>
+            <a
+              href="https://g.page/r/remontnapokrivivarna/review"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-6 bg-background text-foreground font-semibold px-6 py-3 rounded-full hover:bg-background/90 transition-colors"
+            >
+              <ExternalLink className="w-4 h-4" />
+              Вижте ни в Google
+            </a>
           </div>
         </section>
 
