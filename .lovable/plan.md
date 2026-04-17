@@ -1,78 +1,149 @@
 
 
-## План: Решаване на 118 неиндексирани страници (SEO критични поправки)
+## План: Multi-City архитектура — Етап 1 (Бургас)
 
-### Анализ на проблемите
+### Стратегически контекст
 
-Прегледах кода и идентифицирах причините:
+Текущата архитектура е **single-city** (всичко = Варна) с language prefix `/bg/...`. Преходът към multi-city изисква нов URL pattern:
+- **Сега:** `/bg/remont-na-pokrivi` (= Варна имплицитно)
+- **Бъдеще:** `/bg/varna/remont-na-pokrivi`, `/bg/burgas/remont-na-pokrivi`
 
-**Проблем 1 — 77 страници с грешен canonical (НАЙ-КРИТИЧНО):**
-В `src/components/HreflangTags.tsx` се вижда, че canonical се генерира от `location.pathname`. На пръв поглед изглежда коректно, но проблемът е, че на различните езикови страници canonical-ът работи правилно. **Истинският проблем** е, че всяка страница (Index.tsx, ServicesPage.tsx, и др.) ползва `<Helmet>` с `og:url` сочещ към `/bg` версията, докато потребителят е на `/en` или друга — и това обърква Google.
-
-Освен това в `src/pages/Index.tsx` (line 99): `og:url` = `${BASE_URL}/bg` — hardcoded. Това означава, че английската версия има og:url към BG версията.
-
-**Проблем 2 — Дубликати без www / с www / с /bg:**
-- `https://remontnapokrivivarna.bg/` (без www)
-- `https://www.remontnapokrivivarna.bg/` (root, без /bg)
-- `https://www.remontnapokrivivarna.bg/bg`
-
-Lovable hosting обработва всички три, но няма 301 redirect от root към `/bg`. В `App.tsx` вероятно има редирект, но не е сървърен. Не може директно да направим 301 на ниво хостинг, но можем да добавим canonical към `/bg` от root и meta refresh.
-
-**Проблем 3 — 14 redirect URLs в sitemap:**
-Старите Cyrillic slugs (от `OLD_SLUG_REDIRECTS` в routes.ts) вероятно все още присъстват в някои sitemaps. Трябва пълна проверка.
-
-**Проблем 4 — Hero image performance:**
-В `src/components/Hero.tsx` (line 18-19): `fetchPriority="high"` ВЕЧЕ Е ЗАДАДЕН. Но в `index.html` няма `<link rel="preload">` за hero изображението. Логото (в Header) може да няма fetchpriority. Трябва проверка.
-
-**Проблем 5 — Грешен legalName:**
-В `src/pages/Index.tsx` (line 41): `"legalName": "България Билд ЕООД"` → трябва **„Булгар Билд ЕООД"** и EIK **207210238** (не 207189805).
-
-**Проблем 6 — x-default hreflang:**
-В `HreflangTags.tsx` (line 36): `${BASE_URL}/bg` → трябва `${BASE_URL}/` (root).
-
-**Проблем 7 — UA hreflang код:**
-URL-ът е `/ua` но lang код е `uk`. Промяна на URL-а на `/uk` е голяма миграция (засяга 100+ места). По-добре оставяме `/ua` URL и `hreflang="uk"` (което Google приема), но добавяме `<meta http-equiv="content-language" content="uk">` за украинската версия.
+Това е голяма архитектурна промяна — ще я разделя на **2 етапа** за безопасност.
 
 ---
 
-### Промени по файлове (8 файла + 1 миграция)
+### Етап 1 (СЕГА): City registry + Бургас главна страница + City Switcher
 
-| # | Файл | Промяна |
-|---|------|---------|
-| 1 | `src/components/HreflangTags.tsx` | x-default → root (`/`); добавяне на dynamic og:url съответствие; canonical винаги per-language |
-| 2 | `src/pages/Index.tsx` | Fix legalName → „Булгар Билд ЕООД", EIK → 207210238; og:url динамичен per-lang |
-| 3 | `src/components/Footer.tsx` (ако има EIK) | Update EIK 207189805 → 207210238 |
-| 4 | `index.html` | + `<link rel="preload" as="image" href="/src/assets/hero-homepage.jpg" fetchpriority="high">`; обновяване на `og:url` |
-| 5 | `src/components/Header.tsx` | Logo `<img>` → добавяне на `fetchpriority="high"` и `loading="eager"` |
-| 6 | `public/sitemap-bg.xml` + 9 други | Премахване на всички URL-и от `OLD_SLUG_REDIRECTS` (Cyrillic slugs) |
-| 7 | `src/App.tsx` или нов `RootRedirect.tsx` | На route `/` — client-side redirect към `/bg` (за SPA), вече е имплементиран чрез `LanguageRedirect` — verify |
-| 8 | Всички страници с hardcoded `og:url={BASE_URL}/bg` | Замяна с динамичен per-language URL чрез useParams |
+Без да чупя съществуващите `/bg/*` URLs, добавям паралелна city-aware структура.
 
-### Проблем 7 (UA) — отделно решение
+#### 1. City registry (`src/i18n/cities.ts` — нов файл)
 
-Промяна на URL slug `/ua` → `/uk` би изисквала:
-- Update на `SUPPORTED_LANGUAGES` в `i18n/config.ts`
-- Преименуване на `src/i18n/locales/ua.ts` → `uk.ts`
-- Update на всички `localizedSlugs.ua` → `localizedSlugs.uk`
-- Update на `sitemap-ua.xml` → `sitemap-uk.xml`
-- 301 redirect от `/ua/*` → `/uk/*`
+```ts
+export type CityKey = 'varna' | 'burgas';
 
-**Препоръка:** Тази промяна е скъпа и рискова. Оставяме URL `/ua` с hreflang `uk` (Google поддържа това разминаване от години). Не е блокер за индексиране.
+export const CITIES: Record<CityKey, {
+  slug: string;
+  nameBg: string;
+  nameLatin: string;
+  phone: string;
+  email: string;
+  workingHours: string;
+  neighborhoods: string[];
+  geo: { lat: number; lng: number };
+  defaultLang: SupportedLanguage;
+}> = {
+  varna: { slug: 'varna', nameBg: 'Варна', neighborhoods: [...], ... },
+  burgas: { slug: 'burgas', nameBg: 'Бургас', neighborhoods: [
+    'Сарафово','Лазур','Изгрев','Славейков','Меден рудник',
+    'Ветрен','Братя Миладинови','Горно Езерово','Победа','Крайморие'
+  ], geo: { lat: 42.5048, lng: 27.4626 }, ... }
+};
 
-### Какво НЕ можем да направим директно
+export const DEFAULT_CITY: CityKey = 'varna';
+```
 
-- **Сървърен 301 redirect** от non-www → www: Lovable хостингът автоматично пренасочва, но ако не работи — изисква DNS/Cloudflare настройка от потребителя. Документирам в съобщение.
-- **301 от root `/` към `/bg`**: SPA-та правят client-side redirect (LanguageRedirect.tsx вече прави това). За истински 301 нужен е CDN/хостинг конфиг — не е възможно.
+#### 2. CityContext (`src/contexts/CityContext.tsx` — нов)
 
-### Очакван резултат
+Provider който чете активния град от URL (`/[lang]/[city]/...`) или fallback към `varna`. Експозира `useCity()` hook → `{ city, cityData, setCity }`.
 
-- ~77 неиндексирани страници → индексирани (правилни per-language canonical-и)
-- ~14 redirect URL-и → премахнати от sitemaps
-- Schema.org достоверност → коректен legalName/EIK за rich snippets
-- LCP подобрение → preload hero image
-- Конистентност og:url ↔ canonical → по-добър SEO авторитет
+#### 3. Routing — нов pattern
 
-### Засегнат обем
+В `App.tsx` добавям паралелен route **преди** съществуващия `/:lang/*`:
 
-~10 файла + 1 SQL миграция (ако EIK е в DB някъде). Без breaking changes, без promenq на routing.
+```tsx
+{/* New city-aware routes */}
+<Route path="/:lang/:city/*" element={<CityAwareLayout />}>
+  <Route path="*" element={<CityPageRouter />} />
+</Route>
+
+{/* Legacy single-city (Варна implicit) — остава непроменен */}
+<Route path="/:lang/*" element={<LanguageLayout />}>
+  <Route path="*" element={<LocalizedPageRouter />} />
+</Route>
+```
+
+`CityPageRouter` валидира че `:city` е известен, иначе → fallback към legacy router (за да не счупя `/bg/blog`, `/bg/services` и т.н.).
+
+#### 4. Burgas Home Page (`src/pages/cities/BurgasHome.tsx` — нов)
+
+Базиран на `Index.tsx`, но:
+- H1: **„Ремонт на Покриви Бургас"**
+- Title: **„Ремонт на Покриви Бургас — Безплатен Оглед 24ч | 088 499 7659"**
+- Canonical: `https://www.remontnapokrivivarna.bg/bg/burgas/`
+- JSON-LD `RoofingContractor` с `areaServed: Бургас`, `geo` Бургас координати
+- Секция „Обслужваме всички квартали" с 10-те квартала
+- Тел: `tel:0884997659`
+- Email: `remontnapokrivivarna@abv.bg`
+- Раб. време: Пон–Съб 08:00–18:00 · Аварии 24/7
+- Reuse-ва компонентите: `Hero`, `TrustIndicators`, `Services`, `HowWeWork`, `Testimonials`, `Contact`, `Footer` — всички получават `cityData` via CityContext и показват „Бургас" вместо „Варна"
+
+#### 5. City Switcher в Header (`src/components/CitySwitcher.tsx` — нов)
+
+Малък dropdown в хедъра (до LanguageSwitcher):
+- Показва текущия град (с икона MapPin)
+- Опции: Варна, Бургас (+ „Скоро: Русе, Пловдив..." disabled)
+- При клик → navigate към същата страница в новия град
+- Pill-стил, h-11, консистентен с LanguageSwitcher
+
+В `Header.tsx` добавям `<CitySwitcher />` преди `<LanguageSwitcher />`.
+
+#### 6. Динамични nav линкове (city-aware)
+
+Разширявам `useLocalizedPath()` хука:
+```ts
+const { getPath, currentLang, currentCity } = useLocalizedPath();
+// getPath('roofRepair') → 
+//   ако city='varna' (default): /bg/remont-na-pokrivi  (legacy URL)
+//   ако city='burgas': /bg/burgas/remont-na-pokrivi  (нов pattern)
+```
+
+Това гарантира че когато потребителят е в `/bg/burgas/`, всички линкове в менюто водят към `/bg/burgas/[услуга]`.
+
+**Важно:** За Етап 1 услугните страници за Бургас още не съществуват — ще водят към 404 placeholder с CTA „Поискай оглед в Бургас". Това ще се реши в Етап 2.
+
+#### 7. SEO файлове
+
+- **`public/sitemap-bg.xml`**: добавяне на `/bg/burgas/` като нов URL (priority 0.9)
+- **`src/components/HreflangTags.tsx`**: city-aware canonical (URL винаги отразява активния град)
+
+---
+
+### Етап 2 (СЛЕДВАЩА СЕСИЯ — НЕ В ТАЗИ): Услугни страници за Бургас
+
+След като Етап 1 работи, ще създам:
+- 8-10 услугни страници за Бургас (`/bg/burgas/remont-na-pokrivi`, `/bg/burgas/hidroizolacia-na-pokriv`, ...)
+- Reusable templates вместо дублиране (всяка услуга = 1 компонент който приема `cityData`)
+- Обновяване на sitemap с всички 8 нови URL-а
+
+---
+
+### Засегнати файлове (Етап 1 — ~10 файла)
+
+| # | Файл | Действие |
+|---|------|----------|
+| 1 | `src/i18n/cities.ts` | NEW — city registry |
+| 2 | `src/contexts/CityContext.tsx` | NEW — provider + useCity() |
+| 3 | `src/components/CityAwareLayout.tsx` | NEW — wrapper за city-aware routes |
+| 4 | `src/components/CityPageRouter.tsx` | NEW — рутер за city pages |
+| 5 | `src/pages/cities/BurgasHome.tsx` | NEW — главна страница Бургас |
+| 6 | `src/components/CitySwitcher.tsx` | NEW — dropdown в хедъра |
+| 7 | `src/hooks/useLocalizedPath.ts` | UPDATE — добавя `currentCity` + city-aware getPath |
+| 8 | `src/components/Header.tsx` | UPDATE — добавя CitySwitcher |
+| 9 | `src/App.tsx` | UPDATE — нов `/:lang/:city/*` route преди legacy |
+| 10 | `public/sitemap-bg.xml` | UPDATE — добавя `/bg/burgas/` |
+
+### Какво НЕ се променя (за безопасност)
+
+- Съществуващите `/bg/*`, `/en/*` URLs продължават да работят непроменени
+- Legacy `LanguageLayout` + `LocalizedPageRouter` остават
+- Всички текущи SEO/canonical/sitemap entries за Варна остават валидни
+- Когато city не е в URL → имплицитно = Варна (legacy behavior)
+
+### Очакван резултат след Етап 1
+
+✅ `/bg/burgas/` зарежда пълна главна страница за Бургас  
+✅ City Switcher в хедъра показва „Варна" / „Бургас"  
+✅ JSON-LD `RoofingContractor` за Бургас → Google Local Pack за Бургас заявки  
+✅ Sitemap включва Бургас → Google ще го открие  
+✅ Архитектура готова за добавяне на още градове (Русе, Пловдив) и държави (`/de/hamburg/`)
 
