@@ -64,6 +64,12 @@ const LocalizedPageRouter = () => {
   const currentLang = (SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage) ? lang : 'bg') as SupportedLanguage;
   const slug = restPath || '';
 
+  // City-aware dispatch: if first segment is a known city → CityPageRouter
+  const firstSegment = slug.split('/')[0];
+  if (isCityKey(firstSegment)) {
+    return <CityPageRouter />;
+  }
+
   if (!slug) return <Index />;
 
   if (currentLang === 'bg') {
