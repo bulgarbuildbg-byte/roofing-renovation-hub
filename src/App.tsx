@@ -9,8 +9,6 @@ import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import LanguageLayout from "@/components/LanguageLayout";
 import LanguageRedirect from "@/components/LanguageRedirect";
 import LocalizedPageRouter from "@/components/LocalizedPageRouter";
-import CityAwareLayout from "@/components/CityAwareLayout";
-import CityPageRouter from "@/components/CityPageRouter";
 import NotFound from "./pages/NotFound";
 import { useParams, Navigate as Nav } from "react-router-dom";
 
