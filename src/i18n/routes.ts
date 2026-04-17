@@ -5,7 +5,7 @@ export type RouteKey =
   | 'newRoof' | 'tileRoofRepair' | 'flatRoof' | 'metalRoof' | 'maintenance'
   | 'about' | 'projects' | 'reviews' | 'calculator' | 'blog' | 'faq' | 'contact' | 'inspection' | 'howWeWork' | 'pricing'
   | 'solarSystems' | 'solarHouse' | 'solarBuildings' | 'solarFarms'
-  | 'financing';
+  | 'financing' | 'cities';
 
 export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>> = {
   bg: {
