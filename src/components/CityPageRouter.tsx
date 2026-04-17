@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { isCityKey } from "@/i18n/cities";
 import { findRouteKeyBySlug } from "@/i18n/routes";
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { CITY_SERVICES } from "@/data/cityServices";
 import BurgasHome from "@/pages/cities/BurgasHome";
 import VarnaHome from "@/pages/cities/VarnaHome";
@@ -11,12 +12,15 @@ import NotFound from "@/pages/NotFound";
 /**
  * Routes city-scoped pages: /:lang/:city/*
  *
- * Stage 2: Dispatches city home pages and city service pages via CityServiceTemplate.
- *  - /:lang/:city           → city home page
- *  - /:lang/:city/:service  → CityServiceTemplate with service config
+ * Works across all supported languages — resolves the service slug
+ * in the active language, then renders the BG service template.
  */
 const CityPageRouter = () => {
-  const { "*": restPath } = useParams<{ "*": string }>();
+  const { lang, "*": restPath } = useParams<{ lang: string; "*": string }>();
+  const currentLang: SupportedLanguage = (
+    SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage) ? lang : "bg"
+  ) as SupportedLanguage;
+
   const segments = (restPath || "").split("/").filter(Boolean);
   const city = segments[0];
   const subPath = segments.slice(1).join("/");
@@ -32,8 +36,8 @@ const CityPageRouter = () => {
     if (city === "ruse") return <RuseHome />;
   }
 
-  // Service sub-page: resolve slug → routeKey → service config
-  const routeKey = findRouteKeyBySlug(subPath, "bg");
+  // Service sub-page: resolve slug → routeKey using the ACTIVE language
+  const routeKey = findRouteKeyBySlug(subPath, currentLang);
   if (routeKey) {
     const service = CITY_SERVICES[routeKey];
     if (service) {

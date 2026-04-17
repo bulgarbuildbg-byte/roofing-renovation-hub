@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SUPPORTED_LANGUAGES, BROWSER_LANG_MAP, type SupportedLanguage } from "@/i18n/config";
+import { DEFAULT_CITY } from "@/i18n/cities";
 
 function getCookie(name: string): string | null {
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -30,7 +31,8 @@ const LanguageRedirect = () => {
 
   useEffect(() => {
     const lang = detectLanguage();
-    navigate(`/${lang}`, { replace: true });
+    // Always redirect to the city-scoped home (default city = varna)
+    navigate(`/${lang}/${DEFAULT_CITY}`, { replace: true });
   }, [navigate]);
 
   return null;

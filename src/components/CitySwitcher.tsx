@@ -22,13 +22,8 @@ const CitySwitcher = () => {
 
   const switchCity = (newCity: CityKey) => {
     if (newCity === currentCity) return;
-    if (newCity === "varna") {
-      // Varna is the legacy default — navigate to /:lang root (no /varna prefix)
-      navigate(`/${currentLang}`);
-    } else {
-      // Other cities use explicit /:lang/:city/ pattern
-      navigate(`/${currentLang}/${newCity}`);
-    }
+    // All cities use the unified /:lang/:city/ pattern (including Varna)
+    navigate(`/${currentLang}/${newCity}`);
   };
 
   return (
