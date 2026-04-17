@@ -38,29 +38,36 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       {/* Local SEO service areas strip — clickable city pills */}
-      <div className="border-b border-primary-foreground/10 py-4">
+      <div className="border-b border-primary-foreground/10 py-5">
         <div className="container mx-auto px-4">
-          <p className="text-primary-foreground/50 text-xs uppercase tracking-widest mb-2 font-semibold">
+          {/* Row 1: label */}
+          <p className="text-primary-foreground/50 text-xs uppercase tracking-widest mb-3 font-semibold">
             Обслужваме — Покривни услуги в:
           </p>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          {/* Row 2: pills + all-cities link aligned to right on desktop */}
+          <div className="flex flex-wrap items-center gap-2">
             {ACTIVE_CITIES.map((cityKey) => (
               <Link
                 key={cityKey}
                 to={`/bg/${CITIES[cityKey].slug}`}
-                className="text-primary-foreground/80 text-sm hover:text-primary-foreground hover:underline transition-colors font-medium"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary-foreground/25 bg-primary-foreground/5 text-primary-foreground/90 text-sm font-medium hover:bg-primary-foreground/15 hover:border-primary-foreground/50 transition-colors"
               >
+                <MapPin className="w-3.5 h-3.5" />
                 {CITIES[cityKey].nameBg}
               </Link>
             ))}
             {COMING_SOON_CITIES.map((c) => (
-              <span key={c.slug} className="text-primary-foreground/40 text-sm">
-                {c.nameBg} (скоро)
+              <span
+                key={c.slug}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-dashed border-primary-foreground/20 text-primary-foreground/50 text-sm"
+              >
+                <MapPin className="w-3.5 h-3.5" />
+                {c.nameBg} <span className="opacity-70">(скоро)</span>
               </span>
             ))}
             <Link
               to={getPath("cities")}
-              className="ml-2 text-accent text-sm hover:underline font-semibold"
+              className="md:ml-auto inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold hover:bg-accent/90 transition-colors shadow-sm"
             >
               Всички градове →
             </Link>
