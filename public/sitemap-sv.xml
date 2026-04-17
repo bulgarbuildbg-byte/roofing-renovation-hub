@@ -2,21 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de"/>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi"/>
-    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv"/>
-    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru"/>
-    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/varna"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/varna"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/varna"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/varna"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/varna"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/varna"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/varna"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/varna"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/varna"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/varna"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/varna"/>
   </url>
   <url>
     <loc>https://www.remontnapokrivivarna.bg/sv/tjanster</loc>
@@ -25,49 +25,49 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/takreparation-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/takreparation-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/tegelreparation-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/tegelreparation-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/lackage-reparation-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/lackage-reparation-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/tatning-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/tatning-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/nytt-tak-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/nytt-tak-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/platta-tak-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/platta-tak-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/metalltak-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/metalltak-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.remontnapokrivivarna.bg/sv/takunderhall-varna</loc>
+    <loc>https://www.remontnapokrivivarna.bg/sv/varna/takunderhall-varna</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

@@ -167,10 +167,37 @@ export function findRouteBySlug(slug: string): { lang: SupportedLanguage; routeK
 }
 
 /**
- * Get a localized path for a given route key and language
+ * City-scoped routes — these always carry a city prefix (e.g., /bg/varna/remont-na-pokrivi).
+ * All other routes remain global (e.g., /bg/za-nas, /en/about).
+ */
+export const CITY_SCOPED_ROUTES: RouteKey[] = [
+  'home', 'roofRepair', 'leakRepair', 'waterproofing',
+  'newRoof', 'tileRoofRepair', 'flatRoof', 'metalRoof', 'maintenance',
+];
+
+export function isCityScopedRoute(key: RouteKey): boolean {
+  return CITY_SCOPED_ROUTES.includes(key);
+}
+
+/**
+ * Get a localized path for a given route key and language.
+ * For city-scoped routes, automatically inserts the default city (varna) prefix.
  */
 export function getLocalizedPath(routeKey: RouteKey, lang: SupportedLanguage): string {
   const slug = localizedSlugs[lang][routeKey];
+  if (isCityScopedRoute(routeKey)) {
+    if (routeKey === 'home') return `/${lang}/varna`;
+    return `/${lang}/varna/${slug}`;
+  }
   if (routeKey === 'home') return `/${lang}`;
   return `/${lang}/${slug}`;
+}
+
+/**
+ * Get a city-scoped path for a given route key, language and city.
+ */
+export function getCityScopedPath(routeKey: RouteKey, lang: SupportedLanguage, city: string): string {
+  const slug = localizedSlugs[lang][routeKey];
+  if (routeKey === 'home') return `/${lang}/${city}`;
+  return `/${lang}/${city}/${slug}`;
 }

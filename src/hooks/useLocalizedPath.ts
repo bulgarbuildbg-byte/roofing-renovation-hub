@@ -1,9 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { type SupportedLanguage } from "@/i18n/config";
-import { localizedSlugs, type RouteKey, getLocalizedPath } from "@/i18n/routes";
-import { isCityKey, type CityKey } from "@/i18n/cities";
-import { CITY_SERVICES } from "@/data/cityServices";
+import { localizedSlugs, type RouteKey, getLocalizedPath, isCityScopedRoute } from "@/i18n/routes";
+import { isCityKey, type CityKey, DEFAULT_CITY } from "@/i18n/cities";
 
 export function useLocalizedPath() {
   const { i18n } = useTranslation();
@@ -15,12 +14,15 @@ export function useLocalizedPath() {
   const currentCity: CityKey | null = isCityKey(firstSegment) ? (firstSegment as CityKey) : null;
 
   const getPath = (routeKey: RouteKey): string => {
-    // Inside a city context, prefer city-scoped URL when a service template exists for the route.
-    // Non-service routes (contact, calculator, blog, etc.) fall back to legacy paths.
-    if (currentCity && currentLang === "bg" && CITY_SERVICES[routeKey]) {
-      const slug = localizedSlugs.bg[routeKey];
-      return `/bg/${currentCity}/${slug}`;
+    // City-scoped routes ALWAYS carry a city prefix (default = varna).
+    // If user is browsing within a city context, preserve that city.
+    if (isCityScopedRoute(routeKey)) {
+      const city = currentCity || DEFAULT_CITY;
+      const slug = localizedSlugs[currentLang][routeKey];
+      if (routeKey === "home") return `/${currentLang}/${city}`;
+      return `/${currentLang}/${city}/${slug}`;
     }
+    // Global routes (about, contact, blog, etc.) — never city-prefixed.
     return getLocalizedPath(routeKey, currentLang);
   };
 

@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { findRouteKeyBySlug, OLD_BG_SLUGS, type RouteKey } from "@/i18n/routes";
+import { findRouteKeyBySlug, OLD_BG_SLUGS, isCityScopedRoute, type RouteKey } from "@/i18n/routes";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { isCityKey } from "@/i18n/cities";
 import CityPageRouter from "@/components/CityPageRouter";
@@ -70,8 +70,12 @@ const LocalizedPageRouter = () => {
     return <CityPageRouter />;
   }
 
-  if (!slug) return <Index />;
+  // Empty slug = /:lang root → redirect to /:lang/varna (Varna is default city)
+  if (!slug) {
+    return <Navigate to={`/${currentLang}/varna`} replace />;
+  }
 
+  // Legacy Cyrillic BG redirects → cascade to new Latin slug (which then redirects to /varna/)
   if (currentLang === 'bg') {
     const slugParts = slug.split('/');
     const mainSlug = slugParts[0];
@@ -91,6 +95,12 @@ const LocalizedPageRouter = () => {
   }
 
   const routeKey = findRouteKeyBySlug(slug, currentLang);
+
+  // SEO: city-scoped routes without /:city/ prefix → 301 redirect to /:lang/varna/:slug
+  if (routeKey && isCityScopedRoute(routeKey)) {
+    return <Navigate to={`/${currentLang}/varna/${slug}`} replace />;
+  }
+
   if (routeKey && PAGE_MAP[routeKey]) {
     const PageComponent = PAGE_MAP[routeKey];
     return <PageComponent />;
