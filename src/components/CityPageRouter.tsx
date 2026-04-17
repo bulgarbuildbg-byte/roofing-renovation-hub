@@ -1,15 +1,18 @@
 import { useParams } from "react-router-dom";
 import { isCityKey } from "@/i18n/cities";
+import { findRouteKeyBySlug } from "@/i18n/routes";
+import { CITY_SERVICES } from "@/data/cityServices";
 import BurgasHome from "@/pages/cities/BurgasHome";
 import VarnaHome from "@/pages/cities/VarnaHome";
+import CityServiceTemplate from "@/components/city/CityServiceTemplate";
 import NotFound from "@/pages/NotFound";
 
 /**
  * Routes city-scoped pages: /:lang/:city/*
- * Called by LocalizedPageRouter when the first path segment is a known city.
  *
- * Stage 1: Only home pages exist for each city.
- * Stage 2 will add /:lang/:city/[service] pages.
+ * Stage 2: Dispatches city home pages and city service pages via CityServiceTemplate.
+ *  - /:lang/:city           → city home page
+ *  - /:lang/:city/:service  → CityServiceTemplate with service config
  */
 const CityPageRouter = () => {
   const { "*": restPath } = useParams<{ "*": string }>();
@@ -27,7 +30,15 @@ const CityPageRouter = () => {
     if (city === "varna") return <VarnaHome />;
   }
 
-  // Future: service sub-pages will be wired here in Stage 2
+  // Service sub-page: resolve slug → routeKey → service config
+  const routeKey = findRouteKeyBySlug(subPath, "bg");
+  if (routeKey) {
+    const service = CITY_SERVICES[routeKey];
+    if (service) {
+      return <CityServiceTemplate service={service} />;
+    }
+  }
+
   return <NotFound />;
 };
 
