@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Clock, Shield, CheckCircle, Calculator } from "lucide-react";
+import { Phone, MapPin, Clock, Shield, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCity } from "@/contexts/CityContext";
 import Header from "@/components/Header";
