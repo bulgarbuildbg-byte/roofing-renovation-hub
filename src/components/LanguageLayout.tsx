@@ -2,6 +2,7 @@ import { useEffect, lazy, Suspense } from "react";
 import { Outlet, useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SUPPORTED_LANGUAGES, LANGUAGE_HTML_LANG, type SupportedLanguage } from "@/i18n/config";
+import { CityProvider } from "@/contexts/CityContext";
 import HreflangTags from "./HreflangTags";
 import FloatingCallButton from "./FloatingCallButton";
 import MobileBottomBar from "./MobileBottomBar";
@@ -28,7 +29,7 @@ const LanguageLayout = () => {
   }, [currentLang, i18n, lang, navigate]);
 
   return (
-    <>
+    <CityProvider>
       <HreflangTags />
       <Outlet />
       <FloatingCallButton />
@@ -37,7 +38,7 @@ const LanguageLayout = () => {
         <ChatBot />
       </Suspense>
       <div className="h-20 md:hidden" />
-    </>
+    </CityProvider>
   );
 };
 

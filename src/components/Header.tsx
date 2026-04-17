@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import logo from "@/assets/logo-horizontal.jpeg";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import LanguageSwitcher from "./LanguageSwitcher";
+import CitySwitcher from "./CitySwitcher";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -73,7 +74,8 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, solarLinks, scr
 
           <div className="h-px bg-border my-3" />
 
-          <div className="mb-3">
+          <div className="mb-3 flex items-center gap-2">
+            <CitySwitcher />
             <LanguageSwitcher />
           </div>
 
@@ -348,6 +350,9 @@ const Header = () => {
                   {t('nav.freeInspection')}
                 </Link>
               </Button>
+
+              {/* City switcher */}
+              <CitySwitcher />
 
               {/* Language switcher */}
               <LanguageSwitcher />

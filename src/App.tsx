@@ -79,7 +79,7 @@ const App = () => (
             <Route path="/калкулатор" element={<Navigate to="/bg/kalkulator" replace />} />
             <Route path="/безплатен-оглед" element={<Navigate to="/bg/bezplaten-ogled" replace />} />
 
-            {/* Language-prefixed public routes */}
+            {/* Language-prefixed public routes — handles BOTH legacy /:lang/[slug] AND city /:lang/:city/* via LocalizedPageRouter dispatch */}
             <Route path="/:lang/*" element={<LanguageLayout />}>
               <Route path="*" element={<LocalizedPageRouter />} />
             </Route>

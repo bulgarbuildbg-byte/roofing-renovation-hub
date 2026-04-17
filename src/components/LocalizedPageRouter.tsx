@@ -1,6 +1,8 @@
 import { useParams, Navigate } from "react-router-dom";
 import { findRouteKeyBySlug, OLD_BG_SLUGS, type RouteKey } from "@/i18n/routes";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
+import { isCityKey } from "@/i18n/cities";
+import CityPageRouter from "@/components/CityPageRouter";
 import Index from "@/pages/Index";
 import ServicesPage from "@/pages/ServicesPage";
 import AboutPage from "@/pages/AboutPage";
@@ -61,6 +63,12 @@ const LocalizedPageRouter = () => {
   const { lang, '*': restPath } = useParams<{ lang: string; '*': string }>();
   const currentLang = (SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage) ? lang : 'bg') as SupportedLanguage;
   const slug = restPath || '';
+
+  // City-aware dispatch: if first segment is a known city → CityPageRouter
+  const firstSegment = slug.split('/')[0];
+  if (isCityKey(firstSegment)) {
+    return <CityPageRouter />;
+  }
 
   if (!slug) return <Index />;
 
