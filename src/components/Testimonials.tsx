@@ -70,6 +70,11 @@ const fallbackTestimonials: Testimonial[] = [
   { id: "r2", text: "Хидроизолация на покрив във Възраждане — 15 години гаранция и безупречна работа. Препоръчвам на всеки в Русе.", author_name: "Светла Маринова", location: "кв. Възраждане, Русе", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=44", is_verified: true, service_type: "waterproofing", city: "ruse" },
   { id: "r3", text: "Бърз и коректен ремонт на покрив в Чародейка. Цената беше изключително разумна за качеството.", author_name: "Пламен Иванов", location: "кв. Чародейка, Русе", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=58", is_verified: true, service_type: "repair", city: "ruse" },
   { id: "r4", text: "Поддръжка на плосък покрив в Дружба — професионален екип, който работи прецизно. Много съм доволен.", author_name: "Кристина Тодорова", location: "кв. Дружба, Русе", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=27", is_verified: true, service_type: "maintenance", city: "ruse" },
+  // Dobrich
+  { id: "d1", text: "Изключително професионален ремонт на покрива на къщата ни в Балик. Бърза реакция и качествена работа на разумна цена.", author_name: "Стефан Костов", location: "кв. Балик, Добрич", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=13", is_verified: true, service_type: "repair", city: "dobrich" },
+  { id: "d2", text: "Хидроизолация на терасата в кв. Дружба — без течове вече втора зима. Препоръчвам ги без колебание!", author_name: "Радостина Илиева", location: "кв. Дружба, Добрич", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=29", is_verified: true, service_type: "waterproofing", city: "dobrich" },
+  { id: "d3", text: "Подмяна на керемиди в Изгрев — точно в срок, чисто след работа и честна цена. Много доволни сме от екипа.", author_name: "Борислав Янев", location: "кв. Изгрев, Добрич", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=51", is_verified: true, service_type: "tiles", city: "dobrich" },
+  { id: "d4", text: "Нов покрив на вилата ни край Добрич — отлично качество на материалите и прецизна работа. 15 години гаранция!", author_name: "Татяна Николова", location: "кв. Център, Добрич", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=40", is_verified: true, service_type: "new_construction", city: "dobrich" },
 ];
 
 const Testimonials = () => {
