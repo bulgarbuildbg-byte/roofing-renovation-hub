@@ -58,6 +58,7 @@ const PAGE_MAP: Record<RouteKey, React.ComponentType> = {
   howWeWork: HowWeWorkPage,
   pricing: PricingPage,
   financing: FinancingPage,
+  cities: CitiesHubPage,
 };
 
 const LocalizedPageRouter = () => {

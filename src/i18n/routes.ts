@@ -18,6 +18,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'tseni-remont-pokriv',
     solarSystems: 'solarni-sistemi', solarHouse: 'solarni-sistemi-za-kashta', solarBuildings: 'solarni-sistemi-za-blokove', solarFarms: 'solarni-centrali',
     financing: 'finansirane-remont-na-pokriv',
+    cities: 'gradove',
   },
   en: {
     home: '', services: 'services', roofRepair: 'roof-repair-varna', leakRepair: 'roof-leak-repair',
@@ -29,6 +30,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'roof-repair-prices',
     solarSystems: 'solar-systems', solarHouse: 'solar-systems-for-homes', solarBuildings: 'solar-systems-for-buildings', solarFarms: 'solar-farms',
     financing: 'roof-repair-financing',
+    cities: 'cities',
   },
   de: {
     home: '', services: 'dienstleistungen', roofRepair: 'dachreparatur-varna', leakRepair: 'leckage-reparatur-varna',
@@ -40,6 +42,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'dachsanierung-preise',
     solarSystems: 'solaranlagen', solarHouse: 'solaranlagen-fuer-haeuser', solarBuildings: 'solaranlagen-fuer-gebaeude', solarFarms: 'solarkraftwerke',
     financing: 'dachsanierung-finanzierung',
+    cities: 'staedte',
   },
   fi: {
     home: '', services: 'palvelut', roofRepair: 'kattokorjaus-varna', leakRepair: 'vuotokorjaus-varna',
@@ -51,6 +54,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'kattokorjaus-hinnat',
     solarSystems: 'aurinkopaneelit', solarHouse: 'aurinkopaneelit-taloille', solarBuildings: 'aurinkopaneelit-rakennuksille', solarFarms: 'aurinkovoimalat',
     financing: 'kattoremontin-rahoitus',
+    cities: 'kaupungit',
   },
   sv: {
     home: '', services: 'tjanster', roofRepair: 'takreparation-varna', leakRepair: 'lackage-reparation-varna',
@@ -62,6 +66,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'takreparation-priser',
     solarSystems: 'solcellssystem', solarHouse: 'solceller-for-hus', solarBuildings: 'solceller-for-byggnader', solarFarms: 'solcellsparker',
     financing: 'takreparation-finansiering',
+    cities: 'stader',
   },
   no: {
     home: '', services: 'tjenester', roofRepair: 'takreparasjon-varna', leakRepair: 'lekkasje-reparasjon-varna',
@@ -73,6 +78,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'takreparasjon-priser',
     solarSystems: 'solcellesystemer', solarHouse: 'solceller-for-boliger', solarBuildings: 'solceller-for-bygninger', solarFarms: 'solcelleparker',
     financing: 'takreparasjon-finansiering',
+    cities: 'byer',
   },
   fr: {
     home: '', services: 'services', roofRepair: 'reparation-toiture-varna', leakRepair: 'reparation-fuite-varna',
@@ -84,6 +90,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'prix-reparation-toiture',
     solarSystems: 'panneaux-solaires', solarHouse: 'panneaux-solaires-maison', solarBuildings: 'panneaux-solaires-immeubles', solarFarms: 'centrales-solaires',
     financing: 'financement-reparation-toiture',
+    cities: 'villes',
   },
   nl: {
     home: '', services: 'diensten', roofRepair: 'dakreparatie-varna', leakRepair: 'lekkage-reparatie-varna',
@@ -95,6 +102,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'dakreparatie-prijzen',
     solarSystems: 'zonnepanelen', solarHouse: 'zonnepanelen-voor-woningen', solarBuildings: 'zonnepanelen-voor-gebouwen', solarFarms: 'zonneparken',
     financing: 'dakreparatie-financiering',
+    cities: 'steden',
   },
   ru: {
     home: '', services: 'uslugi', roofRepair: 'remont-kryshi-varna', leakRepair: 'remont-protechek-varna',
@@ -106,6 +114,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'tseny-remonta-kryshi',
     solarSystems: 'solnechnye-sistemy', solarHouse: 'solnechnye-sistemy-dlya-domov', solarBuildings: 'solnechnye-sistemy-dlya-zdanij', solarFarms: 'solnechnye-elektrostantsii',
     financing: 'finansirovanie-remonta-kryshi',
+    cities: 'goroda',
   },
   ua: {
     home: '', services: 'poslugy', roofRepair: 'remont-dahu-varna', leakRepair: 'remont-protikan-varna',
@@ -117,6 +126,7 @@ export const localizedSlugs: Record<SupportedLanguage, Record<RouteKey, string>>
     pricing: 'tsiny-remontu-dahu',
     solarSystems: 'sonyachni-systemy', solarHouse: 'sonyachni-systemy-dlya-budynkiv', solarBuildings: 'sonyachni-systemy-dlya-budivel', solarFarms: 'sonyachni-elektrostantsii',
     financing: 'finansuvannya-remontu-dahu',
+    cities: 'mista',
   },
 };
 
