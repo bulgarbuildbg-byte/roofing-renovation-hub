@@ -1,45 +1,75 @@
 
 
-## План: 3 малки подобрения на Cities функционалност
+## План: Добавяне на Добрич като 4-ти активен град
 
-### 1. CitySwitcher — добави "Виж всички градове"
-Във `src/components/CitySwitcher.tsx`, след секцията "Скоро" (преди `</DropdownMenuContent>`):
-- Добави `<DropdownMenuSeparator />`
-- Добави нов `<DropdownMenuItem>` който навигира към `/${currentLang}/gradove` (или localized slug през `useLocalizedPath` за `cities` route key)
-- Стил: акцентен цвят, икона `Map` от lucide, текст "Виж всички градове →"
+### Подход
+Копирам Русе pattern-а — Добрич е логичен следващ град, тъй като е географски близо до Варна (45 км северно, ~90,000 жители, областен център).
 
-### 2. CitiesHubPage — реална карта на България
-В `src/pages/CitiesHubPage.tsx`, замяна на стилизирания SVG blob (редове ~115-160) с реален SVG outline на България:
+### Промени
 
-**Подход:** Inline SVG path с реалната граница на България (опростена топология ~50-80 точки, viewBox `0 0 1000 600`). Координатите се нормализират от lat/lng към SVG пиксели чрез проста линейна проекция:
-- Bulgaria bbox: lng [22.36, 28.61], lat [41.24, 44.22]
-- `x = ((lng - 22.36) / (28.61 - 22.36)) * 1000`
-- `y = ((44.22 - lat) / (44.22 - 41.24)) * 600`
+**1. `src/i18n/cities.ts`**
+- Добавям `"dobrich"` към `CityKey` type
+- Добавям пълен `CityData` запис: 
+  - slug: `dobrich`, nameBg: `Добрич`, nameLatin: `Dobrich`, nameLocative: `в Добрич`
+  - Phone/email/hours: същите като другите градове (единен контакт)
+  - Квартали: `Балик`, `Дружба`, `Изгрев`, `Рилци`, `Запад`, `Север`, `Център`, `Добротица`, `Хр. Ботев`, `Русе`
+  - Geo: `{ lat: 43.5667, lng: 27.8333 }`
+  - Postal: `9300`, region: `Добрич`
+- Добавям `"dobrich"` към `ACTIVE_CITIES` масива
+- Премахвам Добрич от `COMING_SOON_CITIES` (не присъства, но проверявам)
+- Update `isCityKey` и `getCityFromSlug` да включват `"dobrich"`
 
-Резултатът: реален географски силует на България с точно позиционирани pins за Варна (изток, Черно море), Бургас (югоизток), Русе (север, Дунав), плюс полупрозрачни pins за София и Пловдив. Добавям и реки (Дунав по северната граница) и Черно море като светлосин фон от изток за визуален контекст.
+**2. `src/pages/cities/DobrichHome.tsx`** (нов файл)
+- Копие на `RuseHome.tsx` pattern
+- Hero с "Ремонт на покриви в Добрич"
+- Local SEO meta tags + LocalBusiness JSON-LD с координатите на Добрич
+- Списък с квартали, услуги, локални testimonials
+- Линкове към `/bg/dobrich/[service]` за всички 8 услуги
 
-Pins запазват настоящия стил (анимиран pulse circle + етикет с име на града).
+**3. `src/components/LocalizedPageRouter.tsx`**
+- Регистрирам `DobrichHome` в `PAGE_MAP`
+- Routing: `/bg/dobrich` → DobrichHome, `/bg/dobrich/[service]` → CityServiceTemplate
+- (Маршрутизацията вече трябва да работи автоматично през `CityPageRouter` ако е генеричен)
 
-### 3. Footer — градовете на отделен ред
-В `src/components/Footer.tsx` (редове 41-69), реструктурирам "Service areas strip":
+**4. `src/components/CityPageRouter.tsx`**
+- Проверявам че dynamic routing работи за `dobrich` slug — добавям case ако е с switch statement
 
-**Сега:** label + всички градове + "Скоро" + "Всички градове" линк — всички в един `flex flex-wrap` ред → разпиляват се грозно.
+**5. `src/pages/CitiesHubPage.tsx`**
+- Добавям Dobrich card в активната секция (от 3 на 4 активни)
+- Добавям pin на картата на България: lng=27.83, lat=43.57 → x≈876, y≈131 (североизток, между Варна и Русе)
+- Premium pin styling (същият като Варна/Бургас/Русе)
 
-**Ново:** 2-редова структура:
-- Ред 1: label "Обслужваме — Покривни услуги в:" 
-- Ред 2: `flex flex-wrap items-center gap-2` с активни градове като пилюли (с border, padding, hover ефект), последвани от "скоро" градовете в по-светъл стил, и накрая "Всички градове →" линк като акцент бутон вдясно (с `ml-auto` на десктоп)
+**6. `src/components/Testimonials.tsx`**
+- Добавям fallback testimonials масив за `dobrich` (3-4 локални отзива с имена и квартали от Добрич)
 
-Това ги подрежда чисто на една визуална линия с консистентен spacing и подравняване.
+**7. Sitemap (`public/sitemap-bg.xml`)**
+- Добавям `/bg/dobrich/` (home)
+- Добавям 8 service URLs: `/bg/dobrich/remont-na-pokrivi`, `/bg/dobrich/hidroizolacia-na-pokriv`, etc.
 
-### Засегнати файлове (3)
+### Засегнати файлове (7)
+
 | # | Файл | Промяна |
 |---|------|---------|
-| 1 | `src/components/CitySwitcher.tsx` | + "Виж всички градове" item в края на dropdown |
-| 2 | `src/pages/CitiesHubPage.tsx` | реален SVG outline на България с правилно позиционирани pins |
-| 3 | `src/components/Footer.tsx` | реструктурирана service-areas strip с pill-стил и подравнен "Всички градове" линк |
+| 1 | `src/i18n/cities.ts` | + Dobrich в CityKey, ACTIVE_CITIES, CITIES обект |
+| 2 | `src/pages/cities/DobrichHome.tsx` | нов файл (копие на RuseHome) |
+| 3 | `src/components/LocalizedPageRouter.tsx` | регистрация в PAGE_MAP |
+| 4 | `src/components/CityPageRouter.tsx` | поддръжка на dobrich slug (ако е нужно) |
+| 5 | `src/pages/CitiesHubPage.tsx` | + Dobrich card + pin на картата |
+| 6 | `src/components/Testimonials.tsx` | + fallback отзиви за Dobrich |
+| 7 | `public/sitemap-bg.xml` | + 9 нови URLs за Dobrich |
 
 ### Резултат
-✅ Всеки потребител, който отвори City Switcher, вижда директен пряк път към хъб страницата  
-✅ Картата на Cities Hub изглежда професионално и географски точно (без cartoon кръгчета)  
-✅ Footer city линкове са на чиста линия с pill дизайн и консистентно подравняване
+
+✅ `/bg/dobrich/` и 8 услугни страници работят  
+✅ City Switcher показва Добрич като 4-та опция  
+✅ Cities Hub показва 4 активни града + pin на картата на правилната географска позиция  
+✅ Footer показва Добрич като активен pill  
+✅ SEO: hreflang, canonical, sitemap, LocalBusiness schema готови  
+✅ Тестимониали филтрирани по Добрич  
+
+### Какво НЕ включва (по подразбиране)
+
+- Превод на DobrichHome за 9-те други езика (засега BG-only, както е при другите градове)
+- Sitemap entries за останалите 9 езика (могат да се добавят отделно)
+- Истински testimonials в DB (използваме fallback засега)
 
