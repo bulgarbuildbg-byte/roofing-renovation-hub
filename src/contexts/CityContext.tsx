@@ -11,17 +11,19 @@ interface CityContextValue {
 const CityContext = createContext<CityContextValue | null>(null);
 
 export const CityProvider = ({ children }: { children: ReactNode }) => {
-  const { city: cityParam } = useParams<{ city?: string }>();
+  // Read city from the catch-all `*` param (first segment) since route is /:lang/*
+  const { "*": rest } = useParams<{ "*": string }>();
 
   const value = useMemo<CityContextValue>(() => {
-    const isCityRoute = isCityKey(cityParam);
-    const city: CityKey = isCityRoute ? (cityParam as CityKey) : DEFAULT_CITY;
+    const firstSegment = (rest || "").split("/")[0];
+    const isCityRoute = isCityKey(firstSegment);
+    const city: CityKey = isCityRoute ? (firstSegment as CityKey) : DEFAULT_CITY;
     return {
       city,
       cityData: CITIES[city],
       isCityRoute,
     };
-  }, [cityParam]);
+  }, [rest]);
 
   return <CityContext.Provider value={value}>{children}</CityContext.Provider>;
 };
@@ -29,7 +31,6 @@ export const CityProvider = ({ children }: { children: ReactNode }) => {
 export function useCity(): CityContextValue {
   const ctx = useContext(CityContext);
   if (!ctx) {
-    // Fallback for components rendered outside city-aware tree (legacy /bg/* pages)
     return {
       city: DEFAULT_CITY,
       cityData: CITIES[DEFAULT_CITY],
