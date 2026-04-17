@@ -1,149 +1,102 @@
 
 
-## План: Multi-City архитектура — Етап 1 (Бургас)
+## План: Унифицирана URL структура /[lang]/varna/[service]
 
-### Стратегически контекст
+### Обхват
+- **8 услугни страници + home** получават /varna/ префикс във **всичките 10 езика**
+- About/Blog/Contact/Calculator/Reviews/FAQ/Projects/Inspection/Pricing → **остават без град** (global pages)
+- Всички стари URLs → **301 redirect** (SEO авторитет се запазва)
 
-Текущата архитектура е **single-city** (всичко = Варна) с language prefix `/bg/...`. Преходът към multi-city изисква нов URL pattern:
-- **Сега:** `/bg/remont-na-pokrivi` (= Варна имплицитно)
-- **Бъдеще:** `/bg/varna/remont-na-pokrivi`, `/bg/burgas/remont-na-pokrivi`
+### Архитектурни промени
 
-Това е голяма архитектурна промяна — ще я разделя на **2 етапа** за безопасност.
+**1. `src/i18n/routes.ts` — нова функция `getCityScopedPath`**
+```ts
+const CITY_SCOPED_ROUTES: RouteKey[] = [
+  'home', 'roofRepair', 'leakRepair', 'waterproofing',
+  'newRoof', 'tileRoofRepair', 'flatRoof', 'metalRoof', 'maintenance'
+];
+export const isCityScopedRoute = (k: RouteKey) => CITY_SCOPED_ROUTES.includes(k);
+```
 
----
+**2. `src/components/LocalizedPageRouter.tsx` — 301 redirect логика**
 
-### Етап 1 (СЕГА): City registry + Бургас главна страница + City Switcher
-
-Без да чупя съществуващите `/bg/*` URLs, добавям паралелна city-aware структура.
-
-#### 1. City registry (`src/i18n/cities.ts` — нов файл)
+Преди да resolve-не route, проверява: ако slug съответства на city-scoped service в текущия език И няма city префикс → `<Navigate to="/[lang]/varna/[slug]" replace />`. Същото за `/bg` (без slug) → `/bg/varna`.
 
 ```ts
-export type CityKey = 'varna' | 'burgas';
-
-export const CITIES: Record<CityKey, {
-  slug: string;
-  nameBg: string;
-  nameLatin: string;
-  phone: string;
-  email: string;
-  workingHours: string;
-  neighborhoods: string[];
-  geo: { lat: number; lng: number };
-  defaultLang: SupportedLanguage;
-}> = {
-  varna: { slug: 'varna', nameBg: 'Варна', neighborhoods: [...], ... },
-  burgas: { slug: 'burgas', nameBg: 'Бургас', neighborhoods: [
-    'Сарафово','Лазур','Изгрев','Славейков','Меден рудник',
-    'Ветрен','Братя Миладинови','Горно Езерово','Победа','Крайморие'
-  ], geo: { lat: 42.5048, lng: 27.4626 }, ... }
-};
-
-export const DEFAULT_CITY: CityKey = 'varna';
+// Pseudo:
+if (!firstSegmentIsCity && routeKey && isCityScopedRoute(routeKey)) {
+  return <Navigate to={`/${currentLang}/varna/${slug}`} replace />;
+}
+if (!slug) return <Navigate to={`/${currentLang}/varna`} replace />;
 ```
 
-#### 2. CityContext (`src/contexts/CityContext.tsx` — нов)
+**3. `src/components/CityPageRouter.tsx` — поддръжка за всички езици**
 
-Provider който чете активния град от URL (`/[lang]/[city]/...`) или fallback към `varna`. Експозира `useCity()` hook → `{ city, cityData, setCity }`.
+Сега работи само за BG. Разширяване: чете `lang` от useParams, използва `findRouteKeyBySlug(subPath, lang)` за да резолва услугата в правилния език. CITY_SERVICES шаблонът остава BG-only (съдържанието е на български), но URL routing работи за всички езици.
 
-#### 3. Routing — нов pattern
+**4. `src/pages/cities/VarnaHome.tsx` — мултиезична поддръжка**
 
-В `App.tsx` добавям паралелен route **преди** съществуващия `/:lang/*`:
+Чете `lang` и показва съответния превод (засега може да остане BG съдържание, но компонентът се сервира на всички езици чрез CityPageRouter).
 
-```tsx
-{/* New city-aware routes */}
-<Route path="/:lang/:city/*" element={<CityAwareLayout />}>
-  <Route path="*" element={<CityPageRouter />} />
-</Route>
+**5. `src/hooks/useLocalizedPath.ts` — Варна по подразбиране**
 
-{/* Legacy single-city (Варна implicit) — остава непроменен */}
-<Route path="/:lang/*" element={<LanguageLayout />}>
-  <Route path="*" element={<LocalizedPageRouter />} />
-</Route>
-```
+Премахваме условието `if (currentCity && currentLang === "bg")`. Новата логика:
+- ако routeKey е city-scoped → винаги връща `/[lang]/[city||varna]/[slug]`
+- иначе → legacy global path `/[lang]/[slug]`
 
-`CityPageRouter` валидира че `:city` е известен, иначе → fallback към legacy router (за да не счупя `/bg/blog`, `/bg/services` и т.н.).
+**6. `src/components/HreflangTags.tsx` — canonical с varna**
 
-#### 4. Burgas Home Page (`src/pages/cities/BurgasHome.tsx` — нов)
+Когато routeKey е city-scoped и няма city в URL → canonical винаги сочи към `/[lang]/varna/[slug]`. Hreflang alternates също включват `/varna/` за city-scoped routes.
 
-Базиран на `Index.tsx`, но:
-- H1: **„Ремонт на Покриви Бургас"**
-- Title: **„Ремонт на Покриви Бургас — Безплатен Оглед 24ч | 088 499 7659"**
-- Canonical: `https://www.remontnapokrivivarna.bg/bg/burgas/`
-- JSON-LD `RoofingContractor` с `areaServed: Бургас`, `geo` Бургас координати
-- Секция „Обслужваме всички квартали" с 10-те квартала
-- Тел: `tel:0884997659`
-- Email: `remontnapokrivivarna@abv.bg`
-- Раб. време: Пон–Съб 08:00–18:00 · Аварии 24/7
-- Reuse-ва компонентите: `Hero`, `TrustIndicators`, `Services`, `HowWeWork`, `Testimonials`, `Contact`, `Footer` — всички получават `cityData` via CityContext и показват „Бургас" вместо „Варна"
+**7. `src/components/LanguageRedirect.tsx` (root `/`)**
 
-#### 5. City Switcher в Header (`src/components/CitySwitcher.tsx` — нов)
+Update: `navigate(/${lang}/varna)` вместо `navigate(/${lang})`.
 
-Малък dropdown в хедъра (до LanguageSwitcher):
-- Показва текущия град (с икона MapPin)
-- Опции: Варна, Бургас (+ „Скоро: Русе, Пловдив..." disabled)
-- При клик → navigate към същата страница в новия град
-- Pill-стил, h-11, консистентен с LanguageSwitcher
+**8. Sitemap (`public/sitemap-bg.xml` + 9 други)**
+- Премахване на стари /bg/remont-na-pokrivi, /bg/hidroizolacia-na-pokriv и т.н. (8 service URL-а × 10 ezika = 80 entries)
+- Добавяне на нови /[lang]/varna/[slug] entries
+- Запазване на global pages (about, blog, contact, calculator, ...) непроменени
 
-В `Header.tsx` добавям `<CitySwitcher />` преди `<LanguageSwitcher />`.
+**9. `src/i18n/cities.ts` — премахване на условни fallbacks**
 
-#### 6. Динамични nav линкове (city-aware)
+Не е нужна промяна на CityKey, но `DEFAULT_CITY = "varna"` става единственият неявен default.
 
-Разширявам `useLocalizedPath()` хука:
-```ts
-const { getPath, currentLang, currentCity } = useLocalizedPath();
-// getPath('roofRepair') → 
-//   ако city='varna' (default): /bg/remont-na-pokrivi  (legacy URL)
-//   ако city='burgas': /bg/burgas/remont-na-pokrivi  (нов pattern)
-```
+### Запазване на SEO авторитета
 
-Това гарантира че когато потребителят е в `/bg/burgas/`, всички линкове в менюто водят към `/bg/burgas/[услуга]`.
+Всички стари URL-и (`/bg/remont-na-pokrivi`, `/en/roof-repair-varna`, `/de/dachreparatur-varna`, ...) продължават да съществуват в routing-а **САМО като 301 redirect** към новия canonical. React Router `<Navigate replace>` не е истински 301 (SPA), но:
+- Google възприема `replace` навигацията като soft redirect
+- Canonical tag-ът на новата страница ясно сочи към `/varna/` версията
+- За истински 301 redirects в бъдеще → Lovable hosting не поддържа, но canonical + sitemap + вътрешни линкове са достатъчни сигнали
 
-**Важно:** За Етап 1 услугните страници за Бургас още не съществуват — ще водят към 404 placeholder с CTA „Поискай оглед в Бургас". Това ще се реши в Етап 2.
+### Засегнати файлове (~10 файла)
 
-#### 7. SEO файлове
+| # | Файл | Промяна |
+|---|------|---------|
+| 1 | `src/i18n/routes.ts` | + `CITY_SCOPED_ROUTES` константа + `isCityScopedRoute` helper |
+| 2 | `src/components/LocalizedPageRouter.tsx` | + redirect логика за city-scoped routes към /varna/ |
+| 3 | `src/components/CityPageRouter.tsx` | поддръжка за всички 10 езика (не само BG) |
+| 4 | `src/components/HreflangTags.tsx` | canonical/alternates винаги с /varna/ за city-scoped |
+| 5 | `src/hooks/useLocalizedPath.ts` | default city = varna за city-scoped routes |
+| 6 | `src/components/LanguageRedirect.tsx` | redirect към /[lang]/varna вместо /[lang] |
+| 7 | `src/pages/cities/VarnaHome.tsx` | работи на всички езици |
+| 8 | `src/components/CitySwitcher.tsx` | показва "Варна" като активен и на /bg/varna/* |
+| 9 | `public/sitemap-bg.xml` | премахване на стари + добавяне на нови /varna/ URLs |
+| 10 | `public/sitemap-{en,de,fi,sv,no,fr,nl,ru,ua}.xml` | същото за всеки език |
 
-- **`public/sitemap-bg.xml`**: добавяне на `/bg/burgas/` като нов URL (priority 0.9)
-- **`src/components/HreflangTags.tsx`**: city-aware canonical (URL винаги отразява активния град)
+### Какво НЕ се променя
 
----
+- About/Blog/Contact/Calculator/Reviews/FAQ/Projects/Inspection/Pricing/HowWeWork остават `/bg/za-nas`, `/bg/blog`, `/en/about` и т.н. (global)
+- Burgas и Ruse URL-ите остават както са (`/bg/burgas/*`, `/bg/ruse/*`)
+- Solar pages, financing → остават global (засега не са city-scoped)
+- Cyrillic redirects (`/ремонт-на-покриви` → `/bg/remont-na-pokrivi`) → автоматично каскадират през новия redirect до `/bg/varna/remont-na-pokrivi`
 
-### Етап 2 (СЛЕДВАЩА СЕСИЯ — НЕ В ТАЗИ): Услугни страници за Бургас
+### Резултат
 
-След като Етап 1 работи, ще създам:
-- 8-10 услугни страници за Бургас (`/bg/burgas/remont-na-pokrivi`, `/bg/burgas/hidroizolacia-na-pokriv`, ...)
-- Reusable templates вместо дублиране (всяка услуга = 1 компонент който приема `cityData`)
-- Обновяване на sitemap с всички 8 нови URL-а
-
----
-
-### Засегнати файлове (Етап 1 — ~10 файла)
-
-| # | Файл | Действие |
-|---|------|----------|
-| 1 | `src/i18n/cities.ts` | NEW — city registry |
-| 2 | `src/contexts/CityContext.tsx` | NEW — provider + useCity() |
-| 3 | `src/components/CityAwareLayout.tsx` | NEW — wrapper за city-aware routes |
-| 4 | `src/components/CityPageRouter.tsx` | NEW — рутер за city pages |
-| 5 | `src/pages/cities/BurgasHome.tsx` | NEW — главна страница Бургас |
-| 6 | `src/components/CitySwitcher.tsx` | NEW — dropdown в хедъра |
-| 7 | `src/hooks/useLocalizedPath.ts` | UPDATE — добавя `currentCity` + city-aware getPath |
-| 8 | `src/components/Header.tsx` | UPDATE — добавя CitySwitcher |
-| 9 | `src/App.tsx` | UPDATE — нов `/:lang/:city/*` route преди legacy |
-| 10 | `public/sitemap-bg.xml` | UPDATE — добавя `/bg/burgas/` |
-
-### Какво НЕ се променя (за безопасност)
-
-- Съществуващите `/bg/*`, `/en/*` URLs продължават да работят непроменени
-- Legacy `LanguageLayout` + `LocalizedPageRouter` остават
-- Всички текущи SEO/canonical/sitemap entries за Варна остават валидни
-- Когато city не е в URL → имплицитно = Варна (legacy behavior)
-
-### Очакван резултат след Етап 1
-
-✅ `/bg/burgas/` зарежда пълна главна страница за Бургас  
-✅ City Switcher в хедъра показва „Варна" / „Бургас"  
-✅ JSON-LD `RoofingContractor` за Бургас → Google Local Pack за Бургас заявки  
-✅ Sitemap включва Бургас → Google ще го открие  
-✅ Архитектура готова за добавяне на още градове (Русе, Пловдив) и държави (`/de/hamburg/`)
+✅ `/bg/remont-na-pokrivi` → 301 → `/bg/varna/remont-na-pokrivi`  
+✅ `/en/roof-repair-varna` → 301 → `/en/varna/roof-repair-varna`  
+✅ `/bg/` → 301 → `/bg/varna/`  
+✅ Всички 3 града следват един и същ pattern: `/[lang]/[city]/[service]`  
+✅ Sitemap показва само финалните URLs  
+✅ Hreflang консистентен за city-scoped routes  
+✅ Готово за добавяне на `/de/hamburg/`, `/fi/helsinki/` в бъдеще
 
