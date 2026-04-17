@@ -155,12 +155,12 @@ const CitiesHubPage = () => {
                   <path
                     d="M 38,105 Q 200,40 458,76 T 856,190"
                     fill="none"
-                    stroke="hsl(210 80% 60%)"
+                    stroke="hsl(var(--primary))"
                     strokeWidth="2.5"
-                    strokeOpacity="0.45"
+                    strokeOpacity="0.4"
                     strokeLinecap="round"
                   />
-                  <text x="380" y="62" className="fill-sky-700/70 dark:fill-sky-300/60" fontSize="11" fontWeight="600" fontStyle="italic">
+                  <text x="380" y="62" className="fill-muted-foreground/70" fontSize="11" fontWeight="600" fontStyle="italic">
                     р. Дунав
                   </text>
 
