@@ -1,12 +1,12 @@
 import type { SupportedLanguage } from "./config";
 
-export type CityKey = "varna" | "burgas";
+export type CityKey = "varna" | "burgas" | "ruse";
 
 export interface CityData {
   slug: string;
   nameBg: string;
   nameLatin: string;
-  nameLocative: string; // "във Варна" / "в Бургас"
+  nameLocative: string; // "във Варна" / "в Бургас" / "в Русе"
   phone: string;
   phoneTel: string;
   email: string;
@@ -59,23 +59,42 @@ export const CITIES: Record<CityKey, CityData> = {
     region: "Бургас",
     defaultLang: "bg",
   },
+  ruse: {
+    slug: "ruse",
+    nameBg: "Русе",
+    nameLatin: "Ruse",
+    nameLocative: "в Русе",
+    phone: "088 499 7659",
+    phoneTel: "0884997659",
+    email: "remontnapokrivivarna@abv.bg",
+    workingHours: "Пон–Съб 08:00–18:00",
+    emergency: "Аварии 24/7",
+    neighborhoods: [
+      "Възраждане", "Здравец", "Чародейка", "Дружба", "Изгрев",
+      "Централен Юг", "Родина", "Цветница", "Мальовица", "Здравец Изток",
+    ],
+    geo: { lat: 43.8564, lng: 25.9707 },
+    postalCode: "7000",
+    region: "Русе",
+    defaultLang: "bg",
+  },
 };
 
 export const DEFAULT_CITY: CityKey = "varna";
 
-export const ACTIVE_CITIES: CityKey[] = ["varna", "burgas"];
+export const ACTIVE_CITIES: CityKey[] = ["varna", "burgas", "ruse"];
 
 export const COMING_SOON_CITIES: { slug: string; nameBg: string }[] = [
-  { slug: "ruse", nameBg: "Русе" },
   { slug: "plovdiv", nameBg: "Пловдив" },
   { slug: "sofia", nameBg: "София" },
 ];
 
 export function isCityKey(value: string | undefined): value is CityKey {
-  return value === "varna" || value === "burgas";
+  return value === "varna" || value === "burgas" || value === "ruse";
 }
 
 export function getCityFromSlug(slug: string | undefined): CityKey | null {
   if (!slug) return null;
   return isCityKey(slug) ? slug : null;
 }
+
