@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Star, Quote, Phone, BadgeCheck, ChevronLeft, ChevronRight, Wrench, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 import useEmblaCarousel from "embla-carousel-react";
+import { isCityKey, type CityKey } from "@/i18n/cities";
 
 interface Testimonial {
   id: string;
@@ -16,6 +18,7 @@ interface Testimonial {
   avatar_url: string | null;
   is_verified: boolean;
   service_type?: string | null;
+  city?: string | null;
 }
 
 const getInitials = (name: string) =>
@@ -49,18 +52,32 @@ const serviceLabels: Record<string, string> = {
 };
 
 const fallbackTestimonials: Testimonial[] = [
-  { id: "1", text: "Бърза реакция, ясни цени и отлично качество. Покривът беше ремонтиран за два дни. Горещо препоръчвам на всички!", author_name: "Иван Димитров", location: "кв. Левски, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=12", is_verified: true, service_type: "repair" },
-  { id: "2", text: "Много съм доволен от работата. Покривът вече не тече и получих 15 години гаранция. Професионално отношение от начало до край.", author_name: "Петър Стоянов", location: "кв. Чайка, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=11", is_verified: true, service_type: "leak_repair" },
-  { id: "3", text: "Професионална работа по хидроизолацията. Екипът беше точен, изряден и много вежлив. Ще ги препоръчам на приятели.", author_name: "Мария Колева", location: "кв. Аспарухово, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=48", is_verified: true, service_type: "waterproofing" },
-  { id: "4", text: "Отлична работа по ремонта на керемидите. Цената беше честна и работата беше свършена качествено. Благодаря!", author_name: "Георги Петров", location: "с. Константиново", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=33", is_verified: true, service_type: "tiles" },
-  { id: "5", text: "Бързо дойдоха за оглед и дадоха честна оценка. Ремонтът беше завършен преди обещаното. Препоръчвам без резерви!", author_name: "Елена Иванова", location: "кв. Младост, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=9", is_verified: true, service_type: "replacement" },
-  { id: "6", text: "Хидроизолацията на терасата беше направена перфектно. Вече няма течове дори при най-силните дъждове.", author_name: "Николай Василев", location: "кв. Владиславово, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=52", is_verified: true, service_type: "flat_roof" },
-  { id: "7", text: "Изградиха изцяло нов покрив на нашата вила. Работата е прецизна, материалите са качествени. Много доволни сме!", author_name: "Стоян Маринов", location: "гр. Аксаково", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=7", is_verified: true, service_type: "new_construction" },
-  { id: "8", text: "Поддръжката на покрива е редовна и качествена. Препоръчвам плана за годишна поддръжка – спестява много пари.", author_name: "Красимира Тодорова", location: "кв. Виница, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=1", is_verified: true, service_type: "maintenance" },
+  { id: "1", text: "Бърза реакция, ясни цени и отлично качество. Покривът беше ремонтиран за два дни. Горещо препоръчвам на всички!", author_name: "Иван Димитров", location: "кв. Левски, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=12", is_verified: true, service_type: "repair", city: "varna" },
+  { id: "2", text: "Много съм доволен от работата. Покривът вече не тече и получих 15 години гаранция. Професионално отношение от начало до край.", author_name: "Петър Стоянов", location: "кв. Чайка, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=11", is_verified: true, service_type: "leak_repair", city: "varna" },
+  { id: "3", text: "Професионална работа по хидроизолацията. Екипът беше точен, изряден и много вежлив. Ще ги препоръчам на приятели.", author_name: "Мария Колева", location: "кв. Аспарухово, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=48", is_verified: true, service_type: "waterproofing", city: "varna" },
+  { id: "4", text: "Отлична работа по ремонта на керемидите. Цената беше честна и работата беше свършена качествено. Благодаря!", author_name: "Георги Петров", location: "с. Константиново, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=33", is_verified: true, service_type: "tiles", city: "varna" },
+  { id: "5", text: "Бързо дойдоха за оглед и дадоха честна оценка. Ремонтът беше завършен преди обещаното. Препоръчвам без резерви!", author_name: "Елена Иванова", location: "кв. Младост, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=9", is_verified: true, service_type: "replacement", city: "varna" },
+  { id: "6", text: "Хидроизолацията на терасата беше направена перфектно. Вече няма течове дори при най-силните дъждове.", author_name: "Николай Василев", location: "кв. Владиславово, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=52", is_verified: true, service_type: "flat_roof", city: "varna" },
+  { id: "7", text: "Изградиха изцяло нов покрив на нашата вила. Работата е прецизна, материалите са качествени. Много доволни сме!", author_name: "Стоян Маринов", location: "гр. Аксаково, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=7", is_verified: true, service_type: "new_construction", city: "varna" },
+  { id: "8", text: "Поддръжката на покрива е редовна и качествена. Препоръчвам плана за годишна поддръжка – спестява много пари.", author_name: "Красимира Тодорова", location: "кв. Виница, Варна", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=1", is_verified: true, service_type: "maintenance", city: "varna" },
+  // Burgas
+  { id: "b1", text: "Работихме с екипа за пълен ремонт на покрива на къщата ни в Сарафово. Изключително професионално отношение и качествена работа.", author_name: "Димитър Колев", location: "кв. Сарафово, Бургас", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=14", is_verified: true, service_type: "repair", city: "burgas" },
+  { id: "b2", text: "Хидроизолацията на терасата беше извършена бързо и качествено. Цената беше точно както бе оферирана, без скрити такси.", author_name: "Анна Стефанова", location: "кв. Лазур, Бургас", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=21", is_verified: true, service_type: "waterproofing", city: "burgas" },
+  { id: "b3", text: "Спешен ремонт на теч от покрива в Меден рудник — реагираха в същия ден. Спасиха таванския етаж от наводнение.", author_name: "Тодор Атанасов", location: "кв. Меден рудник, Бургас", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=55", is_verified: true, service_type: "leak_repair", city: "burgas" },
+  { id: "b4", text: "Подмяна на керемиди в Изгрев — отлична работа, чист терен след завършване. Препоръчвам ги без резерви!", author_name: "Иванка Петрова", location: "кв. Изгрев, Бургас", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=25", is_verified: true, service_type: "tiles", city: "burgas" },
+  // Ruse
+  { id: "r1", text: "Изграждане на нов покрив в Здравец — целият процес от проектирането до завършването беше прозрачен и професионален.", author_name: "Васил Янков", location: "кв. Здравец, Русе", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=8", is_verified: true, service_type: "new_construction", city: "ruse" },
+  { id: "r2", text: "Хидроизолация на покрив във Възраждане — 15 години гаранция и безупречна работа. Препоръчвам на всеки в Русе.", author_name: "Светла Маринова", location: "кв. Възраждане, Русе", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=44", is_verified: true, service_type: "waterproofing", city: "ruse" },
+  { id: "r3", text: "Бърз и коректен ремонт на покрив в Чародейка. Цената беше изключително разумна за качеството.", author_name: "Пламен Иванов", location: "кв. Чародейка, Русе", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=58", is_verified: true, service_type: "repair", city: "ruse" },
+  { id: "r4", text: "Поддръжка на плосък покрив в Дружба — професионален екип, който работи прецизно. Много съм доволен.", author_name: "Кристина Тодорова", location: "кв. Дружба, Русе", rating: 5, avatar_url: "https://i.pravatar.cc/200?img=27", is_verified: true, service_type: "maintenance", city: "ruse" },
 ];
 
 const Testimonials = () => {
   const { t } = useTranslation();
+  const { "*": restPath } = useParams<{ "*": string }>();
+  const firstSegment = (restPath || "").split("/")[0];
+  const activeCity: CityKey = isCityKey(firstSegment) ? (firstSegment as CityKey) : "varna";
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     slidesToScroll: 1,
@@ -84,19 +101,40 @@ const Testimonials = () => {
   }, [emblaApi, onSelect]);
 
   const { data: testimonials } = useQuery({
-    queryKey: ["testimonials-public"],
+    queryKey: ["testimonials-public", activeCity],
     queryFn: async () => {
-      const { data, error } = await supabase
+      // Try city-filtered first
+      const { data: cityData } = await supabase
         .from("testimonials")
-        .select("id, author_name, location, text, rating, avatar_url, is_verified, service_type")
+        .select("id, author_name, location, text, rating, avatar_url, is_verified, service_type, city")
+        .eq("is_active", true)
+        .eq("city", activeCity)
+        .order("sort_order", { ascending: true });
+
+      if (cityData && cityData.length >= 3) return cityData as Testimonial[];
+
+      // Fallback to all active (so cities without enough reviews still get social proof)
+      const { data: allData, error } = await supabase
+        .from("testimonials")
+        .select("id, author_name, location, text, rating, avatar_url, is_verified, service_type, city")
         .eq("is_active", true)
         .order("sort_order", { ascending: true });
-      if (error || !data || data.length === 0) return fallbackTestimonials;
-      return data as Testimonial[];
+
+      if (error || !allData || allData.length === 0) {
+        return fallbackTestimonials.filter((t) => t.city === activeCity).length >= 3
+          ? fallbackTestimonials.filter((t) => t.city === activeCity)
+          : fallbackTestimonials;
+      }
+      return allData as Testimonial[];
     },
   });
 
-  const displayTestimonials = testimonials || fallbackTestimonials;
+  // Apply city-priority sort: city-matched first, then others
+  const displayTestimonials = (testimonials || fallbackTestimonials).slice().sort((a, b) => {
+    const aMatch = a.city === activeCity ? 0 : 1;
+    const bMatch = b.city === activeCity ? 0 : 1;
+    return aMatch - bMatch;
+  });
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");

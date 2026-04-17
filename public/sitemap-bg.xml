@@ -257,6 +257,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/gradove</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.remontnapokrivivarna.bg/bg/otzyvi</loc>
     <lastmod>2026-04-16</lastmod>
     <changefreq>weekly</changefreq>

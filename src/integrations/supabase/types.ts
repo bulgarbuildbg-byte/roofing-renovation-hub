@@ -767,6 +767,7 @@ export type Database = {
         Row: {
           author_name: string
           avatar_url: string | null
+          city: string | null
           consent_received: boolean
           created_at: string
           id: string
@@ -783,6 +784,7 @@ export type Database = {
         Insert: {
           author_name: string
           avatar_url?: string | null
+          city?: string | null
           consent_received?: boolean
           created_at?: string
           id?: string
@@ -799,6 +801,7 @@ export type Database = {
         Update: {
           author_name?: string
           avatar_url?: string | null
+          city?: string | null
           consent_received?: boolean
           created_at?: string
           id?: string

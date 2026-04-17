@@ -4,12 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import logo from "@/assets/logo-primary.jpeg";
 import type { RouteKey } from "@/i18n/routes";
-
-const serviceAreas = [
-  "Варна", "Акsakovo", "Аспарухово", "Виница", "Галата",
-  "Владиславово", "Кайсиева градина", "Левски", "Трошево",
-  "Чайка", "Младост", "Долен Чифлик", "Провадия",
-];
+import { ACTIVE_CITIES, COMING_SOON_CITIES, CITIES } from "@/i18n/cities";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -37,23 +32,38 @@ const Footer = () => {
     { key: "faq", routeKey: "faq" },
     { key: "contact", routeKey: "contact" },
     { key: "freeInspection", routeKey: "inspection" },
+    { key: "cities", routeKey: "cities" },
   ];
 
   return (
     <footer className="bg-primary text-primary-foreground">
-      {/* Local SEO service areas strip */}
+      {/* Local SEO service areas strip — clickable city pills */}
       <div className="border-b border-primary-foreground/10 py-4">
         <div className="container mx-auto px-4">
           <p className="text-primary-foreground/50 text-xs uppercase tracking-widest mb-2 font-semibold">
             Обслужваме — Покривни услуги в:
           </p>
-          <div className="flex flex-wrap gap-x-3 gap-y-1">
-            {serviceAreas.map((area) => (
-              <span key={area} className="text-primary-foreground/70 text-sm hover:text-primary-foreground transition-colors">
-                {area}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            {ACTIVE_CITIES.map((cityKey) => (
+              <Link
+                key={cityKey}
+                to={`/bg/${CITIES[cityKey].slug}`}
+                className="text-primary-foreground/80 text-sm hover:text-primary-foreground hover:underline transition-colors font-medium"
+              >
+                {CITIES[cityKey].nameBg}
+              </Link>
+            ))}
+            {COMING_SOON_CITIES.map((c) => (
+              <span key={c.slug} className="text-primary-foreground/40 text-sm">
+                {c.nameBg} (скоро)
               </span>
             ))}
-            <span className="text-primary-foreground/40 text-sm">и региона до 50 км</span>
+            <Link
+              to={getPath("cities")}
+              className="ml-2 text-accent text-sm hover:underline font-semibold"
+            >
+              Всички градове →
+            </Link>
           </div>
         </div>
       </div>
