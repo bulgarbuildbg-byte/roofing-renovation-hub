@@ -1,102 +1,45 @@
 
 
-## План: Унифицирана URL структура /[lang]/varna/[service]
+## План: 3 малки подобрения на Cities функционалност
 
-### Обхват
-- **8 услугни страници + home** получават /varna/ префикс във **всичките 10 езика**
-- About/Blog/Contact/Calculator/Reviews/FAQ/Projects/Inspection/Pricing → **остават без град** (global pages)
-- Всички стари URLs → **301 redirect** (SEO авторитет се запазва)
+### 1. CitySwitcher — добави "Виж всички градове"
+Във `src/components/CitySwitcher.tsx`, след секцията "Скоро" (преди `</DropdownMenuContent>`):
+- Добави `<DropdownMenuSeparator />`
+- Добави нов `<DropdownMenuItem>` който навигира към `/${currentLang}/gradove` (или localized slug през `useLocalizedPath` за `cities` route key)
+- Стил: акцентен цвят, икона `Map` от lucide, текст "Виж всички градове →"
 
-### Архитектурни промени
+### 2. CitiesHubPage — реална карта на България
+В `src/pages/CitiesHubPage.tsx`, замяна на стилизирания SVG blob (редове ~115-160) с реален SVG outline на България:
 
-**1. `src/i18n/routes.ts` — нова функция `getCityScopedPath`**
-```ts
-const CITY_SCOPED_ROUTES: RouteKey[] = [
-  'home', 'roofRepair', 'leakRepair', 'waterproofing',
-  'newRoof', 'tileRoofRepair', 'flatRoof', 'metalRoof', 'maintenance'
-];
-export const isCityScopedRoute = (k: RouteKey) => CITY_SCOPED_ROUTES.includes(k);
-```
+**Подход:** Inline SVG path с реалната граница на България (опростена топология ~50-80 точки, viewBox `0 0 1000 600`). Координатите се нормализират от lat/lng към SVG пиксели чрез проста линейна проекция:
+- Bulgaria bbox: lng [22.36, 28.61], lat [41.24, 44.22]
+- `x = ((lng - 22.36) / (28.61 - 22.36)) * 1000`
+- `y = ((44.22 - lat) / (44.22 - 41.24)) * 600`
 
-**2. `src/components/LocalizedPageRouter.tsx` — 301 redirect логика**
+Резултатът: реален географски силует на България с точно позиционирани pins за Варна (изток, Черно море), Бургас (югоизток), Русе (север, Дунав), плюс полупрозрачни pins за София и Пловдив. Добавям и реки (Дунав по северната граница) и Черно море като светлосин фон от изток за визуален контекст.
 
-Преди да resolve-не route, проверява: ако slug съответства на city-scoped service в текущия език И няма city префикс → `<Navigate to="/[lang]/varna/[slug]" replace />`. Същото за `/bg` (без slug) → `/bg/varna`.
+Pins запазват настоящия стил (анимиран pulse circle + етикет с име на града).
 
-```ts
-// Pseudo:
-if (!firstSegmentIsCity && routeKey && isCityScopedRoute(routeKey)) {
-  return <Navigate to={`/${currentLang}/varna/${slug}`} replace />;
-}
-if (!slug) return <Navigate to={`/${currentLang}/varna`} replace />;
-```
+### 3. Footer — градовете на отделен ред
+В `src/components/Footer.tsx` (редове 41-69), реструктурирам "Service areas strip":
 
-**3. `src/components/CityPageRouter.tsx` — поддръжка за всички езици**
+**Сега:** label + всички градове + "Скоро" + "Всички градове" линк — всички в един `flex flex-wrap` ред → разпиляват се грозно.
 
-Сега работи само за BG. Разширяване: чете `lang` от useParams, използва `findRouteKeyBySlug(subPath, lang)` за да резолва услугата в правилния език. CITY_SERVICES шаблонът остава BG-only (съдържанието е на български), но URL routing работи за всички езици.
+**Ново:** 2-редова структура:
+- Ред 1: label "Обслужваме — Покривни услуги в:" 
+- Ред 2: `flex flex-wrap items-center gap-2` с активни градове като пилюли (с border, padding, hover ефект), последвани от "скоро" градовете в по-светъл стил, и накрая "Всички градове →" линк като акцент бутон вдясно (с `ml-auto` на десктоп)
 
-**4. `src/pages/cities/VarnaHome.tsx` — мултиезична поддръжка**
+Това ги подрежда чисто на една визуална линия с консистентен spacing и подравняване.
 
-Чете `lang` и показва съответния превод (засега може да остане BG съдържание, но компонентът се сервира на всички езици чрез CityPageRouter).
-
-**5. `src/hooks/useLocalizedPath.ts` — Варна по подразбиране**
-
-Премахваме условието `if (currentCity && currentLang === "bg")`. Новата логика:
-- ако routeKey е city-scoped → винаги връща `/[lang]/[city||varna]/[slug]`
-- иначе → legacy global path `/[lang]/[slug]`
-
-**6. `src/components/HreflangTags.tsx` — canonical с varna**
-
-Когато routeKey е city-scoped и няма city в URL → canonical винаги сочи към `/[lang]/varna/[slug]`. Hreflang alternates също включват `/varna/` за city-scoped routes.
-
-**7. `src/components/LanguageRedirect.tsx` (root `/`)**
-
-Update: `navigate(/${lang}/varna)` вместо `navigate(/${lang})`.
-
-**8. Sitemap (`public/sitemap-bg.xml` + 9 други)**
-- Премахване на стари /bg/remont-na-pokrivi, /bg/hidroizolacia-na-pokriv и т.н. (8 service URL-а × 10 ezika = 80 entries)
-- Добавяне на нови /[lang]/varna/[slug] entries
-- Запазване на global pages (about, blog, contact, calculator, ...) непроменени
-
-**9. `src/i18n/cities.ts` — премахване на условни fallbacks**
-
-Не е нужна промяна на CityKey, но `DEFAULT_CITY = "varna"` става единственият неявен default.
-
-### Запазване на SEO авторитета
-
-Всички стари URL-и (`/bg/remont-na-pokrivi`, `/en/roof-repair-varna`, `/de/dachreparatur-varna`, ...) продължават да съществуват в routing-а **САМО като 301 redirect** към новия canonical. React Router `<Navigate replace>` не е истински 301 (SPA), но:
-- Google възприема `replace` навигацията като soft redirect
-- Canonical tag-ът на новата страница ясно сочи към `/varna/` версията
-- За истински 301 redirects в бъдеще → Lovable hosting не поддържа, но canonical + sitemap + вътрешни линкове са достатъчни сигнали
-
-### Засегнати файлове (~10 файла)
-
+### Засегнати файлове (3)
 | # | Файл | Промяна |
 |---|------|---------|
-| 1 | `src/i18n/routes.ts` | + `CITY_SCOPED_ROUTES` константа + `isCityScopedRoute` helper |
-| 2 | `src/components/LocalizedPageRouter.tsx` | + redirect логика за city-scoped routes към /varna/ |
-| 3 | `src/components/CityPageRouter.tsx` | поддръжка за всички 10 езика (не само BG) |
-| 4 | `src/components/HreflangTags.tsx` | canonical/alternates винаги с /varna/ за city-scoped |
-| 5 | `src/hooks/useLocalizedPath.ts` | default city = varna за city-scoped routes |
-| 6 | `src/components/LanguageRedirect.tsx` | redirect към /[lang]/varna вместо /[lang] |
-| 7 | `src/pages/cities/VarnaHome.tsx` | работи на всички езици |
-| 8 | `src/components/CitySwitcher.tsx` | показва "Варна" като активен и на /bg/varna/* |
-| 9 | `public/sitemap-bg.xml` | премахване на стари + добавяне на нови /varna/ URLs |
-| 10 | `public/sitemap-{en,de,fi,sv,no,fr,nl,ru,ua}.xml` | същото за всеки език |
-
-### Какво НЕ се променя
-
-- About/Blog/Contact/Calculator/Reviews/FAQ/Projects/Inspection/Pricing/HowWeWork остават `/bg/za-nas`, `/bg/blog`, `/en/about` и т.н. (global)
-- Burgas и Ruse URL-ите остават както са (`/bg/burgas/*`, `/bg/ruse/*`)
-- Solar pages, financing → остават global (засега не са city-scoped)
-- Cyrillic redirects (`/ремонт-на-покриви` → `/bg/remont-na-pokrivi`) → автоматично каскадират през новия redirect до `/bg/varna/remont-na-pokrivi`
+| 1 | `src/components/CitySwitcher.tsx` | + "Виж всички градове" item в края на dropdown |
+| 2 | `src/pages/CitiesHubPage.tsx` | реален SVG outline на България с правилно позиционирани pins |
+| 3 | `src/components/Footer.tsx` | реструктурирана service-areas strip с pill-стил и подравнен "Всички градове" линк |
 
 ### Резултат
-
-✅ `/bg/remont-na-pokrivi` → 301 → `/bg/varna/remont-na-pokrivi`  
-✅ `/en/roof-repair-varna` → 301 → `/en/varna/roof-repair-varna`  
-✅ `/bg/` → 301 → `/bg/varna/`  
-✅ Всички 3 града следват един и същ pattern: `/[lang]/[city]/[service]`  
-✅ Sitemap показва само финалните URLs  
-✅ Hreflang консистентен за city-scoped routes  
-✅ Готово за добавяне на `/de/hamburg/`, `/fi/helsinki/` в бъдеще
+✅ Всеки потребител, който отвори City Switcher, вижда директен пряк път към хъб страницата  
+✅ Картата на Cities Hub изглежда професионално и географски точно (без cartoon кръгчета)  
+✅ Footer city линкове са на чиста линия с pill дизайн и консистентно подравняване
 
