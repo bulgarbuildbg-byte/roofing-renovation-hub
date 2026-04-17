@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { MapPin, Check } from "lucide-react";
+import { MapPin, Check, Map } from "lucide-react";
 import { CITIES, ACTIVE_CITIES, COMING_SOON_CITIES, isCityKey, type CityKey } from "@/i18n/cities";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +14,7 @@ import {
 const CitySwitcher = () => {
   const navigate = useNavigate();
   const { lang, "*": rest } = useParams<{ lang?: string; "*"?: string }>();
+  const { getPath } = useLocalizedPath();
 
   const currentLang = lang || "bg";
   // City lives in the first segment of the catch-all `*` param (route is /:lang/*)
@@ -24,6 +26,10 @@ const CitySwitcher = () => {
     if (newCity === currentCity) return;
     // All cities use the unified /:lang/:city/ pattern (including Varna)
     navigate(`/${currentLang}/${newCity}`);
+  };
+
+  const goToCitiesHub = () => {
+    navigate(getPath("cities"));
   };
 
   return (
@@ -69,6 +75,17 @@ const CitySwitcher = () => {
             </span>
           </DropdownMenuItem>
         ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={goToCitiesHub}
+          className="cursor-pointer rounded-lg px-3 py-2.5 text-accent hover:bg-accent/10 focus:bg-accent/10 font-semibold flex items-center justify-between"
+        >
+          <span className="flex items-center gap-2">
+            <Map className="w-4 h-4" />
+            Виж всички градове
+          </span>
+          <span aria-hidden="true">→</span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
