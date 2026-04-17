@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ACTIVE_CITIES, COMING_SOON_CITIES, CITIES, type CityKey } from "@/i18n/cities";
+import bulgariaMap from "@/assets/bulgaria-map.png";
 
 const BASE_URL = "https://www.remontnapokrivivarna.bg";
 
@@ -117,104 +118,17 @@ const CitiesHubPage = () => {
               </p>
             </div>
 
-            {/* Realistic Bulgaria map with geographically projected city pins */}
+            {/* Bulgaria map — real relief image with embedded city pins */}
             <div className="max-w-4xl mx-auto mb-12 hidden md:block">
-              <div className="relative aspect-[1000/600] bg-gradient-to-br from-muted/40 to-muted/20 rounded-2xl border border-border overflow-hidden shadow-inner">
-                <svg viewBox="0 0 1000 600" className="w-full h-full" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="bgLandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="hsl(var(--muted))" stopOpacity="0.95" />
-                      <stop offset="100%" stopColor="hsl(var(--muted))" stopOpacity="0.7" />
-                    </linearGradient>
-                    <radialGradient id="seaGradient" cx="100%" cy="50%" r="80%">
-                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.18" />
-                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-                    </radialGradient>
-                  </defs>
-
-                  {/* Black Sea — eastern backdrop */}
-                  <rect x="850" y="0" width="150" height="600" fill="url(#seaGradient)" />
-                  <text x="935" y="320" textAnchor="middle" className="fill-muted-foreground/70" fontSize="14" fontWeight="600" fontStyle="italic">
-                    Черно море
-                  </text>
-
-                  {/*
-                    Geographically accurate Bulgaria outline.
-                    Linear projection: x = ((lng - 22.36) / 6.25) * 1000 ; y = ((44.22 - lat) / 2.98) * 600
-                    Simplified border polygon (~50 pts) traced from real coordinates.
-                  */}
-                  <path
-                    d="M 36,107 L 78,72 L 142,55 L 198,42 L 262,38 L 328,52 L 392,68 L 458,78 L 524,72 L 588,82 L 642,98 L 698,118 L 752,138 L 798,162 L 836,192 L 858,228 L 862,278 L 854,328 L 838,378 L 808,418 L 762,452 L 708,478 L 642,498 L 572,512 L 498,518 L 422,508 L 348,488 L 282,458 L 224,418 L 178,372 L 142,322 L 112,272 L 86,218 L 62,162 Z"
-                    fill="url(#bgLandGradient)"
-                    stroke="hsl(var(--border))"
-                    strokeWidth="2"
-                    strokeLinejoin="round"
-                  />
-
-                  {/* Danube river — northern border */}
-                  <path
-                    d="M 38,105 Q 200,40 458,76 T 856,190"
-                    fill="none"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2.5"
-                    strokeOpacity="0.4"
-                    strokeLinecap="round"
-                  />
-                  <text x="380" y="62" className="fill-muted-foreground/70" fontSize="11" fontWeight="600" fontStyle="italic">
-                    р. Дунав
-                  </text>
-
-                  {/* Sofia (coming soon) — lat 42.6977, lng 23.3219 → x=154, y=307 */}
-                  <g>
-                    <circle cx="154" cy="307" r="9" fill="hsl(var(--muted-foreground))" opacity="0.55" />
-                    <circle cx="154" cy="307" r="3" fill="hsl(var(--background))" />
-                    <text x="154" y="334" textAnchor="middle" className="fill-muted-foreground" fontSize="13" fontWeight="600">София</text>
-                    <text x="154" y="350" textAnchor="middle" className="fill-muted-foreground/70" fontSize="10">(скоро)</text>
-                  </g>
-
-                  {/* Plovdiv (coming soon) — lat 42.1354, lng 24.7453 → x=381, y=420 */}
-                  <g>
-                    <circle cx="381" cy="420" r="9" fill="hsl(var(--muted-foreground))" opacity="0.55" />
-                    <circle cx="381" cy="420" r="3" fill="hsl(var(--background))" />
-                    <text x="381" y="447" textAnchor="middle" className="fill-muted-foreground" fontSize="13" fontWeight="600">Пловдив</text>
-                    <text x="381" y="463" textAnchor="middle" className="fill-muted-foreground/70" fontSize="10">(скоро)</text>
-                  </g>
-
-                  {/* Ruse (active) — lat 43.8564, lng 25.9657 → x=577, y=73 */}
-                  <g>
-                    <circle cx="577" cy="100" r="16" fill="hsl(var(--primary))" opacity="0.25" className="animate-pulse" />
-                    <circle cx="577" cy="100" r="10" fill="hsl(var(--primary))" />
-                    <circle cx="577" cy="100" r="3.5" fill="hsl(var(--primary-foreground))" />
-                    <text x="577" y="86" textAnchor="middle" className="fill-foreground" fontSize="14" fontWeight="700">Русе</text>
-                  </g>
-
-                  {/* Burgas (active) — lat 42.5048, lng 27.4626 → x=816, y=345 */}
-                  <g>
-                    <circle cx="780" cy="345" r="16" fill="hsl(var(--primary))" opacity="0.25" className="animate-pulse" />
-                    <circle cx="780" cy="345" r="10" fill="hsl(var(--primary))" />
-                    <circle cx="780" cy="345" r="3.5" fill="hsl(var(--primary-foreground))" />
-                    <text x="780" y="372" textAnchor="middle" className="fill-foreground" fontSize="14" fontWeight="700">Бургас</text>
-                  </g>
-
-                  {/* Varna (active) — lat 43.2141, lng 27.9147 → x=888, y=203 */}
-                  <g>
-                    <circle cx="820" cy="215" r="16" fill="hsl(var(--primary))" opacity="0.25" className="animate-pulse" />
-                    <circle cx="820" cy="215" r="10" fill="hsl(var(--primary))" />
-                    <circle cx="820" cy="215" r="3.5" fill="hsl(var(--primary-foreground))" />
-                    <text x="820" y="201" textAnchor="middle" className="fill-foreground" fontSize="14" fontWeight="700">Варна</text>
-                  </g>
-
-                  {/* Dobrich (active) — lat 43.5667, lng 27.8333 → x=875, y=132 */}
-                  <g>
-                    <circle cx="800" cy="155" r="16" fill="hsl(var(--primary))" opacity="0.25" className="animate-pulse" />
-                    <circle cx="800" cy="155" r="10" fill="hsl(var(--primary))" />
-                    <circle cx="800" cy="155" r="3.5" fill="hsl(var(--primary-foreground))" />
-                    <text x="800" y="141" textAnchor="middle" className="fill-foreground" fontSize="14" fontWeight="700">Добрич</text>
-                  </g>
-                </svg>
-
+              <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border-2 border-border shadow-2xl bg-card">
+                <img
+                  src={bulgariaMap}
+                  alt="Карта на България с обслужвани градове: Варна, Бургас, Русе, Добрич"
+                  loading="lazy"
+                  className="w-full h-full object-contain"
+                />
                 {/* Legend */}
-                <div className="absolute bottom-3 left-3 flex items-center gap-4 bg-background/85 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-border text-xs">
+                <div className="absolute bottom-3 left-3 flex items-center gap-4 bg-background/90 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-border text-xs shadow-md">
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-primary" />
                     <span className="text-foreground font-medium">Активен</span>
