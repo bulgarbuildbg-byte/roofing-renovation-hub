@@ -53,15 +53,15 @@ const CitiesHubPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>Градове, в които работим — Ремонт на Покриви | Варна, Бургас, Русе</title>
+        <title>Градове, в които работим — Ремонт на Покриви | Варна, Бургас, Русе, Добрич</title>
         <meta
           name="description"
-          content="Професионален ремонт на покриви в 3 града в България — Варна, Бургас и Русе. Безплатен оглед, 15 години писмена гаранция. Скоро в Пловдив и София."
+          content="Професионален ремонт на покриви в 4 града в България — Варна, Бургас, Русе и Добрич. Безплатен оглед, 15 години писмена гаранция. Скоро в Пловдив и София."
         />
         <link rel="canonical" href={canonical} />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content="Градове, в които работим — Ремонт на Покриви" />
-        <meta property="og:description" content="Професионален ремонт на покриви във Варна, Бургас и Русе. Безплатен оглед, 15 години гаранция." />
+        <meta property="og:description" content="Професионален ремонт на покриви във Варна, Бургас, Русе и Добрич. Безплатен оглед, 15 години гаранция." />
         <meta property="og:url" content={canonical} />
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
@@ -85,7 +85,7 @@ const CitiesHubPage = () => {
               Градове, в които работим
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mb-8">
-              Професионален ремонт на покриви, хидроизолация и нови покриви в 3 големи града в България. Безплатен оглед в рамките на 24 часа, 15 години писмена гаранция.
+              Професионален ремонт на покриви, хидроизолация и нови покриви в 4 големи града в България. Безплатен оглед в рамките на 24 часа, 15 години писмена гаранция.
             </p>
 
             <div className="flex flex-wrap gap-2 md:gap-4">
@@ -113,7 +113,7 @@ const CitiesHubPage = () => {
                 Активни градове
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Нашите екипи работят в трите града и обслужват целите им региони.
+                Нашите екипи работят в четирите града и обслужват целите им региони.
               </p>
             </div>
 
@@ -203,6 +203,14 @@ const CitiesHubPage = () => {
                     <circle cx="820" cy="215" r="3.5" fill="hsl(var(--primary-foreground))" />
                     <text x="820" y="201" textAnchor="middle" className="fill-foreground" fontSize="14" fontWeight="700">Варна</text>
                   </g>
+
+                  {/* Dobrich (active) — lat 43.5667, lng 27.8333 → x=875, y=132 */}
+                  <g>
+                    <circle cx="800" cy="155" r="16" fill="hsl(var(--primary))" opacity="0.25" className="animate-pulse" />
+                    <circle cx="800" cy="155" r="10" fill="hsl(var(--primary))" />
+                    <circle cx="800" cy="155" r="3.5" fill="hsl(var(--primary-foreground))" />
+                    <text x="800" y="141" textAnchor="middle" className="fill-foreground" fontSize="14" fontWeight="700">Добрич</text>
+                  </g>
                 </svg>
 
                 {/* Legend */}
@@ -220,7 +228,7 @@ const CitiesHubPage = () => {
             </div>
 
             {/* Active city cards */}
-            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {ACTIVE_CITIES.map((cityKey: CityKey) => {
                 const c = CITIES[cityKey];
                 return (
