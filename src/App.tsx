@@ -81,7 +81,13 @@ const App = () => (
             <Route path="/калкулатор" element={<Navigate to="/bg/kalkulator" replace />} />
             <Route path="/безплатен-оглед" element={<Navigate to="/bg/bezplaten-ogled" replace />} />
 
-            {/* Language-prefixed public routes */}
+            {/* City-aware routes (must be BEFORE legacy /:lang/* to take precedence) */}
+            <Route path="/:lang/:city" element={<CityAwareLayout />}>
+              <Route index element={<CityPageRouter />} />
+              <Route path="*" element={<CityPageRouter />} />
+            </Route>
+
+            {/* Language-prefixed public routes (legacy single-city = Varna implicit) */}
             <Route path="/:lang/*" element={<LanguageLayout />}>
               <Route path="*" element={<LocalizedPageRouter />} />
             </Route>
