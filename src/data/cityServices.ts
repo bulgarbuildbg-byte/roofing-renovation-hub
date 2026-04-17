@@ -1,12 +1,12 @@
 import type { RouteKey } from "@/i18n/routes";
 import heroRoofRepair from "@/assets/hero-roof-repair.jpg";
-import heroLeakRepair from "@/assets/hero-roof-leak-repair.jpg";
-import heroWaterproofing from "@/assets/hero-waterproofing.jpg";
+import heroLeakRepair from "@/assets/hero-leak-repair.jpg";
+import heroWaterproofing from "@/assets/hero-waterproofing.jpeg";
 import heroNewRoof from "@/assets/hero-new-roof.jpg";
-import heroTileRoof from "@/assets/hero-tile-roof.jpg";
-import heroFlatRoof from "@/assets/hero-flat-roof.jpg";
-import heroMetalRoof from "@/assets/hero-metal-roof.jpg";
-import heroMaintenance from "@/assets/hero-maintenance.jpg";
+import heroTileRoof from "@/assets/hero-tile-replacement.jpg";
+import heroFlatRoof from "@/assets/hero-flat-roof.jpeg";
+import heroMetalRoof from "@/assets/hero-roofing-new.png";
+import heroMaintenance from "@/assets/hero-roofing.jpg";
 
 export interface CityServiceContent {
   routeKey: RouteKey;
