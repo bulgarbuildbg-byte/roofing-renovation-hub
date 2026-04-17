@@ -1,12 +1,12 @@
 import type { SupportedLanguage } from "./config";
 
-export type CityKey = "varna" | "burgas" | "ruse";
+export type CityKey = "varna" | "burgas" | "ruse" | "dobrich";
 
 export interface CityData {
   slug: string;
   nameBg: string;
   nameLatin: string;
-  nameLocative: string; // "във Варна" / "в Бургас" / "в Русе"
+  nameLocative: string; // "във Варна" / "в Бургас" / "в Русе" / "в Добрич"
   phone: string;
   phoneTel: string;
   email: string;
@@ -78,11 +78,30 @@ export const CITIES: Record<CityKey, CityData> = {
     region: "Русе",
     defaultLang: "bg",
   },
+  dobrich: {
+    slug: "dobrich",
+    nameBg: "Добрич",
+    nameLatin: "Dobrich",
+    nameLocative: "в Добрич",
+    phone: "088 499 7659",
+    phoneTel: "0884997659",
+    email: "remontnapokrivivarna@abv.bg",
+    workingHours: "Пон–Съб 08:00–18:00",
+    emergency: "Аварии 24/7",
+    neighborhoods: [
+      "Балик", "Дружба", "Изгрев", "Рилци", "Запад",
+      "Север", "Център", "Добротица", "Хр. Ботев", "Русе",
+    ],
+    geo: { lat: 43.5667, lng: 27.8333 },
+    postalCode: "9300",
+    region: "Добрич",
+    defaultLang: "bg",
+  },
 };
 
 export const DEFAULT_CITY: CityKey = "varna";
 
-export const ACTIVE_CITIES: CityKey[] = ["varna", "burgas", "ruse"];
+export const ACTIVE_CITIES: CityKey[] = ["varna", "burgas", "ruse", "dobrich"];
 
 export const COMING_SOON_CITIES: { slug: string; nameBg: string }[] = [
   { slug: "plovdiv", nameBg: "Пловдив" },
@@ -90,11 +109,10 @@ export const COMING_SOON_CITIES: { slug: string; nameBg: string }[] = [
 ];
 
 export function isCityKey(value: string | undefined): value is CityKey {
-  return value === "varna" || value === "burgas" || value === "ruse";
+  return value === "varna" || value === "burgas" || value === "ruse" || value === "dobrich";
 }
 
 export function getCityFromSlug(slug: string | undefined): CityKey | null {
   if (!slug) return null;
   return isCityKey(slug) ? slug : null;
 }
-
