@@ -119,7 +119,7 @@ const CitiesHubPage = () => {
 
             {/* Realistic Bulgaria map with geographically projected city pins */}
             <div className="max-w-4xl mx-auto mb-12 hidden md:block">
-              <div className="relative aspect-[1000/600] bg-gradient-to-br from-sky-50 to-blue-50 dark:from-slate-900/40 dark:to-slate-800/40 rounded-2xl border border-border overflow-hidden shadow-inner">
+              <div className="relative aspect-[1000/600] bg-gradient-to-br from-muted/40 to-muted/20 rounded-2xl border border-border overflow-hidden shadow-inner">
                 <svg viewBox="0 0 1000 600" className="w-full h-full" aria-hidden="true">
                   <defs>
                     <linearGradient id="bgLandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -127,14 +127,14 @@ const CitiesHubPage = () => {
                       <stop offset="100%" stopColor="hsl(var(--muted))" stopOpacity="0.7" />
                     </linearGradient>
                     <radialGradient id="seaGradient" cx="100%" cy="50%" r="80%">
-                      <stop offset="0%" stopColor="hsl(210 80% 75%)" stopOpacity="0.35" />
-                      <stop offset="100%" stopColor="hsl(210 80% 75%)" stopOpacity="0" />
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
                     </radialGradient>
                   </defs>
 
                   {/* Black Sea — eastern backdrop */}
                   <rect x="850" y="0" width="150" height="600" fill="url(#seaGradient)" />
-                  <text x="935" y="320" textAnchor="middle" className="fill-sky-700/60 dark:fill-sky-300/50" fontSize="14" fontWeight="600" fontStyle="italic">
+                  <text x="935" y="320" textAnchor="middle" className="fill-muted-foreground/70" fontSize="14" fontWeight="600" fontStyle="italic">
                     Черно море
                   </text>
 
