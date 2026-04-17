@@ -1,4 +1,4 @@
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MapPin, Check } from "lucide-react";
 import { CITIES, ACTIVE_CITIES, COMING_SOON_CITIES, isCityKey, type CityKey } from "@/i18n/cities";
 import {
@@ -12,11 +12,12 @@ import {
 
 const CitySwitcher = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { lang, city: cityParam } = useParams<{ lang?: string; city?: string }>();
+  const { lang, "*": rest } = useParams<{ lang?: string; "*"?: string }>();
 
   const currentLang = lang || "bg";
-  const currentCity: CityKey = isCityKey(cityParam) ? (cityParam as CityKey) : "varna";
+  // City lives in the first segment of the catch-all `*` param (route is /:lang/*)
+  const firstSegment = (rest || "").split("/")[0];
+  const currentCity: CityKey = isCityKey(firstSegment) ? (firstSegment as CityKey) : "varna";
   const currentData = CITIES[currentCity];
 
   const switchCity = (newCity: CityKey) => {
