@@ -265,6 +265,50 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <Testimonials />
         <PriceCalculator />
 
+        {/* PACKAGES (only for maintenance) */}
+        {service.packages && (
+          <section id="packages" className="py-16 bg-secondary">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
+                Абонаментни пакети за поддръжка в {cityName}
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                Изберете пакет, който отговаря на вашите нужди — превенцията струва 10 пъти по-малко от ремонта
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                {service.packages.map((pkg, index) => (
+                  <Card key={index} className={`border-border bg-card ${pkg.popular ? 'ring-2 ring-primary relative' : ''}`}>
+                    <CardContent className="p-6 flex flex-col h-full">
+                      {pkg.popular && (
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-semibold text-primary-foreground bg-primary rounded-full">
+                          Най-предпочитан
+                        </span>
+                      )}
+                      <h3 className="text-xl font-bold text-card-foreground mb-2">{pkg.title}</h3>
+                      <p className="text-2xl font-bold text-primary mb-3">{pkg.price}</p>
+                      <div className="bg-muted/40 rounded-lg p-3 mb-4">
+                        <p className="text-xs font-semibold text-foreground mb-1">Подходящ за:</p>
+                        <p className="text-xs text-muted-foreground">{pkg.suitableFor}</p>
+                      </div>
+                      <ul className="space-y-2 mb-6 flex-grow">
+                        {pkg.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                      <Button asChild className="w-full mt-auto" variant={pkg.popular ? "default" : "outline"}>
+                        <Link to={getPath('contact')}>Заявете оферта</Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* FAQ */}
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 max-w-3xl">
