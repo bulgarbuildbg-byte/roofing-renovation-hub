@@ -15,24 +15,32 @@ const HowWeWork = () => {
       titleKey: "howWeWork.step1Title",
       textKey: "howWeWork.step1Text",
       benefits: ["howWeWork.step1Benefit1", "howWeWork.step1Benefit2", "howWeWork.step1Benefit3"],
+      iconBg: "bg-green-100",
+      iconColor: "text-green-600",
     },
     {
       id: 2, icon: FileText,
       titleKey: "howWeWork.step2Title",
       textKey: "howWeWork.step2Text",
       benefits: ["howWeWork.step2Benefit1", "howWeWork.step2Benefit2", "howWeWork.step2Benefit3"],
+      iconBg: "bg-primary/15",
+      iconColor: "text-primary",
     },
     {
       id: 3, icon: Hammer,
       titleKey: "howWeWork.step3Title",
       textKey: "howWeWork.step3Text",
       benefits: ["howWeWork.step3Benefit1", "howWeWork.step3Benefit2", "howWeWork.step3Benefit3"],
+      iconBg: "bg-orange-100",
+      iconColor: "text-orange-600",
     },
     {
       id: 4, icon: Award,
       titleKey: "howWeWork.step4Title",
       textKey: "howWeWork.step4Text",
       benefits: ["howWeWork.step4Benefit1", "howWeWork.step4Benefit2", "howWeWork.step4Benefit3"],
+      iconBg: "bg-amber-100",
+      iconColor: "text-amber-500",
     },
   ];
 
@@ -57,8 +65,8 @@ const HowWeWork = () => {
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center text-2xl font-bold shadow-lg">
                     {step.id}
                   </div>
-                  <div className="w-20 h-20 rounded-full bg-primary/15 flex items-center justify-center">
-                    <Icon className="w-10 h-10 text-primary" />
+                  <div className={`w-20 h-20 rounded-full ${step.iconBg} flex items-center justify-center`}>
+                    <Icon className={`w-10 h-10 ${step.iconColor}`} />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">
                     {t(step.titleKey)}
