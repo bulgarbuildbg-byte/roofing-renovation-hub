@@ -3,8 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Sun, Zap, TrendingDown, Clock, Calculator, ArrowRight } from "lucide-react";
+import { Sun, Zap, TrendingDown, Clock, Calculator, ArrowRight, HardHat } from "lucide-react";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
+import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
+import roofFlatImg from "@/assets/roof-types/roof-flat.png";
 
 const roofTypeMultiplier: Record<string, number> = {
   pitched: 1.0,
@@ -98,19 +100,26 @@ const SolarCalculator = () => {
                 <label className="text-sm font-medium text-foreground mb-3 block">Тип покрив</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { id: "pitched", label: "Скатен" },
-                    { id: "flat", label: "Плосък" },
-                    { id: "metal", label: "Метален" },
+                    { id: "pitched", label: "Скатен", image: roofPitchedImg },
+                    { id: "flat", label: "Плосък", image: roofFlatImg },
+                    { id: "metal", label: "Метален", icon: HardHat },
                   ].map((rt) => (
                     <button
                       key={rt.id}
                       onClick={() => setRoofType(rt.id)}
-                      className={`py-3 px-4 rounded-lg border text-sm font-medium transition-all ${
+                      className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 text-sm font-medium transition-all ${
                         roofType === rt.id
                           ? "border-primary bg-primary/10 text-primary"
                           : "border-border bg-background text-muted-foreground hover:border-primary/50"
                       }`}
                     >
+                      <div className="w-full h-20 rounded-md overflow-hidden bg-white border border-border/40 flex items-center justify-center">
+                        {rt.image ? (
+                          <img src={rt.image} alt={rt.label} loading="lazy" className="w-full h-full object-contain" />
+                        ) : rt.icon ? (
+                          <rt.icon className="w-10 h-10 text-muted-foreground" />
+                        ) : null}
+                      </div>
                       {rt.label}
                     </button>
                   ))}
