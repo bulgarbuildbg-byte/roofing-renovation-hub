@@ -26,6 +26,14 @@ export interface CityServiceContent {
   faqs: { q: string; a: string }[];
   /** Price hint shown in hero (e.g., "от €4/м²") */
   priceHint?: string;
+  /** Optional subscription packages (used by maintenance service) */
+  packages?: {
+    title: string;
+    price: string;
+    popular: boolean;
+    features: string[];
+    suitableFor: string;
+  }[];
 }
 
 export const CITY_SERVICES: Partial<Record<RouteKey, CityServiceContent>> = {
