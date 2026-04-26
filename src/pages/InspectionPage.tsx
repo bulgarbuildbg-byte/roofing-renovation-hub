@@ -241,7 +241,7 @@ const InspectionPage = () => {
                               : "border-border bg-card hover:border-primary/60 hover:bg-primary/5"
                           }`}
                         >
-                          <FlatRoofIcon active={roofType === "flat"} />
+                          <RoofImage src={roofFlatImg} alt="Плосък покрив" />
                           <span className="font-bold text-foreground text-lg">{t("inspection.flatRoof")}</span>
                           <span className="text-xs text-muted-foreground">{t("inspection.flatRoofDesc")}</span>
                           {roofType === "flat" && <CheckCircle className="h-5 w-5 text-primary" />}
@@ -256,7 +256,7 @@ const InspectionPage = () => {
                               : "border-border bg-card hover:border-primary/60 hover:bg-primary/5"
                           }`}
                         >
-                          <PitchedRoofIcon active={roofType === "pitched"} />
+                          <RoofImage src={roofPitchedImg} alt="Скатен покрив" />
                           <span className="font-bold text-foreground text-lg">{t("inspection.pitchedRoof")}</span>
                           <span className="text-xs text-muted-foreground">{t("inspection.pitchedRoofDesc")}</span>
                           {roofType === "pitched" && <CheckCircle className="h-5 w-5 text-primary" />}
