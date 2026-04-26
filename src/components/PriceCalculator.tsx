@@ -11,6 +11,8 @@ import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat
 import { trackEvent, trackCalculatorEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
+import roofFlatImg from "@/assets/roof-types/roof-flat.png";
 
 const MAX_FILES = 8;
 const MAX_TOTAL_SIZE_MB = 250;
@@ -20,9 +22,9 @@ interface PriceCalculatorProps {
 }
 
 // Step 1: Roof types
-const roofTypes = [
-  { id: "sloped", label: "Скатен", icon: Home, multiplier: 1.0 },
-  { id: "flat", label: "Плосък", icon: Layers, multiplier: 0.9 },
+const roofTypes: { id: string; label: string; icon: any; multiplier: number; image?: string }[] = [
+  { id: "sloped", label: "Скатен", icon: Home, multiplier: 1.0, image: roofPitchedImg },
+  { id: "flat", label: "Плосък", icon: Layers, multiplier: 0.9, image: roofFlatImg },
   { id: "metal", label: "Метален", icon: HardHat, multiplier: 1.1 },
   { id: "unsure", label: "Не съм сигурен", icon: HelpCircle, multiplier: 1.0 },
 ];
@@ -325,8 +327,8 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setSubmitted(false);
   };
 
-  const OptionCard = ({ id, label, icon: Icon, isSelected, onClick }: {
-    id: string; label: string; icon?: any; isSelected: boolean; onClick: () => void;
+  const OptionCard = ({ id, label, icon: Icon, image, isSelected, onClick }: {
+    id: string; label: string; icon?: any; image?: string; isSelected: boolean; onClick: () => void;
   }) => (
     <button
       onClick={onClick}
@@ -336,7 +338,13 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
           : "border-border/60 hover:border-accent/50 hover:shadow-md hover:-translate-y-0.5 bg-card"
       }`}
     >
-      {Icon && (
+      {image ? (
+        <div className={`w-20 h-20 rounded-xl flex items-center justify-center shrink-0 overflow-hidden bg-white border transition-colors duration-200 ${
+          isSelected ? "border-accent" : "border-border/40 group-hover:border-accent/40"
+        }`}>
+          <img src={image} alt={label} loading="lazy" className="w-full h-full object-contain" />
+        </div>
+      ) : Icon && (
         <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors duration-200 ${
           isSelected ? "bg-accent/20" : "bg-muted group-hover:bg-accent/10"
         }`}>
@@ -410,7 +418,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                   <StepHeader title="Какъв е вашият покрив?" />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {roofTypes.map(rt => (
-                      <OptionCard key={rt.id} id={rt.id} label={rt.label} icon={rt.icon} isSelected={roofType === rt.id} onClick={() => selectRoofType(rt.id)} />
+                      <OptionCard key={rt.id} id={rt.id} label={rt.label} icon={rt.icon} image={rt.image} isSelected={roofType === rt.id} onClick={() => selectRoofType(rt.id)} />
                     ))}
                   </div>
                 </div>
