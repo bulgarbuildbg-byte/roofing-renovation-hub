@@ -15,6 +15,8 @@ import { toast } from "@/hooks/use-toast";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { trackCallClick } from "@/lib/analytics";
 import { getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
+import roofFlatImg from "@/assets/roof-types/roof-flat.png";
 
 type RoofType = "flat" | "pitched" | null;
 
@@ -29,31 +31,10 @@ const complexityOptions = [
   { value: "single_pitch" }, { value: "gable" }, { value: "hip" }, { value: "complex" },
 ];
 
-const FlatRoofIcon = ({ active }: { active: boolean }) => (
-  <svg viewBox="0 0 80 60" className="w-16 h-16 md:w-20 md:h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="10" y="20" width="60" height="30" rx="2" className={active ? "fill-primary/20 stroke-primary" : "fill-muted stroke-muted-foreground/50"} strokeWidth="2" />
-    <rect x="8" y="16" width="64" height="6" rx="1" className={active ? "fill-primary stroke-primary" : "fill-muted-foreground/30 stroke-muted-foreground/50"} strokeWidth="1.5" />
-    <line x1="8" y1="14" x2="72" y2="14" className={active ? "stroke-primary" : "stroke-muted-foreground/40"} strokeWidth="2.5" strokeLinecap="round" />
-    <rect x="25" y="32" width="10" height="14" rx="1" className={active ? "fill-primary/30 stroke-primary" : "fill-muted-foreground/20 stroke-muted-foreground/40"} strokeWidth="1" />
-    <rect x="45" y="32" width="10" height="10" rx="1" className={active ? "fill-primary/30 stroke-primary" : "fill-muted-foreground/20 stroke-muted-foreground/40"} strokeWidth="1" />
-    <line x1="10" y1="50" x2="70" y2="50" className="stroke-muted-foreground/30" strokeWidth="1" />
-  </svg>
-);
-
-const PitchedRoofIcon = ({ active }: { active: boolean }) => (
-  <svg viewBox="0 0 80 60" className="w-16 h-16 md:w-20 md:h-20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="40,6 72,28 8,28" className={active ? "fill-primary/20 stroke-primary" : "fill-muted stroke-muted-foreground/50"} strokeWidth="2" strokeLinejoin="round" />
-    <line x1="40" y1="6" x2="40" y2="0" className={active ? "stroke-primary" : "stroke-muted-foreground/40"} strokeWidth="2" />
-    <rect x="38" y="0" width="4" height="4" rx="0.5" className={active ? "fill-primary" : "fill-muted-foreground/40"} />
-    <line x1="24" y1="17" x2="40" y2="8" className={active ? "stroke-primary/40" : "stroke-muted-foreground/20"} strokeWidth="1" />
-    <line x1="30" y1="20" x2="46" y2="11" className={active ? "stroke-primary/40" : "stroke-muted-foreground/20"} strokeWidth="1" />
-    <line x1="36" y1="23" x2="52" y2="14" className={active ? "stroke-primary/40" : "stroke-muted-foreground/20"} strokeWidth="1" />
-    <rect x="12" y="28" width="56" height="24" rx="1" className={active ? "fill-primary/10 stroke-primary" : "fill-muted stroke-muted-foreground/50"} strokeWidth="1.5" />
-    <rect x="32" y="36" width="12" height="16" rx="1" className={active ? "fill-primary/30 stroke-primary" : "fill-muted-foreground/20 stroke-muted-foreground/40"} strokeWidth="1" />
-    <rect x="18" y="36" width="8" height="8" rx="1" className={active ? "fill-primary/30 stroke-primary" : "fill-muted-foreground/20 stroke-muted-foreground/40"} strokeWidth="1" />
-    <rect x="52" y="36" width="8" height="8" rx="1" className={active ? "fill-primary/30 stroke-primary" : "fill-muted-foreground/20 stroke-muted-foreground/40"} strokeWidth="1" />
-    <line x1="12" y1="52" x2="68" y2="52" className="stroke-muted-foreground/30" strokeWidth="1" />
-  </svg>
+const RoofImage = ({ src, alt }: { src: string; alt: string }) => (
+  <div className="w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden bg-white border border-border/40 flex items-center justify-center">
+    <img src={src} alt={alt} loading="lazy" className="w-full h-full object-contain" />
+  </div>
 );
 
 const InspectionPage = () => {
