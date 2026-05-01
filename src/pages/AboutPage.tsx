@@ -53,7 +53,7 @@ const AboutPage = () => {
             "description": "Специализирано покривно подразделение на Булгар Билд ЕООД",
             "url": "https://www.remontnapokrivivarna.bg",
             "telephone": "+359884997659",
-            "email": "office@bulgarbuild.com",
+            "email": "remontnapokrivivarna@abv.bg",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "ул. Уста Колю Фичето 25 А",
