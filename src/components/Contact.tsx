@@ -54,9 +54,9 @@ const Contact = () => {
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-card-foreground mb-1">{t('contact.email')}</h3>
-                  <a href="mailto:remontnapokrivivarna@abv.bg" className="text-muted-foreground hover:text-primary transition-colors text-sm md:text-base break-all">
-                    remontnapokrivivarna@abv.bg
+                  <p className="font-bold text-card-foreground mb-1">{t('contact.email')}</p>
+                  <a href="mailto:office@bulgarbuild.com" className="text-muted-foreground hover:text-primary transition-colors text-sm md:text-base break-all">
+                    office@bulgarbuild.com
                   </a>
                 </div>
               </CardContent>
@@ -68,7 +68,7 @@ const Contact = () => {
                   <MapPin className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-card-foreground mb-1">{t('contact.address')}</h3>
+                  <p className="font-bold text-card-foreground mb-1">{t('contact.address')}</p>
                   <p className="text-muted-foreground text-sm md:text-base">{t('contact.addressText')}</p>
                   <p className="text-xs md:text-sm text-muted-foreground mt-1">{t('contact.serviceArea')}</p>
                 </div>
@@ -81,7 +81,7 @@ const Contact = () => {
                   <Clock className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-card-foreground mb-1">{t('contact.workHours')}</h3>
+                  <p className="font-bold text-card-foreground mb-1">{t('contact.workHours')}</p>
                   <p className="text-muted-foreground text-sm md:text-base">{t('contact.workHoursText')}</p>
                   <p className="text-sm text-accent font-medium mt-1">{t('contact.emergency')}</p>
                 </div>

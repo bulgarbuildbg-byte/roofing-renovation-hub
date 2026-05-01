@@ -41,9 +41,9 @@ const CTASection = ({
   return (
     <section className={`py-12 md:py-16 ${bgClasses[variant]}`}>
       <div className="container mx-auto px-4 text-center">
-        <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold ${textClasses[variant]} mb-3 md:mb-4`}>
+        <p className={`text-2xl md:text-3xl lg:text-4xl font-bold ${textClasses[variant]} mb-3 md:mb-4`} role="heading" aria-level={2}>
           {title}
-        </h2>
+        </p>
         {subtitle && (
           <p className={`text-base md:text-lg ${textClasses[variant]}/90 mb-6 md:mb-8 max-w-2xl mx-auto`}>
             {subtitle}

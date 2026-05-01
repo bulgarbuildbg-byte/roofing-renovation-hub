@@ -28,7 +28,7 @@ const Gallery = () => {
     <section id="gallery" className="py-20 bg-secondary">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t('gallery.title')}</h2>
+          <p className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t('gallery.title')}</p>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t('gallery.subtitle')}</p>
         </div>
 
@@ -46,7 +46,7 @@ const Gallery = () => {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-2">{project.title}</h3>
+                <p className="text-xl font-bold text-foreground mb-2">{project.title}</p>
                 <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{project.description}</p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1"><MapPin className="w-4 h-4" />{project.location}</span>

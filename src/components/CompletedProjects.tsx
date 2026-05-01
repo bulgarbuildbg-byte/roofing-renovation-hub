@@ -56,9 +56,9 @@ const CompletedProjects = () => {
     <section className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <p className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             {t("completedProjects.title")}
-          </h2>
+          </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             {t("completedProjects.subtitle")}
           </p>
@@ -92,7 +92,7 @@ const CompletedProjects = () => {
                       </div>
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-foreground text-sm md:text-base mb-1">{project.title}</h3>
+                      <p className="font-semibold text-foreground text-sm md:text-base mb-1">{project.title}</p>
                       <p className="text-xs text-muted-foreground">{project.category_label || project.category}</p>
                     </div>
                   </Link>

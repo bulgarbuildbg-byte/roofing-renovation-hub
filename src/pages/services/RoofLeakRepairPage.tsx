@@ -110,7 +110,7 @@ const RoofLeakRepairPage = () => {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
       "telephone": "+359884997659",
-      "email": "remontnapokrivivarna@abv.bg",
+      "email": "office@bulgarbuild.com",
       "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" }
     },
     "areaServed": [
