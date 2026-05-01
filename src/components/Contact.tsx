@@ -55,8 +55,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-card-foreground mb-1">{t('contact.email')}</h3>
-                  <a href="mailto:remontnapokrivivarna@abv.bg" className="text-muted-foreground hover:text-primary transition-colors text-sm md:text-base break-all">
-                    remontnapokrivivarna@abv.bg
+                  <a href="mailto:office@bulgarbuild.com" className="text-muted-foreground hover:text-primary transition-colors text-sm md:text-base break-all">
+                    office@bulgarbuild.com
                   </a>
                 </div>
               </CardContent>

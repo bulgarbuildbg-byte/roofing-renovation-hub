@@ -108,7 +108,7 @@ const WaterproofingPage = () => {
   const schemaData = {
     "@context": "https://schema.org", "@type": "Service",
     "name": "Хидроизолация на покриви Варна",
-    "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359884997659", "email": "remontnapokrivivarna@abv.bg", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } },
+    "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359884997659", "email": "office@bulgarbuild.com", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } },
     "areaServed": [{ "@type": "City", "name": "Варна" }, { "@type": "Place", "name": "Аксаково" }, { "@type": "Place", "name": "Златни пясъци" }, { "@type": "Place", "name": "Белослав" }],
     "description": "Професионална хидроизолация на покриви във Варна - битумна, PVC мембрана, течна хидроизолация. 15 години гаранция.",
     "offers": { "@type": "AggregateOffer", "lowPrice": "14", "highPrice": "20", "priceCurrency": "EUR", "offerCount": "3" }

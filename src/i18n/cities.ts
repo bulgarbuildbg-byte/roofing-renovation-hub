@@ -28,7 +28,7 @@ export const CITIES: Record<CityKey, CityData> = {
     nameLocative: "във Варна",
     phone: "088 499 7659",
     phoneTel: "0884997659",
-    email: "remontnapokrivivarna@abv.bg",
+    email: "office@bulgarbuild.com",
     workingHours: "Пон–Съб 08:00–18:00",
     emergency: "Аварии 24/7",
     neighborhoods: [
@@ -47,7 +47,7 @@ export const CITIES: Record<CityKey, CityData> = {
     nameLocative: "в Бургас",
     phone: "088 499 7659",
     phoneTel: "0884997659",
-    email: "remontnapokrivivarna@abv.bg",
+    email: "office@bulgarbuild.com",
     workingHours: "Пон–Съб 08:00–18:00",
     emergency: "Аварии 24/7",
     neighborhoods: [
@@ -66,7 +66,7 @@ export const CITIES: Record<CityKey, CityData> = {
     nameLocative: "в Русе",
     phone: "088 499 7659",
     phoneTel: "0884997659",
-    email: "remontnapokrivivarna@abv.bg",
+    email: "office@bulgarbuild.com",
     workingHours: "Пон–Съб 08:00–18:00",
     emergency: "Аварии 24/7",
     neighborhoods: [
@@ -85,7 +85,7 @@ export const CITIES: Record<CityKey, CityData> = {
     nameLocative: "в Добрич",
     phone: "088 499 7659",
     phoneTel: "0884997659",
-    email: "remontnapokrivivarna@abv.bg",
+    email: "office@bulgarbuild.com",
     workingHours: "Пон–Съб 08:00–18:00",
     emergency: "Аварии 24/7",
     neighborhoods: [

@@ -139,7 +139,7 @@ const InspectionPage = () => {
 
   const businessSchema = {
     "@context": "https://schema.org", "@type": "RoofingContractor",
-    name: "RemontNaPokriviVarna", telephone: "+359884997659", email: "remontnapokrivivarna@abv.bg",
+    name: "RemontNaPokriviVarna", telephone: "+359884997659", email: "office@bulgarbuild.com",
     address: { "@type": "PostalAddress", streetAddress: "ул. Уста Колю Фичето 25 А", addressLocality: "Варна", postalCode: "9000", addressCountry: "BG" },
     areaServed: { "@type": "City", name: "Варна" },
   };
@@ -417,9 +417,9 @@ const InspectionPage = () => {
                 <span className="font-semibold text-foreground">088 499 7659</span>
                 <span className="text-sm text-muted-foreground">{t("inspection.callUs")}</span>
               </a>
-              <a href="mailto:remontnapokrivivarna@abv.bg" className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card border border-border hover:border-primary transition-colors">
+              <a href="mailto:office@bulgarbuild.com" className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card border border-border hover:border-primary transition-colors">
                 <Mail className="h-8 w-8 text-primary" />
-                <span className="font-semibold text-foreground">remontnapokrivivarna@abv.bg</span>
+                <span className="font-semibold text-foreground">office@bulgarbuild.com</span>
                 <span className="text-sm text-muted-foreground">{t("inspection.emailUs")}</span>
               </a>
               <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card border border-border">
