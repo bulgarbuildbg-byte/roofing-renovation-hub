@@ -320,6 +320,26 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
+              {/* Direct nav links for crawlability & discoverability */}
+              <Link
+                to={getPath('projects')}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium h-11"
+              >
+                {t('nav.projects')}
+              </Link>
+              <Link
+                to={getPath('pricing')}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium h-11"
+              >
+                {t('nav.pricing')}
+              </Link>
+              <Link
+                to={getPath('blog')}
+                className="flex items-center text-foreground hover:text-primary transition-colors font-medium h-11"
+              >
+                {t('nav.blog')}
+              </Link>
+
               {/* Contact link */}
               <Link
                 to={getPath('contact')}
