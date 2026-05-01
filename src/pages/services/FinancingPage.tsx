@@ -72,7 +72,7 @@ const FinancingPage = () => {
       "@type": "Organization",
       "name": "RemontNaPokriviVarna",
       "telephone": "+359884997659",
-      "email": "office@bulgarbuild.com",
+      "email": "remontnapokrivivarna@abv.bg",
     },
     "areaServed": { "@type": "City", "name": "Варна" },
     "annualPercentageRate": 5.9,

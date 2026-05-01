@@ -11,7 +11,7 @@ const ContactPage = () => {
     "description": "Професионални покривни услуги във Варна - ремонт, хидроизолация, изграждане на нови покриви",
     "url": "https://www.remontnapokrivivarna.bg",
     "telephone": "+359884997659",
-    "email": "office@bulgarbuild.com",
+    "email": "remontnapokrivivarna@abv.bg",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "ул. Уста Колю Фичето 25 А",

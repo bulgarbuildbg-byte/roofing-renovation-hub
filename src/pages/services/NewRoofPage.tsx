@@ -59,7 +59,7 @@ const NewRoofPage = () => {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
       "telephone": "+359884997659",
-      "email": "office@bulgarbuild.com",
+      "email": "remontnapokrivivarna@abv.bg",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "ул. Уста Колю Фичето 25 А",
