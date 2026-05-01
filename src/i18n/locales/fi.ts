@@ -8,7 +8,7 @@ const fi = {
     metalRoof: "Metallikatot", maintenance: "Huolto",
   },
   hero: {
-    badge1: "15+ vuoden kokemus", badge2: "Jopa 10v takuu", badge3: "Tarkastus 24h",
+    badge1: "15+ vuoden kokemus", badge2: "15v takuu", badge3: "Tarkastus 24h",
     title: "Ammattimainen kattokorjaus Varnassa, Bulgariassa",
     subtitle: "Lopeta vuodot lopullisesti. Laadukas kattokorjaus ja vedeneristys kirjallisella takuulla.",
     ctaPrimary: "Pyydä ilmainen tarkastus", ctaPhone: "088 499 7659",
@@ -68,7 +68,7 @@ const fi = {
     companyInfo: "Bulgar Build EOOD · UIC: 207210238",
     trustPartOf: "Osa Bulgar Build EOOD:tä",
     trustKsb: "Rakentajakamarin jäsen",
-    trustWarranty: "Kirjallinen takuu jopa 10 vuotta",
+    trustWarranty: "Kirjallinen takuu 15 vuotta",
   },
   certifications: {
     partOf: "Osa Bulgar Build EOOD:tä",
@@ -96,7 +96,7 @@ const fi = {
   },
   mobile: { call: "Soita", freeInspection: "Ilmainen tarkastus" },
   trust: {
-    experience: "15+ vuoden kokemus", projects: "500+ projektia", warranty: "Jopa 10v takuu",
+    experience: "15+ vuoden kokemus", projects: "500+ projektia", warranty: "15v takuu",
     licensed: "KSB-jäsen", freeInspection: "Ilmainen tarkastus", area: "Varna & alue",
   },
   testimonials: {
@@ -108,7 +108,7 @@ const fi = {
   beforeAfter: { title: "Ennen & Jälkeen", subtitle: "Katso muutokset, joita saavutamme korjauksilla. Liu'uta vertaillaksesi.", before: "Ennen", after: "Jälkeen" },
   meta: {
     homeTitle: "Kattokorjaus Varna Bulgaria - Ilmainen tarkastus 24h",
-    homeDesc: "Ammattimainen kattokorjaus Varnassa, Bulgariassa. 15+ vuoden kokemus, jopa 10v takuu, ilmainen tarkastus.",
+    homeDesc: "Ammattimainen kattokorjaus Varnassa, Bulgariassa. 15+ vuoden kokemus, 15v takuu, ilmainen tarkastus.",
     homeKeywords: "kattokorjaus Varna, vedeneristys Varna, kattopalvelut Bulgaria",
   },
   inspection: {
@@ -144,7 +144,7 @@ const fi = {
     step3Benefit2: "Korkealaatuinen työ",
     step3Benefit3: "Ajallaan toimitettu",
     step4Benefit1: "Vastaanottopöytäkirja",
-    step4Benefit2: "Jopa 10–115 vuoden takuu",
+    step4Benefit2: "Jopa 15 vuoden takuu",
     step4Benefit3: "Tuki valmistumisen jälkeen",
     learnMore: "Lue lisää",
     stepLabel: "Vaihe {{number}}",
@@ -154,8 +154,8 @@ const fi = {
     step2Details: "Tarkastuksen jälkeen laadimme yksityiskohtaisen kirjallisen tarjouksen.", step2Bullets: ["Yksityiskohtainen kirjallinen tarjous", "Ei piilokustannuksia", "Useita hintavaihtoehtoja", "Selkeät takuuehdot"],
     step3Title: "Toteutus", step3Text: "Korkealaatuista työtä ajallaan",
     step3Details: "Hyväksynnän jälkeen aloitamme työn sovitun aikataulun mukaisesti.", step3Bullets: ["Ammattimainen tiimi yli 15 vuoden kokemuksella", "Korkealaatuiset materiaalit", "Kaikkien rakennusstandardien noudattaminen", "Päivittäinen edistymisviestintä"],
-    step4Title: "Takuu", step4Text: "Projektin luovutus jopa 10–115 vuoden takuulla",
-    step4Details: "Valmistuessa teemme yhteisen tarkastuksen.", step4Bullets: ["Kirjallinen takuu jopa 10–15 vuotta", "Täydelliset asiakirjat", "Vastaanottopöytäkirja", "Takuun jälkeinen palvelu"],
+    step4Title: "Takuu", step4Text: "Projektin luovutus jopa 15 vuoden takuulla",
+    step4Details: "Valmistuessa teemme yhteisen tarkastuksen.", step4Bullets: ["Kirjallinen takuu 15 vuotta", "Täydelliset asiakirjat", "Vastaanottopöytäkirja", "Takuun jälkeinen palvelu"],
     pageTitle: "Miten Työskentelemme — Prosessimme", pageSubtitle: "Alkutarkastuksesta valmistuneeseen projektiin.",
     metaTitle: "Miten Työskentelemme | Kattokorjaus Varna", metaDesc: "Opi miten työskentelemme — ilmaisesta tarkastuksesta takuun kanssa.",
     ctaButton: "Pyydä ilmainen tarkastus", ctaTitle: "Valmis aloittamaan?", ctaSubtitle: "Pyydä ilmainen tarkastus ja saa tarjous 24 tunnin sisällä.",

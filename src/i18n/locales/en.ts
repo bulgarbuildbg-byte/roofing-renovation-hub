@@ -119,7 +119,7 @@ const en = {
   },
   meta: {
     homeTitle: "Roof Repair Varna Bulgaria - Free Inspection 24h",
-    homeDesc: "Professional roof repair in Varna, Bulgaria. 15+ years experience, up to 10yr warranty, free inspection. Call: 088 499 7659",
+    homeDesc: "Professional roof repair in Varna, Bulgaria. 15+ years experience, 15yr warranty, free inspection. Call: 088 499 7659",
     homeKeywords: "roof repair Varna, waterproofing Varna, roofing services Bulgaria, roof leak repair",
   },
   pages: {
@@ -270,7 +270,7 @@ const en = {
       schema: { name: "Roof Leak Repair Varna", desc: "Emergency roof leak repair in Varna. Fast 24/7 response, accurate diagnostics, permanent repair with up to 15-year warranty." },
     },
     waterproofing: {
-      meta: { title: "Waterproofing Varna - from €14/sqm | 10yr Warranty", desc: "Professional waterproofing. Bitumen, PVC membrane, liquid. Up to 10 years warranty. Free inspection. ☎ 088 499 7659" },
+      meta: { title: "Waterproofing Varna - from €14/sqm | 15yr Warranty", desc: "Professional waterproofing. Bitumen, PVC membrane, liquid. 15 years warranty. Free inspection. ☎ 088 499 7659" },
       breadcrumb: { home: "Home", services: "Services", current: "Waterproofing" },
       hero: { title: "Roof Waterproofing Varna", subtitle: "Professional waterproofing with quality materials and 15-year warranty. Protect your roof from moisture, leaks and weather damage.", callBtn: "Call: 088 499 7659", inspectionBtn: "Free Inspection" },
       intro: { title: "What is waterproofing and why is it important?" },
@@ -295,7 +295,7 @@ const en = {
       cta: { title: "Need a metal roof?", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
     },
     flatRoof: {
-      meta: { title: "Flat Roofs Varna - from €11/sqm | 10yr Warranty", desc: "Waterproofing for flat roofs and terraces. Up to 10 years warranty. ☎ 088 499 7659" },
+      meta: { title: "Flat Roofs Varna - from €11/sqm | 15yr Warranty", desc: "Waterproofing for flat roofs and terraces. 15 years warranty. ☎ 088 499 7659" },
       breadcrumb: { home: "Home", services: "Services", current: "Flat Roofs" },
       hero: { title: "Flat Roofs and Terraces in Varna", subtitle: "Specialized solutions for waterproofing and repair of flat roofs.", callBtn: "Call Us", quoteBtn: "Free Inspection" },
       cta: { title: "Need flat roof repair?", subtitle: "Call for a free consultation.", callBtn: "Call now", inquiryBtn: "Send inquiry" },
@@ -357,7 +357,7 @@ const en = {
     step3Benefit2: "High-quality work",
     step3Benefit3: "On-time delivery",
     step4Benefit1: "Acceptance protocol",
-    step4Benefit2: "Up to 10–115 years warranty",
+    step4Benefit2: "Up to 15 years warranty",
     step4Benefit3: "Post-completion support",
     learnMore: "Learn More",
     stepLabel: "Step {{number}}",
@@ -374,7 +374,7 @@ const en = {
     step3Details: "After approval, we begin work according to the agreed schedule. Our team of professional craftsmen uses only high-quality materials from leading manufacturers. We maintain constant communication throughout the project.",
     step3Bullets: ["Professional team with 15+ years experience", "High-quality materials from leading brands", "Compliance with all building standards", "Daily progress communication"],
     step4Title: "Warranty",
-    step4Text: "Project handover with up to 10–115 years warranty",
+    step4Text: "Project handover with up to 15 years warranty",
     step4Details: "Upon completion, we conduct a joint inspection to ensure everything is done according to plan. We provide full documentation — invoice, warranty card, and acceptance protocol.",
     step4Bullets: ["Written warranty up to 15 years", "Full documentation and invoice", "Acceptance protocol", "After-warranty service"],
     pageTitle: "How We Work — Our Process",

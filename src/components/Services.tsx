@@ -103,9 +103,9 @@ const Services = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                       </div>
                       <CardContent className="p-4 md:p-6 flex flex-col flex-grow">
-                        <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">
+                        <p className="text-lg md:text-xl font-bold text-foreground mb-2">
                           {t(`services.${service.key}.title`)}
-                        </h3>
+                        </p>
                         {service.price && (
                           <div className="mb-2">
                             <Link
