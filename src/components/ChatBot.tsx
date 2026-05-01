@@ -38,16 +38,32 @@ const ChatBot = () => {
   const funnel = useChatFunnel();
   const aiChat = useChat();
 
-  // Scroll-triggered prompt card
+  // Scroll-triggered prompt card — delayed and disabled on mobile
   useEffect(() => {
     if (dismissed || state !== "collapsed") return;
+
+    // Disable auto-prompt on mobile (< 1024px)
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) return;
+
+    let scrollReached = false;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
     const onScroll = () => {
-      if (window.scrollY > 300 && state === "collapsed" && !dismissed) {
-        setState("prompt");
+      if (window.scrollY > 800 && !scrollReached) {
+        scrollReached = true;
+        // Delay prompt by 8 seconds after scroll threshold
+        timeoutId = setTimeout(() => {
+          if (!dismissed) setState("prompt");
+        }, 8000);
       }
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [state, dismissed]);
 
   // Auto-scroll messages
