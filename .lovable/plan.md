@@ -1,28 +1,50 @@
 
-# Remaining SEO Audit Fixes
+# Audit Fixes (без изображения)
 
-The previous session already fixed: desktop navigation expansion, FAQPage schema on HomeFAQ, chatbot auto-prompt timing, and email in schema. This plan addresses the remaining actionable issues.
+## 1. Replace abv.bg email globally (E-E-A-T fix)
+Replace all 24 instances of `remontnapokrivivarna@abv.bg` with `office@bulgarbuild.com` across 17 files:
+- `src/components/Footer.tsx` (2)
+- `src/components/Contact.tsx` (2)
+- `src/i18n/cities.ts` (4)
+- `src/pages/InspectionPage.tsx` (3)
+- 11 service/page files (1 each)
 
-## Issues to Fix
+## 2. Reduce H2/H3 heading inflation on homepage
 
-### 1. Garbled Warranty Numbers -- "1115" should be "15" (Critical)
-Multiple locales (SV, NO) have "1115 års garanti" instead of "15 års garanti". EN and FI have "10–115" which should be "15". These are data corruption issues that display wrong warranty info to users.
+Homepage currently has **15 H2** and **37 H3**. Target: 5-6 H2, <15 H3.
 
-**Files:** `src/i18n/locales/sv.ts`, `src/i18n/locales/no.ts`, `src/i18n/locales/en.ts`, `src/i18n/locales/fi.ts`
+Components on homepage contributing H2 tags:
+- Services (1 H2) -- keep
+- HowWeWork (1 H2) -- keep
+- Testimonials (1 H2) -- keep
+- WhyChooseUs (1 H2) -- keep
+- HomeFAQ (1 H2) -- keep
+- Contact (1 H2) -- keep
+- About (1 H2) -- change to `<p>` styled as heading (not critical section)
+- CTASection x3 (3 H2) -- change to `<p>` styled as heading (promotional, not semantic)
+- PriceCalculator (1 H2) -- keep
+- SolarCalculator (1 H2) -- keep (separate page too)
+- CompletedProjects (1 H2) -- change to `<p>` (similar to Testimonials)
+- Gallery (1 H2) -- change to `<p>` (duplicate of CompletedProjects concept)
+- BeforeAfterGallery (1 H2) -- change to `<p>` (visual gallery, not key section)
 
-### 2. Warranty Inconsistency -- EN/FI say "10yr" instead of "15yr" (Critical -- #12 in audit)
-The EN homeDesc says "up to 10yr warranty" but should be "15yr" (matching the brand standard). FI has the same issue with "jopa 10v takuu". Also EN service pages for Waterproofing and Flat Roofs say "10yr Warranty".
+H3 reductions:
+- CompletedProjects project titles (h3 -> p)
+- Gallery project titles (h3 -> p)
+- Contact info labels (h3 -> p)
+- BeforeAfterGallery titles (h3 -> p)
+- HowWeWork step titles -- keep (semantic sub-items)
 
-**Files:** `src/i18n/locales/en.ts`, `src/i18n/locales/fi.ts`
+**Result:** ~7 H2, ~15 H3
 
-### 3. Reduce H3 Overuse on Homepage (Medium -- #9 in audit)
-The audit found 44 H3 tags on the homepage (ideal is under 20). Service card names are rendered as `<h3>` in `Services.tsx` -- since there are ~10 services and each card uses H3, this inflates the count. Change service card titles from `<h3>` to a styled `<p>` or `<div>` to reduce semantic heading pollution.
+## 3. Sync OG meta -- already done
+The warranty was already fixed to 15г across all locales in the previous session. LocalBusiness schema already uses `office@bulgarbuild.com`. This step is complete.
 
-**Files:** `src/components/Services.tsx`
-
-## Technical Details
-
-- **SV/NO locales:** Find-replace all instances of "1115" with "15"
-- **EN locale:** Replace "up to 10yr" with "15yr", "10yr Warranty" with "15yr Warranty", "Up to 10 years warranty" with "15 years warranty", "10–115" with "15"
-- **FI locale:** Replace "jopa 10v" with "15v", "jopa 10 vuotta" with "15 vuotta", "10–115" with "15"
-- **Services.tsx:** Change `<h3>` to `<p>` with same styling classes for service card titles
+## Files to edit
+- `src/components/CTASection.tsx` -- h2 -> p
+- `src/components/About.tsx` -- h2 -> p
+- `src/components/CompletedProjects.tsx` -- h2,h3 -> p
+- `src/components/Gallery.tsx` -- h2,h3 -> p
+- `src/components/BeforeAfterGallery.tsx` -- h2,h3 -> p
+- `src/components/Contact.tsx` -- h3 -> p (info labels)
+- Global sed for email replacement across 17 files
