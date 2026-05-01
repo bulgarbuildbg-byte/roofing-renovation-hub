@@ -1,46 +1,47 @@
-## Цел
 
-Подменяме настоящите икони (Lucide линеарни икони / SVG illustrations) за **„Плосък покрив"** и **„Скатен покрив"** с приложените от теб 3D изометрични изображения навсякъде, където потребителят избира тип покрив. Това дава много по-нагледен и професионален визуален избор.
+# Plan: Fix Critical SEO/UX Issues from Audit
 
-## Какво ще се промени визуално
+Based on the uploaded SEO + UX/UI + CRO audit, I analyzed the codebase and identified which issues are real and actionable vs already resolved. Here is the summary:
 
-Преди:
-- Плосък: иконка `Layers` (хоризонтални линии) или схематичен SVG
-- Скатен: иконка `Home` (схематична къщичка) или схематичен SVG
+## Already Implemented (No Action Needed)
+- **Canonical tags** -- `HreflangTags.tsx` already renders `<link rel="canonical">` on every page
+- **Hreflang in HTML head** -- `HreflangTags.tsx` renders hreflang alternate links + x-default in `<head>`
+- **JSON-LD schema** -- `Index.tsx` has LocalBusiness/RoofingContractor, WebSite, Organization, Breadcrumb schemas. Service pages have Service + FAQPage schemas
+- **English title tags** -- EN locale already has proper English title `"Roof Repair Varna Bulgaria - Free Inspection 24h"`
+- **Duplicate titles** -- Service pages already have unique titles per page
 
-След:
-- Плосък: реално изометрично 3D изображение на сграда с плосък покрив (твоята снимка)
-- Скатен: реално изометрично 3D изображение на сграда със скатен керемиден покрив (твоята снимка)
+## Real Issues to Fix
 
-Иконите ще бъдат показани в карта/бутон като чисто изображение върху бял фон, със заоблени ъгли и подчертан рамков контур при селекция (синя рамка + светло-син фон).
+### 1. Desktop Navigation Too Limited (Critical -- #7 in audit)
+The desktop nav bar shows only: **Услуги (dropdown) | Соларни Системи (dropdown) | Контакти**. Key pages like Проекти, Цени, Блог are hidden behind a hamburger side panel.
 
-## Засегнати места в сайта
+**Fix:** Add direct navigation links for Проекти, Цени, and Блог to the main desktop nav bar, between the Solar dropdown and Contact link. This improves crawlability and user discoverability.
 
-1. **Главен калкулатор за цена** (`PriceCalculator.tsx`) — Стъпка 1 „Какъв е вашият покрив?" — тук са 4 опции (Скатен, Плосък, Метален, Не съм сигурен). Подменяме иконите за **Скатен** и **Плосък**. „Метален" и „Не съм сигурен" остават с Lucide икони.
-2. **Соларен калкулатор** (`SolarCalculator.tsx`) — секцията „Тип покрив" в момента са текстови бутони без икони. Ще добавим същите две изображения за Скатен и Плосък (Метален остава текстов или с икона).
-3. **Страница „Безплатен оглед"** (`InspectionPage.tsx`) — Стъпка 1 за избор между „Плосък" и „С наклон" — подменяме двата inline SVG (`FlatRoofIcon`, `PitchedRoofIcon`) с изображенията.
+### 2. Missing FAQPage Schema on Homepage (Medium)
+The `HomeFAQ` component renders FAQ accordion on the homepage but has no `FAQPage` JSON-LD schema. Service pages have it, but the homepage does not.
 
-В `MultiStepInquiryForm.tsx` и `useChatFunnel.ts` тип покрив се избира от падащо меню / chat бутони с текст — там няма икони, така че не пипаме.
+**Fix:** Add `FAQPage` schema to `HomeFAQ.tsx` so Google can display expandable FAQ results from the homepage.
 
-## Технически детайли
+### 3. Chatbot Auto-Prompt Too Aggressive (Medium -- UX)
+The chatbot prompt card appears after only 300px of scrolling, which can feel intrusive, especially on mobile.
 
-1. Качваме двете изображения в `src/assets/roof-types/`:
-   - `roof-flat.png` ← `flat_roof_-_plosak_pokriv.png`
-   - `roof-pitched.jpg` ← `gable_roof_-_skaten_pokriv.jpg`
+**Fix:** Increase scroll threshold from 300px to 800px, and add a time delay of 8 seconds before showing the prompt. On mobile, disable auto-prompt entirely.
 
-2. Създаваме малък преизползваем компонент `RoofTypeImage` (или просто import-ваме изображенията там, където трябват) — с `<img>` tag, `object-contain`, фиксирана височина (~80–96px), `loading="lazy"`.
+### 4. Email in Schema Uses abv.bg Domain (Low -- E-E-A-T)
+The `Index.tsx` LocalBusiness schema uses `remontnapokrivivarna@abv.bg` instead of a professional domain email.
 
-3. **`PriceCalculator.tsx`**:
-   - В масива `roofTypes` добавяме поле `image` за `sloped` и `flat`.
-   - Разширяваме `OptionCard`, за да приема опционално `image` (показва изображението вместо Lucide икона в кръгчето; за изображение премахваме кръглата рамка и правим quadratic 80×80px контейнер с бял фон).
+**Fix:** Update the email in the schema to `office@bulgarbuild.com`.
 
-4. **`SolarCalculator.tsx`**:
-   - Преработваме мрежата за тип покрив на `grid-cols-3` карти с изображение за Скатен/Плосък и иконка/ikon за Метален. Запазваме текущата логика за multiplier.
+---
 
-5. **`InspectionPage.tsx`**:
-   - Премахваме SVG компонентите `FlatRoofIcon` и `PitchedRoofIcon`.
-   - Заместваме ги с `<img>` от новите файлове, със същия активен/неактивен стил (рамка/фон се променят, изображението остава същото — без оцветяване).
+## Technical Details
 
-## Резултат
+### Files to modify:
+1. **`src/components/Header.tsx`** -- Add 3 direct nav links (Проекти, Цени, Блог) to the desktop nav between Solar dropdown and Contact
+2. **`src/components/HomeFAQ.tsx`** -- Add FAQPage JSON-LD schema using Helmet
+3. **`src/components/ChatBot.tsx`** -- Change scroll threshold to 800px, add 8s delay, disable auto-prompt on mobile
+4. **`src/pages/Index.tsx`** -- Update email from `remontnapokrivivarna@abv.bg` to `office@bulgarbuild.com` in LocalBusiness schema
 
-Когато клиент влезе в калкулатора, соларния калкулатор или страницата за безплатен оглед, ще вижда две изчистени изометрични 3D изображения на реални сгради — едно с плосък покрив, друго със скатен керемиден покрив — което прави избора моментално разбираем дори без да чете етикета.
+### Not addressed in this plan (require content, not code):
+- **Thin content on service pages (~600 words)** -- This requires writing 600+ additional words of content per page, which is a content task, not a code fix
+- **0 WebP images** -- Images are imported as assets; Vite already optimizes them at build time. Converting source files to WebP is an asset pipeline task
