@@ -34,7 +34,7 @@ const BeforeAfterGallery = () => {
     <section id="before-after" className="py-20 bg-muted">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t('beforeAfter.title')}</h2>
+          <p className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t('beforeAfter.title')}</p>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t('beforeAfter.subtitle')}</p>
         </div>
 
@@ -58,7 +58,7 @@ const BeforeAfterGallery = () => {
             <div className="bg-card p-6">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
-                  <h3 className="text-xl font-bold text-card-foreground">{current.title}</h3>
+                  <p className="text-xl font-bold text-card-foreground">{current.title}</p>
                   <p className="text-muted-foreground text-sm">{current.description}</p>
                   <div className="flex items-center gap-1 text-muted-foreground mt-1">
                     <MapPin className="w-4 h-4" /><span>{current.location}</span>
