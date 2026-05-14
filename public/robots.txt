@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://remont-roof-pros.lovable.app/sitemap.xml
+Sitemap: https://www.remontnapokrivivarna.bg/sitemap.xml

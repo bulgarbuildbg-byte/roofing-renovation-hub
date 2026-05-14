@@ -1,14 +1,12 @@
-## Връщане на оригиналния имейл
+## Връщане на домейна в sitemap-ите
 
-Глобална замяна на `office@bulgarbuild.com` обратно на `remontnapokrivivarna@abv.bg` във всички 18 файла:
+Вашият реален домейн е `www.remontnapokrivivarna.bg`, а не препоръчания от SEO скенера `remont-roof-pros.lovable.app`. Ще върна обратно правилния домейн.
 
-- `src/components/Footer.tsx`
-- `src/components/Contact.tsx`
-- `src/i18n/cities.ts`
-- `src/pages/ContactPage.tsx`
-- `src/pages/AboutPage.tsx`
-- `src/pages/InspectionPage.tsx`
-- `src/pages/Index.tsx`
-- 11 service pages (`NewRoofPage`, `MetalRoofPage`, `WaterproofingVarnaPage`, `WaterproofingPage`, `MaintenancePage`, `TileReplacementPage`, `FlatRoofPage`, `FinancingPage`, `SolarSystemsPage`, `RoofRepairPage`, `RoofLeakRepairPage`)
+### Промени
+- Замяна на `https://remont-roof-pros.lovable.app` с `https://www.remontnapokrivivarna.bg` във:
+  - `public/sitemap.xml` (индекс)
+  - `public/sitemap-bg.xml`, `-en.xml`, `-de.xml`, `-fi.xml`, `-sv.xml`, `-no.xml`, `-fr.xml`, `-nl.xml`, `-ru.xml`, `-ua.xml`
+  - `public/robots.txt`
+- SEO finding `http:sitemap` ще бъде игнорирано/маркирано — препоръката на скенера е грешна за вашия случай, защото имате собствен домейн.
 
-Една команда `sed` за замяна във всички файлове наведнъж.
+Ще използвам единичен `sed` за бърза глобална подмяна и ще верифицирам с `rg`.
