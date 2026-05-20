@@ -286,13 +286,13 @@ const Header = () => {
 
             {/* Desktop nav — simplified, all items vertically centered at same height */}
             <nav className="hidden lg:flex items-center gap-3 xl:gap-4">
-              {/* Services dropdown */}
+              {/* Services dropdown (includes Solar systems) */}
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium h-11">
                   {t('nav.services')}
                   <ChevronDown className="w-4 h-4" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" sideOffset={8} className="w-64 z-[70]">
+                <DropdownMenuContent align="start" sideOffset={8} className="w-72 z-[70]">
                   {serviceLinks.map((link) => (
                     <DropdownMenuItem key={link.routeKey} asChild>
                       <Link to={getPath(link.routeKey)} className="w-full cursor-pointer">
@@ -300,16 +300,10 @@ const Header = () => {
                       </Link>
                     </DropdownMenuItem>
                   ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              {/* Solar Systems dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-medium h-11">
-                  Соларни Системи
-                  <ChevronDown className="w-4 h-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" sideOffset={8} className="w-64 z-[70]">
+                  <div className="h-px bg-border my-2" />
+                  <p className="px-2 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    Соларни системи
+                  </p>
                   {solarLinks.map((link) => (
                     <DropdownMenuItem key={link.routeKey} asChild>
                       <Link to={getPath(link.routeKey)} className="w-full cursor-pointer">
@@ -320,26 +314,6 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Direct nav links for crawlability & discoverability */}
-              <Link
-                to={getPath('projects')}
-                className="flex items-center text-foreground hover:text-primary transition-colors font-medium h-11"
-              >
-                {t('nav.projects')}
-              </Link>
-              <Link
-                to={getPath('pricing')}
-                className="flex items-center text-foreground hover:text-primary transition-colors font-medium h-11"
-              >
-                {t('nav.pricing')}
-              </Link>
-              <Link
-                to={getPath('blog')}
-                className="flex items-center text-foreground hover:text-primary transition-colors font-medium h-11"
-              >
-                {t('nav.blog')}
-              </Link>
-
               {/* Contact link */}
               <Link
                 to={getPath('contact')}
@@ -347,6 +321,7 @@ const Header = () => {
               >
                 {t('nav.contact')}
               </Link>
+
 
               <div className="w-px h-6 bg-border mx-1" />
 
