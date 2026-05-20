@@ -1,12 +1,39 @@
-## Връщане на домейна в sitemap-ите
+# Cleanup на Top Navigation в Header
 
-Вашият реален домейн е `www.remontnapokrivivarna.bg`, а не препоръчания от SEO скенера `remont-roof-pros.lovable.app`. Ще върна обратно правилния домейн.
+## Цел
+По-чист и професионален header. Премахваме 4 елемента от desktop top navigation:
+Соларни системи, Проекти, Цени, Блог. Страниците остават — само се скриват от горната лента.
 
-### Промени
-- Замяна на `https://remont-roof-pros.lovable.app` с `https://www.remontnapokrivivarna.bg` във:
-  - `public/sitemap.xml` (индекс)
-  - `public/sitemap-bg.xml`, `-en.xml`, `-de.xml`, `-fi.xml`, `-sv.xml`, `-no.xml`, `-fr.xml`, `-nl.xml`, `-ru.xml`, `-ua.xml`
-  - `public/robots.txt`
-- SEO finding `http:sitemap` ще бъде игнорирано/маркирано — препоръката на скенера е грешна за вашия случай, защото имате собствен домейн.
+## Какво остава видимо в desktop top nav
+- Услуги (dropdown)
+- Контакти
+- Телефон бутон
+- Безплатен оглед бутон
+- City switcher
+- Language switcher
+- Hamburger (отваря пълно меню)
 
-Ще използвам единичен `sed` за бърза глобална подмяна и ще верифицирам с `rg`.
+## Къде се преместват премахнатите елементи
+
+1. **Соларни системи (4 линка)** → добавят се вътре в dropdown-а „Услуги“
+   като отделна група с разделител и подзаглавие „Соларни системи“.
+2. **Проекти, Цени, Блог** → остават достъпни през hamburger панела (FullMenuPanel)
+   и през mobile menu — които вече ги съдържат, така че не са нужни промени там.
+
+## Технически промени
+
+Файл: `src/components/Header.tsx`
+
+- В desktop `<nav>` блока (ред ~288–389):
+  - Премахва се целият втори DropdownMenu „Соларни Системи“ (ред 307–321).
+  - Премахват се трите `<Link>` за `projects`, `pricing`, `blog` (ред 324–341).
+- Dropdown-ът „Услуги“ се разширява: след `serviceLinks.map(...)` се добавя
+  separator + подзаглавие „Соларни системи“ + `solarLinks.map(...)`.
+  Ширината се вдига от `w-64` на `w-72` за по-добра четимост.
+- `solarLinks` и `serviceLinks` масивите остават както са.
+- Mobile menu и FullMenuPanel **не се променят** — там всички линкове остават.
+
+## Какво НЕ се пипа
+- Маршрути, страници, sitemap, преводи.
+- Mobile (`lg:hidden`) меню.
+- Hamburger FullMenuPanel.
