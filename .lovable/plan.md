@@ -1,39 +1,32 @@
-# Cleanup на Top Navigation в Header
+# Смяна на имейл адреса в целия сайт
 
 ## Цел
-По-чист и професионален header. Премахваме 4 елемента от desktop top navigation:
-Соларни системи, Проекти, Цени, Блог. Страниците остават — само се скриват от горната лента.
+Замяна на `remontnapokrivivarna@abv.bg` с `remontnapokrivivarna@gmail.com` навсякъде във frontend кода, sitemap файловете и edge функциите.
 
-## Какво остава видимо в desktop top nav
-- Услуги (dropdown)
-- Контакти
-- Телефон бутон
-- Безплатен оглед бутон
-- City switcher
-- Language switcher
-- Hamburger (отваря пълно меню)
+## Обхват
+Открити са 58 файла, които съдържат стария имейл — компоненти, страници, блог статии, sitemap-и, schema.org JSON-LD данни и Supabase edge функции (включително PDF генератора за оферти и chat асистента).
 
-## Къде се преместват премахнатите елементи
+## Подход
+Едно глобално търсене и замяна с `sed` върху всички съответстващи файлове (без `node_modules`). Това гарантира пълно покритие на:
 
-1. **Соларни системи (4 линка)** → добавят се вътре в dropdown-а „Услуги“
-   като отделна група с разделител и подзаглавие „Соларни системи“.
-2. **Проекти, Цени, Блог** → остават достъпни през hamburger панела (FullMenuPanel)
-   и през mobile menu — които вече ги съдържат, така че не са нужни промени там.
+- mailto: връзки във Footer, Contact, ContactPage и др.
+- Schema.org `LocalBusiness` / `RoofingContractor` JSON-LD блокове
+- Sitemap XML файлове (ако присъстват като контакт)
+- Edge функции (chat системни промптове, PDF оферти/договори)
+- Блог статии и градски страници
 
-## Технически промени
+## Без промяна
+- Дизайн, layout, бизнес логика
+- Routes, превод на ключове
+- База данни и RLS политики
+- Други контактни данни (телефон, адрес)
 
-Файл: `src/components/Header.tsx`
+## Технически детайли
+Команда:
+```bash
+grep -rl "remontnapokrivivarna@abv.bg" --include="*.ts" --include="*.tsx" \
+  --include="*.xml" --include="*.html" --include="*.json" --include="*.toml" . \
+  | xargs sed -i 's/remontnapokrivivarna@abv\.bg/remontnapokrivivarna@gmail.com/g'
+```
 
-- В desktop `<nav>` блока (ред ~288–389):
-  - Премахва се целият втори DropdownMenu „Соларни Системи“ (ред 307–321).
-  - Премахват се трите `<Link>` за `projects`, `pricing`, `blog` (ред 324–341).
-- Dropdown-ът „Услуги“ се разширява: след `serviceLinks.map(...)` се добавя
-  separator + подзаглавие „Соларни системи“ + `solarLinks.map(...)`.
-  Ширината се вдига от `w-64` на `w-72` за по-добра четимост.
-- `solarLinks` и `serviceLinks` масивите остават както са.
-- Mobile menu и FullMenuPanel **не се променят** — там всички линкове остават.
-
-## Какво НЕ се пипа
-- Маршрути, страници, sitemap, преводи.
-- Mobile (`lg:hidden`) меню.
-- Hamburger FullMenuPanel.
+След това верификация с `grep -r "abv.bg"` за нула резултати.
