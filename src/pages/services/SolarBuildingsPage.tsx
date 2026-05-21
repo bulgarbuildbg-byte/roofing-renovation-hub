@@ -16,7 +16,7 @@ const SolarBuildingsPage = () => {
   const schemaData = {
     "@context": "https://schema.org", "@type": "Service",
     "name": "Соларни системи за блокове и сгради Варна",
-    "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359884997659" },
+    "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359893971873" },
     "areaServed": { "@type": "City", "name": "Варна" },
     "description": "Фотоволтаични системи за етажна собственост – 30 до 100 kW. Намалете разходите за общи части, асансьори и осветление.",
     "offers": { "@type": "AggregateOffer", "lowPrice": "25000", "highPrice": "80000", "priceCurrency": "EUR" }
@@ -104,7 +104,7 @@ const SolarBuildingsPage = () => {
                 <Link to={getPath('inspection')}>Безплатен Оглед <ArrowRight className="w-5 h-5 ml-2" /></Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" /> 088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" /> 088 499 7659</a>
               </Button>
             </div>
             <CalculatorDialog type="solar" />
@@ -212,7 +212,7 @@ const SolarBuildingsPage = () => {
               <Link to={getPath('inspection')}>Безплатен Оглед <ArrowRight className="w-5 h-5 ml-2" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6">
-              <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" /> 088 499 7659</a>
+              <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" /> 088 499 7659</a>
             </Button>
           </div>
         </div>

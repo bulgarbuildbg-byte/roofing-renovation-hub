@@ -167,7 +167,7 @@ const SolarCalculator = () => {
                     </Link>
                   </Button>
                   <Button asChild variant="outline" size="lg" className="flex-1 border-primary text-primary hover:bg-primary/10">
-                    <a href="tel:0884997659">📞 088 499 7659</a>
+                    <a href="tel:0893971873">📞 088 499 7659</a>
                   </Button>
                 </div>
               </CardContent>

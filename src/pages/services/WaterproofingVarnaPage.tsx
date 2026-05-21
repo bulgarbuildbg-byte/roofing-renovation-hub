@@ -69,7 +69,7 @@ const WaterproofingVarnaPage = () => {
     provider: {
       "@type": "RoofingContractor",
       name: "RemontNaPokriviVarna",
-      telephone: "+359884997659",
+      telephone: "+359893971873",
       email: "remontnapokrivivarna@gmail.com",
       address: {
         "@type": "PostalAddress",
@@ -336,7 +336,7 @@ const WaterproofingVarnaPage = () => {
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-6 text-lg h-auto"
               >
-                <a href="tel:0884997659" className="flex items-center gap-2">
+                <a href="tel:0893971873" className="flex items-center gap-2">
                   <Phone className="w-5 h-5" />
                   Безплатен оглед: 088 499 7659
                 </a>
@@ -636,7 +636,7 @@ const WaterproofingVarnaPage = () => {
 
             <div className="mt-6 text-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold px-8">
-                <a href="tel:0884997659" className="flex items-center gap-2">
+                <a href="tel:0893971873" className="flex items-center gap-2">
                   <Phone className="w-5 h-5" />
                   Получете точна оферта: 088 499 7659
                 </a>

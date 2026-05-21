@@ -10,7 +10,7 @@ const ContactPage = () => {
     "name": "RemontNaPokriviVarna",
     "description": "Професионални покривни услуги във Варна - ремонт, хидроизолация, изграждане на нови покриви",
     "url": "https://www.remontnapokrivivarna.bg",
-    "telephone": "+359884997659",
+    "telephone": "+359893971873",
     "email": "remontnapokrivivarna@gmail.com",
     "address": {
       "@type": "PostalAddress",

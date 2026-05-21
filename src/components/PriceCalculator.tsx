@@ -570,7 +570,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                       Заявете безплатен оглед
                     </Button>
                     <Button asChild size="lg" className="flex-1 h-14 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200">
-                      <a href="tel:0884997659">
+                      <a href="tel:0893971873">
                         <Phone className="w-5 h-5 mr-2" />
                         Обадете се сега
                       </a>
@@ -597,7 +597,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-foreground mb-2">Заявката е изпратена!</h3>
               <p className="text-muted-foreground mb-4">Ще се свържем с вас в рамките на 24 часа.</p>
-              <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
+              <a href="tel:0893971873" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
                 <Phone className="w-5 h-5" /> 088 499 7659
               </a>
               <Button variant="outline" onClick={() => { setShowForm(false); resetWizard(); }} className="mt-6 w-full">
@@ -679,7 +679,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                 >
                   {submitting ? <><Loader2 className="h-5 w-5 mr-2 animate-spin" /> Изпращане...</> : <><Send className="h-5 w-5 mr-2" /> Изпрати запитване</>}
                 </Button>
-                <a href="tel:0884997659" className="text-sm text-accent hover:underline flex items-center justify-center gap-1 font-medium">
+                <a href="tel:0893971873" className="text-sm text-accent hover:underline flex items-center justify-center gap-1 font-medium">
                   <Phone className="w-3.5 h-3.5" /> Или се обадете: 088 499 7659
                 </a>
               </div>

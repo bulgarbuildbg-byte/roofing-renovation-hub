@@ -160,7 +160,7 @@ const PricingPage = () => {
               <Link to={getPath('inspection')}>{t('pricing.ctaInspection')}</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="h-14 border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground text-lg font-bold px-8">
-              <a href="tel:0884997659" className="flex items-center justify-center gap-2">
+              <a href="tel:0893971873" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
                 {t('pricing.ctaCall')}
               </a>

@@ -214,7 +214,7 @@ const RoofRepairCostVarna = () => {
 
                 <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
                   <p className="text-green-800 font-medium">
-                    💡 <strong>Важно:</strong> Цените са ориентировъчни и могат да варират в зависимост от конкретния обект. За точна оферта е необходим безплатен оглед на място. Обадете се на <a href="tel:0884997659" className="underline font-bold">088 499 7659</a> за уговаряне.
+                    💡 <strong>Важно:</strong> Цените са ориентировъчни и могат да варират в зависимост от конкретния обект. За точна оферта е необходим безплатен оглед на място. Обадете се на <a href="tel:0893971873" className="underline font-bold">088 499 7659</a> за уговаряне.
                   </p>
                 </div>
               </section>
@@ -442,7 +442,7 @@ const RoofRepairCostVarna = () => {
                     Заяви безплатен оглед
                   </Button>
                 </Link>
-                <a href="tel:0884997659">
+                <a href="tel:0893971873">
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8">
                     <Phone className="w-5 h-5 mr-2" /> 088 499 7659
                   </Button>

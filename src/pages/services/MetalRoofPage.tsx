@@ -109,7 +109,7 @@ const MetalRoofPage = () => {
     { question: "Какво покритие е най-подходящо за морски климат?", answer: "Препоръчваме Pural, PVDF или полиестер с висока UV защита — издържат на солените аерозоли." }
   ];
 
-  const schemaData = { "@context": "https://schema.org", "@type": "Service", "name": "Метални покриви Варна", "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359884997659", "email": "remontnapokrivivarna@gmail.com", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } }, "areaServed": [{ "@type": "City", "name": "Варна" }], "description": "Професионален монтаж и ремонт на метални покриви във Варна. Гаранция до 50 години.", "offers": { "@type": "AggregateOffer", "lowPrice": "6", "highPrice": "18", "priceCurrency": "EUR", "offerCount": "6" } };
+  const schemaData = { "@context": "https://schema.org", "@type": "Service", "name": "Метални покриви Варна", "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359893971873", "email": "remontnapokrivivarna@gmail.com", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } }, "areaServed": [{ "@type": "City", "name": "Варна" }], "description": "Професионален монтаж и ремонт на метални покриви във Варна. Гаранция до 50 години.", "offers": { "@type": "AggregateOffer", "lowPrice": "6", "highPrice": "18", "priceCurrency": "EUR", "offerCount": "6" } };
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer } })) };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" }, { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" }, { "@type": "ListItem", "position": 3, "name": "Метални покриви", "item": "https://www.remontnapokrivivarna.bg/метални-покриви" }] };
 
@@ -147,7 +147,7 @@ const MetalRoofPage = () => {
               <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl">Модерни и издръжливи метални покривни решения с гаранция до 50 години. Метални керемиди, трапецовидна ламарина, стоящ фалц, сандвич панели.</p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8"><Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link></Button>
-                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a></Button>
+                <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се сега</a></Button>
               </div>
               <CalculatorDialog type="roof" />
               <div className="flex flex-wrap gap-4 text-sm">
@@ -218,7 +218,7 @@ const MetalRoofPage = () => {
             <p className="text-primary-foreground/90 mb-6 max-w-xl mx-auto">Свържете се за безплатна консултация и оферта.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground"><Link to={getPath('contact')}>Заяви безплатен оглед</Link></Button>
-              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />088 499 7659</a></Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />088 499 7659</a></Button>
             </div>
           </div>
         </section>

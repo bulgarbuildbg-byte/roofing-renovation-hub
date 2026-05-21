@@ -139,7 +139,7 @@ const InspectionPage = () => {
 
   const businessSchema = {
     "@context": "https://schema.org", "@type": "RoofingContractor",
-    name: "RemontNaPokriviVarna", telephone: "+359884997659", email: "remontnapokrivivarna@gmail.com",
+    name: "RemontNaPokriviVarna", telephone: "+359893971873", email: "remontnapokrivivarna@gmail.com",
     address: { "@type": "PostalAddress", streetAddress: "ул. Уста Колю Фичето 25 А", addressLocality: "Варна", postalCode: "9000", addressCountry: "BG" },
     areaServed: { "@type": "City", name: "Варна" },
   };
@@ -206,7 +206,7 @@ const InspectionPage = () => {
                   <p className="text-lg text-muted-foreground">{t("inspection.successDesc")}</p>
                   <div className="mt-6 pt-6 border-t border-border">
                     <p className="text-muted-foreground text-sm mb-3">{t("inspection.callDirect")}</p>
-                    <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors">
+                    <a href="tel:0893971873" className="inline-flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors">
                       <Phone className="w-5 h-5" /> 088 499 7659
                     </a>
                   </div>
@@ -378,7 +378,7 @@ const InspectionPage = () => {
 
                   <div className="mt-6 pt-6 border-t border-border text-center">
                     <p className="text-muted-foreground text-sm mb-3">{t("inspection.callDirect")}</p>
-                    <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors">
+                    <a href="tel:0893971873" className="inline-flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors">
                       <Phone className="w-5 h-5" /> 088 499 7659
                     </a>
                   </div>
@@ -412,7 +412,7 @@ const InspectionPage = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-foreground text-center mb-10">{t("inspection.contactTitle")}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <a href="tel:+359884997659" onClick={() => trackCallClick("+359884997659")} className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card border border-border hover:border-primary transition-colors">
+              <a href="tel:+359893971873" onClick={() => trackCallClick("+359893971873")} className="flex flex-col items-center gap-3 p-6 rounded-xl bg-card border border-border hover:border-primary transition-colors">
                 <Phone className="h-8 w-8 text-primary" />
                 <span className="font-semibold text-foreground">088 499 7659</span>
                 <span className="text-sm text-muted-foreground">{t("inspection.callUs")}</span>

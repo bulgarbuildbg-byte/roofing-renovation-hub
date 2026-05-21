@@ -195,7 +195,7 @@ const MaintenancePage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359884997659",
+      "telephone": "+359893971873",
       "email": "remontnapokrivivarna@gmail.com",
       "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" }
     },
@@ -269,7 +269,7 @@ const MaintenancePage = () => {
                 <a href="#packages">Избери пакет</a>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20">
-                <a href="tel:0884997659">
+                <a href="tel:0893971873">
                   <Phone className="w-5 h-5 mr-2" />
                   Обади се
                 </a>
@@ -610,7 +610,7 @@ const MaintenancePage = () => {
             <p className="text-2xl font-bold mb-8">☎ 088 499 7659</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359884997659">Обадете се</a>
+                <a href="tel:+359893971873">Обадете се</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to={getPath('contact')}>Изпратете запитване</Link>

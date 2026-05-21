@@ -97,7 +97,7 @@ const RoofLeakCauses = () => {
                 <AlertTriangle className="w-8 h-8 text-red-600 flex-shrink-0" />
                 <div>
                   <p className="font-bold text-red-800 mb-1">Имате активен теч от покрива?</p>
-                  <p className="text-red-700">Не чакайте — всеки ден забавяне увеличава щетите. Обадете се на <a href="tel:0884997659" className="font-bold underline">088 499 7659</a> за спешна реакция до 24 часа. Безплатен оглед.</p>
+                  <p className="text-red-700">Не чакайте — всеки ден забавяне увеличава щетите. Обадете се на <a href="tel:0893971873" className="font-bold underline">088 499 7659</a> за спешна реакция до 24 часа. Безплатен оглед.</p>
                 </div>
               </div>
 
@@ -341,7 +341,7 @@ const RoofLeakCauses = () => {
                 <Link to="/bg/bezplaten-ogled">
                   <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 text-lg px-8">Заяви безплатен оглед</Button>
                 </Link>
-                <a href="tel:0884997659">
+                <a href="tel:0893971873">
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 text-lg px-8">
                     <Phone className="w-5 h-5 mr-2" /> 088 499 7659
                   </Button>

@@ -109,7 +109,7 @@ const RoofLeakRepairPage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359884997659",
+      "telephone": "+359893971873",
       "email": "remontnapokrivivarna@gmail.com",
       "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" }
     },
@@ -198,7 +198,7 @@ const RoofLeakRepairPage = () => {
                   </Link>
                 </Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
-                  <a href="tel:0884997659">
+                  <a href="tel:0893971873">
                     <Phone className="w-5 h-5 mr-2" />
                     Обади се сега
                   </a>
@@ -298,7 +298,7 @@ const RoofLeakRepairPage = () => {
                 <Link to={getPath('contact')}>Заяви безплатен оглед</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
-                <a href="tel:0884997659">
+                <a href="tel:0893971873">
                   <Phone className="w-5 h-5 mr-2" />
                   088 499 7659
                 </a>
@@ -491,7 +491,7 @@ const RoofLeakRepairPage = () => {
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">{t('pages.leakRepair.cta.subtitle')}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
-                <a href="tel:+359884997659">
+                <a href="tel:+359893971873">
                   <Phone className="w-5 h-5 mr-2" />
                   088 499 7659
                 </a>

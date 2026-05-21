@@ -84,7 +84,7 @@ const TileReplacementPage = () => {
     { question: "Работите ли през зимата?", answer: "Да, при подходящи условия — сухо време и температури над 0°C." }
   ];
 
-  const schemaData = { "@context": "https://schema.org", "@type": "Service", "name": "Ремонт на керемидени покриви Варна", "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359884997659", "email": "remontnapokrivivarna@gmail.com", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } }, "areaServed": [{ "@type": "City", "name": "Варна" }, { "@type": "Place", "name": "Аксаково" }, { "@type": "Place", "name": "Златни пясъци" }], "description": "Професионален ремонт на керемидени покриви във Варна - бетонни, керамични, марсилски. Частична или пълна подмяна с 15 години гаранция.", "offers": { "@type": "AggregateOffer", "lowPrice": "4", "highPrice": "23", "priceCurrency": "EUR", "offerCount": "6" } };
+  const schemaData = { "@context": "https://schema.org", "@type": "Service", "name": "Ремонт на керемидени покриви Варна", "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359893971873", "email": "remontnapokrivivarna@gmail.com", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } }, "areaServed": [{ "@type": "City", "name": "Варна" }, { "@type": "Place", "name": "Аксаково" }, { "@type": "Place", "name": "Златни пясъци" }], "description": "Професионален ремонт на керемидени покриви във Варна - бетонни, керамични, марсилски. Частична или пълна подмяна с 15 години гаранция.", "offers": { "@type": "AggregateOffer", "lowPrice": "4", "highPrice": "23", "priceCurrency": "EUR", "offerCount": "6" } };
   const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqs.map(faq => ({ "@type": "Question", "name": faq.question, "acceptedAnswer": { "@type": "Answer", "text": faq.answer } })) };
   const breadcrumbSchema = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Начало", "item": "https://www.remontnapokrivivarna.bg" }, { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://www.remontnapokrivivarna.bg/services" }, { "@type": "ListItem", "position": 3, "name": "Смяна на керемиди", "item": "https://www.remontnapokrivivarna.bg/смяна-керемиди" }] };
 
@@ -133,7 +133,7 @@ const TileReplacementPage = () => {
                   <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
                 </Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
                 </Button>
               </div>
               <CalculatorDialog type="roof" />
@@ -172,7 +172,7 @@ const TileReplacementPage = () => {
                   <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
                 </Button>
                 <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold px-8">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
                 </Button>
               </div>
             </div>
@@ -187,7 +187,7 @@ const TileReplacementPage = () => {
               <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви оглед</Link>
             </Button>
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold px-8">
-              <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обадете се: 088 499 7659</a>
+              <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обадете се: 088 499 7659</a>
             </Button>
           </div>
         </section>
@@ -218,7 +218,7 @@ const TileReplacementPage = () => {
                 <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20 text-lg font-bold px-8">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
               </Button>
             </div>
           </div>
@@ -291,7 +291,7 @@ const TileReplacementPage = () => {
                 <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Поискайте безплатна оферта</Link>
               </Button>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold px-8">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
               </Button>
             </div>
           </div>
@@ -310,7 +310,7 @@ const TileReplacementPage = () => {
                 <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Получи оферта</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20 text-lg font-bold px-8">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
               </Button>
             </div>
           </div>
@@ -366,7 +366,7 @@ const TileReplacementPage = () => {
                 <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20 text-lg font-bold px-8">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се сега</a>
               </Button>
             </div>
           </div>
@@ -434,7 +434,7 @@ const TileReplacementPage = () => {
                 <Link to={getPath('contact')}><Phone className="w-5 h-5 mr-2" />Свържете се с нас</Link>
               </Button>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold px-8">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
               </Button>
             </div>
           </div>

@@ -67,7 +67,7 @@ const ProjectsPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-8">
-                <a href="tel:+359884997659" className="flex items-center gap-2">
+                <a href="tel:+359893971873" className="flex items-center gap-2">
                   <Phone className="w-5 h-5" />Обадете се сега
                 </a>
               </Button>
@@ -181,8 +181,8 @@ const ProjectsPage = () => {
             <p className="text-xl text-primary-foreground/85 mb-8 max-w-2xl mx-auto">Свържете се с нас за безплатен оглед и оферта без ангажимент</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold px-8">
-                <a href="tel:+359884997659" className="flex items-center gap-2">
-                  <Phone className="w-5 h-5" />Обадете се: 0884 997 659
+                <a href="tel:+359893971873" className="flex items-center gap-2">
+                  <Phone className="w-5 h-5" />Обадете се: 0893 971 873
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground/60 text-primary-foreground hover:bg-primary-foreground/10 font-bold px-8">
