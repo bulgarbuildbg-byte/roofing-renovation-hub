@@ -48,11 +48,11 @@ const ContactPage = () => {
   return (
     <>
       <Helmet>
-        <title>Контакти Покриви Варна - 088 499 7659</title>
-        <meta name="description" content="Свържете се с нас за покривни услуги. Безплатен оглед до 24ч. ☎ 088 499 7659. Варна." />
+        <title>Контакти Покриви Варна - 089 397 1873</title>
+        <meta name="description" content="Свържете се с нас за покривни услуги. Безплатен оглед до 24ч. ☎ 089 397 1873. Варна." />
         <meta name="keywords" content="контакти ремонт покриви варна, телефон покриви варна, адрес покривни услуги варна" />
-        <meta property="og:title" content="Контакти Покриви Варна - 088 499 7659" />
-        <meta property="og:description" content="Свържете се за безплатен оглед. Телефон: 088 499 7659" />
+        <meta property="og:title" content="Контакти Покриви Варна - 089 397 1873" />
+        <meta property="og:description" content="Свържете се за безплатен оглед. Телефон: 089 397 1873" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">
           {JSON.stringify(businessSchema)}

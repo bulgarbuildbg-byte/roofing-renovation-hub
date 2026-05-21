@@ -25,7 +25,7 @@ const BASE_URL = "https://www.remontnapokrivivarna.bg";
  * 
  * SEO targets:
  * - H1: "Ремонт на Покриви Бургас"
- * - Title: "Ремонт на Покриви Бургас — Безплатен Оглед 24ч | 088 499 7659"
+ * - Title: "Ремонт на Покриви Бургас — Безплатен Оглед 24ч | 089 397 1873"
  * - Canonical: /bg/burgas/
  * - JSON-LD RoofingContractor with areaServed: Бургас
  */
@@ -84,15 +84,15 @@ const BurgasHome = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>Ремонт на Покриви Бургас — Безплатен Оглед 24ч | 088 499 7659</title>
+        <title>Ремонт на Покриви Бургас — Безплатен Оглед 24ч | 089 397 1873</title>
         <meta
           name="description"
-          content="Професионален ремонт на покриви в Бургас — хидроизолация, нови покриви, ремонт на течове. Безплатен оглед, 15 години писмена гаранция. Тел: 088 499 7659."
+          content="Професионален ремонт на покриви в Бургас — хидроизолация, нови покриви, ремонт на течове. Безплатен оглед, 15 години писмена гаранция. Тел: 089 397 1873."
         />
         <meta name="keywords" content="ремонт на покриви Бургас, хидроизолация Бургас, нов покрив Бургас, покривни услуги Бургас" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content="Ремонт на Покриви Бургас — Безплатен Оглед 24ч" />
-        <meta property="og:description" content="Професионален ремонт на покриви в Бургас. 15 години гаранция. Тел: 088 499 7659." />
+        <meta property="og:description" content="Професионален ремонт на покриви в Бургас. 15 години гаранция. Тел: 089 397 1873." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={`${BASE_URL}/og-image.jpg`} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>

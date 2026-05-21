@@ -42,7 +42,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{t('contact.phone')}</p>
-                    <p className="text-xl md:text-2xl font-bold text-accent">088 499 7659</p>
+                    <p className="text-xl md:text-2xl font-bold text-accent">089 397 1873</p>
                   </div>
                 </a>
               </CardContent>

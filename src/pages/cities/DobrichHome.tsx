@@ -25,7 +25,7 @@ const BASE_URL = "https://www.remontnapokrivivarna.bg";
  *
  * SEO targets:
  * - H1: "Ремонт на Покриви Добрич"
- * - Title: "Ремонт на Покриви Добрич — Безплатен Оглед 24ч | 088 499 7659"
+ * - Title: "Ремонт на Покриви Добрич — Безплатен Оглед 24ч | 089 397 1873"
  * - Canonical: /bg/dobrich/
  * - JSON-LD RoofingContractor with areaServed: Добрич
  */
@@ -84,15 +84,15 @@ const DobrichHome = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>Ремонт на Покриви Добрич — Безплатен Оглед 24ч | 088 499 7659</title>
+        <title>Ремонт на Покриви Добрич — Безплатен Оглед 24ч | 089 397 1873</title>
         <meta
           name="description"
-          content="Професионален ремонт на покриви в Добрич — хидроизолация, нови покриви, ремонт на течове. Безплатен оглед, 15 години писмена гаранция. Тел: 088 499 7659."
+          content="Професионален ремонт на покриви в Добрич — хидроизолация, нови покриви, ремонт на течове. Безплатен оглед, 15 години писмена гаранция. Тел: 089 397 1873."
         />
         <meta name="keywords" content="ремонт на покриви Добрич, хидроизолация Добрич, нов покрив Добрич, покривни услуги Добрич" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content="Ремонт на Покриви Добрич — Безплатен Оглед 24ч" />
-        <meta property="og:description" content="Професионален ремонт на покриви в Добрич. 15 години гаранция. Тел: 088 499 7659." />
+        <meta property="og:description" content="Професионален ремонт на покриви в Добрич. 15 години гаранция. Тел: 089 397 1873." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={`${BASE_URL}/og-image.jpg`} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>

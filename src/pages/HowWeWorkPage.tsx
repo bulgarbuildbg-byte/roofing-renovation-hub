@@ -137,7 +137,7 @@ const HowWeWorkPage = () => {
             <Button asChild size="lg" className="bg-white text-primary border-2 border-white hover:bg-white/90 font-semibold">
               <a href="tel:+359893971873">
                 <Phone className="w-4 h-4 mr-2" />
-                088 499 7659
+                089 397 1873
               </a>
             </Button>
           </div>

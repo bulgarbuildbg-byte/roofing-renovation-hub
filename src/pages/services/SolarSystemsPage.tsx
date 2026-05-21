@@ -155,7 +155,7 @@ const SolarSystemsPage = () => {
               </Button>
               <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6">
                 <a href="tel:0893971873">
-                  <Phone className="w-5 h-5 mr-2" /> 088 499 7659
+                  <Phone className="w-5 h-5 mr-2" /> 089 397 1873
                 </a>
               </Button>
             </div>
@@ -376,7 +376,7 @@ const SolarSystemsPage = () => {
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6">
               <a href="tel:0893971873">
-                <Phone className="w-5 h-5 mr-2" /> 088 499 7659
+                <Phone className="w-5 h-5 mr-2" /> 089 397 1873
               </a>
             </Button>
           </div>

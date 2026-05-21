@@ -11,7 +11,7 @@ const fi = {
     badge1: "15+ vuoden kokemus", badge2: "15v takuu", badge3: "Tarkastus 24h",
     title: "Ammattimainen kattokorjaus Varnassa, Bulgariassa",
     subtitle: "Lopeta vuodot lopullisesti. Laadukas kattokorjaus ja vedeneristys kirjallisella takuulla.",
-    ctaPrimary: "Pyydä ilmainen tarkastus", ctaPhone: "088 499 7659",
+    ctaPrimary: "Pyydä ilmainen tarkastus", ctaPhone: "089 397 1873",
     urgency: "⚡ Hätätapaukset: Reagoimme tuntien kuluessa",
   },
   services: {
@@ -112,7 +112,7 @@ const fi = {
     homeKeywords: "kattokorjaus Varna, vedeneristys Varna, kattopalvelut Bulgaria",
   },
   inspection: {
-    meta: { title: "Ilmainen kattotarkastus Varna | 088 499 7659", desc: "Pyydä ilmainen kattotarkastus. Vastaamme 24 tunnin kuluessa." },
+    meta: { title: "Ilmainen kattotarkastus Varna | 089 397 1873", desc: "Pyydä ilmainen kattotarkastus. Vastaamme 24 tunnin kuluessa." },
     badge: "100% Ilmainen – Ei sitoumuksia",
     heroTitle: "Pyydä Ilmainen Kattotarkastus",
     heroSubtitle: "Asiantuntijamme tulee paikalle, tarkastaa kattosi ja antaa rehellisen arvion – täysin ilmaiseksi.",
@@ -123,7 +123,7 @@ const fi = {
     addressPlaceholder: "Katu / Alue / Kaupunki", notesPlaceholder: "Kuvaile ongelma lyhyesti...",
     submitBtn: "Pyydä Ilmainen Tarkastus", sending: "Lähetetään...",
     successTitle: "Pyyntö Lähetetty!", successDesc: "Otamme yhteyttä 24 tunnin kuluessa.",
-    errorTitle: "Virhe", errorDesc: "Yritä uudelleen tai soita 088 499 7659.",
+    errorTitle: "Virhe", errorDesc: "Yritä uudelleen tai soita 089 397 1873.",
     trust1: "15+ vuoden kokemus", trust2: "Lisensoitu yritys", trust3: "Tarkastus 24h sisällä", trust4: "Varna ja alue",
     contactTitle: "Ota Yhteyttä", callUs: "Soita", emailUs: "Lähetä sähköposti",
     officeAddress: "Usta Kolyu Ficheto katu 25A", city: "Varna 9000",

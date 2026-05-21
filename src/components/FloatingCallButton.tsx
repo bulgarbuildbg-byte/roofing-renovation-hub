@@ -13,7 +13,7 @@ const FloatingCallButton = () => {
       aria-label={t('mobile.call')}
     >
       <Phone className="w-6 h-6" />
-      <span className="font-bold text-lg">088 499 7659</span>
+      <span className="font-bold text-lg">089 397 1873</span>
     </a>
   );
 };

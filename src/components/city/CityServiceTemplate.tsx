@@ -33,7 +33,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
   const serviceSlug = localizedSlugs.bg[service.routeKey];
 
   const h1 = `${service.h1Prefix} ${cityName}`;
-  const title = `${service.titlePrefix} ${cityName} — Безплатен Оглед 24ч | 088 499 7659`;
+  const title = `${service.titlePrefix} ${cityName} — Безплатен Оглед 24ч | 089 397 1873`;
   const description = interpolate(service.metaDescription, cityName);
   const canonical = `${BASE_URL}/bg/${citySlug}/${serviceSlug}`;
   const ogImage = `${BASE_URL}/og-image.jpg`;

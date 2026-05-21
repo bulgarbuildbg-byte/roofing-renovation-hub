@@ -160,9 +160,9 @@ const NewRoofPage = () => {
     <>
       <Helmet>
         <title>Изграждане на Покриви Варна | Професионален Монтаж & Ремонт</title>
-        <meta name="description" content="Професионално изграждане на покриви във Варна и региона. Дървени конструкции, нови покриви, хидроизолация. Над 15г опит. Безплатен оглед: 088 499 7659" />
+        <meta name="description" content="Професионално изграждане на покриви във Варна и региона. Дървени конструкции, нови покриви, хидроизолация. Над 15г опит. Безплатен оглед: 089 397 1873" />
         <meta property="og:title" content="Изграждане на Нов Покрив Варна | Професионален Монтаж" />
-        <meta property="og:description" content="Професионално изграждане на покриви. Дървени конструкции, всички материали, хидроизолация. Над 15г опит. Безплатен оглед: 088 499 7659" />
+        <meta property="og:description" content="Професионално изграждане на покриви. Дървени конструкции, всички материали, хидроизолация. Над 15г опит. Безплатен оглед: 089 397 1873" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/nov-pokriv" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />

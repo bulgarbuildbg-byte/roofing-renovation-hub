@@ -11,7 +11,7 @@ const no = {
     badge1: "15+ års erfaring", badge2: "Opptil 15 års garanti", badge3: "Inspeksjon innen 24t",
     title: "Profesjonell takreparasjon i Varna, Bulgaria",
     subtitle: "Stopp lekkasjer for godt. Kvalitetsreparasjon og tetting med skriftlig garanti.",
-    ctaPrimary: "Be om gratis inspeksjon", ctaPhone: "088 499 7659",
+    ctaPrimary: "Be om gratis inspeksjon", ctaPhone: "089 397 1873",
     urgency: "⚡ Nødstilfeller: Vi svarer innen timer",
   },
   services: {
@@ -93,7 +93,7 @@ const no = {
   beforeAfter: { title: "Før & Etter", subtitle: "Se forvandlingene vi oppnår med våre reparasjoner. Dra for å sammenligne.", before: "Før", after: "Etter" },
   meta: { homeTitle: "Takreparasjon Varna Bulgaria - Gratis inspeksjon 24t", homeDesc: "Profesjonell takreparasjon i Varna, Bulgaria. 15+ års erfaring, 15 års garanti.", homeKeywords: "takreparasjon Varna, vanntetting Varna, taktjenester Bulgaria" },
   inspection: {
-    meta: { title: "Gratis takinspeksjon Varna | 088 499 7659", desc: "Be om en gratis takinspeksjon. Vi svarer innen 24 timer." },
+    meta: { title: "Gratis takinspeksjon Varna | 089 397 1873", desc: "Be om en gratis takinspeksjon. Vi svarer innen 24 timer." },
     badge: "100% Gratis – Ingen forpliktelser",
     heroTitle: "Be om en Gratis Takinspeksjon",
     heroSubtitle: "Vår spesialist kommer til deg, inspiserer taket ditt og gir en ærlig vurdering – helt gratis.",
@@ -104,7 +104,7 @@ const no = {
     addressPlaceholder: "Gate / Område / By", notesPlaceholder: "Beskriv problemet kort...",
     submitBtn: "Be om Gratis Inspeksjon", sending: "Sender...",
     successTitle: "Forespørsel Sendt!", successDesc: "Vi kontakter deg innen 24 timer.",
-    errorTitle: "Feil", errorDesc: "Prøv igjen eller ring 088 499 7659.",
+    errorTitle: "Feil", errorDesc: "Prøv igjen eller ring 089 397 1873.",
     trust1: "15+ års erfaring", trust2: "Lisensiert selskap", trust3: "Inspeksjon innen 24t", trust4: "Varna & region",
     contactTitle: "Kontakt Oss", callUs: "Ring oss", emailUs: "Send e-post",
     officeAddress: "Usta Kolyu Ficheto gate 25A", city: "Varna 9000",

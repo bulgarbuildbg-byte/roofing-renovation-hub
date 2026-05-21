@@ -263,11 +263,11 @@ const WaterproofingVarnaPage = () => {
         <title>Хидроизолация Варна | Битумна, PVC, Течна – Цени и Гаранция</title>
         <meta
           name="description"
-          content="Хидроизолация на покриви, тераси и плоски покриви във Варна. Битумни мембрани, PVC, течна хидроизолация. Цени от 14 €/кв.м. Над 15г опит. Писмена гаранция. Безплатен оглед: 088 499 7659"
+          content="Хидроизолация на покриви, тераси и плоски покриви във Варна. Битумни мембрани, PVC, течна хидроизолация. Цени от 14 €/кв.м. Над 15г опит. Писмена гаранция. Безплатен оглед: 089 397 1873"
         />
         <meta name="keywords" content="хидроизолация варна, хидроизолация на покрив, битумна хидроизолация, PVC мембрана, цена хидроизолация, течна хидроизолация, хидроизолация плосък покрив варна" />
         <meta property="og:title" content="Хидроизолация Варна | Битумна, PVC, Течна – Цени от 14 €/кв.м" />
-        <meta property="og:description" content="Професионална хидроизолация на покриви и тераси. Битумни мембрани, PVC, течна хидроизолация. Над 15г опит. Безплатен оглед: 088 499 7659" />
+        <meta property="og:description" content="Професионална хидроизолация на покриви и тераси. Битумни мембрани, PVC, течна хидроизолация. Над 15г опит. Безплатен оглед: 089 397 1873" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.remontnapokrivivarna.bg/bg/hidroizolacia-na-pokriv" />
         <meta property="og:image" content="https://www.remontnapokrivivarna.bg/og-image.jpg" />
@@ -338,7 +338,7 @@ const WaterproofingVarnaPage = () => {
               >
                 <a href="tel:0893971873" className="flex items-center gap-2">
                   <Phone className="w-5 h-5" />
-                  Безплатен оглед: 088 499 7659
+                  Безплатен оглед: 089 397 1873
                 </a>
               </Button>
               <Button
@@ -638,7 +638,7 @@ const WaterproofingVarnaPage = () => {
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold px-8">
                 <a href="tel:0893971873" className="flex items-center gap-2">
                   <Phone className="w-5 h-5" />
-                  Получете точна оферта: 088 499 7659
+                  Получете точна оферта: 089 397 1873
                 </a>
               </Button>
             </div>

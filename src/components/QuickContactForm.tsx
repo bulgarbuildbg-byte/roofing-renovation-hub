@@ -84,7 +84,7 @@ const QuickContactForm = () => {
           className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors"
         >
           <Phone className="w-5 h-5" />
-          088 499 7659
+          089 397 1873
         </a>
       </div>
     </div>

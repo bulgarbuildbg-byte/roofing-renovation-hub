@@ -25,7 +25,7 @@ const BASE_URL = "https://www.remontnapokrivivarna.bg";
  *
  * SEO targets:
  * - H1: "Ремонт на Покриви Русе"
- * - Title: "Ремонт на Покриви Русе — Безплатен Оглед 24ч | 088 499 7659"
+ * - Title: "Ремонт на Покриви Русе — Безплатен Оглед 24ч | 089 397 1873"
  * - Canonical: /bg/ruse/
  * - JSON-LD RoofingContractor with areaServed: Русе
  */
@@ -84,15 +84,15 @@ const RuseHome = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>Ремонт на Покриви Русе — Безплатен Оглед 24ч | 088 499 7659</title>
+        <title>Ремонт на Покриви Русе — Безплатен Оглед 24ч | 089 397 1873</title>
         <meta
           name="description"
-          content="Професионален ремонт на покриви в Русе — хидроизолация, нови покриви, ремонт на течове. Безплатен оглед, 15 години писмена гаранция. Тел: 088 499 7659."
+          content="Професионален ремонт на покриви в Русе — хидроизолация, нови покриви, ремонт на течове. Безплатен оглед, 15 години писмена гаранция. Тел: 089 397 1873."
         />
         <meta name="keywords" content="ремонт на покриви Русе, хидроизолация Русе, нов покрив Русе, покривни услуги Русе" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content="Ремонт на Покриви Русе — Безплатен Оглед 24ч" />
-        <meta property="og:description" content="Професионален ремонт на покриви в Русе. 15 години гаранция. Тел: 088 499 7659." />
+        <meta property="og:description" content="Професионален ремонт на покриви в Русе. 15 години гаранция. Тел: 089 397 1873." />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={`${BASE_URL}/og-image.jpg`} />
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>

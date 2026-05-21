@@ -228,7 +228,7 @@ const MaintenancePage = () => {
     <>
       <Helmet>
         <title>Поддръжка Покриви Варна – от 149 € | Годишни пакети</title>
-        <meta name="description" content="Поддръжка на покриви във Варна – годишни пакети от 149 до 799 €. Предотвратете скъпи ремонти. ☎ 088 499 7659" />
+        <meta name="description" content="Поддръжка на покриви във Варна – годишни пакети от 149 до 799 €. Предотвратете скъпи ремонти. ☎ 089 397 1873" />
         <meta property="og:title" content="Поддръжка на Покриви Варна – от 149 € | Годишни пакети" />
         <meta property="og:description" content="Редовната поддръжка предотвратява скъпи ремонти. Годишни пакети от 149 до 799 €." />
         <meta property="og:type" content="website" />
@@ -607,7 +607,7 @@ const MaintenancePage = () => {
             <p className="text-xl text-primary-foreground/90 mb-4 max-w-2xl mx-auto">
               Не чакайте покривът да потече. Изберете пакет и се погрижете за дома си сега.
             </p>
-            <p className="text-2xl font-bold mb-8">☎ 088 499 7659</p>
+            <p className="text-2xl font-bold mb-8">☎ 089 397 1873</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                 <a href="tel:+359893971873">Обадете се</a>

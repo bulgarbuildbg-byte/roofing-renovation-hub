@@ -100,7 +100,7 @@ const ServicesPage = () => {
     <>
       <Helmet>
         <title>Покривни Услуги Варна – Ремонт, Хидроизолация, Нов Покрив | 15г Гаранция</title>
-        <meta name="description" content="Пълен спектър покривни услуги във Варна: ремонт от 19 €/м², хидроизолация от 9 €/м², нови покриви. 15 години гаранция. ☎ 088 499 7659" />
+        <meta name="description" content="Пълен спектър покривни услуги във Варна: ремонт от 19 €/м², хидроизолация от 9 €/м², нови покриви. 15 години гаранция. ☎ 089 397 1873" />
         <meta name="keywords" content="ремонт покриви варна цени, монтаж покриви варна, хидроизолация покриви, покривни услуги варна" />
         <meta property="og:title" content="Покривни Услуги Варна – Ремонт, Хидроизолация, Нов Покрив | 15г Гаранция" />
         <meta property="og:description" content="Пълен спектър покривни услуги: ремонт, хидроизолация, нови покриви. 15 години гаранция." />
@@ -134,7 +134,7 @@ const ServicesPage = () => {
                     <Link to={getPath('contact')}>Безплатен оглед</Link>
                   </Button>
                   <Button size="lg" variant="outline" className="gap-2" asChild>
-                    <a href="tel:0893971873"><Phone className="w-5 h-5" />088 499 7659</a>
+                    <a href="tel:0893971873"><Phone className="w-5 h-5" />089 397 1873</a>
                   </Button>
                 </div>
               </div>
@@ -306,7 +306,7 @@ const ServicesPage = () => {
                   <Link to={getPath('contact')}>Заяви безплатен оглед</Link>
                 </Button>
                 <Button size="lg" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20 gap-2" asChild>
-                  <a href="tel:0893971873"><Phone className="w-5 h-5" />088 499 7659</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5" />089 397 1873</a>
                 </Button>
               </div>
             </div>
@@ -374,7 +374,7 @@ const ServicesPage = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="secondary" className="gap-2" asChild>
-                  <a href="tel:0893971873"><Phone className="w-5 h-5" />088 499 7659</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5" />089 397 1873</a>
                 </Button>
                 <Button size="lg" className="bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/20" asChild>
                   <Link to={getPath('contact')}>Изпратете запитване</Link>

@@ -598,7 +598,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
               <h3 className="text-xl font-bold text-foreground mb-2">Заявката е изпратена!</h3>
               <p className="text-muted-foreground mb-4">Ще се свържем с вас в рамките на 24 часа.</p>
               <a href="tel:0893971873" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
-                <Phone className="w-5 h-5" /> 088 499 7659
+                <Phone className="w-5 h-5" /> 089 397 1873
               </a>
               <Button variant="outline" onClick={() => { setShowForm(false); resetWizard(); }} className="mt-6 w-full">
                 Затвори
@@ -680,7 +680,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                   {submitting ? <><Loader2 className="h-5 w-5 mr-2 animate-spin" /> Изпращане...</> : <><Send className="h-5 w-5 mr-2" /> Изпрати запитване</>}
                 </Button>
                 <a href="tel:0893971873" className="text-sm text-accent hover:underline flex items-center justify-center gap-1 font-medium">
-                  <Phone className="w-3.5 h-3.5" /> Или се обадете: 088 499 7659
+                  <Phone className="w-3.5 h-3.5" /> Или се обадете: 089 397 1873
                 </a>
               </div>
             </>

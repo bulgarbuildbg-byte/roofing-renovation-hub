@@ -63,7 +63,7 @@ const CTASection = ({
             >
               <a href="tel:0893971873" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
-                088 499 7659
+                089 397 1873
               </a>
             </Button>
           )}

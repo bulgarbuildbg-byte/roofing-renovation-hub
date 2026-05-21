@@ -135,7 +135,7 @@ const Footer = () => {
                     className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
                   >
                     <Phone className="w-4 h-4 flex-shrink-0" />
-                    <span>+359 88 499 7659</span>
+                    <span>+359 89 397 1873</span>
                   </a>
                 </li>
                 <li>

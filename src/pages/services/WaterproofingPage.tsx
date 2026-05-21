@@ -124,7 +124,7 @@ const WaterproofingPage = () => {
     <>
       <Helmet>
         <title>Хидроизолация на Покриви Варна | Битумна, Течна, PVC | 15г Гаранция</title>
-        <meta name="description" content="Професионална хидроизолация на покриви във Варна. Битумна, течна и PVC хидроизолация. Безплатен оглед до 24 часа. Писмена гаранция. ☎ 088 499 7659" />
+        <meta name="description" content="Професионална хидроизолация на покриви във Варна. Битумна, течна и PVC хидроизолация. Безплатен оглед до 24 часа. Писмена гаранция. ☎ 089 397 1873" />
         <meta property="og:title" content="Хидроизолация на Покриви Варна | 15г Гаранция" />
         <meta property="og:description" content="Професионална хидроизолация на покриви във Варна. Битумна, течна и PVC. 15 години гаранция. Безплатен оглед." />
         <meta property="og:type" content="website" />
@@ -171,7 +171,7 @@ const WaterproofingPage = () => {
                   <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
                 </Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
-                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 089 397 1873</a>
                 </Button>
               </div>
               <CalculatorDialog type="roof" />
@@ -218,7 +218,7 @@ const WaterproofingPage = () => {
                   <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
-                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 089 397 1873</a>
                 </Button>
               </div>
             </div>
@@ -308,7 +308,7 @@ const WaterproofingPage = () => {
                 <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
-                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />089 397 1873</a>
               </Button>
             </div>
           </div>
@@ -359,7 +359,7 @@ const WaterproofingPage = () => {
                 <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
-                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />089 397 1873</a>
               </Button>
             </div>
           </div>
@@ -551,7 +551,7 @@ const WaterproofingPage = () => {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Нуждаете се от хидроизолация на покрив?</h2>
             <p className="text-xl text-primary-foreground/90 mb-4 max-w-2xl mx-auto">Оставете запитване или се обадете. Ще направим оглед и ще ви дадем конкретно решение за вашия покрив.</p>
-            <p className="text-2xl font-bold mb-8">☎ 088 499 7659</p>
+            <p className="text-2xl font-bold mb-8">☎ 089 397 1873</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                 <Link to={getPath('inspection')}>Вземи оферта</Link>

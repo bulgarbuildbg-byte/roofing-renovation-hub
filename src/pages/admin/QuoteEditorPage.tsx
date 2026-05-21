@@ -17,7 +17,7 @@ const COMPANY_INFO = {
   brand: "Булгар Билд",
   subtitle: "Ремонт на Покриви Варна",
   address: "ул. Уста Колю Фичето 25 А, Варна",
-  phone: "088 499 7659",
+  phone: "089 397 1873",
   website: "remontnapokrivivarna.bg",
   parent: "bulgarbuild.com",
 };
