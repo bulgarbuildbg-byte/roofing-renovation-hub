@@ -35,7 +35,7 @@ const MobileBottomBar = () => {
           className="flex-1 h-12 bg-accent hover:bg-accent/90 text-accent-foreground font-bold shadow-lg text-[13px] px-2"
         >
           <a
-            href="tel:0884997659"
+            href="tel:0893971873"
             onClick={() => trackEvent("button_click", "call_button")}
             className="flex items-center justify-center gap-1"
           >

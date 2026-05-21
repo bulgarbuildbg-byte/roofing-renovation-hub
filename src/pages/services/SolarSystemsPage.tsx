@@ -23,7 +23,7 @@ const SolarSystemsPage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359884997659",
+      "telephone": "+359893971873",
       "email": "remontnapokrivivarna@gmail.com",
       "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" }
     },
@@ -154,7 +154,7 @@ const SolarSystemsPage = () => {
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6">
-                <a href="tel:0884997659">
+                <a href="tel:0893971873">
                   <Phone className="w-5 h-5 mr-2" /> 088 499 7659
                 </a>
               </Button>
@@ -375,7 +375,7 @@ const SolarSystemsPage = () => {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 text-lg px-8 py-6">
-              <a href="tel:0884997659">
+              <a href="tel:0893971873">
                 <Phone className="w-5 h-5 mr-2" /> 088 499 7659
               </a>
             </Button>

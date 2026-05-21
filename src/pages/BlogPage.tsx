@@ -352,7 +352,7 @@ const BlogPage = () => {
               Свържете се с нас за безплатна консултация и оглед. Нашите експерти ще ви помогнат да намерите най-доброто решение.
             </p>
             <a 
-              href="tel:0884997659" 
+              href="tel:0893971873" 
               className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-4 rounded-lg font-bold text-lg hover:bg-accent/90 transition-colors"
             >
               Обадете се сега: 088 499 7659

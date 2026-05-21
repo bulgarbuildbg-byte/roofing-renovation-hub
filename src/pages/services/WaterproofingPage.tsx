@@ -108,7 +108,7 @@ const WaterproofingPage = () => {
   const schemaData = {
     "@context": "https://schema.org", "@type": "Service",
     "name": "Хидроизолация на покриви Варна",
-    "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359884997659", "email": "remontnapokrivivarna@gmail.com", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } },
+    "provider": { "@type": "RoofingContractor", "name": "RemontNaPokriviVarna", "telephone": "+359893971873", "email": "remontnapokrivivarna@gmail.com", "address": { "@type": "PostalAddress", "streetAddress": "ул. Уста Колю Фичето 25 А", "addressLocality": "Варна", "addressCountry": "BG" } },
     "areaServed": [{ "@type": "City", "name": "Варна" }, { "@type": "Place", "name": "Аксаково" }, { "@type": "Place", "name": "Златни пясъци" }, { "@type": "Place", "name": "Белослав" }],
     "description": "Професионална хидроизолация на покриви във Варна - битумна, PVC мембрана, течна хидроизолация. 15 години гаранция.",
     "offers": { "@type": "AggregateOffer", "lowPrice": "14", "highPrice": "20", "priceCurrency": "EUR", "offerCount": "3" }
@@ -171,7 +171,7 @@ const WaterproofingPage = () => {
                   <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
                 </Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
                 </Button>
               </div>
               <CalculatorDialog type="roof" />
@@ -218,7 +218,7 @@ const WaterproofingPage = () => {
                   <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
                 </Button>
               </div>
             </div>
@@ -232,7 +232,7 @@ const WaterproofingPage = () => {
             <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Искам подобен резултат</Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
-            <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+            <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се</a>
           </Button>
         </div>
 
@@ -291,7 +291,7 @@ const WaterproofingPage = () => {
                   <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Безплатен оглед</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се</a>
                 </Button>
               </div>
             </div>
@@ -308,7 +308,7 @@ const WaterproofingPage = () => {
                 <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
               </Button>
             </div>
           </div>
@@ -339,7 +339,7 @@ const WaterproofingPage = () => {
                   <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Получи точна цена</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се</a>
                 </Button>
               </div>
             </div>
@@ -359,7 +359,7 @@ const WaterproofingPage = () => {
                 <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Заяви безплатен оглед</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />088 499 7659</a>
               </Button>
             </div>
           </div>
@@ -521,7 +521,7 @@ const WaterproofingPage = () => {
                   <Link to={getPath('inspection')}><Eye className="w-5 h-5 mr-2" />Вземи оферта</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8">
-                  <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обади се</a>
+                  <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се</a>
                 </Button>
               </div>
             </div>
@@ -557,7 +557,7 @@ const WaterproofingPage = () => {
                 <Link to={getPath('inspection')}>Вземи оферта</Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
-                <a href="tel:0884997659"><Phone className="w-5 h-5 mr-2" />Обадете се сега</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обадете се сега</a>
               </Button>
             </div>
           </div>

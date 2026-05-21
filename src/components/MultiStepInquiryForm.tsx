@@ -151,7 +151,7 @@ const MultiStepInquiryForm = () => {
         <p className="text-muted-foreground">Ще се свържем с вас в рамките на 24 часа.</p>
         <div className="mt-6 pt-6 border-t border-border">
           <p className="text-muted-foreground text-sm mb-3">Или ни се обадете директно:</p>
-          <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
+          <a href="tel:0893971873" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
             <Phone className="w-5 h-5" /> 088 499 7659
           </a>
         </div>
@@ -341,7 +341,7 @@ const MultiStepInquiryForm = () => {
 
       <div className="mt-6 pt-6 border-t border-border text-center">
         <p className="text-muted-foreground text-sm mb-3">Или ни се обадете директно:</p>
-        <a href="tel:0884997659" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
+        <a href="tel:0893971873" className="inline-flex items-center gap-2 text-xl font-bold text-accent hover:text-accent/80 transition-colors">
           <Phone className="w-5 h-5" /> 088 499 7659
         </a>
       </div>

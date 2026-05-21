@@ -70,7 +70,7 @@ const Hero = () => {
                 variant="outline"
                 className="w-full sm:w-auto h-12 md:h-16 bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-primary-foreground hover:bg-primary-foreground hover:text-primary text-base md:text-lg font-bold px-4 md:px-8"
               >
-                <a href="tel:0884997659" className="flex items-center justify-center gap-2">
+                <a href="tel:0893971873" className="flex items-center justify-center gap-2">
                   <Phone className="w-5 h-5" />
                   {t('hero.ctaPhone')}
                 </a>

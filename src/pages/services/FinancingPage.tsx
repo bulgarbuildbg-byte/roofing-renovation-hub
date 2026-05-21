@@ -71,7 +71,7 @@ const FinancingPage = () => {
     "provider": {
       "@type": "Organization",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359884997659",
+      "telephone": "+359893971873",
       "email": "remontnapokrivivarna@gmail.com",
     },
     "areaServed": { "@type": "City", "name": "Варна" },
@@ -153,7 +153,7 @@ const FinancingPage = () => {
                     </Link>
                   </Button>
                   <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
-                    <a href="tel:0884997659">
+                    <a href="tel:0893971873">
                       <Phone className="w-5 h-5 mr-2" />
                       Вземи оферта
                     </a>
@@ -425,7 +425,7 @@ const FinancingPage = () => {
                 </Link>
               </Button>
               <Button asChild size="lg" className="bg-white/10 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20 text-lg px-8">
-                <a href="tel:0884997659">
+                <a href="tel:0893971873">
                   <Phone className="w-5 h-5 mr-2" />
                   088 499 7659
                 </a>

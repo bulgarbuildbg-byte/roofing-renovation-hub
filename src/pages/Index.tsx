@@ -46,7 +46,7 @@ const Index = () => {
       "addressCountry": "BG"
     },
     "geo": { "@type": "GeoCoordinates", "latitude": 43.2141, "longitude": 27.9147 },
-    "telephone": "+359884997659",
+    "telephone": "+359893971873",
     "email": "remontnapokrivivarna@gmail.com",
     "url": BASE_URL,
     "sameAs": ["https://bulgarbuild.com/"],

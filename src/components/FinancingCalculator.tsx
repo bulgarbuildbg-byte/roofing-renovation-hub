@@ -108,7 +108,7 @@ const FinancingCalculator = () => {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/5">
-              <a href="tel:0884997659">
+              <a href="tel:0893971873">
                 <Phone className="w-4 h-4 mr-2" />
                 Обади ми се
               </a>

@@ -299,7 +299,7 @@ const WinterRoofPreparation = () => {
                     Ще идентифицираме потенциални проблеми и ще ви дадем честна оценка преди зимата.
                   </p>
                   <a 
-                    href="tel:+359884997659" 
+                    href="tel:+359893971873" 
                     className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary/90 transition-colors"
                   >
                     <Phone className="w-5 h-5" />

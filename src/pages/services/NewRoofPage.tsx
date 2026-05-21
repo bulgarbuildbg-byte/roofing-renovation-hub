@@ -58,7 +58,7 @@ const NewRoofPage = () => {
     "provider": {
       "@type": "RoofingContractor",
       "name": "RemontNaPokriviVarna",
-      "telephone": "+359884997659",
+      "telephone": "+359893971873",
       "email": "remontnapokrivivarna@gmail.com",
       "address": {
         "@type": "PostalAddress",
