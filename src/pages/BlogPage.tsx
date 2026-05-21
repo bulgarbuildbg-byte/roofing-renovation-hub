@@ -355,7 +355,7 @@ const BlogPage = () => {
               href="tel:0893971873" 
               className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-4 rounded-lg font-bold text-lg hover:bg-accent/90 transition-colors"
             >
-              Обадете се сега: 088 499 7659
+              Обадете се сега: 089 397 1873
             </a>
           </div>
         </section>

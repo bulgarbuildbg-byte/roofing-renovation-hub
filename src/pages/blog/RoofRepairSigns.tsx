@@ -435,7 +435,7 @@ const RoofRepairSigns = () => {
                   <a href="tel:+359893971873">
                     <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg px-8 py-6">
                       <Phone className="w-5 h-5 mr-2" />
-                      Обади се: 088 499 7659
+                      Обади се: 089 397 1873
                     </Button>
                   </a>
                 </div>

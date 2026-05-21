@@ -211,7 +211,7 @@ const SpringInspection = () => {
                 <p className="text-foreground/80 mb-6">Нашият екип ще извърши пълен оглед на покрива ви и ще ви даде честна оценка с точни цени за необходимите ремонти.</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/bg/bezplaten-ogled"><Button size="lg" className="w-full sm:w-auto text-lg px-8 py-6"><CheckCircle className="w-5 h-5 mr-2" />Заяви безплатен оглед</Button></Link>
-                  <a href="tel:+359893971873"><Button size="lg" variant="outline" className="w-full sm:w-auto text-lg px-8 py-6"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</Button></a>
+                  <a href="tel:+359893971873"><Button size="lg" variant="outline" className="w-full sm:w-auto text-lg px-8 py-6"><Phone className="w-5 h-5 mr-2" />Обади се: 089 397 1873</Button></a>
                 </div>
               </div>
 

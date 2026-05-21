@@ -117,7 +117,7 @@ const MetalRoofPage = () => {
     <>
       <Helmet>
         <title>Метални Покриви Варна - от 18 €/кв.м | До 50г Гаранция</title>
-        <meta name="description" content="Монтаж на метални покриви — керемиди, ламарина, стоящ фалц. От 18 €/кв.м. До 50 години гаранция. ☎ 088 499 7659" />
+        <meta name="description" content="Монтаж на метални покриви — керемиди, ламарина, стоящ фалц. От 18 €/кв.м. До 50 години гаранция. ☎ 089 397 1873" />
         <meta property="og:title" content="Метални Покриви Варна - от 18 €/кв.м | До 50г Гаранция" />
         <meta property="og:description" content="Монтаж на метални покриви — керемиди, ламарина, стоящ фалц. До 50 години гаранция." />
         <meta property="og:type" content="website" />
@@ -218,7 +218,7 @@ const MetalRoofPage = () => {
             <p className="text-primary-foreground/90 mb-6 max-w-xl mx-auto">Свържете се за безплатна консултация и оферта.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground"><Link to={getPath('contact')}>Заяви безплатен оглед</Link></Button>
-              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />088 499 7659</a></Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />089 397 1873</a></Button>
             </div>
           </div>
         </section>

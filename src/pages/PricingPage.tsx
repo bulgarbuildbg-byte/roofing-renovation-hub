@@ -41,7 +41,7 @@ const PricingPage = () => {
       <Helmet>
         <html lang={currentLang} />
         <title>Цени за Ремонт на Покриви Варна 2026 — Прозрачни Тарифи в Евро</title>
-        <meta name="description" content="Актуални цени за ремонт на покриви, хидроизолация, нов покрив и поддръжка във Варна. Прозрачни тарифи в евро, безплатен оглед, 15г гаранция. ☎ 088 499 7659" />
+        <meta name="description" content="Актуални цени за ремонт на покриви, хидроизолация, нов покрив и поддръжка във Варна. Прозрачни тарифи в евро, безплатен оглед, 15г гаранция. ☎ 089 397 1873" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <Header />

@@ -300,7 +300,7 @@ const RoofLeakRepairPage = () => {
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20">
                 <a href="tel:0893971873">
                   <Phone className="w-5 h-5 mr-2" />
-                  088 499 7659
+                  089 397 1873
                 </a>
               </Button>
             </div>
@@ -493,7 +493,7 @@ const RoofLeakRepairPage = () => {
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                 <a href="tel:+359893971873">
                   <Phone className="w-5 h-5 mr-2" />
-                  088 499 7659
+                  089 397 1873
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">

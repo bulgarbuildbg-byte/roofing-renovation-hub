@@ -211,7 +211,7 @@ const RoofRepairPage = () => {
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8">
               <a href="tel:0893971873">
                 <Phone className="w-5 h-5 mr-2" />
-                088 499 7659
+                089 397 1873
               </a>
             </Button>
           </div>
@@ -311,7 +311,7 @@ const RoofRepairPage = () => {
                 <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8">
                   <a href="tel:0893971873">
                     <Phone className="w-5 h-5 mr-2" />
-                    088 499 7659
+                    089 397 1873
                   </a>
                 </Button>
               </div>
@@ -499,7 +499,7 @@ const RoofRepairPage = () => {
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('pages.roofRepair.cta.title')}</h2>
             <p className="text-xl text-primary-foreground/90 mb-4 max-w-2xl mx-auto">{t('pages.roofRepair.cta.subtitle')}</p>
-            <p className="text-2xl font-bold mb-8">☎ 088 499 7659</p>
+            <p className="text-2xl font-bold mb-8">☎ 089 397 1873</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                 <a href="tel:+359893971873">{t('pages.roofRepair.cta.callBtn')}</a>

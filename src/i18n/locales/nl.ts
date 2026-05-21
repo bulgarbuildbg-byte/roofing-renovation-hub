@@ -11,7 +11,7 @@ const nl = {
     badge1: "15+ jaar ervaring", badge2: "15 jaar garantie", badge3: "Inspectie binnen 24u",
     title: "Professionele dakreparatie in Varna, Bulgarije",
     subtitle: "Stop lekkages voorgoed. Kwaliteitsreparatie en waterdichting met schriftelijke garantie.",
-    ctaPrimary: "Vraag gratis inspectie aan", ctaPhone: "088 499 7659",
+    ctaPrimary: "Vraag gratis inspectie aan", ctaPhone: "089 397 1873",
     urgency: "⚡ Noodgevallen: We reageren binnen uren",
   },
   services: {
@@ -93,7 +93,7 @@ const nl = {
   beforeAfter: { title: "Voor & Na", subtitle: "Bekijk de transformaties die we bereiken met onze reparaties. Schuif om te vergelijken.", before: "Voor", after: "Na" },
   meta: { homeTitle: "Dakreparatie Varna Bulgarije - Gratis inspectie 24u", homeDesc: "Professionele dakreparatie in Varna, Bulgarije. 15+ jaar ervaring, 15 jaar garantie.", homeKeywords: "dakreparatie Varna, waterdichting Varna, dakdekker Bulgarije" },
   inspection: {
-    meta: { title: "Gratis dakinspectie Varna | 088 499 7659", desc: "Vraag een gratis dakinspectie aan. We reageren binnen 24 uur." },
+    meta: { title: "Gratis dakinspectie Varna | 089 397 1873", desc: "Vraag een gratis dakinspectie aan. We reageren binnen 24 uur." },
     badge: "100% Gratis – Geen verplichtingen",
     heroTitle: "Vraag een Gratis Dakinspectie Aan",
     heroSubtitle: "Onze specialist komt langs, inspecteert uw dak en geeft een eerlijke beoordeling – volledig gratis.",
@@ -104,7 +104,7 @@ const nl = {
     addressPlaceholder: "Straat / Wijk / Stad", notesPlaceholder: "Beschrijf het probleem kort...",
     submitBtn: "Gratis Inspectie Aanvragen", sending: "Verzenden...",
     successTitle: "Aanvraag Verzonden!", successDesc: "We nemen binnen 24 uur contact met u op.",
-    errorTitle: "Fout", errorDesc: "Probeer het opnieuw of bel 088 499 7659.",
+    errorTitle: "Fout", errorDesc: "Probeer het opnieuw of bel 089 397 1873.",
     trust1: "15+ jaar ervaring", trust2: "Gelicenseerd bedrijf", trust3: "Inspectie binnen 24u", trust4: "Varna & regio",
     contactTitle: "Neem Contact Op", callUs: "Bellen", emailUs: "E-mail sturen",
     officeAddress: "Usta Kolyu Ficheto straat 25A", city: "Varna 9000",

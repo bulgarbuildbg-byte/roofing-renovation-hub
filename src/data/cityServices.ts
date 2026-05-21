@@ -12,7 +12,7 @@ export interface CityServiceContent {
   routeKey: RouteKey;
   /** H1 prefix — full H1 will be `${h1Prefix} ${cityName}` */
   h1Prefix: string;
-  /** Title prefix — full title `${titlePrefix} ${cityName} — Безплатен Оглед 24ч | 088 499 7659` */
+  /** Title prefix — full title `${titlePrefix} ${cityName} — Безплатен Оглед 24ч | 089 397 1873` */
   titlePrefix: string;
   /** Meta description template, `{city}` replaced with city name */
   metaDescription: string;

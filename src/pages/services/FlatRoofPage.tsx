@@ -122,7 +122,7 @@ const FlatRoofPage = () => {
     <>
       <Helmet>
         <title>Ремонт на Плоски Покриви Варна - от 11 €/кв.м | 15г Гаранция</title>
-        <meta name="description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. 15 години гаранция. ☎ 088 499 7659" />
+        <meta name="description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. 15 години гаранция. ☎ 089 397 1873" />
         <meta property="og:title" content="Ремонт на Плоски Покриви Варна - от 11 €/кв.м | 15г Гаранция" />
         <meta property="og:description" content="Хидроизолация на плоски покриви и тераси. Битумни и PVC мембрани. 15 години гаранция." />
         <meta property="og:type" content="website" />
@@ -226,7 +226,7 @@ const FlatRoofPage = () => {
             <p className="text-primary-foreground/90 mb-6 max-w-xl mx-auto">Не чакайте да се задълбочи. Свържете се за безплатна консултация.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground"><Link to={getPath('contact')}>Заяви безплатен оглед</Link></Button>
-              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />088 499 7659</a></Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20"><a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />089 397 1873</a></Button>
             </div>
           </div>
         </section>

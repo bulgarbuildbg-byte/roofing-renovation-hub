@@ -129,7 +129,7 @@ const FAQPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <a href="tel:+359893971873">Обадете се: 088 499 7659</a>
+                <a href="tel:+359893971873">Обадете се: 089 397 1873</a>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <Link to="/контакти">Изпратете запитване</Link>

@@ -11,7 +11,7 @@ const fr = {
     badge1: "15+ ans d'expérience", badge2: "15 ans de garantie", badge3: "Inspection en 24h",
     title: "Réparation de toiture professionnelle à Varna, Bulgarie",
     subtitle: "Arrêtez les fuites définitivement. Réparation de qualité et étanchéité avec garantie écrite.",
-    ctaPrimary: "Demander une inspection gratuite", ctaPhone: "088 499 7659",
+    ctaPrimary: "Demander une inspection gratuite", ctaPhone: "089 397 1873",
     urgency: "⚡ Urgences : Nous répondons en quelques heures",
   },
   services: {
@@ -93,7 +93,7 @@ const fr = {
   beforeAfter: { title: "Avant & Après", subtitle: "Voyez les transformations que nous réalisons. Glissez pour comparer.", before: "Avant", after: "Après" },
   meta: { homeTitle: "Réparation toiture Varna Bulgarie - Inspection gratuite 24h", homeDesc: "Réparation de toiture professionnelle à Varna, Bulgarie. 15+ ans d'expérience, 15 ans de garantie.", homeKeywords: "réparation toiture Varna, étanchéité Varna, couvreur Bulgarie" },
   inspection: {
-    meta: { title: "Inspection de toiture gratuite Varna | 088 499 7659", desc: "Demandez une inspection de toiture gratuite. Nous répondons sous 24 heures." },
+    meta: { title: "Inspection de toiture gratuite Varna | 089 397 1873", desc: "Demandez une inspection de toiture gratuite. Nous répondons sous 24 heures." },
     badge: "100% Gratuit – Sans engagement",
     heroTitle: "Demandez une Inspection de Toiture Gratuite",
     heroSubtitle: "Notre spécialiste se déplace, inspecte votre toit et vous donne une évaluation honnête – entièrement gratuit.",
@@ -104,7 +104,7 @@ const fr = {
     addressPlaceholder: "Rue / Quartier / Ville", notesPlaceholder: "Décrivez brièvement le problème...",
     submitBtn: "Demander une Inspection Gratuite", sending: "Envoi...",
     successTitle: "Demande Envoyée !", successDesc: "Nous vous contacterons sous 24 heures.",
-    errorTitle: "Erreur", errorDesc: "Veuillez réessayer ou appeler le 088 499 7659.",
+    errorTitle: "Erreur", errorDesc: "Veuillez réessayer ou appeler le 089 397 1873.",
     trust1: "15+ ans d'expérience", trust2: "Entreprise agréée", trust3: "Inspection sous 24h", trust4: "Varna & région",
     contactTitle: "Contactez-Nous", callUs: "Appeler", emailUs: "Envoyer un e-mail",
     officeAddress: "25A rue Usta Kolyu Ficheto", city: "Varna 9000",

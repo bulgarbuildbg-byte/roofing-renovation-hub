@@ -92,7 +92,7 @@ const TileReplacementPage = () => {
     <>
       <Helmet>
         <title>Смяна на Керемиди Варна - от 4 €/бр | 15г Гаранция</title>
-        <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 15 години гаранция. ☎ 088 499 7659" />
+        <meta name="description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 15 години гаранция. ☎ 089 397 1873" />
         <meta property="og:title" content="Смяна на Керемиди Варна - от 4 €/бр | 15г Гаранция" />
         <meta property="og:description" content="Професионална подмяна на керемиди. Бетонни, керамични, марсилски. Бърз монтаж, 15 години гаранция." />
         <meta property="og:type" content="website" />
@@ -187,7 +187,7 @@ const TileReplacementPage = () => {
               <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Заяви оглед</Link>
             </Button>
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold px-8">
-              <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обадете се: 088 499 7659</a>
+              <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обадете се: 089 397 1873</a>
             </Button>
           </div>
         </section>
@@ -291,7 +291,7 @@ const TileReplacementPage = () => {
                 <Link to={getPath('contact')}><Eye className="w-5 h-5 mr-2" />Поискайте безплатна оферта</Link>
               </Button>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold px-8">
-                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 089 397 1873</a>
               </Button>
             </div>
           </div>
@@ -434,7 +434,7 @@ const TileReplacementPage = () => {
                 <Link to={getPath('contact')}><Phone className="w-5 h-5 mr-2" />Свържете се с нас</Link>
               </Button>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold px-8">
-                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 088 499 7659</a>
+                <a href="tel:0893971873"><Phone className="w-5 h-5 mr-2" />Обади се: 089 397 1873</a>
               </Button>
             </div>
           </div>

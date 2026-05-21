@@ -11,7 +11,7 @@ const sv = {
     badge1: "15+ års erfarenhet", badge2: "15 års garanti", badge3: "Inspektion inom 24h",
     title: "Professionell takreparation i Varna, Bulgarien",
     subtitle: "Stoppa läckor för gott. Kvalitetsreparation och tätning med skriftlig garanti.",
-    ctaPrimary: "Begär gratis inspektion", ctaPhone: "088 499 7659",
+    ctaPrimary: "Begär gratis inspektion", ctaPhone: "089 397 1873",
     urgency: "⚡ Nödfall: Vi svarar inom timmar",
   },
   services: {
@@ -93,7 +93,7 @@ const sv = {
   beforeAfter: { title: "Före & Efter", subtitle: "Se förvandlingarna vi uppnår med våra reparationer. Dra för att jämföra.", before: "Före", after: "Efter" },
   meta: { homeTitle: "Takreparation Varna Bulgarien - Gratis inspektion 24h", homeDesc: "Professionell takreparation i Varna, Bulgarien. 15+ års erfarenhet, 15 års garanti.", homeKeywords: "takreparation Varna, tätning Varna, taktjänster Bulgarien" },
   inspection: {
-    meta: { title: "Gratis takinspektion Varna | 088 499 7659", desc: "Begär en gratis takinspektion. Vi svarar inom 24 timmar." },
+    meta: { title: "Gratis takinspektion Varna | 089 397 1873", desc: "Begär en gratis takinspektion. Vi svarar inom 24 timmar." },
     badge: "100% Gratis – Inga förpliktelser",
     heroTitle: "Begär en Gratis Takinspektion",
     heroSubtitle: "Vår specialist kommer till dig, inspekterar ditt tak och ger en ärlig bedömning – helt gratis.",
@@ -104,7 +104,7 @@ const sv = {
     addressPlaceholder: "Gata / Område / Stad", notesPlaceholder: "Beskriv problemet kort...",
     submitBtn: "Begär Gratis Inspektion", sending: "Skickar...",
     successTitle: "Förfrågan Skickad!", successDesc: "Vi kontaktar dig inom 24 timmar.",
-    errorTitle: "Fel", errorDesc: "Försök igen eller ring 088 499 7659.",
+    errorTitle: "Fel", errorDesc: "Försök igen eller ring 089 397 1873.",
     trust1: "15+ års erfarenhet", trust2: "Licensierat företag", trust3: "Inspektion inom 24h", trust4: "Varna & region",
     contactTitle: "Kontakta Oss", callUs: "Ring oss", emailUs: "Maila oss",
     officeAddress: "Usta Kolyu Ficheto gata 25A", city: "Varna 9000",

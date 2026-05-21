@@ -100,7 +100,7 @@ const MobileMenu = ({ isOpen, onClose, isScrolled, serviceLinks, solarLinks, scr
             <Button asChild className="w-full h-14 bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold">
               <a href="tel:0893971873" className="flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" />
-                088 499 7659
+                089 397 1873
               </a>
             </Button>
             <Button asChild className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold">
@@ -271,7 +271,7 @@ const Header = () => {
                 className="flex items-center gap-1.5 bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 rounded-lg px-3 h-10 font-bold text-sm transition-colors"
               >
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                <span>088 499 7659</span>
+                <span>089 397 1873</span>
               </a>
               <button
                 className="text-foreground p-2 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-md hover:bg-muted transition-colors relative z-[120]"
@@ -332,7 +332,7 @@ const Header = () => {
               >
                 <a href="tel:0893971873" className="flex items-center gap-2">
                   <Phone className="w-4 h-4 flex-shrink-0" />
-                  <span>088 499 7659</span>
+                  <span>089 397 1873</span>
                 </a>
               </Button>
 
