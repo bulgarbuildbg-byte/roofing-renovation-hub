@@ -631,16 +631,90 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                       </p>
                     </div>
                   ) : (
-                    <div className="bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 text-center mb-6">
-                      <p className="text-primary-foreground/80 text-sm mb-2">Ориентировъчна цена</p>
-                      <p className="text-4xl md:text-5xl font-extrabold text-primary-foreground mb-4">
-                        {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
-                      </p>
-                      <div className="flex flex-wrap justify-center gap-4 text-xs">
-                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Eye className="w-4 h-4" /> Безплатен оглед</span>
-                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Shield className="w-4 h-4" /> Гаранция</span>
-                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Clock className="w-4 h-4" /> Труд + материали</span>
+                    <div className="relative mb-6">
+                      <div className={`bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 text-center ${!priceUnlocked ? "blur-md select-none pointer-events-none" : ""}`} aria-hidden={!priceUnlocked}>
+                        <p className="text-primary-foreground/80 text-sm mb-2">Ориентировъчна цена</p>
+                        <p className="text-4xl md:text-5xl font-extrabold text-primary-foreground mb-4">
+                          {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-4 text-xs">
+                          <span className="flex items-center gap-1.5 text-primary-foreground/90"><Eye className="w-4 h-4" /> Безплатен оглед</span>
+                          <span className="flex items-center gap-1.5 text-primary-foreground/90"><Shield className="w-4 h-4" /> Гаранция</span>
+                          <span className="flex items-center gap-1.5 text-primary-foreground/90"><Clock className="w-4 h-4" /> Труд + материали</span>
+                        </div>
                       </div>
+
+                      {!priceUnlocked && (
+                        <div className="absolute inset-0 flex items-center justify-center p-2">
+                          <div className="w-full max-w-md bg-card border-2 border-accent/40 rounded-2xl shadow-2xl p-6 animate-fade-in">
+                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mx-auto mb-3">
+                              <Lock className="w-6 h-6 text-accent" />
+                            </div>
+                            <h3 className="text-lg font-bold text-center text-foreground mb-1">
+                              Вашата ориентировъчна цена е готова
+                            </h3>
+                            <p className="text-xs text-muted-foreground text-center mb-4">
+                              Оставете данните си, за да я видите. Без спам, без ангажимент.
+                            </p>
+                            <div className="space-y-2.5">
+                              <Input
+                                placeholder="Име *"
+                                value={gateData.name}
+                                onChange={e => setGateData({ ...gateData, name: e.target.value })}
+                                className="h-11"
+                              />
+                              <Input
+                                type="tel"
+                                placeholder="Телефон *"
+                                value={gateData.phone}
+                                onChange={e => setGateData({ ...gateData, phone: e.target.value })}
+                                className="h-11"
+                              />
+                              <Input
+                                type="email"
+                                placeholder="Имейл *"
+                                value={gateData.email}
+                                onChange={e => setGateData({ ...gateData, email: e.target.value })}
+                                className="h-11"
+                              />
+                              <label className="flex items-start gap-2 text-xs text-muted-foreground cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  checked={gateConsent}
+                                  onChange={e => setGateConsent(e.target.checked)}
+                                  className="mt-0.5 accent-accent"
+                                />
+                                <span>Съгласен съм да бъда потърсен за безплатна консултация.</span>
+                              </label>
+                              <Button
+                                size="lg"
+                                className="w-full h-12 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground"
+                                onClick={handleUnlockPrice}
+                                disabled={gateSubmitting || !gateConsent}
+                              >
+                                {gateSubmitting ? (
+                                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Изпращане...</>
+                                ) : (
+                                  <>Покажи моята цена</>
+                                )}
+                              </Button>
+                              <a href="tel:0893971873" className="flex items-center justify-center gap-1.5 text-xs text-accent hover:underline font-medium">
+                                <Phone className="w-3.5 h-3.5" /> Или се обадете: 089 397 1873
+                              </a>
+                              <p className="text-[10px] text-muted-foreground text-center pt-1">
+                                Безплатен оглед · Без ангажимент · Отговор до 24ч
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {priceUnlocked && !priceRange.isInspection && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4 flex items-center gap-2 text-sm text-green-800">
+                      <CheckCircle className="w-4 h-4 shrink-0" />
+                      <span>Цената е отключена. Ще се свържем с вас за безплатен оглед.</span>
                     </div>
                   )}
 
