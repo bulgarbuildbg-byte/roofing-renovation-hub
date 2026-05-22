@@ -336,10 +336,21 @@ const Header = () => {
                 </a>
               </Button>
 
-              {/* Free Inspection button */}
+              {/* Quote Request button (primary conversion CTA) */}
               <Button
                 asChild
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 px-5"
+              >
+                <Link to={getPath('quote')}>
+                  Заявете оферта
+                </Link>
+              </Button>
+
+              {/* Free Inspection button */}
+              <Button
+                asChild
+                variant="outline"
+                className="font-bold h-11 px-4"
               >
                 <Link to={getPath('inspection')}>
                   {t('nav.freeInspection')}

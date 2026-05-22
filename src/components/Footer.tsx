@@ -21,7 +21,7 @@ const Footer = () => {
     { key: "maintenance", routeKey: "maintenance" },
   ];
 
-  const companyRoutes: { key: string; routeKey: RouteKey }[] = [
+  const companyRoutes: { key: string; routeKey: RouteKey; label?: string }[] = [
     { key: "about", routeKey: "about" },
     { key: "projects", routeKey: "projects" },
     { key: "reviews", routeKey: "reviews" },
@@ -32,6 +32,7 @@ const Footer = () => {
     { key: "faq", routeKey: "faq" },
     { key: "contact", routeKey: "contact" },
     { key: "freeInspection", routeKey: "inspection" },
+    { key: "quote", routeKey: "quote", label: "Заявете оферта" },
     { key: "cities", routeKey: "cities" },
   ];
 
@@ -118,7 +119,7 @@ const Footer = () => {
                       to={getPath(c.routeKey)}
                       className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm"
                     >
-                      {t(`nav.${c.key}`)}
+                      {c.label || t(`nav.${c.key}`)}
                     </Link>
                   </li>
                 ))}

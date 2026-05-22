@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const MobileBottomBar = () => {
   const { t } = useTranslation();
+  const { getPath } = useLocalizedPath();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -14,13 +17,6 @@ const MobileBottomBar = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-background/95 backdrop-blur-md border-t border-border safe-area-bottom">
@@ -44,11 +40,17 @@ const MobileBottomBar = () => {
           </a>
         </Button>
         <Button
-          onClick={() => { trackEvent("button_click", "offer_button"); scrollToContact(); }}
+          asChild
           className="flex-1 h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold shadow-lg text-[13px] px-2"
         >
-          <MessageSquare className="w-4 h-4 flex-shrink-0" />
-          <span className="whitespace-nowrap">{t('mobile.freeInspection')}</span>
+          <Link
+            to={getPath('quote')}
+            onClick={() => trackEvent("button_click", "quote_request_mobile_cta")}
+            className="flex items-center justify-center gap-1"
+          >
+            <MessageSquare className="w-4 h-4 flex-shrink-0" />
+            <span className="whitespace-nowrap">Заявете оферта</span>
+          </Link>
         </Button>
       </div>
     </div>
