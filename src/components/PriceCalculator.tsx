@@ -124,6 +124,12 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  // Gate (lead-magnet) state — price is hidden until name+phone+email submitted
+  const [priceUnlocked, setPriceUnlocked] = useState(false);
+  const [gateData, setGateData] = useState({ name: "", phone: "", email: "" });
+  const [gateSubmitting, setGateSubmitting] = useState(false);
+  const [gateConsent, setGateConsent] = useState(true);
+
   // Determine which steps are active
   const steps = useMemo((): WizardStep[] => {
     const s: WizardStep[] = ["roofType"];
