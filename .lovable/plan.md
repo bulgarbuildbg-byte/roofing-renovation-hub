@@ -1,95 +1,65 @@
-## Нова страница „Заявете оферта" — самостоятелен URL за конверсии
+## Цел
 
-Изграждане на отделна продажбена страница за заявки/оферти с уникален URL, оптимизирана за Google Ads и проследяване на конверсии. Тя ще е различна от „Контакти" (фирмена информация) и от „Безплатен оглед" (вече съществуваща inspection страница).
+Калкулаторът да работи като „lead magnet" — клиентът минава стъпките, но за да види ориентировъчната цена в края, трябва да остави **име и телефон и имейл**. Така всеки, който стига до резултата, става лид в CRM-а.
 
-### URL структура (всички 10 езика)
+## Промени само в `src/components/PriceCalculator.tsx`
 
-Нов `RouteKey: 'quote'` в `src/i18n/routes.ts`:
+### 1. Нова стъпка „unlock" преди резултата
 
-| Език | Slug |
-|---|---|
-| bg | `zayavete-oferta` |
-| en | `request-quote` |
-| de | `angebot-anfordern` |
-| fr | `demander-devis` |
-| nl | `offerte-aanvragen` |
-| sv | `begar-offert` |
-| no | `be-om-tilbud` |
-| fi | `pyyda-tarjous` |
-| ru | `zaprosit-predlozhenie` |
-| ua | `zaprosyty-propozytsiyu` |
+- Добавя се ново състояние `priceUnlocked` (boolean, по подразбиране `false`).
+- Когато потребителят натисне „Вижте ориентировъчна цена" на стъпка „size":
+  - **Не** отива директно на `result`.
+  - Отива на `result`, но цената е **скрита/blur-ната** зад gate-карта с форма за телефон име и имейл.
+- Изключение: при `problem === "inspection"` (безплатен оглед) — цена няма, така че gate-ът се пропуска и се показва както досега.
 
-Това дава пълен URL: `https://www.remontnapokrivivarna.bg/bg/zayavete-oferta`
+### 2. Gate-карта (показва се вместо цената, докато `!priceUnlocked`)
 
-### Файлове за създаване/промяна
+Съдържание:
 
-**Нови:**
-- `src/pages/QuoteRequestPage.tsx` — страницата (Hero, форма, trust, телефон, FAQ кратко)
-- `src/pages/ThankYouPage.tsx` — `/bg/blagodarim-vi` за Google Ads conversion fire
-- `src/components/QuoteRequestForm.tsx` — едностъпкова форма (Име, Телефон*, Email, Град, Вид услуга, Описание, Снимки), различна от 5-стъпковата `MultiStepInquiryForm`
+- Заглавие: „Вашата ориентировъчна цена е готова"
+- Подзаглавие: „Оставете име и телефон, за да я видите. Без спам, без ангажимент."
+- Поле **Име*** (text)
+- Поле **Телефон*** (tel, BG валидация — мин. 9 цифри)
+- Чекбокс „Съгласен съм да бъда потърсен за безплатна консултация" (по подразбиране включен)
+- Бутон **„Покажи моята цена"** (primary, accent)
+- Под него: „Или се обадете директно: **089 397 1873**" (tel: линк)
+- Trust ред: безплатен оглед · без ангажимент · отговор до 24ч
 
-**Промени:**
-- `src/i18n/routes.ts` — нови route keys `quote` и `thankYou` с localized slugs
-- `src/components/LocalizedPageRouter.tsx` — регистрация в `PAGE_MAP`
-- `src/components/Header.tsx` — добавяне на главен CTA „Заявете оферта" в навигацията (бутон с висок контраст)
-- `src/components/MobileBottomBar.tsx` — линк към `/zayavete-oferta` като основен sticky CTA
-- `src/components/Footer.tsx` — линк в полезни връзки
-- `public/sitemap-*.xml` — добавяне на новия URL във всичките 10 sitemap-а + индекса с hreflang връзки
+Визуално: на мястото на гръд-картата с цената; преди това може да се покаже размазана/локирана версия на цената (`blur-md select-none` с икона катинар отгоре) за psychological pull.
 
-### Структура на страницата
+### 3. Логика при „Покажи моята цена"
 
-1. **Hero** (тъмен фон, висок контраст)
-   - H1: „Заявете оферта за ремонт на покрив"
-   - Подзаглавие за безплатен оглед и бърза реакция
-   - Dual CTA: „Изпрати запитване" (scroll до форма) + „Обади се сега" (`tel:0893971873`)
-   - Видим телефон в hero
+- Валидация на име и телефон.
+- Записва **lead в `inquiries**` със същата структура като сегашния submit, но:
+  - `name` = въведеното име (single field, без фамилия)
+  - `phone` = въведения телефон
+  - `email` = `"calculator-lead@noemail.bg"` (placeholder, тъй като не е попълнен)
+  - `address` = `null`
+  - `service_type`, `area_sqm`, `preferred_material`, `description` (от `buildDescription()`) — както сега
+  - `session_id`, `referrer_source` — както сега
+  - Допълнителен маркер в `description`: `[Lead от калкулатор — частичен]`
+- Записва автоматично в `call_log` (както сегашния submit).
+- `trackEvent("calculator_price_unlocked")` + GA conversion (`quote_submit` label, същия Google Ads ID).
+- При успех: `setPriceUnlocked(true)` → разкрива цената.
+- При грешка: toast и не отключва.
 
-2. **Форма за запитване** (центрирана, фокус на страницата)
-   - Име
-   - Телефон (задължително)
-   - Email (по желание)
-   - Град / населено място (с default „Варна")
-   - Вид услуга (Select с опции от спецификацията)
-   - Кратко описание (Textarea)
-   - Качване на снимки (multi-file, използваме съществуващия Supabase storage pattern от `MultiStepInquiryForm`)
-   - Бутон „Изпрати запитване"
-   - Помощен текст под формата
+### 4. След отключване
 
-3. **Trust Strip** (6 предимства с икони)
-   - Безплатен оглед · Писмена гаранция (15 г.) · Работа с договор · Бърза реакция · Опитни майстори · Варна и региона
+Показва се настоящият UI с цената + двата CTA-та („Заявете безплатен оглед" / „Обадете се сега"). Малък потвърждаващ banner отгоре: „✓ Цената е отключена. Ще се свържем с вас за безплатен оглед."
 
-4. **Видим телефон блок** — голям, sticky на мобилно
-5. **Кратки отзиви** (2-3 testimonials за social proof)
-6. **Кратко FAQ** (3-4 въпроса от готовите данни)
+Сегашната „Заявете безплатен оглед" форма остава непроменена — тя е следващата стъпка във фунията (по-богат лид с адрес, имейл, снимки).
 
-### Submission flow & Google Ads tracking
+### 5. Reset
 
-- Формата записва в `public.inquiries` (същата таблица като `MultiStepInquiryForm`) с `referrer_source` и `session_id` от `analytics.ts`
-- Сet `lead_source = 'quote_request_page'` за сегментация в CRM
-- При успех: **`navigate('/bg/blagodarim-vi')`** (Thank-you страница)
-- Thank-you страница изстрелва:
-  - `trackEvent('conversion', { type: 'quote_request' })` (custom analytics)
-  - `window.gtag?.('event', 'conversion', { send_to: 'AW-XXX/YYY' })` — placeholder, който потребителят попълва когато достави Google Ads ID
-  - `dataLayer.push({ event: 'quote_submitted' })` — за GTM
-- Telephone tap използва съществуващия global tel: interceptor (виж memory: Google Ads Call Tracking)
+`resetWizard()` нулира и `priceUnlocked`, и gate-формата.
 
-### SEO
+## Какво НЕ се променя
 
-- Уникален `<title>`: „Заявете оферта за ремонт на покрив във Варна | Бърза реакция"
-- Meta description ≤160 символа
-- Canonical: `https://www.remontnapokrivivarna.bg/bg/zayavete-oferta`
-- hreflang за всички 10 езика (през `HreflangTags`)
-- JSON-LD: `ContactPage` + `Service` schema
-- H1 единствен, semantic HTML, alt текст на иконите
-- Латински slug за всички езици (по проектния стандарт)
+- Стъпки 1–5 от калкулатора (избор на покрив, материал, проблем, обхват, размер) — без промяна.
+- `MultiStepInquiryForm`, `QuoteRequestForm`, `SolarCalculator`, `CalculatorDialog` — без промяна.
+- База данни, RLS, edge функции — без промяна (използва се съществуващата таблица `inquiries`).
+- Дизайн системата — без промяна (същите accent/primary токени).
 
-### Какво НЕ се променя
+## Резултат
 
-- Съществуваща страница „Контакти" (`/bg/kontakti`) — остава както е (фирмена визитка)
-- Страница „Безплатен оглед" (`/bg/bezplaten-ogled`) — остава, тя е 5-стъпков interactive funnel
-- `MultiStepInquiryForm` компонент — остава да се ползва другаде
-- Дизайн система, цветове, бизнес логика на CRM, RLS, други маршрути
-
-### Отворен въпрос
-
-Имате ли Google Ads Conversion ID (формат `AW-XXXXXXXXX/YYYYYYY`)? Ако да — ще го заложа директно. Ако не — оставям placeholder + коментар къде да се добави по-късно.
+Всеки потребител, който стигне до резултата на калкулатора, става записан лид с име и телефон. Сегашната форма за оглед остава като втора, по-дълбока стъпка за по-квалифицирани заявки.

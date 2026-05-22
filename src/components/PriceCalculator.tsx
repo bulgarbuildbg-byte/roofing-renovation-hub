@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain } from "lucide-react";
+import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain, Lock } from "lucide-react";
 import { trackEvent, trackCalculatorEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -123,6 +123,12 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  // Gate (lead-magnet) state — price is hidden until name+phone+email submitted
+  const [priceUnlocked, setPriceUnlocked] = useState(false);
+  const [gateData, setGateData] = useState({ name: "", phone: "", email: "" });
+  const [gateSubmitting, setGateSubmitting] = useState(false);
+  const [gateConsent, setGateConsent] = useState(true);
 
   // Determine which steps are active
   const steps = useMemo((): WizardStep[] => {
@@ -313,6 +319,81 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setSubmitting(false);
   };
 
+  const handleUnlockPrice = async () => {
+    const name = gateData.name.trim();
+    const phone = gateData.phone.trim();
+    const email = gateData.email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name || name.length < 2) {
+      toast({ title: "Моля въведете вашето име", variant: "destructive" });
+      return;
+    }
+    if (phone.replace(/\D/g, "").length < 9) {
+      toast({ title: "Моля въведете валиден телефонен номер", variant: "destructive" });
+      return;
+    }
+    if (!email || !emailRegex.test(email)) {
+      toast({ title: "Моля въведете валиден имейл адрес", variant: "destructive" });
+      return;
+    }
+    setGateSubmitting(true);
+
+    const description = `[Lead от калкулатор — частичен]\n${buildDescription()}`;
+
+    const { data: inquiry, error } = await supabase
+      .from("inquiries")
+      .insert({
+        name,
+        phone,
+        email,
+        address: null,
+        service_type: problemToServiceType(problem) as any,
+        area_sqm: roofSize,
+        preferred_material: materialToEnum(material) as any || null,
+        description,
+        session_id: getSessionId(),
+        referrer_source: getFirstReferrerSource(),
+      } as any)
+      .select()
+      .single();
+
+    if (error || !inquiry) {
+      toast({ title: "Грешка", description: "Моля, опитайте отново.", variant: "destructive" });
+      setGateSubmitting(false);
+      return;
+    }
+
+    try {
+      await supabase.from("call_log" as any).insert({
+        client_name: name,
+        client_phone: phone,
+        client_email: email,
+        call_direction: "inbound",
+        notes: "Автоматично от калкулатор (gate)",
+        inquiry_id: inquiry.id,
+        created_by: "00000000-0000-0000-0000-000000000000",
+      });
+    } catch {}
+
+    trackEvent("button_click", "calculator_price_unlocked");
+    try {
+      const w = window as any;
+      if (typeof w.gtag === "function") {
+        w.gtag("event", "conversion", { send_to: "AW-17872435541/quote_submit" });
+        w.gtag("event", "conversion", { send_to: "AW-18066399675/quote_submit" });
+      }
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: "calculator_price_unlocked" });
+    } catch {}
+
+    // Pre-fill the deeper inspection form with the data we already have
+    const [firstName, ...rest] = name.split(" ");
+    setFormData(fd => ({ ...fd, firstName: firstName || name, lastName: rest.join(" "), phone, email }));
+
+    setPriceUnlocked(true);
+    setGateSubmitting(false);
+  };
+
   const resetWizard = () => {
     setCurrentStep("roofType");
     setRoofType("");
@@ -325,6 +406,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setFormData({ firstName: "", lastName: "", phone: "", email: "", address: "", description: "" });
     setFiles([]);
     setSubmitted(false);
+    setPriceUnlocked(false);
+    setGateData({ name: "", phone: "", email: "" });
+    setGateConsent(true);
   };
 
   const OptionCard = ({ id, label, icon: Icon, image, isSelected, onClick }: {
@@ -547,16 +631,90 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
                       </p>
                     </div>
                   ) : (
-                    <div className="bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 text-center mb-6">
-                      <p className="text-primary-foreground/80 text-sm mb-2">Ориентировъчна цена</p>
-                      <p className="text-4xl md:text-5xl font-extrabold text-primary-foreground mb-4">
-                        {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
-                      </p>
-                      <div className="flex flex-wrap justify-center gap-4 text-xs">
-                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Eye className="w-4 h-4" /> Безплатен оглед</span>
-                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Shield className="w-4 h-4" /> Гаранция</span>
-                        <span className="flex items-center gap-1.5 text-primary-foreground/90"><Clock className="w-4 h-4" /> Труд + материали</span>
+                    <div className="relative mb-6">
+                      <div className={`bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 text-center ${!priceUnlocked ? "blur-md select-none pointer-events-none" : ""}`} aria-hidden={!priceUnlocked}>
+                        <p className="text-primary-foreground/80 text-sm mb-2">Ориентировъчна цена</p>
+                        <p className="text-4xl md:text-5xl font-extrabold text-primary-foreground mb-4">
+                          {priceRange.min.toLocaleString()} – {priceRange.max.toLocaleString()} €
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-4 text-xs">
+                          <span className="flex items-center gap-1.5 text-primary-foreground/90"><Eye className="w-4 h-4" /> Безплатен оглед</span>
+                          <span className="flex items-center gap-1.5 text-primary-foreground/90"><Shield className="w-4 h-4" /> Гаранция</span>
+                          <span className="flex items-center gap-1.5 text-primary-foreground/90"><Clock className="w-4 h-4" /> Труд + материали</span>
+                        </div>
                       </div>
+
+                      {!priceUnlocked && (
+                        <div className="absolute inset-0 flex items-center justify-center p-2">
+                          <div className="w-full max-w-md bg-card border-2 border-accent/40 rounded-2xl shadow-2xl p-6 animate-fade-in">
+                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-accent/10 mx-auto mb-3">
+                              <Lock className="w-6 h-6 text-accent" />
+                            </div>
+                            <h3 className="text-lg font-bold text-center text-foreground mb-1">
+                              Вашата ориентировъчна цена е готова
+                            </h3>
+                            <p className="text-xs text-muted-foreground text-center mb-4">
+                              Оставете данните си, за да я видите. Без спам, без ангажимент.
+                            </p>
+                            <div className="space-y-2.5">
+                              <Input
+                                placeholder="Име *"
+                                value={gateData.name}
+                                onChange={e => setGateData({ ...gateData, name: e.target.value })}
+                                className="h-11"
+                              />
+                              <Input
+                                type="tel"
+                                placeholder="Телефон *"
+                                value={gateData.phone}
+                                onChange={e => setGateData({ ...gateData, phone: e.target.value })}
+                                className="h-11"
+                              />
+                              <Input
+                                type="email"
+                                placeholder="Имейл *"
+                                value={gateData.email}
+                                onChange={e => setGateData({ ...gateData, email: e.target.value })}
+                                className="h-11"
+                              />
+                              <label className="flex items-start gap-2 text-xs text-muted-foreground cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  checked={gateConsent}
+                                  onChange={e => setGateConsent(e.target.checked)}
+                                  className="mt-0.5 accent-accent"
+                                />
+                                <span>Съгласен съм да бъда потърсен за безплатна консултация.</span>
+                              </label>
+                              <Button
+                                size="lg"
+                                className="w-full h-12 text-base font-bold bg-accent hover:bg-accent/90 text-accent-foreground"
+                                onClick={handleUnlockPrice}
+                                disabled={gateSubmitting || !gateConsent}
+                              >
+                                {gateSubmitting ? (
+                                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Изпращане...</>
+                                ) : (
+                                  <>Покажи моята цена</>
+                                )}
+                              </Button>
+                              <a href="tel:0893971873" className="flex items-center justify-center gap-1.5 text-xs text-accent hover:underline font-medium">
+                                <Phone className="w-3.5 h-3.5" /> Или се обадете: 089 397 1873
+                              </a>
+                              <p className="text-[10px] text-muted-foreground text-center pt-1">
+                                Безплатен оглед · Без ангажимент · Отговор до 24ч
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {priceUnlocked && !priceRange.isInspection && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4 flex items-center gap-2 text-sm text-green-800">
+                      <CheckCircle className="w-4 h-4 shrink-0" />
+                      <span>Цената е отключена. Ще се свържем с вас за безплатен оглед.</span>
                     </div>
                   )}
 
