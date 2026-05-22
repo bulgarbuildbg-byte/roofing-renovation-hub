@@ -319,6 +319,81 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setSubmitting(false);
   };
 
+  const handleUnlockPrice = async () => {
+    const name = gateData.name.trim();
+    const phone = gateData.phone.trim();
+    const email = gateData.email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name || name.length < 2) {
+      toast({ title: "Моля въведете вашето име", variant: "destructive" });
+      return;
+    }
+    if (phone.replace(/\D/g, "").length < 9) {
+      toast({ title: "Моля въведете валиден телефонен номер", variant: "destructive" });
+      return;
+    }
+    if (!email || !emailRegex.test(email)) {
+      toast({ title: "Моля въведете валиден имейл адрес", variant: "destructive" });
+      return;
+    }
+    setGateSubmitting(true);
+
+    const description = `[Lead от калкулатор — частичен]\n${buildDescription()}`;
+
+    const { data: inquiry, error } = await supabase
+      .from("inquiries")
+      .insert({
+        name,
+        phone,
+        email,
+        address: null,
+        service_type: problemToServiceType(problem) as any,
+        area_sqm: roofSize,
+        preferred_material: materialToEnum(material) as any || null,
+        description,
+        session_id: getSessionId(),
+        referrer_source: getFirstReferrerSource(),
+      } as any)
+      .select()
+      .single();
+
+    if (error || !inquiry) {
+      toast({ title: "Грешка", description: "Моля, опитайте отново.", variant: "destructive" });
+      setGateSubmitting(false);
+      return;
+    }
+
+    try {
+      await supabase.from("call_log" as any).insert({
+        client_name: name,
+        client_phone: phone,
+        client_email: email,
+        call_direction: "inbound",
+        notes: "Автоматично от калкулатор (gate)",
+        inquiry_id: inquiry.id,
+        created_by: "00000000-0000-0000-0000-000000000000",
+      });
+    } catch {}
+
+    trackEvent("button_click", "calculator_price_unlocked");
+    try {
+      const w = window as any;
+      if (typeof w.gtag === "function") {
+        w.gtag("event", "conversion", { send_to: "AW-17872435541/quote_submit" });
+        w.gtag("event", "conversion", { send_to: "AW-18066399675/quote_submit" });
+      }
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({ event: "calculator_price_unlocked" });
+    } catch {}
+
+    // Pre-fill the deeper inspection form with the data we already have
+    const [firstName, ...rest] = name.split(" ");
+    setFormData(fd => ({ ...fd, firstName: firstName || name, lastName: rest.join(" "), phone, email }));
+
+    setPriceUnlocked(true);
+    setGateSubmitting(false);
+  };
+
   const resetWizard = () => {
     setCurrentStep("roofType");
     setRoofType("");
@@ -331,6 +406,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     setFormData({ firstName: "", lastName: "", phone: "", email: "", address: "", description: "" });
     setFiles([]);
     setSubmitted(false);
+    setPriceUnlocked(false);
+    setGateData({ name: "", phone: "", email: "" });
+    setGateConsent(true);
   };
 
   const OptionCard = ({ id, label, icon: Icon, image, isSelected, onClick }: {
