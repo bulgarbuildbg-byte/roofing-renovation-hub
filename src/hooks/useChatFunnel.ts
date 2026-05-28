@@ -75,19 +75,28 @@ export function useChatFunnel() {
   }, []);
 
   // ---- Submit lead to Supabase ----
-  const submitLead = useCallback(async (leadData: CollectedData, serviceType: string) => {
+  const submitLead = useCallback(async (leadData: CollectedData, serviceType: string, flowLabel: string) => {
     setIsSubmitting(true);
     try {
-      const desc = [
+      const parts = [
+        `Източник: Чатбот — ${flowLabel}`,
         leadData.problem && `Проблем: ${leadData.problem}`,
+        leadData.serviceNeed && `Нужда: ${leadData.serviceNeed}`,
+        leadData.propertyType && `Имот: ${leadData.propertyType}`,
         leadData.roofType && `Покрив: ${leadData.roofType}`,
         leadData.area && `Площ: ${leadData.area} м²`,
         leadData.roofCondition && `Състояние: ${leadData.roofCondition}`,
         leadData.monthlyBill && `Месечна сметка: ${leadData.monthlyBill} лв`,
-        leadData.solarProject && `Проект: ${leadData.solarProject}`,
-        leadData.topic && `Тема: ${leadData.topic}`,
+        leadData.solarProject && `Соларен проект: ${leadData.solarProject}`,
+        leadData.topic && `Въпрос: ${leadData.topic}`,
+        leadData.address && `Адрес: ${leadData.address}`,
         leadData.hasLeak && "Има теч",
-      ].filter(Boolean).join("; ");
+      ].filter(Boolean);
+      const desc = parts.length > 1
+        ? parts.join("; ")
+        : "Заявка през чатбот (без допълнителни детайли)";
+
+      const hasRealEmail = !!leadData.email && !leadData.email.includes("@noemail");
 
       await supabase.from("inquiries").insert({
         name: leadData.name || "Чатбот клиент",
@@ -96,9 +105,10 @@ export function useChatFunnel() {
         address: leadData.address || null,
         service_type: serviceType as any,
         area_sqm: leadData.area || null,
-        description: `[Chatbot] ${desc}`,
+        description: desc,
         session_id: getSessionId(),
         referrer_source: getFirstReferrerSource(),
+        email_consent: hasRealEmail,
       });
     } catch (e) {
       console.error("Lead submit error:", e);
@@ -108,8 +118,8 @@ export function useChatFunnel() {
   }, []);
 
   // ---- Show confirmation ----
-  const showConfirmation = useCallback((leadData: CollectedData, serviceType: string) => {
-    submitLead(leadData, serviceType);
+  const showConfirmation = useCallback((leadData: CollectedData, serviceType: string, flowLabel: string) => {
+    submitLead(leadData, serviceType, flowLabel);
     addBot({
       content: "✅ Благодарим ви! Ще се свържем с вас възможно най-скоро.",
       confirmation: true,
@@ -117,6 +127,8 @@ export function useChatFunnel() {
     setCurrentFlow(null);
     setShowInput(false);
   }, [addBot, submitLead]);
+
+  // ---- Roof calculator result ----
 
   // ---- Roof calculator result ----
   const showRoofCalcResult = useCallback((d: CollectedData) => {
@@ -422,7 +434,8 @@ export function useChatFunnel() {
 
     // QUESTION flow — free text (will be handled by AI via parent)
     if (currentFlow === "QUESTION") {
-      // Return the text so parent can send to AI
+      // Capture topic so it ends up in the lead description
+      setData(prev => ({ ...prev, topic: text }));
       return text;
     }
   }, [currentFlow, flowStep, data, addBot, addUser, showRoofCalcResult, showSolarCalcResult]);
@@ -433,20 +446,38 @@ export function useChatFunnel() {
     setData(merged);
 
     let serviceType = "other";
-    if (currentFlow === "LEAK") serviceType = "leak_repair";
-    else if (currentFlow === "QUOTE") {
+    let flowLabel = "Заявка";
+
+    if (currentFlow === "LEAK") {
+      serviceType = "leak_repair";
+      flowLabel = "Спешен теч";
+    } else if (currentFlow === "QUOTE") {
+      flowLabel = "Заявка за оферта";
       if (data.serviceNeed === "repair") serviceType = "repair";
       else if (data.serviceNeed === "waterproofing") serviceType = "waterproofing";
-      else if (data.serviceNeed === "solar") serviceType = "other";
-      else serviceType = "other";
+      else serviceType = "other"; // solar / друго
+    } else if (currentFlow === "CALLBACK") {
+      serviceType = "other";
+      flowLabel = "Заявка за обаждане";
+    } else if (currentFlow === "INSPECTION") {
+      serviceType = "other"; // огледът не е услуга — определя се след оглед
+      flowLabel = "Безплатен оглед";
+    } else if (currentFlow === "ROOF_REPAIR") {
+      flowLabel = "Ремонт на покрив";
+      if (data.problem === "Теч") serviceType = "leak_repair";
+      else if (data.problem === "Смяна на керемиди") serviceType = "replacement";
+      else serviceType = "repair";
+    } else if (currentFlow === "SOLAR") {
+      serviceType = "other";
+      flowLabel = "Соларна система";
+    } else if (currentFlow === "QUESTION") {
+      serviceType = "other";
+      flowLabel = "Въпрос";
     }
-    else if (currentFlow === "CALLBACK") serviceType = "other";
-    else if (currentFlow === "INSPECTION") serviceType = "maintenance";
-    else if (currentFlow === "ROOF_REPAIR") serviceType = "repair";
-    else if (currentFlow === "SOLAR") serviceType = "other";
 
-    showConfirmation(merged, serviceType);
+    showConfirmation(merged, serviceType, flowLabel);
   }, [data, currentFlow, showConfirmation]);
+
 
   // ---- After AI answers a question, show CTA ----
   const showAfterQuestionCTA = useCallback(() => {

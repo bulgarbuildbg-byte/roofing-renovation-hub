@@ -116,9 +116,14 @@ const ContactDatabasePage = () => {
             <tbody>
               {filtered.map(c => (
                 <tr key={c.id} className="border-b border-border hover:bg-muted/30">
+
                   <td className="px-4 py-3 font-medium">{c.name}</td>
                   <td className="px-4 py-3">
-                    <a href={`mailto:${c.email}`} className="text-primary hover:underline">{c.email}</a>
+                    {/@noemail\.|@quote\.local|@chatbot/i.test(c.email) ? (
+                      <Badge variant="secondary" className="text-xs">Без имейл</Badge>
+                    ) : (
+                      <a href={`mailto:${c.email}`} className="text-primary hover:underline">{c.email}</a>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     <a href={`tel:${c.phone}`} className="text-accent hover:underline flex items-center gap-1">
@@ -129,12 +134,15 @@ const ContactDatabasePage = () => {
                   <td className="px-4 py-3">
                     {c.unsubscribed_at ? (
                       <Badge variant="destructive" className="text-xs">Отписан</Badge>
+                    ) : /@noemail\.|@quote\.local|@chatbot/i.test(c.email) ? (
+                      <Badge variant="secondary" className="text-xs">Без имейл</Badge>
                     ) : c.email_consent ? (
                       <Badge className="text-xs bg-green-500/10 text-green-600 border-green-500/20">Да</Badge>
                     ) : (
                       <Badge variant="secondary" className="text-xs">Не</Badge>
                     )}
                   </td>
+
                   <td className="px-4 py-3">
                     <Badge variant="outline" className="text-xs">{c.status}</Badge>
                   </td>

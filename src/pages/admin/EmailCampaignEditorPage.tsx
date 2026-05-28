@@ -54,10 +54,19 @@ const EmailCampaignEditorPage = () => {
   }, [id, isNew]);
 
   // Count recipients when segment changes
+  // Count recipients when segment changes
   useEffect(() => {
     const countRecipients = async () => {
       setCountLoading(true);
-      let query = supabase.from("inquiries").select("id", { count: "exact", head: true }).eq("email_consent", true);
+      let query = supabase
+        .from("inquiries")
+        .select("id", { count: "exact", head: true })
+        .eq("email_consent", true)
+        .is("unsubscribed_at", null)
+        // Exclude placeholder/fake emails used by chatbot, calculator gate and quote form
+        .not("email", "ilike", "%@noemail.bg")
+        .not("email", "ilike", "%@quote.local")
+        .not("email", "ilike", "%@chatbot%");
 
       if (form.segment === "quote_sent") {
         query = query.in("status", ["quote_sent", "accepted"]);
@@ -75,6 +84,7 @@ const EmailCampaignEditorPage = () => {
     };
     countRecipients();
   }, [form.segment]);
+
 
   const handleSave = async () => {
     if (!user) return;
