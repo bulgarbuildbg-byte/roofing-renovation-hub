@@ -117,16 +117,17 @@ export function useChatFunnel() {
     }
   }, []);
 
-
   // ---- Show confirmation ----
-  const showConfirmation = useCallback((leadData: CollectedData, serviceType: string) => {
-    submitLead(leadData, serviceType);
+  const showConfirmation = useCallback((leadData: CollectedData, serviceType: string, flowLabel: string) => {
+    submitLead(leadData, serviceType, flowLabel);
     addBot({
       content: "✅ Благодарим ви! Ще се свържем с вас възможно най-скоро.",
       confirmation: true,
     });
     setCurrentFlow(null);
     setShowInput(false);
+  }, [addBot, submitLead]);
+
   }, [addBot, submitLead]);
 
   // ---- Roof calculator result ----
