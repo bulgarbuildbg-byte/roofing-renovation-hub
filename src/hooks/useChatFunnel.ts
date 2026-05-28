@@ -128,7 +128,7 @@ export function useChatFunnel() {
     setShowInput(false);
   }, [addBot, submitLead]);
 
-  }, [addBot, submitLead]);
+  // ---- Roof calculator result ----
 
   // ---- Roof calculator result ----
   const showRoofCalcResult = useCallback((d: CollectedData) => {
