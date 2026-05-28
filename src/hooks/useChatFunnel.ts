@@ -75,19 +75,28 @@ export function useChatFunnel() {
   }, []);
 
   // ---- Submit lead to Supabase ----
-  const submitLead = useCallback(async (leadData: CollectedData, serviceType: string) => {
+  const submitLead = useCallback(async (leadData: CollectedData, serviceType: string, flowLabel: string) => {
     setIsSubmitting(true);
     try {
-      const desc = [
+      const parts = [
+        `Източник: Чатбот — ${flowLabel}`,
         leadData.problem && `Проблем: ${leadData.problem}`,
+        leadData.serviceNeed && `Нужда: ${leadData.serviceNeed}`,
+        leadData.propertyType && `Имот: ${leadData.propertyType}`,
         leadData.roofType && `Покрив: ${leadData.roofType}`,
         leadData.area && `Площ: ${leadData.area} м²`,
         leadData.roofCondition && `Състояние: ${leadData.roofCondition}`,
         leadData.monthlyBill && `Месечна сметка: ${leadData.monthlyBill} лв`,
-        leadData.solarProject && `Проект: ${leadData.solarProject}`,
-        leadData.topic && `Тема: ${leadData.topic}`,
+        leadData.solarProject && `Соларен проект: ${leadData.solarProject}`,
+        leadData.topic && `Въпрос: ${leadData.topic}`,
+        leadData.address && `Адрес: ${leadData.address}`,
         leadData.hasLeak && "Има теч",
-      ].filter(Boolean).join("; ");
+      ].filter(Boolean);
+      const desc = parts.length > 1
+        ? parts.join("; ")
+        : "Заявка през чатбот (без допълнителни детайли)";
+
+      const hasRealEmail = !!leadData.email && !leadData.email.includes("@noemail");
 
       await supabase.from("inquiries").insert({
         name: leadData.name || "Чатбот клиент",
@@ -96,9 +105,10 @@ export function useChatFunnel() {
         address: leadData.address || null,
         service_type: serviceType as any,
         area_sqm: leadData.area || null,
-        description: `[Chatbot] ${desc}`,
+        description: desc,
         session_id: getSessionId(),
         referrer_source: getFirstReferrerSource(),
+        email_consent: hasRealEmail,
       });
     } catch (e) {
       console.error("Lead submit error:", e);
@@ -106,6 +116,7 @@ export function useChatFunnel() {
       setIsSubmitting(false);
     }
   }, []);
+
 
   // ---- Show confirmation ----
   const showConfirmation = useCallback((leadData: CollectedData, serviceType: string) => {
