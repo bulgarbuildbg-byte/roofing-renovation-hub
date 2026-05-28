@@ -434,7 +434,8 @@ export function useChatFunnel() {
 
     // QUESTION flow — free text (will be handled by AI via parent)
     if (currentFlow === "QUESTION") {
-      // Return the text so parent can send to AI
+      // Capture topic so it ends up in the lead description
+      setData(prev => ({ ...prev, topic: text }));
       return text;
     }
   }, [currentFlow, flowStep, data, addBot, addUser, showRoofCalcResult, showSolarCalcResult]);
@@ -445,20 +446,38 @@ export function useChatFunnel() {
     setData(merged);
 
     let serviceType = "other";
-    if (currentFlow === "LEAK") serviceType = "leak_repair";
-    else if (currentFlow === "QUOTE") {
+    let flowLabel = "Заявка";
+
+    if (currentFlow === "LEAK") {
+      serviceType = "leak_repair";
+      flowLabel = "Спешен теч";
+    } else if (currentFlow === "QUOTE") {
+      flowLabel = "Заявка за оферта";
       if (data.serviceNeed === "repair") serviceType = "repair";
       else if (data.serviceNeed === "waterproofing") serviceType = "waterproofing";
-      else if (data.serviceNeed === "solar") serviceType = "other";
-      else serviceType = "other";
+      else serviceType = "other"; // solar / друго
+    } else if (currentFlow === "CALLBACK") {
+      serviceType = "other";
+      flowLabel = "Заявка за обаждане";
+    } else if (currentFlow === "INSPECTION") {
+      serviceType = "other"; // огледът не е услуга — определя се след оглед
+      flowLabel = "Безплатен оглед";
+    } else if (currentFlow === "ROOF_REPAIR") {
+      flowLabel = "Ремонт на покрив";
+      if (data.problem === "Теч") serviceType = "leak_repair";
+      else if (data.problem === "Смяна на керемиди") serviceType = "replacement";
+      else serviceType = "repair";
+    } else if (currentFlow === "SOLAR") {
+      serviceType = "other";
+      flowLabel = "Соларна система";
+    } else if (currentFlow === "QUESTION") {
+      serviceType = "other";
+      flowLabel = "Въпрос";
     }
-    else if (currentFlow === "CALLBACK") serviceType = "other";
-    else if (currentFlow === "INSPECTION") serviceType = "maintenance";
-    else if (currentFlow === "ROOF_REPAIR") serviceType = "repair";
-    else if (currentFlow === "SOLAR") serviceType = "other";
 
-    showConfirmation(merged, serviceType);
+    showConfirmation(merged, serviceType, flowLabel);
   }, [data, currentFlow, showConfirmation]);
+
 
   // ---- After AI answers a question, show CTA ----
   const showAfterQuestionCTA = useCallback(() => {
