@@ -116,7 +116,7 @@ const ContactDatabasePage = () => {
             <tbody>
               {filtered.map(c => (
                 <tr key={c.id} className="border-b border-border hover:bg-muted/30">
-                <tr key={c.id} className="border-b border-border hover:bg-muted/30">
+
                   <td className="px-4 py-3 font-medium">{c.name}</td>
                   <td className="px-4 py-3">
                     {/@noemail\.|@quote\.local|@chatbot/i.test(c.email) ? (
