@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { FileSignature, FolderPlus, Loader2 } from "lucide-react";
+import { FileSignature, FolderPlus, Loader2, Upload, Trash2, FileText, Paperclip } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,12 @@ import MultiServiceSelect from "./MultiServiceSelect";
 import {
   CONTRACT_WORKFLOW_LABELS,
   CONTRACT_WORKFLOW_COLORS,
+  CURRENCIES,
+  CONTRACT_FILE_CATEGORIES,
+  contractFileCategoryLabel,
 } from "@/lib/serviceCategories";
+import { format } from "date-fns";
+import { bg } from "date-fns/locale";
 
 interface Props {
   inquiry: any;
@@ -29,12 +34,26 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
   const [creatingSite, setCreatingSite] = useState(false);
   const [contract, setContract] = useState<any>(null);
   const [existingSite, setExistingSite] = useState<any>(null);
+  const [files, setFiles] = useState<any[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const [uploadCategory, setUploadCategory] = useState("contract");
 
   const [status, setStatus] = useState("prepared");
+  const [contractNumber, setContractNumber] = useState("");
+  const [currency, setCurrency] = useState("EUR");
   const [signedDate, setSignedDate] = useState("");
   const [contractValue, setContractValue] = useState("");
   const [categories, setCategories] = useState<string[]>([]);
   const [notes, setNotes] = useState("");
+
+  const loadFiles = async (contractId: string) => {
+    const { data } = await supabase
+      .from("contract_files" as any)
+      .select("*")
+      .eq("contract_id", contractId)
+      .order("uploaded_at", { ascending: false });
+    setFiles(data || []);
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -49,10 +68,13 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       setContract(c);
       if (c) {
         setStatus(c.contract_workflow_status || "prepared");
+        setContractNumber((c as any).contract_number || "");
+        setCurrency((c as any).currency || "EUR");
         setSignedDate(c.signed_date || "");
         setContractValue(c.contract_value ? String(c.contract_value) : "");
         setCategories(c.service_categories || []);
         setNotes(c.notes || "");
+        await loadFiles(c.id);
       }
       const { data: site } = await supabase
         .from("project_sites")
@@ -77,12 +99,29 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
     setSaving(true);
     const update: any = {
       contract_workflow_status: status,
-      signed_date: signedDate || null,
+      contract_number: contractNumber || null,
+      currency,
+      signed_date: signedDate || (status === "signed" ? new Date().toISOString().slice(0, 10) : null),
       contract_value: contractValue ? Number(contractValue) : 0,
       service_categories: categories,
       notes,
     };
     const { error } = await supabase.from("contracts").update(update).eq("id", contract.id);
+
+    // Mirror status on the inquiry so list/dashboards reflect contract phase
+    if (!error) {
+      const inquiryStatusMap: Record<string, string> = {
+        prepared: "contract_prepared",
+        sent: "contract_sent",
+        signed: "contract_signed",
+        rejected: "contract_rejected",
+      };
+      const newInqStatus = inquiryStatusMap[status];
+      if (newInqStatus && inquiry.status !== newInqStatus) {
+        await supabase.from("inquiries").update({ status: newInqStatus as any }).eq("id", inquiry.id);
+      }
+    }
+
     setSaving(false);
     if (error) {
       toast({ title: "Грешка", description: error.message, variant: "destructive" });
@@ -90,6 +129,45 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
     }
     toast({ title: "Запазено" });
     setContract({ ...contract, ...update });
+    if (signedDate === "" && update.signed_date) setSignedDate(update.signed_date);
+  };
+
+  const uploadFile = async (file: File) => {
+    if (!contract || !user) return;
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop();
+      const path = `contracts/${contract.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("project-documents")
+        .upload(path, file, { contentType: file.type });
+      if (upErr) throw upErr;
+      const { data: signed } = await supabase.storage
+        .from("project-documents")
+        .createSignedUrl(path, 60 * 60 * 24 * 365 * 5);
+      const { error: insErr } = await supabase.from("contract_files" as any).insert({
+        contract_id: contract.id,
+        file_url: signed?.signedUrl || path,
+        file_name: file.name,
+        file_type: file.type,
+        file_size: file.size,
+        category: uploadCategory,
+        uploaded_by: user.id,
+      });
+      if (insErr) throw insErr;
+      await loadFiles(contract.id);
+      toast({ title: "Файлът е качен" });
+    } catch (e: any) {
+      toast({ title: "Грешка при качване", description: e.message, variant: "destructive" });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const deleteFile = async (fileId: string) => {
+    if (!confirm("Изтриване на файла?")) return;
+    await supabase.from("contract_files" as any).delete().eq("id", fileId);
+    if (contract) await loadFiles(contract.id);
   };
 
   const createSite = async () => {
@@ -118,7 +196,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       await supabase.from("project_timeline").insert({
         project_site_id: data.id,
         event_type: "contract_signed",
-        description: `Договор подписан. Стойност: ${contractValue || 0} €`,
+        description: `Договор подписан. Стойност: ${contractValue || 0} ${currency}`,
         created_by: user.id,
       });
     }
@@ -140,6 +218,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
   }
 
   const st = CONTRACT_WORKFLOW_COLORS[status] || CONTRACT_WORKFLOW_COLORS.prepared;
+  const currencyLabel = CURRENCIES.find((c) => c.value === currency)?.symbol || "€";
 
   return (
     <div className="bg-card rounded-xl border border-border p-6 space-y-4">
@@ -175,27 +254,45 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
               </Select>
             </div>
             <div>
-              <Label>Стойност на договора (€)</Label>
+              <Label>Номер на договор</Label>
               <Input
-                type="number"
-                min="0"
-                step="100"
-                value={contractValue}
-                onChange={(e) => setContractValue(e.target.value)}
-                placeholder="напр. 12500"
+                value={contractNumber}
+                onChange={(e) => setContractNumber(e.target.value)}
+                placeholder="напр. Д-2026-0042"
               />
+            </div>
+            <div>
+              <Label>Стойност на договора</Label>
+              <div className="flex gap-2">
+                <Input
+                  type="number"
+                  min="0"
+                  step="100"
+                  value={contractValue}
+                  onChange={(e) => setContractValue(e.target.value)}
+                  placeholder="напр. 12500"
+                />
+                <Select value={currency} onValueChange={setCurrency}>
+                  <SelectTrigger className="w-28"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {CURRENCIES.map((c) => (
+                      <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <div>
               <Label>Дата на подписване</Label>
               <Input type="date" value={signedDate} onChange={(e) => setSignedDate(e.target.value)} />
             </div>
-            <div>
+            <div className="sm:col-span-2">
               <Label>Категории услуги</Label>
               <MultiServiceSelect value={categories} onChange={setCategories} />
             </div>
           </div>
           <div>
-            <Label>Бележки</Label>
+            <Label>Бележки (аванс, срокове, специфични условия)</Label>
             <Textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} />
           </div>
 
@@ -219,6 +316,89 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
               </Button>
             )}
           </div>
+
+          {/* Contract files */}
+          <div className="pt-4 border-t border-border space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h3 className="text-sm font-semibold flex items-center gap-2">
+                <Paperclip className="h-4 w-4" />
+                Прикачени документи ({files.length})
+              </h3>
+              <div className="flex items-center gap-2">
+                <Select value={uploadCategory} onValueChange={setUploadCategory}>
+                  <SelectTrigger className="w-40 h-9 text-xs"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {CONTRACT_FILE_CATEGORIES.map((c) => (
+                      <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Label htmlFor="contract-file-upload" className="cursor-pointer">
+                  <div className="inline-flex items-center gap-2 px-3 h-9 rounded-md bg-primary text-primary-foreground text-xs font-medium hover:opacity-90">
+                    {uploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Upload className="h-3 w-3" />}
+                    Качи файл
+                  </div>
+                  <input
+                    id="contract-file-upload"
+                    type="file"
+                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.heic,.webp"
+                    className="hidden"
+                    disabled={uploading}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) uploadFile(f);
+                      e.target.value = "";
+                    }}
+                  />
+                </Label>
+              </div>
+            </div>
+            {files.length === 0 ? (
+              <p className="text-xs text-muted-foreground">Няма качени документи. Качете договор, скан, анекс или снимка.</p>
+            ) : (
+              <ul className="space-y-1.5">
+                {files.map((f) => (
+                  <li
+                    key={f.id}
+                    className="flex items-center gap-2 p-2 rounded-md border border-border bg-muted/30 text-sm"
+                  >
+                    <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
+                    <a
+                      href={f.file_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 truncate hover:underline"
+                    >
+                      {f.file_name}
+                    </a>
+                    <Badge variant="secondary" className="text-[10px]">
+                      {contractFileCategoryLabel(f.category)}
+                    </Badge>
+                    <span className="text-[10px] text-muted-foreground">
+                      {format(new Date(f.uploaded_at), "dd.MM.yyyy", { locale: bg })}
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-7 w-7"
+                      onClick={() => deleteFile(f.id)}
+                    >
+                      <Trash2 className="h-3 w-3 text-destructive" />
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {contractValue && (
+            <div className="text-xs text-muted-foreground pt-2 border-t border-border">
+              Текуща стойност:{" "}
+              <span className="font-semibold text-foreground">
+                {Number(contractValue).toLocaleString("bg-BG")} {currencyLabel}
+              </span>
+            </div>
+          )}
         </>
       )}
     </div>
