@@ -357,16 +357,57 @@ export type Database = {
           },
         ]
       }
+      contract_files: {
+        Row: {
+          category: string
+          contract_id: string
+          file_name: string
+          file_size: number | null
+          file_type: string | null
+          file_url: string
+          id: string
+          notes: string | null
+          uploaded_at: string
+          uploaded_by: string
+        }
+        Insert: {
+          category?: string
+          contract_id: string
+          file_name: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url: string
+          id?: string
+          notes?: string | null
+          uploaded_at?: string
+          uploaded_by: string
+        }
+        Update: {
+          category?: string
+          contract_id?: string
+          file_name?: string
+          file_size?: number | null
+          file_type?: string | null
+          file_url?: string
+          id?: string
+          notes?: string | null
+          uploaded_at?: string
+          uploaded_by?: string
+        }
+        Relationships: []
+      }
       contracts: {
         Row: {
           client_address: string | null
           client_email: string
           client_name: string
           client_phone: string
+          contract_number: string | null
           contract_value: number
           contract_workflow_status: Database["public"]["Enums"]["contract_workflow_status"]
           created_at: string
           created_by: string
+          currency: string
           custom_clauses: string | null
           id: string
           inquiry_id: string
@@ -384,10 +425,12 @@ export type Database = {
           client_email: string
           client_name: string
           client_phone: string
+          contract_number?: string | null
           contract_value?: number
           contract_workflow_status?: Database["public"]["Enums"]["contract_workflow_status"]
           created_at?: string
           created_by: string
+          currency?: string
           custom_clauses?: string | null
           id?: string
           inquiry_id: string
@@ -405,10 +448,12 @@ export type Database = {
           client_email?: string
           client_name?: string
           client_phone?: string
+          contract_number?: string | null
           contract_value?: number
           contract_workflow_status?: Database["public"]["Enums"]["contract_workflow_status"]
           created_at?: string
           created_by?: string
+          currency?: string
           custom_clauses?: string | null
           id?: string
           inquiry_id?: string
@@ -1037,6 +1082,14 @@ export type Database = {
         | "quote_sent"
         | "accepted"
         | "rejected"
+        | "quote_prepared"
+        | "contract_prepared"
+        | "contract_sent"
+        | "contract_signed"
+        | "contract_rejected"
+        | "project_active"
+        | "project_completed"
+        | "invoiced"
       material_type:
         | "tiles"
         | "metal"
@@ -1208,6 +1261,14 @@ export const Constants = {
         "quote_sent",
         "accepted",
         "rejected",
+        "quote_prepared",
+        "contract_prepared",
+        "contract_sent",
+        "contract_signed",
+        "contract_rejected",
+        "project_active",
+        "project_completed",
+        "invoiced",
       ],
       material_type: [
         "tiles",
