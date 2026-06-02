@@ -250,6 +250,17 @@ const InquiryDetailPage = () => {
           </Link>
         </div>
       </div>
+
+      <SignContractDialog
+        open={signDialogOpen}
+        onOpenChange={setSignDialogOpen}
+        inquiry={inquiry}
+        contract={pendingContract}
+        onSaved={(c) => {
+          setInquiry({ ...inquiry, status: "contract_signed" });
+          setPendingContract(c);
+        }}
+      />
     </div>
   );
 };
