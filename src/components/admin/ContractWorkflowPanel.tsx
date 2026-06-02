@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import MultiServiceSelect from "./MultiServiceSelect";
+import SignContractDialog from "./SignContractDialog";
 import {
   CONTRACT_WORKFLOW_LABELS,
   CONTRACT_WORKFLOW_COLORS,
