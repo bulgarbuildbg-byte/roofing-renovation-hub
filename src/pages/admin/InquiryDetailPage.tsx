@@ -130,6 +130,8 @@ const InquiryDetailPage = () => {
             )}
           </div>
 
+          <ContractWorkflowPanel inquiry={inquiry} />
+
           {files.length > 0 && (
             <div className="bg-card rounded-xl border border-border p-6">
               <h2 className="font-semibold text-foreground mb-4">Прикачени файлове</h2>
