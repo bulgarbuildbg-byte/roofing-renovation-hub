@@ -9,8 +9,10 @@ import { format } from "date-fns";
 import { bg } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 import ContractWorkflowPanel from "@/components/admin/ContractWorkflowPanel";
+import SignContractDialog from "@/components/admin/SignContractDialog";
 
-import { INQUIRY_STATUS_LABELS } from "@/lib/serviceCategories";
+import { INQUIRY_STATUS_LABELS, CONTRACT_RELEVANT_STATUSES } from "@/lib/serviceCategories";
+import { useAuth } from "@/contexts/AuthContext";
 const statusLabels = INQUIRY_STATUS_LABELS;
 const serviceLabels: Record<string, string> = {
   repair: "Ремонт", replacement: "Подмяна", new_construction: "Нов покрив", waterproofing: "Хидроизолация",
