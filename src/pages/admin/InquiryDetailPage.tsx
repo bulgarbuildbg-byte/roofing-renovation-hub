@@ -30,9 +30,12 @@ const InquiryDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user } = useAuth();
   const [inquiry, setInquiry] = useState<any>(null);
   const [files, setFiles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [signDialogOpen, setSignDialogOpen] = useState(false);
+  const [pendingContract, setPendingContract] = useState<any>(null);
 
   useEffect(() => {
     const fetch = async () => {
@@ -47,7 +50,49 @@ const InquiryDetailPage = () => {
     fetch();
   }, [id]);
 
+  const ensureContract = async () => {
+    const { data: existing } = await supabase
+      .from("contracts")
+      .select("*")
+      .eq("inquiry_id", id)
+      .order("created_at", { ascending: false })
+      .limit(1);
+    if (existing && existing.length > 0) return existing[0];
+    if (!user || !inquiry) return null;
+    const { data, error } = await supabase
+      .from("contracts")
+      .insert({
+        inquiry_id: inquiry.id,
+        created_by: user.id,
+        client_name: inquiry.name,
+        client_phone: inquiry.phone,
+        client_email: inquiry.email,
+        client_address: inquiry.address || null,
+        total_price: 0,
+        contract_workflow_status: "prepared",
+        currency: "EUR",
+      } as any)
+      .select()
+      .single();
+    if (error) {
+      toast({ title: "Грешка", description: error.message, variant: "destructive" });
+      return null;
+    }
+    return data;
+  };
+
   const updateStatus = async (status: string) => {
+    // For contract_signed -> require dialog (value, currency, date, number)
+    if (status === "contract_signed") {
+      const c = await ensureContract();
+      setPendingContract(c);
+      setSignDialogOpen(true);
+      return;
+    }
+    // For other contract phases -> auto-create draft contract
+    if (CONTRACT_RELEVANT_STATUSES.includes(status)) {
+      await ensureContract();
+    }
     await supabase.from("inquiries").update({ status: status as any }).eq("id", id);
     setInquiry({ ...inquiry, status });
     toast({ title: "Статусът е обновен" });
