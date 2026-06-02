@@ -150,7 +150,10 @@ export const currencySymbol = (c?: string | null) =>
 // =========================================================
 export const CONTRACT_FILE_CATEGORIES: { value: string; label: string }[] = [
   { value: "contract", label: "Договор" },
+  { value: "quote", label: "Оферта" },
+  { value: "proposal", label: "Предложение" },
   { value: "annex", label: "Анекс" },
+  { value: "invoice", label: "Фактура" },
   { value: "scan", label: "Сканиран договор" },
   { value: "photo", label: "Снимка" },
   { value: "other", label: "Друго" },
