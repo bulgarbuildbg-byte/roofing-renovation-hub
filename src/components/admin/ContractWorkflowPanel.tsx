@@ -38,6 +38,8 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
   const [files, setFiles] = useState<any[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadCategory, setUploadCategory] = useState("contract");
+  const [creatingDraft, setCreatingDraft] = useState(false);
+  const [signDialogOpen, setSignDialogOpen] = useState(false);
 
   const [status, setStatus] = useState("prepared");
   const [contractNumber, setContractNumber] = useState("");
