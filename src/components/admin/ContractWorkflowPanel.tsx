@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import MultiServiceSelect from "./MultiServiceSelect";
+import SignContractDialog from "./SignContractDialog";
 import {
   CONTRACT_WORKFLOW_LABELS,
   CONTRACT_WORKFLOW_COLORS,
@@ -37,6 +38,8 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
   const [files, setFiles] = useState<any[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadCategory, setUploadCategory] = useState("contract");
+  const [creatingDraft, setCreatingDraft] = useState(false);
+  const [signDialogOpen, setSignDialogOpen] = useState(false);
 
   const [status, setStatus] = useState("prepared");
   const [contractNumber, setContractNumber] = useState("");
@@ -87,13 +90,62 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
     load();
   }, [inquiry.id]);
 
+  const createDraft = async (): Promise<any | null> => {
+    if (!user) return null;
+    setCreatingDraft(true);
+    const { data, error } = await supabase
+      .from("contracts")
+      .insert({
+        inquiry_id: inquiry.id,
+        created_by: user.id,
+        client_name: inquiry.name,
+        client_phone: inquiry.phone,
+        client_email: inquiry.email,
+        client_address: inquiry.address || null,
+        total_price: 0,
+        contract_workflow_status: "prepared",
+        currency: "EUR",
+      } as any)
+      .select()
+      .single();
+    setCreatingDraft(false);
+    if (error || !data) {
+      toast({ title: "Грешка при създаване", description: error?.message, variant: "destructive" });
+      return null;
+    }
+    setContract(data);
+    setStatus(data.contract_workflow_status || "prepared");
+    return data;
+  };
+
+  // When user picks "signed" in the inline select, force the dialog
+  const onStatusChange = (next: string) => {
+    if (next === "signed") {
+      setSignDialogOpen(true);
+      return;
+    }
+    setStatus(next);
+  };
+
+  const handleSignedSaved = (saved: any) => {
+    setContract(saved);
+    setStatus("signed");
+    setContractValue(saved.contract_value ? String(saved.contract_value) : "");
+    setCurrency(saved.currency || "EUR");
+    setSignedDate(saved.signed_date || "");
+    setContractNumber(saved.contract_number || "");
+    setNotes(saved.notes || "");
+    if (saved.id) loadFiles(saved.id);
+  };
+
   const save = async () => {
-    if (!contract) {
-      toast({
-        title: "Няма договор",
-        description: "Първо генерирайте договор от бутона 'Генерирай договор'.",
-        variant: "destructive",
-      });
+    let row = contract;
+    if (!row) {
+      row = await createDraft();
+      if (!row) return;
+    }
+    if (status === "signed" && (!contractValue || Number(contractValue) <= 0)) {
+      setSignDialogOpen(true);
       return;
     }
     setSaving(true);
@@ -106,9 +158,8 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       service_categories: categories,
       notes,
     };
-    const { error } = await supabase.from("contracts").update(update).eq("id", contract.id);
+    const { error } = await supabase.from("contracts").update(update).eq("id", row.id);
 
-    // Mirror status on the inquiry so list/dashboards reflect contract phase
     if (!error) {
       const inquiryStatusMap: Record<string, string> = {
         prepared: "contract_prepared",
@@ -128,7 +179,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       return;
     }
     toast({ title: "Запазено" });
-    setContract({ ...contract, ...update });
+    setContract({ ...row, ...update });
     if (signedDate === "" && update.signed_date) setSignedDate(update.signed_date);
   };
 
@@ -233,10 +284,16 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       </div>
 
       {!contract && (
-        <p className="text-sm text-muted-foreground">
-          Все още няма генериран договор. Използвайте бутона „Генерирай договор" по-долу,
-          за да създадете такъв, след което можете да го управлявате тук.
-        </p>
+        <div className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Все още няма създаден договор за това запитване. Създайте чернова, за да започнете
+            да управлявате стойност, валута, статус и документи.
+          </p>
+          <Button onClick={createDraft} disabled={creatingDraft}>
+            {creatingDraft ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <FileSignature className="h-4 w-4 mr-2" />}
+            Създай чернова на договор
+          </Button>
+        </div>
       )}
 
       {contract && (
@@ -244,7 +301,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <Label>Статус на договора</Label>
-              <Select value={status} onValueChange={setStatus}>
+              <Select value={status} onValueChange={onStatusChange}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {Object.entries(CONTRACT_WORKFLOW_LABELS).map(([k, v]) => (
@@ -262,7 +319,9 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
               />
             </div>
             <div>
-              <Label>Стойност на договора</Label>
+              <Label>
+                Стойност на договора {status === "signed" && <span className="text-destructive">*</span>}
+              </Label>
               <div className="flex gap-2">
                 <Input
                   type="number"
@@ -271,6 +330,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
                   value={contractValue}
                   onChange={(e) => setContractValue(e.target.value)}
                   placeholder="напр. 12500"
+                  className={status === "signed" && (!contractValue || Number(contractValue) <= 0) ? "border-destructive" : ""}
                 />
                 <Select value={currency} onValueChange={setCurrency}>
                   <SelectTrigger className="w-28"><SelectValue /></SelectTrigger>
@@ -281,6 +341,9 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
                   </SelectContent>
                 </Select>
               </div>
+              {status === "signed" && (!contractValue || Number(contractValue) <= 0) && (
+                <p className="text-xs text-destructive mt-1">Подписан договор изисква стойност &gt; 0.</p>
+              )}
             </div>
             <div>
               <Label>Дата на подписване</Label>
@@ -401,6 +464,14 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
           )}
         </>
       )}
+
+      <SignContractDialog
+        open={signDialogOpen}
+        onOpenChange={setSignDialogOpen}
+        inquiry={inquiry}
+        contract={contract}
+        onSaved={handleSignedSaved}
+      />
     </div>
   );
 }
