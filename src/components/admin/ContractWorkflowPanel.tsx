@@ -464,6 +464,14 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
           )}
         </>
       )}
+
+      <SignContractDialog
+        open={signDialogOpen}
+        onOpenChange={setSignDialogOpen}
+        inquiry={inquiry}
+        contract={contract}
+        onSaved={handleSignedSaved}
+      />
     </div>
   );
 }
