@@ -1,91 +1,127 @@
-## Открити проблеми
+# CRM Разширение: Договори, Обекти и Оборот
 
-Всичките 4 запитвания в базата идват от чатбота. Проверих кода в `src/hooks/useChatFunnel.ts` и админ панела за имейл кампании.
+## Цел
+Превръщане на админ панела от списък със запитвания в пълноценен CRM, който проследява целия път: **Запитване → Оферта → Договор → Обект → Завършване**, със справки за оборот по месеци/години/услуги.
 
-### 1. Защо всичко е "Поддръжка" (maintenance)?
+---
 
-В `useChatFunnel.ts` (ред 444):
-- Flow `INSPECTION` ("Безплатен оглед") → `service_type = "maintenance"` ❌ грешно — огледът не е поддръжка.
-- Flow `CALLBACK` ("Обади ми се") → `service_type = "other"`.
-- Flow `QUOTE` със соларна система → `"other"` (не съществува `solar`).
-- Flow `LEAK` → правилно `leak_repair`.
-- Flow `ROOF_REPAIR` → винаги `repair`, без значение дали е "Теч"/"Смяна керемиди"/"Цялостен".
+## 1. База данни (нови таблици и полета)
 
-Резултат: всеки, който натисне „Безплатен оглед" в чатбота, се записва като „Поддръжка".
+### Разширение на `contracts` (вече съществува)
+Добавяне на полета:
+- `contract_status` (enum): `prepared`, `sent`, `signed`, `rejected`
+- `signed_date` (date)
+- `contract_value` (numeric) — стойност в евро
+- `service_categories` (text[]) — масив от категории (множествен избор)
+- `notes` (text)
 
-### 2. Защо описанието е само `[Chatbot]` (празно)?
+### Нова таблица `projects_crm` (обекти/проекти)
+Създава се автоматично когато договор стане „подписан".
+Полета:
+- връзка към `contract_id`, `inquiry_id`, `client_name`, `client_phone`, `client_email`, `address`
+- `service_categories` (text[]), `contract_value`, `signed_date`
+- `expected_start_date`, `expected_end_date`
+- `project_status` (enum): `pending_start`, `active`, `paused`, `completed`, `invoiced`, `problematic`
+- `notes`
 
-Flow-овете `INSPECTION` и `CALLBACK` отиват директно към форма за контакт **без да събират** проблем/покрив/площ. В `submitLead` се прави `[Chatbot] ${desc}`, но `desc` е празен низ → записва се само `[Chatbot] `.
+### Нова таблица `project_documents`
+- `project_id`, `file_url`, `file_name`, `document_category` (enum: договори, оферти, фактури, плащания, снимки, протоколи, други), `uploaded_at`, `uploaded_by`
 
-За `QUESTION` flow също не се записва темата/въпроса (`leadData.topic` никога не се set-ва от свободния текст).
+### Нова таблица `project_timeline`
+- `project_id`, `event_date`, `event_type`, `description`, `created_by`, `created_at`
+- За хронология на обекта (оглед, оферта, договор, старт, проблеми, разговори)
 
-### 3. Защо данните не отиват в Email Marketing?
+### Нова enum `service_category`
+Покриви, Ремонт на покрив, Нов покрив, Хидроизолация, Груб строеж, Кофраж, Арматура, Бетон, Довършителни работи, Фасади и саниране, Вътрешни ремонти, Дренажи, Огради, Бетонови площадки, Други.
 
-Проверих `EmailCampaignEditorPage.tsx`: сегментацията филтрира `inquiries` по `email_consent = true`. Чатбот лидовете обаче се записват с **фалшив email** `chatbot@noemail.bg` (ред 95 в useChatFunnel). Същото важи и за:
-- `QuoteRequestForm` → `noemail+<timestamp>@quote.local`
-- `PriceCalculator` gate → `calculator-lead@noemail.bg`
+### Storage bucket
+`project-documents` (private) с RLS за admin/staff.
 
-Тези лидове **се броят** в сегментите (защото `email_consent` default = true), но реално нямат валиден имейл — кампанията „изпраща", но никой не получава нищо.
+---
 
-## План за поправка
+## 2. Промени в съществуващи страници
 
-### A. `src/hooks/useChatFunnel.ts` — правилен service_type
+### `InquiryDetailPage.tsx`
+- Нова секция „Договор" с:
+  - Статус на договора (4 опции)
+  - При избор „подписан" → форма за: стойност, дата, категории услуги (multi-select), бележки
+  - Бутон „Създай обект/проект" (видим само при „подписан")
 
-В `handleFormSubmit`:
-```
-INSPECTION     → "other" (огледът не е услуга сам по себе си; админът избира след оглед)
-CALLBACK       → "other"
-QUESTION       → "other"
-ROOF_REPAIR    → зависи от data.problem:
-                 "Теч" → "leak_repair"
-                 "Смяна на керемиди" → "replacement"
-                 "Цялостен ремонт" → "repair"
-LEAK           → "leak_repair" (без промяна)
-QUOTE/repair   → "repair"
-QUOTE/waterproofing → "waterproofing"
-QUOTE/solar    → "other" (няма solar enum)
-```
+### `InquiryListPage.tsx`
+- Допълнителна колона/badge „Договор: подписан/изпратен/…"
+- Филтри по стойност, категория услуга, договорен статус
 
-### B. `src/hooks/useChatFunnel.ts` — пълно описание
+---
 
-В `submitLead`, разширявам описанието да включва и:
-- `currentFlow` (човешки етикет: „Спешен теч", „Безплатен оглед", „Обаждане", „Въпрос", „Оферта", „Ремонт", „Соларна")
-- `address` (вече се събира, но не се пише в desc)
-- `serviceNeed` (от QUOTE flow)
-- `propertyType` (тип имот)
-- `topic` (за QUESTION — записвам последния user текст като topic при handleTextInput)
+## 3. Нови страници в админ панела
 
-Ако всичко е празно → пише `Заявка през чатбот (без допълнителни детайли)` вместо празно.
+### `/admin/contracts` — Списък на договорите
+Филтри: месец, година, услуга, статус, клиент, стойност, град, източник.
 
-### C. Email Marketing — изключи фалшиви имейли
+### `/admin/projects` — Списък на обектите
+Cards/table с: клиент, адрес, услуга, стойност, статус на обекта, прогрес.
+Филтри: активни/завършени/проблемни, по услуга, по град.
 
-В `EmailCampaignEditorPage.tsx` count query и при реалното изпращане (където и да е логиката за send), добавям филтър:
-```
-.not("email", "like", "%@noemail.bg")
-.not("email", "like", "%@quote.local")
-.not("email", "like", "%@chatbot%")
-```
+### `/admin/projects/:id` — Детайл на обект
+Табове:
+- **Преглед** — основни данни + статус (editable)
+- **Документи** — upload по категории, виж организирано
+- **Хронология** — timeline с добавяне на събития
+- **Финанси** — стойност, плащания (бъдеще)
 
-Плюс малка визуална пояснение в `ContactDatabasePage.tsx`: лидове с placeholder email да се показват като „Без имейл" (badge), за да е ясно че няма да получат кампании.
+### `/admin/revenue` — „Договори и оборот" (ново табло)
+Карти:
+- Договори този месец / година (брой)
+- Оборот този месец / година (€)
+- Средна стойност на договор
+- Конверсия запитване → оферта → договор (%)
 
-### D. (по избор) Чатбот да пита за имейл
+Графики:
+- Оборот по месеци (bar/line)
+- Оборот по категория услуга (pie/bar)
+- Топ услуги по брой и оборот
 
-В `ChatContactForm` (или където е inline form-ът на чатбота) — да направя поле „Email" задължително, ако flow-ът не е спешен (LEAK/CALLBACK остават само с телефон). Това ще увеличи реалните маркетинг лидове.
+Таблица: всички подписани договори с филтри.
 
-→ **Питам ви: искате ли да направя email задължителен в чатбот формата?** Иначе оставям email-а опционален и просто изключвам фалшивите от кампаниите.
+---
 
-## Файлове, които ще променя
+## 4. Навигация
+Добавяне в admin sidebar:
+- „Договори"
+- „Обекти"
+- „Оборот и справки"
 
-- `src/hooks/useChatFunnel.ts` — service_type mapping + богато описание + capture на topic
-- `src/pages/admin/EmailCampaignEditorPage.tsx` — изключи placeholder email домейни от count и сегменти
-- (ако приложимо) edge function или клиентски код, който реално изпраща кампанията — същия филтър
-- `src/pages/admin/ContactDatabasePage.tsx` — визуален badge „Без имейл" за placeholder адресите
-- (опционално) `src/components/ChatBot.tsx` или съответната chat form — email поле
+---
 
-## Какво НЕ се променя
+## 5. Бизнес логика
 
-- Структурата на `inquiries` таблицата
-- RLS политиките
-- Дизайн системата
-- PriceCalculator gate (вече работи — събира име+телефон+email)
-- QuoteRequestForm (email-ът там си е опционален по дизайн)
+- Когато `contracts.contract_status` → `signed`, автоматично се създава запис в `projects_crm` (ако още няма).
+- Когато се създаде/обнови проект, добавя се автоматичен запис в `project_timeline`.
+- Категориите услуги (multi-select) се пренасят: inquiry → contract → project.
+- Източникът на запитването (`referrer_source` от `inquiries`) се пренася в проекта за справки „кои канали носят реални договори".
+
+---
+
+## Технически детайли
+
+- Stack: React, Vite, Supabase, shadcn/ui (както е). Recharts за графики.
+- Всички нови таблици: `GRANT` за `authenticated` + `service_role`, RLS чрез `is_admin_or_staff(auth.uid())`.
+- Storage RLS: само admin/staff могат да четат/качват в `project-documents`.
+- Multi-select услуги: `react` Combobox/MultiSelect (от shadcn extension) или нативно с checkboxes.
+- Timeline: вертикална хронология (Card list, sortBy desc).
+- Reuse: съществуващите `QuoteEditorPage` и `ContractEditorPage` остават; добавяме нов workflow за статус и стойност.
+
+---
+
+## Обхват по фази (предлагам да започнем последователно)
+
+**Фаза 1 — База + Договори**
+DB миграции, разширен договорен flow в `InquiryDetailPage`, списък `/admin/contracts`.
+
+**Фаза 2 — Обекти/Проекти**
+`projects_crm`, `/admin/projects`, детайл с табове, документи, хронология.
+
+**Фаза 3 — Оборот и справки**
+`/admin/revenue` с графики, конверсии, филтри.
+
+Ако одобриш плана, ще започна с Фаза 1. Кажи дали да изпълня и трите фази последователно, или искаш да спрем за преглед след всяка.

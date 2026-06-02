@@ -8,6 +8,7 @@ import { ArrowLeft, FileText, Download, Phone, Mail, MapPin, Ruler, Layers, Box,
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
+import ContractWorkflowPanel from "@/components/admin/ContractWorkflowPanel";
 
 const statusLabels: Record<string, string> = {
   new: "Ново", contacted: "Свързани", quote_sent: "Оферта изпратена", accepted: "Прието", rejected: "Отказано",
@@ -128,6 +129,8 @@ const InquiryDetailPage = () => {
               </div>
             )}
           </div>
+
+          <ContractWorkflowPanel inquiry={inquiry} />
 
           {files.length > 0 && (
             <div className="bg-card rounded-xl border border-border p-6">

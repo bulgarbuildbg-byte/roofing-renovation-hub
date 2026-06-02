@@ -363,13 +363,18 @@ export type Database = {
           client_email: string
           client_name: string
           client_phone: string
+          contract_value: number
+          contract_workflow_status: Database["public"]["Enums"]["contract_workflow_status"]
           created_at: string
           created_by: string
           custom_clauses: string | null
           id: string
           inquiry_id: string
           material_details: string | null
+          notes: string | null
           quote_id: string
+          service_categories: string[]
+          signed_date: string | null
           status: Database["public"]["Enums"]["contract_status"]
           total_price: number
           updated_at: string
@@ -379,13 +384,18 @@ export type Database = {
           client_email: string
           client_name: string
           client_phone: string
+          contract_value?: number
+          contract_workflow_status?: Database["public"]["Enums"]["contract_workflow_status"]
           created_at?: string
           created_by: string
           custom_clauses?: string | null
           id?: string
           inquiry_id: string
           material_details?: string | null
+          notes?: string | null
           quote_id: string
+          service_categories?: string[]
+          signed_date?: string | null
           status?: Database["public"]["Enums"]["contract_status"]
           total_price?: number
           updated_at?: string
@@ -395,13 +405,18 @@ export type Database = {
           client_email?: string
           client_name?: string
           client_phone?: string
+          contract_value?: number
+          contract_workflow_status?: Database["public"]["Enums"]["contract_workflow_status"]
           created_at?: string
           created_by?: string
           custom_clauses?: string | null
           id?: string
           inquiry_id?: string
           material_details?: string | null
+          notes?: string | null
           quote_id?: string
+          service_categories?: string[]
+          signed_date?: string | null
           status?: Database["public"]["Enums"]["contract_status"]
           total_price?: number
           updated_at?: string
@@ -635,6 +650,169 @@ export type Database = {
         }
         Relationships: []
       }
+      project_documents: {
+        Row: {
+          category: Database["public"]["Enums"]["project_document_category"]
+          file_name: string
+          file_size: number | null
+          file_url: string
+          id: string
+          notes: string | null
+          project_site_id: string
+          uploaded_at: string
+          uploaded_by: string
+        }
+        Insert: {
+          category?: Database["public"]["Enums"]["project_document_category"]
+          file_name: string
+          file_size?: number | null
+          file_url: string
+          id?: string
+          notes?: string | null
+          project_site_id: string
+          uploaded_at?: string
+          uploaded_by: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["project_document_category"]
+          file_name?: string
+          file_size?: number | null
+          file_url?: string
+          id?: string
+          notes?: string | null
+          project_site_id?: string
+          uploaded_at?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_documents_project_site_id_fkey"
+            columns: ["project_site_id"]
+            isOneToOne: false
+            referencedRelation: "project_sites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_sites: {
+        Row: {
+          address: string | null
+          city: string | null
+          client_email: string | null
+          client_name: string
+          client_phone: string | null
+          contract_id: string | null
+          contract_value: number
+          created_at: string
+          created_by: string
+          expected_end_date: string | null
+          expected_start_date: string | null
+          id: string
+          inquiry_id: string | null
+          notes: string | null
+          referrer_source: string | null
+          service_categories: string[]
+          signed_date: string | null
+          status: Database["public"]["Enums"]["project_site_status"]
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          client_email?: string | null
+          client_name: string
+          client_phone?: string | null
+          contract_id?: string | null
+          contract_value?: number
+          created_at?: string
+          created_by: string
+          expected_end_date?: string | null
+          expected_start_date?: string | null
+          id?: string
+          inquiry_id?: string | null
+          notes?: string | null
+          referrer_source?: string | null
+          service_categories?: string[]
+          signed_date?: string | null
+          status?: Database["public"]["Enums"]["project_site_status"]
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          client_email?: string | null
+          client_name?: string
+          client_phone?: string | null
+          contract_id?: string | null
+          contract_value?: number
+          created_at?: string
+          created_by?: string
+          expected_end_date?: string | null
+          expected_start_date?: string | null
+          id?: string
+          inquiry_id?: string | null
+          notes?: string | null
+          referrer_source?: string | null
+          service_categories?: string[]
+          signed_date?: string | null
+          status?: Database["public"]["Enums"]["project_site_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_sites_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contracts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_sites_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_timeline: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string
+          event_date: string
+          event_type: string
+          id: string
+          project_site_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description: string
+          event_date?: string
+          event_type?: string
+          id?: string
+          project_site_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string
+          event_date?: string
+          event_type?: string
+          id?: string
+          project_site_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_timeline_project_site_id_fkey"
+            columns: ["project_site_id"]
+            isOneToOne: false
+            referencedRelation: "project_sites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       projects: {
         Row: {
           category: string
@@ -852,6 +1030,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "staff" | "editor" | "marketing" | "support" | "seo"
       contract_status: "draft" | "signed" | "completed"
+      contract_workflow_status: "prepared" | "sent" | "signed" | "rejected"
       inquiry_status:
         | "new"
         | "contacted"
@@ -865,6 +1044,21 @@ export type Database = {
         | "pvc_membrane"
         | "shingles"
         | "other"
+      project_document_category:
+        | "contracts"
+        | "quotes"
+        | "invoices"
+        | "payments"
+        | "photos"
+        | "protocols"
+        | "other"
+      project_site_status:
+        | "pending_start"
+        | "active"
+        | "paused"
+        | "completed"
+        | "invoiced"
+        | "problematic"
       quote_status: "draft" | "sent" | "accepted" | "rejected"
       roof_complexity: "single_pitch" | "gable" | "hip" | "complex"
       service_type:
@@ -1007,6 +1201,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "staff", "editor", "marketing", "support", "seo"],
       contract_status: ["draft", "signed", "completed"],
+      contract_workflow_status: ["prepared", "sent", "signed", "rejected"],
       inquiry_status: [
         "new",
         "contacted",
@@ -1021,6 +1216,23 @@ export const Constants = {
         "pvc_membrane",
         "shingles",
         "other",
+      ],
+      project_document_category: [
+        "contracts",
+        "quotes",
+        "invoices",
+        "payments",
+        "photos",
+        "protocols",
+        "other",
+      ],
+      project_site_status: [
+        "pending_start",
+        "active",
+        "paused",
+        "completed",
+        "invoiced",
+        "problematic",
       ],
       quote_status: ["draft", "sent", "accepted", "rejected"],
       roof_complexity: ["single_pitch", "gable", "hip", "complex"],
