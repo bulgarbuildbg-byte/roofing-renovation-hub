@@ -319,7 +319,9 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
               />
             </div>
             <div>
-              <Label>Стойност на договора</Label>
+              <Label>
+                Стойност на договора {status === "signed" && <span className="text-destructive">*</span>}
+              </Label>
               <div className="flex gap-2">
                 <Input
                   type="number"
@@ -328,6 +330,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
                   value={contractValue}
                   onChange={(e) => setContractValue(e.target.value)}
                   placeholder="напр. 12500"
+                  className={status === "signed" && (!contractValue || Number(contractValue) <= 0) ? "border-destructive" : ""}
                 />
                 <Select value={currency} onValueChange={setCurrency}>
                   <SelectTrigger className="w-28"><SelectValue /></SelectTrigger>
@@ -338,6 +341,9 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
                   </SelectContent>
                 </Select>
               </div>
+              {status === "signed" && (!contractValue || Number(contractValue) <= 0) && (
+                <p className="text-xs text-destructive mt-1">Подписан договор изисква стойност &gt; 0.</p>
+              )}
             </div>
             <div>
               <Label>Дата на подписване</Label>
