@@ -54,7 +54,6 @@ export default function SignContractDialog({ open, onOpenChange, inquiry, contra
         .from("contracts")
         .insert({
           inquiry_id: inquiry.id,
-          quote_id: inquiry.id, // placeholder fallback; not enforced FK
           created_by: user.id,
           client_name: inquiry.name,
           client_phone: inquiry.phone,
