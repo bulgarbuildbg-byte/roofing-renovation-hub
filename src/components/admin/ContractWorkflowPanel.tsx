@@ -90,13 +90,62 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
     load();
   }, [inquiry.id]);
 
+  const createDraft = async (): Promise<any | null> => {
+    if (!user) return null;
+    setCreatingDraft(true);
+    const { data, error } = await supabase
+      .from("contracts")
+      .insert({
+        inquiry_id: inquiry.id,
+        created_by: user.id,
+        client_name: inquiry.name,
+        client_phone: inquiry.phone,
+        client_email: inquiry.email,
+        client_address: inquiry.address || null,
+        total_price: 0,
+        contract_workflow_status: "prepared",
+        currency: "EUR",
+      } as any)
+      .select()
+      .single();
+    setCreatingDraft(false);
+    if (error || !data) {
+      toast({ title: "Грешка при създаване", description: error?.message, variant: "destructive" });
+      return null;
+    }
+    setContract(data);
+    setStatus(data.contract_workflow_status || "prepared");
+    return data;
+  };
+
+  // When user picks "signed" in the inline select, force the dialog
+  const onStatusChange = (next: string) => {
+    if (next === "signed") {
+      setSignDialogOpen(true);
+      return;
+    }
+    setStatus(next);
+  };
+
+  const handleSignedSaved = (saved: any) => {
+    setContract(saved);
+    setStatus("signed");
+    setContractValue(saved.contract_value ? String(saved.contract_value) : "");
+    setCurrency(saved.currency || "EUR");
+    setSignedDate(saved.signed_date || "");
+    setContractNumber(saved.contract_number || "");
+    setNotes(saved.notes || "");
+    if (saved.id) loadFiles(saved.id);
+  };
+
   const save = async () => {
-    if (!contract) {
-      toast({
-        title: "Няма договор",
-        description: "Първо генерирайте договор от бутона 'Генерирай договор'.",
-        variant: "destructive",
-      });
+    let row = contract;
+    if (!row) {
+      row = await createDraft();
+      if (!row) return;
+    }
+    if (status === "signed" && (!contractValue || Number(contractValue) <= 0)) {
+      setSignDialogOpen(true);
       return;
     }
     setSaving(true);
@@ -109,9 +158,8 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       service_categories: categories,
       notes,
     };
-    const { error } = await supabase.from("contracts").update(update).eq("id", contract.id);
+    const { error } = await supabase.from("contracts").update(update).eq("id", row.id);
 
-    // Mirror status on the inquiry so list/dashboards reflect contract phase
     if (!error) {
       const inquiryStatusMap: Record<string, string> = {
         prepared: "contract_prepared",
@@ -131,7 +179,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       return;
     }
     toast({ title: "Запазено" });
-    setContract({ ...contract, ...update });
+    setContract({ ...row, ...update });
     if (signedDate === "" && update.signed_date) setSignedDate(update.signed_date);
   };
 
