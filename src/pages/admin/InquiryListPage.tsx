@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
-import { Eye, Search, Inbox, Phone, MapPin, Calendar } from "lucide-react";
+import { Eye, Search, Inbox, Phone, MapPin, Calendar, FileSignature, Paperclip, Euro } from "lucide-react";
+import {
+  INQUIRY_STATUS_LABELS,
+  PHASE_LABELS,
+  PHASE_COLORS,
+  inquiryStatusPhase,
+  currencySymbol,
+} from "@/lib/serviceCategories";
 
-const statusLabels: Record<string, string> = {
-  new: "Ново", contacted: "Свързани", quote_sent: "Оферта изпратена", accepted: "Прието", rejected: "Отказано",
-};
-const statusStyles: Record<string, { bg: string; text: string; glow: string }> = {
-  new: { bg: "hsl(215 80% 50% / 0.15)", text: "#3b82f6", glow: "0 0 8px hsl(215 80% 50% / 0.3)" },
-  contacted: { bg: "hsl(45 100% 50% / 0.12)", text: "#f59e0b", glow: "0 0 8px hsl(45 100% 50% / 0.2)" },
-  quote_sent: { bg: "hsl(270 60% 50% / 0.15)", text: "#8b5cf6", glow: "0 0 8px hsl(270 60% 50% / 0.2)" },
-  accepted: { bg: "hsl(150 60% 40% / 0.15)", text: "#22c55e", glow: "0 0 8px hsl(150 60% 40% / 0.2)" },
-  rejected: { bg: "hsl(0 80% 50% / 0.12)", text: "#ef4444", glow: "0 0 8px hsl(0 80% 50% / 0.2)" },
-};
 const serviceLabels: Record<string, string> = {
   repair: "Ремонт", replacement: "Подмяна", new_construction: "Нов покрив",
   waterproofing: "Хидроизолация", tiles: "Керемиди", flat_roof: "Плосък покрив",
@@ -27,26 +24,76 @@ const glassCard = { background: "hsl(220 20% 10% / 0.7)", backdropFilter: "blur(
 
 const InquiryListPage = () => {
   const [inquiries, setInquiries] = useState<any[]>([]);
+  const [quotesByInquiry, setQuotesByInquiry] = useState<Record<string, number>>({});
+  const [contractsByInquiry, setContractsByInquiry] = useState<Record<string, { value: number; currency: string; files: number }>>({});
   const [loading, setLoading] = useState(true);
+  const [phaseFilter, setPhaseFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchInquiries = async () => {
+  const fetchAll = async () => {
     setLoading(true);
-    let query = supabase.from("inquiries").select("*").order("created_at", { ascending: false });
-    if (statusFilter !== "all") query = query.eq("status", statusFilter as any);
-    const { data } = await query;
-    setInquiries(data || []);
+    const { data: inq } = await supabase
+      .from("inquiries")
+      .select("*")
+      .order("created_at", { ascending: false });
+    setInquiries(inq || []);
+
+    const ids = (inq || []).map((i: any) => i.id);
+    if (ids.length > 0) {
+      const [{ data: quotes }, { data: contracts }] = await Promise.all([
+        supabase.from("quotes").select("inquiry_id, total").in("inquiry_id", ids),
+        supabase.from("contracts").select("id, inquiry_id, contract_value, currency").in("inquiry_id", ids),
+      ]);
+
+      const qMap: Record<string, number> = {};
+      (quotes || []).forEach((q: any) => {
+        if (!qMap[q.inquiry_id] || Number(q.total) > qMap[q.inquiry_id]) qMap[q.inquiry_id] = Number(q.total || 0);
+      });
+      setQuotesByInquiry(qMap);
+
+      const contractIds = (contracts || []).map((c: any) => c.id);
+      let fileCountMap: Record<string, number> = {};
+      if (contractIds.length > 0) {
+        const { data: files } = await supabase
+          .from("contract_files" as any)
+          .select("contract_id")
+          .in("contract_id", contractIds);
+        (files || []).forEach((f: any) => {
+          fileCountMap[f.contract_id] = (fileCountMap[f.contract_id] || 0) + 1;
+        });
+      }
+
+      const cMap: Record<string, { value: number; currency: string; files: number }> = {};
+      (contracts || []).forEach((c: any) => {
+        const filesCount = fileCountMap[c.id] || 0;
+        const existing = cMap[c.inquiry_id];
+        if (!existing || Number(c.contract_value) > existing.value) {
+          cMap[c.inquiry_id] = { value: Number(c.contract_value || 0), currency: c.currency || "EUR", files: filesCount };
+        } else {
+          existing.files += filesCount;
+        }
+      });
+      setContractsByInquiry(cMap);
+    }
     setLoading(false);
   };
 
-  useEffect(() => { fetchInquiries(); }, [statusFilter]);
+  useEffect(() => { fetchAll(); }, []);
 
-  const filtered = inquiries.filter((i) => {
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    return i.name?.toLowerCase().includes(q) || i.phone?.includes(q) || i.email?.toLowerCase().includes(q) || i.address?.toLowerCase().includes(q);
-  });
+  const filtered = useMemo(() => {
+    return inquiries.filter((i) => {
+      if (phaseFilter !== "all" && inquiryStatusPhase(i.status) !== phaseFilter) return false;
+      if (statusFilter !== "all" && i.status !== statusFilter) return false;
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        const hit = i.name?.toLowerCase().includes(q) || i.phone?.includes(q) ||
+          i.email?.toLowerCase().includes(q) || i.address?.toLowerCase().includes(q);
+        if (!hit) return false;
+      }
+      return true;
+    });
+  }, [inquiries, phaseFilter, statusFilter, searchQuery]);
 
   const SkeletonCard = () => (
     <div className="rounded-xl p-4 animate-pulse" style={glassCard}>
@@ -63,32 +110,41 @@ const InquiryListPage = () => {
           <div className="p-2 rounded-xl" style={{ background: "linear-gradient(135deg, hsl(215 80% 50%), hsl(260 60% 45%))" }}>
             <Inbox className="h-5 w-5" style={{ color: "white" }} />
           </div>
-          Запитвания
+          Запитвания ({filtered.length})
         </h1>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1">
+      <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: "hsl(215 15% 45%)" }} />
           <Input
             placeholder="Търсене по име, телефон, имейл..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 border-0"
-            style={{ background: "hsl(220 20% 12%)", color: "hsl(210 20% 90%)", borderColor: "hsl(220 15% 18%)" }}
+            style={{ background: "hsl(220 20% 12%)", color: "hsl(210 20% 90%)" }}
           />
         </div>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-48 border-0" style={{ background: "hsl(220 20% 12%)", color: "hsl(210 20% 90%)" }}>
-            <SelectValue placeholder="Филтър по статус" />
+        <Select value={phaseFilter} onValueChange={setPhaseFilter}>
+          <SelectTrigger className="w-full sm:w-44 border-0" style={{ background: "hsl(220 20% 12%)", color: "hsl(210 20% 90%)" }}>
+            <SelectValue placeholder="Фаза" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Всички</SelectItem>
-            <SelectItem value="new">Нови</SelectItem>
-            <SelectItem value="contacted">Свързани</SelectItem>
-            <SelectItem value="quote_sent">Оферта изпратена</SelectItem>
-            <SelectItem value="accepted">Приети</SelectItem>
-            <SelectItem value="rejected">Отказани</SelectItem>
+            <SelectItem value="all">Всички фази</SelectItem>
+            {Object.entries(PHASE_LABELS).map(([k, v]) => (
+              <SelectItem key={k} value={k}>{v}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <SelectTrigger className="w-full sm:w-56 border-0" style={{ background: "hsl(220 20% 12%)", color: "hsl(210 20% 90%)" }}>
+            <SelectValue placeholder="Статус" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Всички статуси</SelectItem>
+            {Object.entries(INQUIRY_STATUS_LABELS).map(([k, v]) => (
+              <SelectItem key={k} value={k}>{v}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -102,7 +158,10 @@ const InquiryListPage = () => {
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
           {filtered.map((inquiry) => {
-            const st = statusStyles[inquiry.status] || statusStyles.new;
+            const phase = inquiryStatusPhase(inquiry.status);
+            const st = PHASE_COLORS[phase];
+            const quoteTotal = quotesByInquiry[inquiry.id];
+            const contractInfo = contractsByInquiry[inquiry.id];
             return (
               <Link
                 key={inquiry.id}
@@ -110,16 +169,16 @@ const InquiryListPage = () => {
                 className="rounded-xl p-4 transition-all duration-200 admin-card-hover group"
                 style={glassCard}
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <p className="font-semibold text-sm" style={{ color: "hsl(210 20% 92%)" }}>{inquiry.name}</p>
+                <div className="flex items-start justify-between mb-3 gap-2">
+                  <div className="min-w-0">
+                    <p className="font-semibold text-sm truncate" style={{ color: "hsl(210 20% 92%)" }}>{inquiry.name}</p>
                     <p className="text-xs mt-0.5" style={{ color: "hsl(215 15% 50%)" }}>
                       {serviceLabels[inquiry.service_type] || inquiry.service_type}
                     </p>
                   </div>
-                  <span className="text-[10px] font-semibold px-2 py-1 rounded-full"
+                  <span className="text-[10px] font-semibold px-2 py-1 rounded-full shrink-0"
                     style={{ background: st.bg, color: st.text, boxShadow: st.glow }}>
-                    {statusLabels[inquiry.status] || inquiry.status}
+                    {INQUIRY_STATUS_LABELS[inquiry.status] || inquiry.status}
                   </span>
                 </div>
 
@@ -136,6 +195,29 @@ const InquiryListPage = () => {
                     <Calendar className="h-3 w-3" /> {format(new Date(inquiry.created_at), "dd.MM.yyyy HH:mm", { locale: bg })}
                   </div>
                 </div>
+
+                {(quoteTotal || contractInfo) && (
+                  <div className="mt-3 pt-2 border-t border-white/5 flex flex-wrap gap-2 text-[11px]">
+                    {quoteTotal != null && quoteTotal > 0 && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md"
+                        style={{ background: "hsl(270 60% 55% / 0.15)", color: "#a78bfa" }}>
+                        <Euro className="h-3 w-3" /> Оферта: {quoteTotal.toLocaleString("bg-BG")} €
+                      </span>
+                    )}
+                    {contractInfo && contractInfo.value > 0 && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-semibold"
+                        style={{ background: "hsl(150 60% 40% / 0.18)", color: "#22c55e" }}>
+                        <FileSignature className="h-3 w-3" /> Договор: {contractInfo.value.toLocaleString("bg-BG")} {currencySymbol(contractInfo.currency)}
+                      </span>
+                    )}
+                    {contractInfo && contractInfo.files > 0 && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md"
+                        style={{ background: "hsl(220 20% 18%)", color: "hsl(210 20% 80%)" }}>
+                        <Paperclip className="h-3 w-3" /> {contractInfo.files}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 <div className="mt-3 flex items-center justify-end text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{ color: "hsl(215 80% 65%)" }}>

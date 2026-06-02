@@ -10,9 +10,8 @@ import { bg } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
 import ContractWorkflowPanel from "@/components/admin/ContractWorkflowPanel";
 
-const statusLabels: Record<string, string> = {
-  new: "Ново", contacted: "Свързани", quote_sent: "Оферта изпратена", accepted: "Прието", rejected: "Отказано",
-};
+import { INQUIRY_STATUS_LABELS } from "@/lib/serviceCategories";
+const statusLabels = INQUIRY_STATUS_LABELS;
 const serviceLabels: Record<string, string> = {
   repair: "Ремонт", replacement: "Подмяна", new_construction: "Нов покрив", waterproofing: "Хидроизолация",
   tiles: "Керемиди", flat_roof: "Плосък покрив", metal_roof: "Метален покрив", maintenance: "Поддръжка",
@@ -46,8 +45,8 @@ const InquiryDetailPage = () => {
     fetch();
   }, [id]);
 
-  const updateStatus = async (status: "new" | "contacted" | "quote_sent" | "accepted" | "rejected") => {
-    await supabase.from("inquiries").update({ status }).eq("id", id);
+  const updateStatus = async (status: string) => {
+    await supabase.from("inquiries").update({ status: status as any }).eq("id", id);
     setInquiry({ ...inquiry, status });
     toast({ title: "Статусът е обновен" });
   };
