@@ -42,6 +42,10 @@ const TestimonialsManagementPage = lazy(() => import("./pages/admin/Testimonials
 const CallLogPage = lazy(() => import("./pages/admin/CallLogPage"));
 const ProjectsManagementPage = lazy(() => import("./pages/admin/ProjectsManagementPage"));
 const ContactDatabasePage = lazy(() => import("./pages/admin/ContactDatabasePage"));
+const ContractsListPage = lazy(() => import("./pages/admin/ContractsListPage"));
+const SitesListPage = lazy(() => import("./pages/admin/SitesListPage"));
+const SiteDetailPage = lazy(() => import("./pages/admin/SiteDetailPage"));
+const RevenuePage = lazy(() => import("./pages/admin/RevenuePage"));
 
 const queryClient = new QueryClient();
 
@@ -109,6 +113,10 @@ const App = () => (
               <Route path="email-campaigns/:id/edit" element={<Suspense fallback={null}><EmailCampaignEditorPage /></Suspense>} />
               <Route path="calls" element={<Suspense fallback={null}><CallLogPage /></Suspense>} />
               <Route path="projects" element={<Suspense fallback={null}><ProjectsManagementPage /></Suspense>} />
+              <Route path="contracts" element={<Suspense fallback={null}><ContractsListPage /></Suspense>} />
+              <Route path="sites" element={<Suspense fallback={null}><SitesListPage /></Suspense>} />
+              <Route path="sites/:id" element={<Suspense fallback={null}><SiteDetailPage /></Suspense>} />
+              <Route path="revenue" element={<Suspense fallback={null}><RevenuePage /></Suspense>} />
               <Route path="staff" element={<Suspense fallback={null}><ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute></Suspense>} />
             </Route>
 

@@ -7,7 +7,7 @@ import {
   Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink,
   BarChart3, Megaphone, MessageSquare, Database, Link2, Mail, Star,
   PhoneCall, FolderOpen, Contact, ChevronRight, Shield, Bell,
-  Command,
+  Command, FileSignature, Building2, TrendingUp,
 } from "lucide-react";
 
 const navSections = [
@@ -19,6 +19,9 @@ const navSections = [
       { to: "/admin/contacts", label: "Контактна база", icon: Contact },
       { to: "/admin/inquiries", label: "Запитвания", icon: Inbox, badge: true },
       { to: "/admin/quotes", label: "Оферти", icon: FileText },
+      { to: "/admin/contracts", label: "Договори", icon: FileSignature },
+      { to: "/admin/sites", label: "Обекти", icon: Building2 },
+      { to: "/admin/revenue", label: "Оборот и справки", icon: TrendingUp },
     ],
   },
   {
@@ -35,7 +38,7 @@ const navSections = [
       { to: "/admin/articles", label: "Статии", icon: Newspaper },
       { to: "/admin/comments", label: "Дискусии", icon: MessageSquare },
       { to: "/admin/testimonials", label: "Отзиви", icon: Star },
-      { to: "/admin/projects", label: "Проекти", icon: FolderOpen },
+      { to: "/admin/projects", label: "Портфолио", icon: FolderOpen },
     ],
   },
   {
