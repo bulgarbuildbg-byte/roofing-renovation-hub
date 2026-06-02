@@ -21,7 +21,7 @@ const navSections = [
       { to: "/admin/quotes", label: "Оферти", icon: FileText },
       { to: "/admin/contracts", label: "Договори", icon: FileSignature },
       { to: "/admin/sites", label: "Обекти", icon: Building2 },
-      { to: "/admin/revenue", label: "Оборот и справки", icon: TrendingUp },
+      { to: "/admin/revenue", label: "Продажби и оборот", icon: TrendingUp },
     ],
   },
   {
