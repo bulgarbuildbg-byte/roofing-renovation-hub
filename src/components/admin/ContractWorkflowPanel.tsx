@@ -284,10 +284,16 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
       </div>
 
       {!contract && (
-        <p className="text-sm text-muted-foreground">
-          Все още няма генериран договор. Използвайте бутона „Генерирай договор" по-долу,
-          за да създадете такъв, след което можете да го управлявате тук.
-        </p>
+        <div className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Все още няма създаден договор за това запитване. Създайте чернова, за да започнете
+            да управлявате стойност, валута, статус и документи.
+          </p>
+          <Button onClick={createDraft} disabled={creatingDraft}>
+            {creatingDraft ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <FileSignature className="h-4 w-4 mr-2" />}
+            Създай чернова на договор
+          </Button>
+        </div>
       )}
 
       {contract && (
@@ -295,7 +301,7 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <Label>Статус на договора</Label>
-              <Select value={status} onValueChange={setStatus}>
+              <Select value={status} onValueChange={onStatusChange}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {Object.entries(CONTRACT_WORKFLOW_LABELS).map(([k, v]) => (
