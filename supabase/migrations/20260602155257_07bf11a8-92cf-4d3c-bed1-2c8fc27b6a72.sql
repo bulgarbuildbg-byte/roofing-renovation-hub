@@ -1,0 +1,1 @@
+ALTER TABLE public.contracts ALTER COLUMN quote_id DROP NOT NULL;

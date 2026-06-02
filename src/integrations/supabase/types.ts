@@ -413,7 +413,7 @@ export type Database = {
           inquiry_id: string
           material_details: string | null
           notes: string | null
-          quote_id: string
+          quote_id: string | null
           service_categories: string[]
           signed_date: string | null
           status: Database["public"]["Enums"]["contract_status"]
@@ -436,7 +436,7 @@ export type Database = {
           inquiry_id: string
           material_details?: string | null
           notes?: string | null
-          quote_id: string
+          quote_id?: string | null
           service_categories?: string[]
           signed_date?: string | null
           status?: Database["public"]["Enums"]["contract_status"]
@@ -459,7 +459,7 @@ export type Database = {
           inquiry_id?: string
           material_details?: string | null
           notes?: string | null
-          quote_id?: string
+          quote_id?: string | null
           service_categories?: string[]
           signed_date?: string | null
           status?: Database["public"]["Enums"]["contract_status"]
