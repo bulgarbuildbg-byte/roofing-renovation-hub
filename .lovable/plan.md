@@ -1,82 +1,49 @@
-# Поправка на статус „Договор подписан"
+## Diagnosis
 
-## Диагноза
+Audit-флаговете („дублирани title/description, липсва canonical и hreflang в `<head>`") идват от една и съща причина: проектът е чисто client-side SPA. Всеки URL връща `index.html` със статичния заглавен таг „Ремонт на Покриви Варна…". Кодът вече има `react-helmet` в `Index.tsx`, `CityServiceTemplate.tsx`, `HreflangTags.tsx` и попълва canonical, hreflang, JSON-LD — но това става **след** хидратация. Crawler-ите, които не изпълняват JS (вкл. одиторския бот), виждат само статичния `index.html` → всичко изглежда еднакво.
 
-Функционалността е почти готова, но има пропуск в логиката:
+Затова поправките трябва да адресират два слоя: (1) направим главата уникална в сервираните HTML файлове, (2) изчистим вътрешните несъответствия, които съществуват и в JS-рендерираната глава.
 
-- `ContractWorkflowPanel` (стойност, валута, дата, номер, документи, бутон „Създай обект") **съществува**, но се показва **само ако вече има ред в таблица `contracts`** — иначе извежда „Първо генерирайте договор от бутона 'Генерирай договор'".
-- Когато админът смени статуса от страничното меню на „Договор подписан", `updateStatus()` в `InquiryDetailPage` само ъпдейтва `inquiries.status` — **не създава `contracts` ред, не пита за стойност, не показва документите**.
-- Затова lead-ът не се появява в `/admin/contracts` и не влиза в оборота — там се чете от `contracts`, а такъв запис няма.
+## План
 
-Тоест: статусът е добавен само като текстова опция, договорната функционалност не се отключва.
+### 1. Превключи на `react-helmet-async` + `HelmetProvider`
+- Замени `react-helmet` с `react-helmet-async` (по-надеждна дедупликация, готова за SSR/prerender).
+- Обвий приложението в `<HelmetProvider>` в `src/main.tsx`.
+- Премахни статичните `<title>`, `<meta name="description">`, `<meta property="og:*">` и `<meta name="twitter:*">` от `index.html`, които „печелят" срещу per-route Helmet тагове. Запази само brand fallback (site_name, og:image, locale) за social crawlers.
 
-## Какво ще се направи
+### 2. Pre-render всички публични маршрути (КРИТИЧНО за одита)
+- Добави `vite-plugin-prerender` (или `react-snap` като алтернатива) към `vite.config.ts`.
+- Списък със страници за prerender: генерира се от съществуващия `public/sitemap-*.xml` (всеки URL от 10-те езикови sitemap-а).
+- Резултат: всеки маршрут получава собствен `dist/<path>/index.html` с уникален `<title>`, `<meta description>`, `<link rel="canonical">`, пълен `<link rel="alternate" hreflang>` блок и JSON-LD — точно това, което одитът търси.
+- Vercel вече сервира статични файлове по path (`vercel.json`), така че не са нужни промени по hosting.
 
-### 1. Авто-създаване на draft `contracts` при влизане в договорна фаза
+### 3. Уникален title/description за всяка комбинация град × услуга
+- `CityServiceTemplate.tsx` вече генерира title по шаблон `${titlePrefix} ${cityName} — Безплатен Оглед 24ч`. Замени с по-конкретен шаблон, който включва **града + ползата** и пази длъжината 50–60 знака, напр. „Хидроизолация покрив Варна — 15г гаранция | 089 397 1873".
+- `src/data/cityServices.ts`: ревизия на `titlePrefix` и `metaDescription` за всяка от ~10-те услуги така че да бъдат уникални (140–160 знака, с ключовата дума за услугата).
+- За глобалните страници (`AboutPage`, `BlogPage`, `ContactPage`, `CalculatorPage`, `PricingPage`, `ServicesPage`, `FAQPage`, `HowWeWorkPage`, `InspectionPage`, `ProjectsPage`, `QuoteRequestPage`, `ReviewsPage`, `ThankYouPage`) — добави `<Helmet>` с уникален title/description там, където липсва.
 
-В `InquiryDetailPage.updateStatus()` (и в `ContractWorkflowPanel`):
+### 4. Canonical + hreflang за всяка страница
+- `HreflangTags` вече изчислява canonical и alternates правилно. Гарантирай, че се монтира на **всеки** route (в момента се рендерира през `LanguageLayout`/`LocalizedPageRouter`; ще проверим, че глобалните страници като `/bg/blog/...` също го получават). Добави и `<link rel="alternate" hreflang="x-default" href=".../bg/varna">`.
 
-- Ако новият статус е `contract_prepared`, `contract_sent`, `contract_signed` или `contract_rejected` **и още няма** `contracts` ред за това запитване → автоматично `insert` на draft контракт (client_name/phone/email/address от запитването, `contract_workflow_status` = съответния, `currency` = `EUR`, `contract_value` = 0).
-- След създаването контрактът се връща и `ContractWorkflowPanel` веднага показва формата с полета и секция „Документи".
+### 5. Добави липсващите JSON-LD блокове там, където ги няма
+Главната страница вече има `RoofingContractor` + `WebSite`. Разшири с:
+- **FAQPage** schema на всяка страница, която рендерира FAQ (CityServiceTemplate, HomeFAQ, FAQPage).
+- **Service** schema с `offers.priceRange` за всяка услуга (CityServiceTemplate вече има Service — добави `offers`/`priceRange` от `cityServices.ts`).
+- **BreadcrumbList** schema там, където визуално има breadcrumbs (city pages, blog articles).
+- **AggregateRating** + няколко `Review` schema на главната (вече има aggregateRating; добави и Review елементи от Testimonials).
 
-### 2. Задължителен диалог при избор на „Договор подписан"
+### 6. Уеднакви гаранцията на „15 години" навсякъде
+- `index.html`: og:description и twitter:description казват „до 10г" → промени на „до 15г писмена гаранция".
+- `src/components/HowWeWork.tsx`: „до 10–15 години" → „15 години".
+- Бърза проверка с `rg "10г\|10 год\|10-15\|10–15"` за други случаи.
 
-Нов компонент `SignContractDialog` (модал):
-
-- Отваря се автоматично, когато:
-  - админът избере статус „Договор подписан" от страничното меню, **или**
-  - в `ContractWorkflowPanel` смени статуса на договора на `signed`.
-- Полета (всички видими, със стойност = задължителна):
-  - **Стойност на договора** (number, > 0, required)
-  - **Валута** (EUR / BGN, default EUR)
-  - **Дата на подписване** (date, default = днес)
-  - **Номер на договор** (опционален)
-  - **Бележки** (опционален)
-- Бутон „Запази" е disabled докато стойността не е > 0. При запис:
-  - Ъпдейтва `contracts` (създава ако липсва).
-  - Ъпдейтва `inquiries.status = 'contract_signed'`.
-  - Показва toast „Договорът е записан" и подканва „Качи документи" (скрол до секцията с файлове).
-
-### 3. Документи към договора — винаги достъпни
-
-- `ContractWorkflowPanel` вече има секция „Прикачени документи" с категории (договор, оферта, анекс, фактура, снимка, друго) и качване в bucket `project-documents/contracts/{id}/`.
-- Премахваме съобщението „Първо генерирайте договор" — щом има auto-created draft, секцията се вижда веднага и админът може да качва.
-- Във `InquiryDetailPage` добавяме видим бутон „Качи документ към договора" който скролва до секцията.
-
-### 4. Визуализация в списъка с договори и в отчетите
-
-- `ContractsListPage` (`/admin/contracts`) вече чете от `contracts` — щом auto-create-нем draft при влизане в договорна фаза, lead-ът ще се появи автоматично с правилния статус, стойност, валута, дата, услуги и брой документи.
-- `RevenuePage` (`/admin/revenue`) също се захранва от `contracts` (филтър `contract_workflow_status = 'signed'`) — стойността веднага участва в месечен/годишен оборот, по услуги и в conversion-а оферта→договор.
-- В `InquiryListPage` индикаторите за стойност/валута/документи ще се появят автоматично.
-
-### 5. Защита срещу „празни" подписани договори
-
-- Ако в БД вече има `contracts` със статус `signed` и `contract_value = 0` (като текущия тест на потребителя), `ContractWorkflowPanel` ще показва предупреждение „Липсва стойност" с червен бордер върху полето, докато не се попълни.
+### 7. (Незадължително) Различни og:image по услуга
+- Извън scope-а за тази итерация — само ако потвърдиш. Изисква генериране на 10+ нови OG изображения.
 
 ## Технически детайли
+- Промени по файлове: `package.json`, `vite.config.ts`, `src/main.tsx`, `index.html`, `src/components/HreflangTags.tsx` (импорт), `src/pages/Index.tsx` (импорт), `src/components/city/CityServiceTemplate.tsx` (импорт + FAQ/Breadcrumb/Offers schema), `src/data/cityServices.ts` (уникални titles/descriptions), `src/components/HomeFAQ.tsx` (FAQPage schema), `src/components/HowWeWork.tsx` (warranty текст), + добавяне на `<Helmet>` в глобалните pages, които нямат.
+- Prerender output остава в `dist/` и се обслужва от Vercel без други промени.
+- Sitemap-ите и `robots.txt` остават както са.
 
-**Файлове за промяна:**
-
-- `src/pages/admin/InquiryDetailPage.tsx`
-  - `updateStatus()`: при контрактна фаза auto-insert в `contracts` ако липсва; при `contract_signed` → отваря `SignContractDialog`.
-  - Презарежда `inquiry` след промяна, за да трикне `ContractWorkflowPanel` ремонт.
-- `src/components/admin/ContractWorkflowPanel.tsx`
-  - Премахва blocker-а „Няма договор" — ако липсва, прави auto-insert при mount или при първи save.
-  - При смяна на локалния статус на `signed` отваря `SignContractDialog` преди запис.
-  - Маркира `contract_value` като required (червена рамка ако 0 при signed).
-- `src/components/admin/SignContractDialog.tsx` (нов)
-  - Контролиран модал; валидира value > 0; записва в `contracts`; синхронизира `inquiries.status`.
-
-**Без промени по БД** — всички колони (`contract_value`, `currency`, `signed_date`, `contract_number`, `notes`, `service_categories`) и `contract_files` вече съществуват.
-
-**Без промени по storage** — bucket `project-documents` и RLS политиките са налични.
-
-## Резултат
-
-След промените, когато админ маркира lead като „Договор подписан":
-
-1. Появява се задължителен диалог за стойност/валута/дата/номер.
-2. Документи могат да се качват веднага (договор, оферта, фактура, снимки, анекс).
-3. Lead-ът се показва в `/admin/contracts` като реален договор.
-4. Стойността влиза в месечния и годишен оборот в `/admin/revenue`.
-5. От бутона „Създай обект/проект" договорът става активен обект в `/admin/sites`.
+## Какво НЕ се пипа
+Чистите URL-и, alt текстовете, H1 структурата, `lang="bg"`, robots.txt и sitemap index-а — всичко това вече е наред според одита.
