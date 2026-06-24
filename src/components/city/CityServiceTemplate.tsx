@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Phone, Eye, CheckCircle, MapPin, Clock, Shield, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";

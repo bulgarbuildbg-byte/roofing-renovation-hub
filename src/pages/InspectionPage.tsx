@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Shield, CheckCircle, Send, ArrowLeft, ArrowRight, Upload, X, Loader2 } from "lucide-react";

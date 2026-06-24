@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 import { ClipboardCheck, FileText, Hammer, Award, CheckCircle, Phone } from "lucide-react";
 import Header from "@/components/Header";
