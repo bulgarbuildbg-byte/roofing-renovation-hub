@@ -196,9 +196,14 @@ function buildRoutes() {
 }
 
 
-function rewriteHead(html, { urlPath, title, description }) {
+function rewriteHead(html, { urlPath, title, description, locale, htmlLang }) {
   const canonical = `${BASE_URL}${urlPath}`;
   const ogTitle = title.replace(/ \| 089 397 1873$/, ""); // trim phone tail for social cards
+
+  // <html lang="…">
+  if (htmlLang) {
+    html = html.replace(/<html\s+lang="[^"]*"/i, `<html lang="${htmlLang}"`);
+  }
 
   // Replace <title>
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
@@ -209,7 +214,7 @@ function rewriteHead(html, { urlPath, title, description }) {
     `<meta name="description" content="${escapeHtml(description)}" />`
   );
 
-  // Replace og:title / og:description / og:url
+  // Replace og:title / og:description
   html = html.replace(
     /<meta\s+property="og:title"[^>]*\/?>/i,
     `<meta property="og:title" content="${escapeHtml(ogTitle)}" />`
@@ -218,6 +223,14 @@ function rewriteHead(html, { urlPath, title, description }) {
     /<meta\s+property="og:description"[^>]*\/?>/i,
     `<meta property="og:description" content="${escapeHtml(description)}" />`
   );
+
+  // og:locale — replace only the primary line (alternates remain)
+  if (locale) {
+    html = html.replace(
+      /<meta\s+property="og:locale"\s+content="[^"]*"\s*\/?>/i,
+      `<meta property="og:locale" content="${locale}" />`
+    );
+  }
 
   // Twitter
   html = html.replace(
@@ -229,7 +242,7 @@ function rewriteHead(html, { urlPath, title, description }) {
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`
   );
 
-  // Insert canonical + og:url right before </head> (no existing canonical in index.html)
+  // Insert canonical + og:url right before </head>
   const inject =
     `    <link rel="canonical" href="${canonical}" />\n` +
     `    <meta property="og:url" content="${canonical}" />\n`;
@@ -237,6 +250,7 @@ function rewriteHead(html, { urlPath, title, description }) {
 
   return html;
 }
+
 
 async function main() {
   const indexPath = path.join(DIST, "index.html");
