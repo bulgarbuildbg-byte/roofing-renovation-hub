@@ -129,16 +129,15 @@ const BehaviorPage = () => {
           <p className="text-sm text-muted-foreground">
             Microsoft Clarity записи + heatmaps на потребителското поведение.
           </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            🎬 Видеата се хостват в Microsoft Clarity. Кликни „Гледай запис" — нужен е достъп до проект <code className="font-mono">{CLARITY_PROJECT_ID}</code>.
+          </p>
         </div>
-        {CLARITY_ID ? (
-          <a href={`https://clarity.microsoft.com/projects/view/${CLARITY_ID}/dashboard`} target="_blank" rel="noreferrer">
-            <Button variant="outline" size="sm" className="gap-2">
-              <ExternalLink className="h-4 w-4" /> Отвори Clarity Dashboard
-            </Button>
-          </a>
-        ) : (
-          <Badge variant="destructive">Липсва VITE_CLARITY_PROJECT_ID</Badge>
-        )}
+        <a href={clarityDashboardUrl()} target="_blank" rel="noreferrer">
+          <Button variant="outline" size="sm" className="gap-2">
+            <ExternalLink className="h-4 w-4" /> Отвори Clarity Dashboard
+          </Button>
+        </a>
       </div>
 
       {/* Filters */}
@@ -197,7 +196,7 @@ const BehaviorPage = () => {
               </CardHeader>
               <CardContent className="space-y-2 text-sm">
                 <div className="flex justify-between"><span className="text-muted-foreground">Страници</span><span>{s.pages}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">Време</span><span>{Math.round(s.duration_s)}s</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Време</span><span>{formatDuration(s.duration_s)}</span></div>
                 <div className="flex justify-between"><span className="text-muted-foreground">Източник</span><span>{s.source}</span></div>
                 <div className="text-xs text-muted-foreground truncate" title={s.first_page}>Старт: {s.first_page}</div>
                 <div className="text-xs text-muted-foreground truncate" title={s.exit_page}>Изход: {s.exit_page}</div>
@@ -245,7 +244,7 @@ const BehaviorPage = () => {
                   <td>{s.device}</td>
                   <td>{s.source}</td>
                   <td>{s.pages}</td>
-                  <td>{Math.round(s.duration_s)}s</td>
+                  <td>{formatDuration(s.duration_s)}</td>
                   <td>{(s as any).clicks ?? 0}</td>
                   <td className="max-w-[180px] truncate" title={s.exit_page}>{s.exit_page}</td>
                   <td>
