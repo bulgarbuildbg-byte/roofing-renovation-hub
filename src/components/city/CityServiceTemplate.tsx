@@ -226,7 +226,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
     },
     "provider": {
       "@type": "RoofingContractor",
-      "name": `Ремонт на Покриви ${cityName}`,
+      "name": siteName,
       "legalName": "Булгар Билд ЕООД",
       "telephone": `+359${cityData.phoneTel.substring(1)}`,
       "email": cityData.email,
@@ -260,9 +260,9 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": `${BASE_URL}/${currentLang}` },
+      { "@type": "ListItem", "position": 1, "name": ui.breadcrumbHome, "item": `${BASE_URL}/${currentLang}` },
       { "@type": "ListItem", "position": 2, "name": cityName, "item": `${BASE_URL}/${currentLang}/${citySlug}` },
-      { "@type": "ListItem", "position": 3, "name": h1, "item": canonical },
+      { "@type": "ListItem", "position": 3, "name": titlePrefix, "item": canonical },
     ],
   };
 
@@ -271,13 +271,14 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
-        {/* canonical + hreflang handled by HreflangTags mounted in LanguageLayout */}
+        <link rel="canonical" href={canonical} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={ogImage} />
         <meta property="og:locale" content={ogLocale} />
-        <meta property="og:site_name" content={`Ремонт на Покриви ${cityName}`} />
+        <meta property="og:site_name" content={siteName} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
