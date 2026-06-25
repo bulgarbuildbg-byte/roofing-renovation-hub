@@ -13,6 +13,8 @@ import SignContractDialog from "@/components/admin/SignContractDialog";
 
 import { INQUIRY_STATUS_LABELS, CONTRACT_RELEVANT_STATUSES } from "@/lib/serviceCategories";
 import { useAuth } from "@/contexts/AuthContext";
+import { clarityImpressionUrl } from "@/lib/clarity";
+import { formatDuration } from "@/lib/format";
 const statusLabels = INQUIRY_STATUS_LABELS;
 const serviceLabels: Record<string, string> = {
   repair: "Ремонт", replacement: "Подмяна", new_construction: "Нов покрив", waterproofing: "Хидроизолация",
@@ -37,7 +39,7 @@ const InquiryDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [signDialogOpen, setSignDialogOpen] = useState(false);
   const [pendingContract, setPendingContract] = useState<any>(null);
-  const clarityId = import.meta.env.VITE_CLARITY_PROJECT_ID as string | undefined;
+  
 
   useEffect(() => {
     const fetch = async () => {
@@ -228,6 +230,11 @@ const InquiryDetailPage = () => {
                         <div className="flex items-center gap-2 flex-wrap">
                           <Badge variant="outline" className="text-[10px]">{ev.event_type}</Badge>
                           {ev.event_name && <span className="text-xs text-muted-foreground">{ev.event_name}</span>}
+                          {(ev.duration_seconds > 0 || ev.time_on_page_ms > 0) && (
+                            <Badge variant="secondary" className="text-[10px]">
+                              ⏱ {formatDuration(ev.duration_seconds || (ev.time_on_page_ms || 0) / 1000)}
+                            </Badge>
+                          )}
                           {ev.is_exit && <Badge variant="destructive" className="text-[10px]">EXIT</Badge>}
                         </div>
                         {ev.page_path && <div className="text-xs truncate" title={ev.page_path}>{ev.page_path}</div>}
@@ -285,16 +292,16 @@ const InquiryDetailPage = () => {
           </div>
 
           {/* Session recording deep-link */}
-          {inquiry.session_id && clarityId && (
+          {inquiry.session_id && (
             <a
-              href={`https://clarity.microsoft.com/projects/view/${clarityId}/impressions?filter=CustomSessionId%3A%3A${encodeURIComponent(inquiry.session_id)}`}
+              href={clarityImpressionUrl(inquiry.session_id)}
               target="_blank"
               rel="noreferrer"
               className="block"
             >
               <Button variant="outline" className="w-full" size="lg">
                 <Video className="h-4 w-4 mr-2" />
-                Виж запис в Clarity
+                🎬 Виж запис в Clarity
               </Button>
             </a>
           )}
