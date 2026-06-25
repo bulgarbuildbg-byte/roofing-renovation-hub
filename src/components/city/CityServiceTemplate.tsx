@@ -429,16 +429,16 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <section className="py-10 bg-slate-800 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-3">
-              Имате нужда от {service.titlePrefix.toLowerCase()} в {cityName}?
+              {ui.ctaTitle(titlePrefix, cityName)}
             </h2>
             <p className="text-white/80 mb-6 max-w-xl mx-auto">
-              Безплатен оглед на място. Точна оферта без скрити разходи.
+              {ui.ctaSubtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                 <Link to={getPath("contact")}>
                   <Eye className="w-5 h-5 mr-2" />
-                  Заяви безплатен оглед
+                  {ui.requestInspection}
                 </Link>
               </Button>
               <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20 text-lg px-8">
