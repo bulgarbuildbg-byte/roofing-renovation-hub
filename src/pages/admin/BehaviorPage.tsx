@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 import { ExternalLink, Video, Eye, MousePointerClick, Clock, ArrowUpRight } from "lucide-react";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
+import { CLARITY_PROJECT_ID, clarityImpressionUrl, clarityDashboardUrl } from "@/lib/clarity";
+import { formatDuration } from "@/lib/format";
 
-const CLARITY_ID = import.meta.env.VITE_CLARITY_PROJECT_ID as string | undefined;
 const SOURCES = ["all", "organic", "direct", "social", "referral", "email"] as const;
 const DEVICES = ["all", "mobile", "tablet", "desktop"] as const;
 
@@ -34,10 +35,7 @@ const ago = (days: number) => {
   return d.toISOString().slice(0, 10);
 };
 
-const clarityUrl = (sessionId: string) =>
-  CLARITY_ID
-    ? `https://clarity.microsoft.com/projects/view/${CLARITY_ID}/impressions?filter=CustomSessionId%3A%3A${encodeURIComponent(sessionId)}`
-    : null;
+const clarityUrl = (sessionId: string) => clarityImpressionUrl(sessionId);
 
 const BehaviorPage = () => {
   const [from, setFrom] = useState(ago(1));
