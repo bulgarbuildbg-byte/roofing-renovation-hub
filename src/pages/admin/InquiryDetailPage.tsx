@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, FileText, Download, Phone, Mail, MapPin, Ruler, Layers, Box, Globe } from "lucide-react";
+import { ArrowLeft, FileText, Download, Phone, Mail, MapPin, Ruler, Layers, Box, Globe, Video, Activity, Smartphone } from "lucide-react";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
@@ -33,9 +33,11 @@ const InquiryDetailPage = () => {
   const { user } = useAuth();
   const [inquiry, setInquiry] = useState<any>(null);
   const [files, setFiles] = useState<any[]>([]);
+  const [timeline, setTimeline] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [signDialogOpen, setSignDialogOpen] = useState(false);
   const [pendingContract, setPendingContract] = useState<any>(null);
+  const clarityId = import.meta.env.VITE_CLARITY_PROJECT_ID as string | undefined;
 
   useEffect(() => {
     const fetch = async () => {
@@ -45,6 +47,15 @@ const InquiryDetailPage = () => {
       ]);
       setInquiry(inq);
       setFiles(f || []);
+      if (inq?.session_id) {
+        const { data: ev } = await supabase
+          .from("analytics_events" as any)
+          .select("event_type,event_name,page_path,device_type,referrer_source,duration_seconds,time_on_page_ms,is_exit,created_at")
+          .eq("session_id", inq.session_id)
+          .order("created_at", { ascending: true })
+          .limit(200);
+        setTimeline((ev || []) as any[]);
+      }
       setLoading(false);
     };
     fetch();
