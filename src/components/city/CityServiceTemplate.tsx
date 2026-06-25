@@ -296,7 +296,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <section className="relative bg-black text-white py-16 md:py-24 overflow-hidden">
           <img
             src={service.heroImage}
-            alt={`${h1} — професионални услуги`}
+            alt={`${h1} — ${titlePrefix}`}
             className="absolute inset-0 w-full h-full object-cover"
             loading="eager"
             width={1920}
@@ -306,18 +306,18 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/75 via-[#0f172a]/35 to-transparent" />
           <div className="container mx-auto px-4 relative z-10">
             <nav className="text-sm mb-6 text-white/70">
-              <Link to={getPath("home")} className="hover:text-white">Начало</Link>
+              <Link to={getPath("home")} className="hover:text-white">{ui.breadcrumbHome}</Link>
               <span className="mx-2">/</span>
-              <Link to={`/bg/${citySlug}`} className="hover:text-white">{cityName}</Link>
+              <Link to={`/${currentLang}/${citySlug}`} className="hover:text-white">{cityName}</Link>
               <span className="mx-2">/</span>
-              <span className="text-white">{service.titlePrefix}</span>
+              <span className="text-white">{titlePrefix}</span>
             </nav>
             <div className="max-w-4xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_3px_16px_rgba(0,0,0,0.9)]">
                 {h1}
               </h1>
               <p className="text-xl md:text-2xl text-white/90 max-w-3xl mb-6 [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
-                {service.heroSubtitle}
+                {heroSubtitle}
               </p>
               {service.priceHint && (
                 <div className="inline-block bg-green-500/20 border border-green-400/40 backdrop-blur-sm px-4 py-2 rounded-lg mb-6">
@@ -328,7 +328,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 shadow-lg">
                   <Link to={getPath("contact")}>
                     <Eye className="w-5 h-5 mr-2" />
-                    Заяви безплатен оглед
+                    {ui.requestInspection}
                   </Link>
                 </Button>
                 <Button asChild size="lg" className="bg-primary/40 backdrop-blur-sm border-2 border-white/80 text-white hover:bg-white/20">
@@ -341,10 +341,10 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
               <CalculatorDialog type="roof" />
               <div className="flex flex-wrap gap-3 text-sm mt-6">
                 {[
-                  `Обслужваме цял ${cityName}`,
-                  "Безплатен оглед 24ч",
-                  "Гаранция 15 години",
-                  "Работа по договор",
+                  ui.servesAll(cityName),
+                  ui.freeInspection24,
+                  ui.warranty15,
+                  ui.contractWork,
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-2 bg-primary/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
                     <CheckCircle className="w-4 h-4 text-green-400" />
