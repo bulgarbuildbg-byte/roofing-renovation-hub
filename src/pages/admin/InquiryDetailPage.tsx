@@ -208,6 +208,36 @@ const InquiryDetailPage = () => {
               </div>
             </div>
           )}
+
+          {/* Activity Timeline (behavioural events tied to this lead's session) */}
+          {inquiry.session_id && (
+            <div className="bg-card rounded-xl border border-border p-6">
+              <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+                <Activity className="h-4 w-4" /> Activity Timeline
+              </h2>
+              {timeline.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Няма записани действия за тази сесия.</p>
+              ) : (
+                <ol className="space-y-2 max-h-96 overflow-y-auto pr-2">
+                  {timeline.map((ev, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-sm border-l-2 border-border pl-3">
+                      <span className="text-xs text-muted-foreground w-24 shrink-0">
+                        {format(new Date(ev.created_at), "dd MMM HH:mm:ss", { locale: bg })}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <Badge variant="outline" className="text-[10px]">{ev.event_type}</Badge>
+                          {ev.event_name && <span className="text-xs text-muted-foreground">{ev.event_name}</span>}
+                          {ev.is_exit && <Badge variant="destructive" className="text-[10px]">EXIT</Badge>}
+                        </div>
+                        {ev.page_path && <div className="text-xs truncate" title={ev.page_path}>{ev.page_path}</div>}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Sidebar */}
@@ -243,8 +273,31 @@ const InquiryDetailPage = () => {
                   </Badge>
                 </div>
               )}
+              {inquiry.device_type && (
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Устройство</p>
+                  <Badge variant="outline" className="gap-1 capitalize">
+                    <Smartphone className="h-3 w-3" /> {inquiry.device_type}
+                  </Badge>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* Session recording deep-link */}
+          {inquiry.session_id && clarityId && (
+            <a
+              href={`https://clarity.microsoft.com/projects/view/${clarityId}/impressions?filter=CustomSessionId%3A%3A${encodeURIComponent(inquiry.session_id)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="block"
+            >
+              <Button variant="outline" className="w-full" size="lg">
+                <Video className="h-4 w-4 mr-2" />
+                Виж запис в Clarity
+              </Button>
+            </a>
+          )}
 
           <Link to={`/admin/inquiries/${id}/quote`}>
             <Button className="w-full" size="lg">
