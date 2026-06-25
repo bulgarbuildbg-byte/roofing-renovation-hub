@@ -457,9 +457,9 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-              Обслужваме всички квартали на {cityName}
+              {ui.neighborhoodsTitle(cityName)}
             </h2>
-            <p className="text-muted-foreground mb-8">Бърза реакция в целия град и региона</p>
+            <p className="text-muted-foreground mb-8">{ui.neighborhoodsSubtitle}</p>
             <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
               {cityData.neighborhoods.map((n) => (
                 <div key={n} className="flex items-center gap-1.5 bg-background border border-border px-3 py-1.5 rounded-full text-sm">
