@@ -18,6 +18,7 @@ const OldBlogSlugRedirect = () => {
 };
 import ScrollToTop from "./components/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
+import ClarityTracker from "./components/ClarityTracker";
 
 // Admin pages — lazy loaded (never needed by public visitors)
 const AdminLoginPage = lazy(() => import("./pages/admin/AdminLoginPage"));
@@ -46,6 +47,8 @@ const ContractsListPage = lazy(() => import("./pages/admin/ContractsListPage"));
 const SitesListPage = lazy(() => import("./pages/admin/SitesListPage"));
 const SiteDetailPage = lazy(() => import("./pages/admin/SiteDetailPage"));
 const RevenuePage = lazy(() => import("./pages/admin/RevenuePage"));
+const BehaviorPage = lazy(() => import("./pages/admin/BehaviorPage"));
+const DeviceAnalyticsPage = lazy(() => import("./pages/admin/DeviceAnalyticsPage"));
 
 const queryClient = new QueryClient();
 
@@ -58,6 +61,7 @@ const App = () => (
         <AuthProvider>
           <ScrollToTop />
           <AnalyticsTracker />
+          <ClarityTracker />
           <Routes>
             {/* Root: detect language and redirect */}
             <Route path="/" element={<LanguageRedirect />} />
@@ -117,6 +121,8 @@ const App = () => (
               <Route path="sites" element={<Suspense fallback={null}><SitesListPage /></Suspense>} />
               <Route path="sites/:id" element={<Suspense fallback={null}><SiteDetailPage /></Suspense>} />
               <Route path="revenue" element={<Suspense fallback={null}><RevenuePage /></Suspense>} />
+              <Route path="behavior" element={<Suspense fallback={null}><BehaviorPage /></Suspense>} />
+              <Route path="devices" element={<Suspense fallback={null}><DeviceAnalyticsPage /></Suspense>} />
               <Route path="staff" element={<Suspense fallback={null}><ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute></Suspense>} />
             </Route>
 
