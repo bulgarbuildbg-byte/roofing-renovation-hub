@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { isCityKey } from "@/i18n/cities";
-import { findRouteKeyBySlug } from "@/i18n/routes";
+import { findRouteKeyBySlug, localizedSlugs } from "@/i18n/routes";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { CITY_SERVICES } from "@/data/cityServices";
 import BurgasHome from "@/pages/cities/BurgasHome";
@@ -13,8 +13,9 @@ import NotFound from "@/pages/NotFound";
 /**
  * Routes city-scoped pages: /:lang/:city/*
  *
- * Works across all supported languages — resolves the service slug
- * in the active language, then renders the BG service template.
+ * Resolves the service slug in the active language. If a slug from a
+ * different language is requested (e.g. BG slug under /en/), 301-redirect
+ * to the correct localized slug for the current language — fixes soft 404s.
  */
 const CityPageRouter = () => {
   const { lang, "*": restPath } = useParams<{ lang: string; "*": string }>();
@@ -38,12 +39,23 @@ const CityPageRouter = () => {
     if (city === "dobrich") return <DobrichHome />;
   }
 
-  // Service sub-page: resolve slug → routeKey using the ACTIVE language
+  // Service sub-page: try the current language first
   const routeKey = findRouteKeyBySlug(subPath, currentLang);
   if (routeKey) {
     const service = CITY_SERVICES[routeKey];
     if (service) {
       return <CityServiceTemplate service={service} />;
+    }
+  }
+
+  // Cross-language slug: e.g. /en/varna/hidroizolacia-na-pokriv (BG slug under EN).
+  // Resolve through any other language, then 301 to the current-language slug.
+  for (const otherLang of SUPPORTED_LANGUAGES) {
+    if (otherLang === currentLang) continue;
+    const altKey = findRouteKeyBySlug(subPath, otherLang);
+    if (altKey && CITY_SERVICES[altKey]) {
+      const correctSlug = localizedSlugs[currentLang][altKey];
+      return <Navigate to={`/${currentLang}/${city}/${correctSlug}`} replace />;
     }
   }
 

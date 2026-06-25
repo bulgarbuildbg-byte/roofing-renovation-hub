@@ -1,60 +1,81 @@
-## Цел
-Поправяме 5-те критични SEO/UX дефекта: чуждоезични мета тагове, structured data, hreflang, soft 404, непреведени UI бутони.
+# SEO корекции — remontnapokrivivarna.bg
 
-## 1) Чуждоезични мета тагове (критично)
-**Проблем:** `bg.ts` има `meta.homeTitle/homeDesc`, останалите 9 езика — не. `Index.tsx` извиква `t('meta.homeTitle')` → fallback връща българския низ. Същото за всички страници, които ползват `t('meta.*')` и за `CityServiceTemplate` (там заглавието е директно hard-coded на български в ред 36).
+URL структурата и слъговете НЕ се пипат. Само метаданни, JSON-LD, hreflang, 404 и i18n текстове.
 
-**Решение:**
-- Добавяме пълен `meta` namespace (homeTitle, homeDesc, homeKeywords + per-page titles/descriptions за services/about/projects/reviews/contact/calculator/blog/faq/inspection/howWeWork/pricing/quote/financing/solar*) във всички 9 локала (`en, de, fi, sv, no, fr, nl, ru, ua`). Уникални, native, ≤60 chars title / ≤155 chars description.
-- `CityServiceTemplate.tsx`: премахваме hard-coded BG title; четем от `t('city.serviceMeta', { service, city })` шаблон, добавяме същия namespace в 10-те локала. Същото за `metaDesc`, `ogTitle`, `twitterTitle`.
-- Премахваме статичния `<meta property="og:locale" content="bg_BG">` от `index.html` — `HreflangTags` вече го сетва per-route.
+## 1. Преведени метаданни за всички езици (КРИТИЧНО)
 
-## 2) Hreflang в `<head>` на всички страници
-**Статус:** `HreflangTags` вече се mount-ва в `LanguageLayout` (покрива целия `/:lang/*` дървовид). Проверката потвърждава, че всеки маршрут получава `<link rel="alternate" hreflang>` + `x-default`. **Не е счупено в код-а, а в crawler-perception** заради soft-404 (т.4) и липсата на prerender за не-BG (вж. долу).
-- **Разширяваме `scripts/prerender-seo.mjs`** да генерира статични stub HTML файлове и за останалите 9 езика (home + ключови global pages + city/varna home + 4 топ услуги в /varna/). Това дава на social/SEO crawler-ите static `<title>`, `og:*`, `canonical`, `og:locale` и hreflang блока на правилния език.
+Проблем: `CityServiceTemplate.tsx` и градските home страници използват жъстко закодирани BG стрингове (`service.titlePrefix`, `service.metaDescription`, "— Безплатен Оглед 24ч") за всички езици. Затова `/en/varna/roof-waterproofing` сервира български `<title>` и `og:title`.
 
-## 3) Structured data (Schema.org)
-**Проблем:** `Index.tsx` има богат JSON-LD, но е само на BG home. Липсва на останалите страници.
+Действия:
+- В `src/i18n/locales/*.ts` (10 файла) — да се добави/допълни namespace `cityMeta` с преведени `titlePrefix`, `metaDescription`, `schemaDescription`, `heroSubtitle`, `priceHint` за всички 10 услуги (roofRepair, leakRepair, waterproofing, newRoof, tileRoofRepair, flatRoof, metalRoof, maintenance, solarSystems и т.н.) + `titleSuffix` ("— Free Inspection 24h | …", "— Kostenlose Inspektion 24h | …" и пр.) и `cityHomeTitle/Desc` за `/lang/varna` тип страници.
+- `src/components/city/CityServiceTemplate.tsx` — да чете през `t('cityMeta.<routeKey>.title')` с fallback към `service.titlePrefix`. Същото за description, schemaDescription, hero subtitle, breadcrumb labels ("Начало" → `t('nav.home')`). `og:site_name` и `og:locale` вече зависят от `currentLang`; canonical вече се self-references — да се запази.
+- `src/pages/Index.tsx` — `meta.homeTitle/Desc/Keywords` вече се ползват през `t()`, но JSON-LD е чист BG. Да се изнесе `localBusinessSchema.description`, `name`, `address.addressRegion`, `areaServed[].name` и `breadcrumbSchema[].name` през `t('schema.*')` ключове добавени във всички локали.
+- `src/pages/cities/VarnaHome.tsx`, `BurgasHome.tsx`, `DobrichHome.tsx`, `RuseHome.tsx` (които сега reuse Index) — да получат собствен `<Helmet>` блок с локализиран title/description за всеки език.
 
-**Решение:**
-- `CityServiceTemplate`: добавяме `Service` + `FAQPage` + `BreadcrumbList` + `AggregateRating` (4.9/127) JSON-LD, локализиран през `t()`.
-- `Index.tsx`: AggregateRating вече е там; добавяме `FAQPage` (от `HomeFAQ`) и `BreadcrumbList`.
-- За не-BG home (city home pages, global pages): емит-ваме същите JSON-LD с локализирани имена.
+## 2. Структурирани данни (JSON-LD)
 
-## 4) Soft 404
-**Проблем:** Грешен слъг → `CityPageRouter` рендерира `NotFound`, но HTTP статус остава 200 и `<title>` пада обратно към статичния в `index.html` (BG).
+`Index.tsx` вече има `RoofingContractor`, `WebSite`, `Organization`, `BreadcrumbList`. Допълнения:
+- Да се добави `FAQPage` JSON-LD на началната страница, четящ ЧЗВ масива от `HomeFAQ` (преместване на FAQ source в shared module / prop за да може Index да го serialize-не).
+- Да се добави `Review` масив (топ 3–5 отзива) към `LocalBusiness.review[]` и да се остави `aggregateRating` (4.9/127).
+- `CityServiceTemplate.tsx` вече emit-ва `Service + FAQPage + BreadcrumbList` — да се добави `priceRange` и `offers.priceCurrency=BGN` от `service.priceHint`.
+- Всеки шаблон на услуга-страница (`src/pages/services/*.tsx` — RoofRepair, Waterproofing, NewRoof, Maintenance, MetalRoof, FlatRoof, TileReplacement, Solar*, Financing) да получи собствен `Service` JSON-LD с `provider` сочещ към `RoofingContractor` и `priceRange`.
+- Глобален `LocalBusiness` (NAP + работно време + geo) да се добави и в `LanguageLayout.tsx` за да присъства на всеки маршрут, не само Index.
 
-**Решение в `src/pages/NotFound.tsx`:**
-- Добавяме `<Helmet>` с `<meta name="robots" content="noindex, nofollow">`, `<title>404 — Страницата не е намерена</title>` (локализирано през `t()`), `<meta name="prerender-status-code" content="404">` (за prerender services / Vercel edge).
-- Превеждаме съдържанието на NotFound през `t('notFound.*')` за всички 10 езика.
-- Бележка: реален 404 HTTP status в SPA изисква server config — добавяме `prerender-status-code` мета, който се чете от prerender pipeline; за други crawler-и noindex е достатъчен сигнал.
+## 3. Hreflang
 
-## 5) Непреведени UI елементи
-- Заменяме hard-coded `"Заявете оферта"` и `"Изчисли цена"` в:
-  `Header.tsx`, `Footer.tsx`, `MobileBottomBar.tsx`, `CalculatorDialog.tsx`, `CityServiceTemplate.tsx`, `MaintenancePage.tsx`, `SolarSystemsPage.tsx`, `PriceCalculator.tsx`
-- с `t('cta.requestQuote')` / `t('cta.calculatePrice')` / `t('cta.requestInspection')`.
-- Добавяме съответните ключове в 10-те локала.
+`HreflangTags.tsx` вече генерира 10 alternates + `x-default` и е mount-нат в `LanguageLayout`. Да се верифицира че layout-ът обвива и `/`, `/varna` и грешни/404 маршрути. Действия:
+- Проверка че `LanguageLayout` се прилага за всеки `:lang/*` route в `App.tsx`.
+- `x-default` href сега сочи към `${BASE_URL}/` — да се поправи към `/bg/<path>` (българската версия като default).
+- Да се добави `<html lang>` управление през Helmet (вместо само през `i18n.changeLanguage`).
 
-## Технически детайли
+## 4. Soft 404
+
+Проблем: грешен слъг като `/en/varna/hidroizolacia-na-pokriv` (BG слъг под EN) попада в `Index` или градски wrapper и връща 200 с BG H1.
+
+Действия в `src/components/LocalizedPageRouter.tsx` и `CityPageRouter.tsx`:
+- При резолюция на slug → ако `findRouteKeyBySlug(slug, currentLang)` върне `null` И slug-ът съществува в друг език → 301 redirect към `${currentLang}/${localizedSlugs[currentLang][routeKey]}`.
+- Ако slug-ът не съществува никъде → render `NotFound` с `prerender-status-code=404` (вече има) + `<meta http-equiv="status" content="404">` и да се добави `<title>404` на текущия език (вече ползва `t('notFound.title')`).
+- Списък от стари BG слъгове (`OLD_BG_SLUGS`) — extend logic за non-BG languages.
+
+## 5. Преводи на UI
+
+Аудит чрез `rg "[А-Яа-я]" src/components src/pages` за откриване на останали BG стрингове. Известни точки за поправка:
+- `src/components/MultiStepInquiryForm.tsx:171` — "Заявете безплатен оглед"
+- `src/components/PriceCalculator.tsx:728,741` — "Заявете безплатен оглед", "← Изчисли отново"
+- `src/components/QuickContactForm.tsx:33` — "Заявете безплатен оглед"
+- `src/components/city/CityServiceTemplate.tsx` — всички hardcoded BG надписи в hero бара ("Заяви безплатен оглед", "Обслужваме цял …", "Безплатен оглед 24ч", "Гаранция 15 години", "Работа по договор", breadcrumb "Начало"), benefits секцията и CTA "Заявете оферта"
+- Бутоните и labels във форми, FAQ headers, ChatBot prompts.
+
+Всички да минат през `t()` ключове, добавени в `ui`, `cta` или нови namespaces във всички 10 локали.
+
+## 6. Тестване и потвърждение
+
+След промените:
+- Локален build → `node scripts/prerender-seo.mjs` за да се проверят генерираните stub-ове за EN/DE/FR/NL/RU/UA/SV/NO/FI.
+- Playwright проверка: `/bg/varna`, `/en/varna`, `/en/varna/roof-waterproofing`, `/de/varna`, `/en/varna/hidroizolacia-na-pokriv` (трябва 404), `/bg/varna/hidroizolacia-na-pokriv` (трябва 200). Скрийншот + `<head>` dump.
+- За всеки тестов URL — да се отпечатат `<title>`, `og:locale`, `canonical`, `<link rel="alternate">` count, JSON-LD `@type` списък.
+- Линкове за ръчен тест да се споделят: Google Rich Results Test (`https://search.google.com/test/rich-results?url=…`) и Facebook Sharing Debugger (`https://developers.facebook.com/tools/debug/?q=…`) за по 3 URL.
+
+## Файлове за промяна (overview)
 
 ```text
-Файлове за промяна:
-  src/i18n/locales/{en,de,fi,sv,no,fr,nl,ru,ua}.ts   ← добавени meta + cta + notFound + city namespace
-  src/i18n/locales/bg.ts                              ← добавени липсващи cta/notFound ключове
-  src/components/city/CityServiceTemplate.tsx        ← премахнат hard-code, JSON-LD, t() title
-  src/pages/NotFound.tsx                              ← Helmet noindex + i18n
-  src/components/Header.tsx                           ← t() за CTA
-  src/components/Footer.tsx                           ← t() за CTA
-  src/components/MobileBottomBar.tsx                  ← t() за CTA
-  src/components/CalculatorDialog.tsx                 ← t() за CTA
-  src/components/PriceCalculator.tsx                  ← t() за CTA
-  src/pages/services/MaintenancePage.tsx              ← t() за CTA
-  src/pages/services/SolarSystemsPage.tsx             ← t() за CTA
-  src/pages/Index.tsx                                 ← добавен FAQPage + BreadcrumbList JSON-LD
-  index.html                                          ← премахнат статичен og:locale
-  scripts/prerender-seo.mjs                           ← разширен с 9 езика
+src/i18n/locales/{bg,en,de,fi,sv,no,fr,nl,ru,ua}.ts   # cityMeta + ui + schema keys
+src/components/city/CityServiceTemplate.tsx           # t()-driven meta + JSON-LD
+src/components/LanguageLayout.tsx                     # global LocalBusiness JSON-LD
+src/components/HreflangTags.tsx                       # x-default → /bg, <html lang>
+src/components/LocalizedPageRouter.tsx                # 301 cross-lang slug + 404
+src/components/CityPageRouter.tsx                     # same
+src/pages/Index.tsx                                   # FAQ JSON-LD, Review[]
+src/pages/cities/{Varna,Burgas,Dobrich,Ruse}Home.tsx  # per-lang Helmet
+src/pages/services/*.tsx                              # Service JSON-LD + priceRange
+src/components/{MultiStepInquiryForm,PriceCalculator,QuickContactForm,
+                ChatBot,HomeFAQ}.tsx                  # t() strings
+src/pages/NotFound.tsx                                # add http-equiv status
+scripts/prerender-seo.mjs                             # extend with new meta keys
 ```
 
-## Извън скоп (изисква отделно решение)
-- **Real HTTP 404 status**: SPA hosting не позволява без SSR или edge function. След тази задача crawler-ите ще виждат `noindex` + `prerender-status-code`, което Google третира като soft-404 → 404. За пълен HTTP 404 трябва Vercel edge middleware (отделна задача).
-- **AI превод на дълги мета**: ще генерираме native преводи за заглавия/описания директно, без AI gateway call — достатъчно е за заглавия и кратки описания. Ако искате AI-генерирано дълго съдържание на 9 езика, кажете.
+## Не се пипат
+
+- URL структурата, слъговете, рутингът, `i18n/routes.ts`.
+- Бекенд / CRM / Supabase.
+- Дизайн и layout.

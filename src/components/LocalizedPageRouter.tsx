@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { findRouteKeyBySlug, OLD_BG_SLUGS, isCityScopedRoute, type RouteKey } from "@/i18n/routes";
+import { findRouteKeyBySlug, OLD_BG_SLUGS, isCityScopedRoute, localizedSlugs, type RouteKey } from "@/i18n/routes";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { isCityKey } from "@/i18n/cities";
 import CityPageRouter from "@/components/CityPageRouter";
@@ -110,6 +110,20 @@ const LocalizedPageRouter = () => {
   if (routeKey && PAGE_MAP[routeKey]) {
     const PageComponent = PAGE_MAP[routeKey];
     return <PageComponent />;
+  }
+
+  // Cross-language slug fallback: a slug that exists in a different language
+  // → 301 to the current-language version (prevents soft 404).
+  for (const otherLang of SUPPORTED_LANGUAGES) {
+    if (otherLang === currentLang) continue;
+    const altKey = findRouteKeyBySlug(slug, otherLang);
+    if (altKey && PAGE_MAP[altKey]) {
+      const correctSlug = localizedSlugs[currentLang][altKey];
+      if (isCityScopedRoute(altKey)) {
+        return <Navigate to={`/${currentLang}/varna/${correctSlug}`} replace />;
+      }
+      return <Navigate to={`/${currentLang}/${correctSlug}`} replace />;
+    }
   }
 
   return <NotFound />;
