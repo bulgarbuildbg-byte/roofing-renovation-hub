@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Calculator } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import PriceCalculator from "@/components/PriceCalculator";
 import SolarCalculator from "@/components/SolarCalculator";
@@ -10,6 +11,7 @@ interface CalculatorDialogProps {
 
 const CalculatorDialog = ({ type = "roof" }: CalculatorDialogProps) => {
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -18,7 +20,7 @@ const CalculatorDialog = ({ type = "roof" }: CalculatorDialogProps) => {
         className="inline-flex items-center gap-1.5 bg-[#F3F6FA] hover:bg-[#E8EDF4] text-slate-700 border border-blue-300/60 hover:border-blue-400 rounded-full text-xs md:text-sm font-medium h-8 md:h-9 px-3 md:px-3.5 transition-colors cursor-pointer"
       >
         <Calculator className="w-4 h-4" />
-        Изчисли цена
+        {t('ui.calculatePrice')}
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
