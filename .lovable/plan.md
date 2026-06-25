@@ -1,59 +1,99 @@
-## Текущо състояние (какво вече е оправено)
 
-Проверих кода — част от исканите корекции вече са в проекта:
+# План: Поведенческа аналитика в CRM (Microsoft Clarity + вградена)
 
-- **Per-route `<title>`, `meta description`, `og:title`, `og:description`, `og:image`, `og:url`, `canonical`** се генерират през `react-helmet-async` в `CityServiceTemplate.tsx` (град+услуга), `BurgasHome.tsx`, `RuseHome.tsx`, `DobrichHome.tsx`, `VarnaHome.tsx` и глобалните страници (About, Blog, Contact, FAQ, и т.н.).
-- **`HreflangTags`** (mount-нат в `LanguageLayout`) добавя self-referencing `canonical` + `og:url` за всеки маршрут, включително правилния град.
-- **`og:url`** беше премахнат от `index.html` (per-route override работи).
-- **Текст „15 години"** беше уеднаквен в `index.html` og/twitter description и в `i18n/locales/bg.ts`.
+Подходът следва твоята препоръка: **Microsoft Clarity** за тежката работа (session recordings, heatmaps, clickmaps, scrollmaps) + **нашата собствена `analytics_events` таблица** за CRM таймлайна и Device Analytics. Така не преизмисляме видео-запис от нулата, а в CRM профила на всеки lead виждаме пълната картина и линк към записа на сесията в Clarity.
 
-**Защо link-preview-ите все още изглеждат еднакво:** Facebook / Messenger / Viber / LinkedIn ботовете **не изпълняват JavaScript**. Виждат само суровия `index.html`, който е един и същ за всички URL-и. Helmet тагове се появяват едва след hydration → невидими за тези crawlers. Googlebot изпълнява JS, така че за Google вече вижда правилните тагове, но social previews — не.
+## Защо Clarity (не Hotjar/FullStory/PostHog)
 
-## Какво ще направя
+- Безплатен без лимит на трафика (Hotjar/FullStory са скъпи на нашия обем).
+- Има официално API за custom tags → можем да маркираме сесия със `session_id`, `inquiry_id`, услуга, град, източник. Това позволява **директен deep-link** от CRM към конкретния запис.
+- GDPR-friendly, маскира текст по подразбиране (важно за телефони/имена във формите).
+- Можем да embed-нем Clarity dashboard през iframe в CRM, но deep-link към сесия е по-надежден.
 
-Единственото истинско решение е **pre-rendering**: генерираме отделен статичен HTML за всеки публичен маршрут по време на build, така че всеки URL да връща суров HTML с правилните `<title>` / `og:*` / `canonical`.
+PostHog е алтернативата, ако искаш всичко self-hosted и feature flags — но е overkill за нуждата.
 
-### 1. Добавяне на pre-render плъгин
+## Какво ще се построи
 
-- Инсталирам `vite-plugin-prerender-spa` (използва Puppeteer headless да рендерира всеки маршрут след `vite build` и записва `<route>/index.html`).
-- Конфигурирам в `vite.config.ts` списък от маршрути, който се чете от `public/sitemap-*.xml` (всички 10 езика × градове × услуги + блог + глобални) — около 400–500 URL-а.
-- Build artifact-ите остават статични файлове → Lovable hosting/Vercel ги сервират директно. SPA fallback продължава да работи за непредвидени URL-и.
+### 1. Clarity интеграция (frontend)
+- Нов компонент `ClarityTracker` в `src/components/` — зарежда скрипта само в production (не в `/admin/*` и не в preview).
+- Подава custom tags при всяка навигация: `session_id` (вече имаме от `analytics.ts`), `referrer_source`, `city`, `service`, `device_type`, `lang`.
+- При submit на форма → `clarity("set", "inquiry_id", <id>)` + `clarity("event", "form_submit")`.
+- `CLARITY_PROJECT_ID` в `.env` (публичен ключ, ОК в кода).
 
-### 2. Корекция на pre-render-friendly OG за всяка страница
+### 2. Разширяване на `analytics_events` (за Device Analytics и Activity Timeline)
+Таблицата вече съществува (10 колони). Migration добавя:
+- `device_type` (mobile/tablet/desktop), `viewport_w/h`, `time_on_page_ms`, `exit_page` boolean, `clarity_session_url` (deep-link), `referrer_source`, `utm_source/medium/campaign`.
+- Индекси по `session_id`, `inquiry_id`, `created_at`.
+- Backfill чрез `AnalyticsTracker.tsx` — вече тракваме pageview, разширяваме с device + time on page (visibilitychange/beforeunload).
 
-- Проверявам всеки от тези маршрути дали `<Helmet>` му е mount-нат **синхронно** при първи render (без `useEffect`/`Suspense`), за да го хване Puppeteer.
-- За `CityServiceTemplate` потвърждавам, че описанието използва `{city}` (вече прави `interpolate(...)`).
-- За `BurgasHome`/`RuseHome`/`DobrichHome` добавям изричен `og:url` + `canonical` в собствения `<Helmet>` (в момента разчитат само на `HreflangTags`; добавянето локално прави SEO одита по-четим и предпазва от грешки при бъдещ refactor).
+### 3. Linking към CRM lead
+- В `QuoteRequestForm` / `MultiStepInquiryForm` при submit записваме `session_id` в `inquiries.session_id` (вече има поле според memory).
+- Edge function `link-session-to-inquiry` обновява всички `analytics_events` за тази сесия с `inquiry_id` → пълен timeline.
 
-### 3. Build & deploy промени
+### 4. CRM UI (нови страници/секции)
 
-- В `package.json`: `"build": "vite build"` остава, но плъгинът се закача към `closeBundle` hook → pre-render тече автоматично.
-- Pre-render-ът използва selectors `[data-prerender-ready]` или `setTimeout(2000)` за да изчака Helmet да попълни `<head>`.
+**a) `InquiryDetailPage` → нов таб "Activity Timeline"**
+- Първо/последно посещение, общо време, брой сесии, устройство, източник.
+- Хронологичен списък: страница → време прекарано → действия (клик на tel:, форма, calculator step и т.н.).
+- Бутон **"Гледай запис в Clarity"** (отваря deep-link в нов таб с filter по `session_id` tag).
+- Heatmap thumbnail за най-посетените страници на lead-а (embed от Clarity).
 
-### 4. Верификация
+**b) Нова страница `/admin/behavior` — "Поведение на посетители"**
+- 3 секции:
+  - **Daily Top Sessions** — топ 3 сесии за деня по "engagement score" (брой страници × време × близост до конверсия). Всяка с thumbnail + Clarity линк.
+  - Филтри: дата, страница, услуга, източник (Google Ads/FB/Instagram/Organic/Direct/Referral), устройство.
+  - Логика за scoring в edge function `daily-top-sessions` (cron всеки ден 06:00).
 
-След merge, потвърждаваме с:
+**c) Нова страница `/admin/device-analytics` — "Анализ по устройства"**
+- % посетители mobile/tablet/desktop (pie chart).
+- Запитвания и conversion rate по устройство (bar chart).
+- Топ услуги по устройство (table).
+- Страници с най-много exits от mobile (table) — за UX оптимизация.
+- Данните идват от `analytics_events` + `inquiries` join.
 
-- `curl -A "facebookexternalhit/1.1" https://www.remontnapokrivivarna.bg/bg/varna/hidroizolacia-na-pokriv | grep og:title` — трябва да върне „Хидроизолация на покрив Варна…".
-- `curl ... /bg/burgas | grep og:title` — трябва да върне „…Бургас".
-- Facebook Sharing Debugger → Re-scrape за 4–5 URL-а (homepage, услуга-Варна, услуга-Бургас, блог статия, /bg/za-nas).
+### 5. Engagement score (за daily top sessions)
+```
+score = pages_viewed * 10
+      + (total_time_sec / 10)
+      + (calculator_started ? 30 : 0)
+      + (form_opened ? 40 : 0)
+      + (phone_clicked ? 25 : 0)
+      + (return_visitor ? 20 : 0)
+```
+Сесии с попълнена форма се изключват (вече са leads с пълен timeline в InquiryDetail).
 
-## Технически бележки
+## Структура на промените
 
-- **Алтернатива 1 (`react-snap`)**: по-стар, не се поддържа активно, но работи. Избирам `vite-plugin-prerender-spa` (нов, vite-native).
-- **Алтернатива 2 (Next.js / SSR)**: пълно мигриране на app-а към Next — много по-голям scope (1–2 седмици), не препоръчвам за този проблем.
-- **Build time**: с ~500 маршрута, очаквам +60–90 секунди към build. Pre-render-ът може да се ограничи до най-важните URL-и (homepage + 4 града × ~10 услуги + ~20 блог поста = ~80 URL-а) ако build стане твърде дълъг.
-- **Puppeteer на Lovable hosting**: build-ът тече локално/в CI, не в runtime sandbox-а, така че Puppeteer-ът не утежнява hosting-а.
+```text
+Frontend
+  src/components/ClarityTracker.tsx          (нов)
+  src/components/AnalyticsTracker.tsx        (разширяване: device, time on page, exit)
+  src/components/QuoteRequestForm.tsx        (clarity event + session_id)
+  src/components/MultiStepInquiryForm.tsx    (същото)
+  src/pages/admin/InquiryDetailPage.tsx      (нов таб Timeline)
+  src/pages/admin/BehaviorPage.tsx           (нов)
+  src/pages/admin/DeviceAnalyticsPage.tsx    (нов)
+  src/components/admin/ActivityTimeline.tsx  (нов, използван в InquiryDetail)
+  src/components/admin/SessionCard.tsx       (нов, thumbnail + Clarity линк)
+  src/App.tsx                                (routes за новите admin страници)
+  src/components/Header.tsx (admin nav)      (линкове)
 
-## Файлове, които ще променя
+Backend
+  supabase/migrations/<ts>_extend_analytics_events.sql
+  supabase/functions/daily-top-sessions/index.ts    (cron 06:00)
+  supabase/functions/link-session-to-inquiry/index.ts
 
-- `package.json` — добавям `vite-plugin-prerender-spa` + `puppeteer` като devDependency
-- `vite.config.ts` — конфигурация на плъгина с route list
-- `scripts/prerender-routes.ts` — нов helper, който чете `public/sitemap-*.xml` и връща списък URL-и
-- `src/pages/cities/BurgasHome.tsx`, `RuseHome.tsx`, `DobrichHome.tsx` — добавям локален `og:url` + `canonical`
-- (по желание) `index.html` — оставям като fallback с генеричен title; pre-render-ът ще го презапише per-route
+Config
+  .env: VITE_CLARITY_PROJECT_ID
+  index.html: (по избор) предварителен Clarity snippet за non-admin pages
+```
 
-## Какво остава за следваща итерация
+## Какво НЕ влиза в този план (отделни тикети)
+- Self-hosted session recording от нулата.
+- A/B testing на база scoring.
+- Email алерти при "горещ" lead (може да се добави по-късно като edge function trigger).
 
-- Различни `og:image` per услуга (изисква генериране на ~15 нови изображения; питам преди това).
-- Преглед на дължината на title/description per услуга — fine-tuning след като pre-render-ът работи и виждаме реалните snippets.
+## Какво искам да потвърдиш преди да започна
+1. **Clarity project ID** — трябва да го създадеш на clarity.microsoft.com (безплатно, 2 мин). Ще ти дам стъпките след одобрение на плана.
+2. **Маскиране на лични данни** — да оставя ли Clarity strict masking (маскира телефони/имена във формите по подразбиране)? Препоръчвам "да" заради GDPR.
+3. **Embed в CRM** — предпочиташ ли (а) deep-link бутон "Виж в Clarity" в нов таб, или (б) iframe на Clarity dashboard вътре в `/admin/behavior`? Препоръка: (а) — Clarity не разрешава добре iframe embed и често блокира със CSP.
