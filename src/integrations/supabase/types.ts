@@ -55,40 +55,67 @@ export type Database = {
       }
       analytics_events: {
         Row: {
+          clarity_session_id: string | null
           created_at: string
+          device_type: string | null
           duration_seconds: number | null
           event_name: string
           event_type: string
           id: string
           is_bot: boolean | null
+          is_exit: boolean | null
           page_path: string | null
           referrer: string | null
           referrer_source: string | null
           session_id: string
+          time_on_page_ms: number | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          viewport_h: number | null
+          viewport_w: number | null
         }
         Insert: {
+          clarity_session_id?: string | null
           created_at?: string
+          device_type?: string | null
           duration_seconds?: number | null
           event_name: string
           event_type: string
           id?: string
           is_bot?: boolean | null
+          is_exit?: boolean | null
           page_path?: string | null
           referrer?: string | null
           referrer_source?: string | null
           session_id: string
+          time_on_page_ms?: number | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          viewport_h?: number | null
+          viewport_w?: number | null
         }
         Update: {
+          clarity_session_id?: string | null
           created_at?: string
+          device_type?: string | null
           duration_seconds?: number | null
           event_name?: string
           event_type?: string
           id?: string
           is_bot?: boolean | null
+          is_exit?: boolean | null
           page_path?: string | null
           referrer?: string | null
           referrer_source?: string | null
           session_id?: string
+          time_on_page_ms?: number | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          viewport_h?: number | null
+          viewport_w?: number | null
         }
         Relationships: []
       }
@@ -550,8 +577,10 @@ export type Database = {
           area_sqm: number | null
           assigned_to: string | null
           campaign_id: string | null
+          clarity_session_id: string | null
           created_at: string
           description: string | null
+          device_type: string | null
           email: string
           email_consent: boolean | null
           id: string
@@ -575,8 +604,10 @@ export type Database = {
           area_sqm?: number | null
           assigned_to?: string | null
           campaign_id?: string | null
+          clarity_session_id?: string | null
           created_at?: string
           description?: string | null
+          device_type?: string | null
           email: string
           email_consent?: boolean | null
           id?: string
@@ -602,8 +633,10 @@ export type Database = {
           area_sqm?: number | null
           assigned_to?: string | null
           campaign_id?: string | null
+          clarity_session_id?: string | null
           created_at?: string
           description?: string | null
+          device_type?: string | null
           email?: string
           email_consent?: boolean | null
           id?: string

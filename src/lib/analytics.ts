@@ -97,6 +97,26 @@ export function classifyReferrer(referrer: string): string {
   }
 }
 
+export type DeviceType = "mobile" | "tablet" | "desktop";
+
+export function getDeviceType(): DeviceType {
+  if (typeof window === "undefined") return "desktop";
+  const w = window.innerWidth;
+  if (w < 768) return "mobile";
+  if (w < 1024) return "tablet";
+  return "desktop";
+}
+
+export function getUtmParams() {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source") || undefined,
+    utm_medium: params.get("utm_medium") || undefined,
+    utm_campaign: params.get("utm_campaign") || undefined,
+  };
+}
+
 export async function trackEvent(
   eventType: string,
   eventName: string,
@@ -104,7 +124,15 @@ export async function trackEvent(
     page_path?: string;
     duration_seconds?: number;
     referrer_source?: string;
-    referrer?: string;
+    referrer?: string | null;
+    device_type?: DeviceType;
+    viewport_w?: number;
+    viewport_h?: number;
+    time_on_page_ms?: number;
+    is_exit?: boolean;
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
   }
 ) {
   try {
@@ -117,6 +145,14 @@ export async function trackEvent(
       duration_seconds: extras?.duration_seconds ?? null,
       referrer_source: extras?.referrer_source ?? null,
       referrer: extras?.referrer ?? null,
+      device_type: extras?.device_type ?? getDeviceType(),
+      viewport_w: extras?.viewport_w ?? window.innerWidth,
+      viewport_h: extras?.viewport_h ?? window.innerHeight,
+      time_on_page_ms: extras?.time_on_page_ms ?? null,
+      is_exit: extras?.is_exit ?? false,
+      utm_source: extras?.utm_source ?? null,
+      utm_medium: extras?.utm_medium ?? null,
+      utm_campaign: extras?.utm_campaign ?? null,
       is_bot: botFlag,
     });
   } catch {

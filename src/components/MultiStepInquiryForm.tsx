@@ -94,6 +94,7 @@ const MultiStepInquiryForm = () => {
         description: form.description || null,
         session_id: getSessionId(),
         referrer_source: getFirstReferrerSource(),
+        device_type: (typeof window !== "undefined" && window.innerWidth < 768) ? "mobile" : (window.innerWidth < 1024 ? "tablet" : "desktop"),
       } as any)
       .select()
       .single();
@@ -139,6 +140,7 @@ const MultiStepInquiryForm = () => {
     } catch {}
 
     trackEvent("button_click", "offer_button");
+    try { (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiry.id); } catch {}
     setSubmitted(true);
     setSubmitting(false);
   };
