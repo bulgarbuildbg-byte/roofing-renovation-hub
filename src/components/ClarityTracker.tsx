@@ -16,7 +16,8 @@ declare global {
   }
 }
 
-const PROJECT_ID = import.meta.env.VITE_CLARITY_PROJECT_ID as string | undefined;
+const PROJECT_ID =
+  (import.meta.env.VITE_CLARITY_PROJECT_ID as string | undefined) || "xcjo8jfv0v";
 
 const getDeviceType = (): "mobile" | "tablet" | "desktop" => {
   const w = window.innerWidth;
