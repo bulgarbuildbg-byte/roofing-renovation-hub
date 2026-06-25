@@ -501,10 +501,10 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Свържете се с нас в {cityName}
+                {ui.contactTitle(cityName)}
               </h2>
               <p className="text-white/80 mb-8 text-lg">
-                Безплатен оглед, точна оферта, писмена гаранция 15 години.
+                {ui.contactSubtitle}
               </p>
               <div className="grid sm:grid-cols-3 gap-6 mb-8">
                 <div className="flex flex-col items-center gap-2">
@@ -522,20 +522,20 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
                 </div>
                 <div className="flex flex-col items-center gap-2">
                   <Shield className="w-6 h-6 text-accent" />
-                  <span className="text-white/90 text-sm">Гаранция 15 г.</span>
+                  <span className="text-white/90 text-sm">{ui.warrantyShort}</span>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8">
                   <Link to={getPath("contact")}>
                     <FileText className="w-5 h-5 mr-2" />
-                    Получи оферта
+                    {ui.getQuote}
                   </Link>
                 </Button>
                 <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-white/20 text-lg px-8">
                   <a href={`tel:${cityData.phoneTel}`}>
                     <Phone className="w-5 h-5 mr-2" />
-                    Обади се сега
+                    {ui.callNow}
                   </a>
                 </Button>
               </div>
