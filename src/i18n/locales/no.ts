@@ -188,5 +188,14 @@ const no = {
     ctaDesc: "Be om en gratis befaring og få et presist tilbud tilpasset ditt tak.",
     ctaCall: "Ring Nå",
   },
+  ui: {
+    quote: "Be om tilbud",
+    calculatePrice: "Beregn pris",
+  },
+  notFound: {
+    title: "Siden ble ikke funnet",
+    desc: "Siden du leter etter finnes dessverre ikke.",
+    back: "Til forsiden",
+  },
 };
 export default no;

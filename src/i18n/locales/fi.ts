@@ -207,5 +207,14 @@ const fi = {
     ctaDesc: "Pyydä ilmainen tarkastus ja saat kattosi mukaisen tarkan tarjouksen.",
     ctaCall: "Soita nyt",
   },
+  ui: {
+    quote: "Pyydä tarjous",
+    calculatePrice: "Laske hinta",
+  },
+  notFound: {
+    title: "Sivua ei löytynyt",
+    desc: "Etsimääsi sivua ei valitettavasti löydy.",
+    back: "Etusivulle",
+  },
 };
 export default fi;

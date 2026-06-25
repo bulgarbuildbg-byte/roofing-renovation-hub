@@ -188,5 +188,14 @@ const sv = {
     ctaDesc: "Begär en gratis besiktning och få en exakt offert anpassad till ditt tak.",
     ctaCall: "Ring Nu",
   },
+  ui: {
+    quote: "Begär offert",
+    calculatePrice: "Beräkna pris",
+  },
+  notFound: {
+    title: "Sidan hittades inte",
+    desc: "Sidan du letar efter finns tyvärr inte.",
+    back: "Till startsidan",
+  },
 };
 export default sv;
