@@ -16,9 +16,153 @@ import PriceCalculator from "@/components/PriceCalculator";
 import CalculatorDialog from "@/components/CalculatorDialog";
 import type { CityServiceContent } from "@/data/cityServices";
 import { localizedSlugs } from "@/i18n/routes";
-import { LANGUAGE_HTML_LANG, type SupportedLanguage, SUPPORTED_LANGUAGES } from "@/i18n/config";
+import { LANGUAGE_OG_LOCALE, type SupportedLanguage, SUPPORTED_LANGUAGES } from "@/i18n/config";
+import { getServiceMeta, getLangSiteSuffix, getLangTitleSuffix } from "@/data/cityServiceMeta";
 
 const BASE_URL = "https://www.remontnapokrivivarna.bg";
+
+/** Visible UI strings — translated inline so a single source of truth lives next to the template. */
+const UI: Record<SupportedLanguage, {
+  breadcrumbHome: string;
+  whyChoose: (svc: string, city: string) => string;
+  yearsExp: (city: string) => string;
+  ctaTitle: (svc: string, city: string) => string;
+  ctaSubtitle: string;
+  requestInspection: string;
+  faqTitle: string;
+  faqSubtitle: (svc: string, city: string) => string;
+  neighborhoodsTitle: (city: string) => string;
+  neighborhoodsSubtitle: string;
+  contactTitle: (city: string) => string;
+  contactSubtitle: string;
+  warrantyShort: string;
+  getQuote: string;
+  callNow: string;
+  servesAll: (city: string) => string;
+  freeInspection24: string;
+  warranty15: string;
+  contractWork: string;
+}> = {
+  bg: {
+    breadcrumbHome: "Начало",
+    whyChoose: (s, c) => `Защо да изберете нас за ${s.toLowerCase()} в ${c}`,
+    yearsExp: (c) => `Над 15 години опит на покриви в ${c} и региона`,
+    ctaTitle: (s, c) => `Имате нужда от ${s.toLowerCase()} в ${c}?`,
+    ctaSubtitle: "Безплатен оглед на място. Точна оферта без скрити разходи.",
+    requestInspection: "Заяви безплатен оглед",
+    faqTitle: "Често задавани въпроси",
+    faqSubtitle: (s, c) => `Отговори на най-честите въпроси за ${s.toLowerCase()} в ${c}`,
+    neighborhoodsTitle: (c) => `Обслужваме всички квартали на ${c}`,
+    neighborhoodsSubtitle: "Бърза реакция в целия град и региона",
+    contactTitle: (c) => `Свържете се с нас в ${c}`,
+    contactSubtitle: "Безплатен оглед, точна оферта, писмена гаранция 15 години.",
+    warrantyShort: "Гаранция 15 г.",
+    getQuote: "Получи оферта",
+    callNow: "Обади се сега",
+    servesAll: (c) => `Обслужваме цял ${c}`,
+    freeInspection24: "Безплатен оглед 24ч",
+    warranty15: "Гаранция 15 години",
+    contractWork: "Работа по договор",
+  },
+  en: {
+    breadcrumbHome: "Home",
+    whyChoose: (s, c) => `Why choose us for ${s.toLowerCase()} in ${c}`,
+    yearsExp: (c) => `Over 15 years of roofing experience in ${c} and the region`,
+    ctaTitle: (s, c) => `Need ${s.toLowerCase()} in ${c}?`,
+    ctaSubtitle: "Free on-site inspection. Accurate quote with no hidden costs.",
+    requestInspection: "Request free inspection",
+    faqTitle: "Frequently Asked Questions",
+    faqSubtitle: (s, c) => `Answers to the most common questions about ${s.toLowerCase()} in ${c}`,
+    neighborhoodsTitle: (c) => `We serve all districts of ${c}`,
+    neighborhoodsSubtitle: "Fast response across the whole city and region",
+    contactTitle: (c) => `Contact us in ${c}`,
+    contactSubtitle: "Free inspection, accurate quote, 15-year written warranty.",
+    warrantyShort: "15-yr warranty",
+    getQuote: "Get a quote",
+    callNow: "Call now",
+    servesAll: (c) => `Serving all of ${c}`,
+    freeInspection24: "Free inspection 24h",
+    warranty15: "15-year warranty",
+    contractWork: "Contract work",
+  },
+  de: {
+    breadcrumbHome: "Startseite",
+    whyChoose: (s, c) => `Warum uns für ${s.toLowerCase()} in ${c} wählen`,
+    yearsExp: (c) => `Über 15 Jahre Erfahrung mit Dächern in ${c} und der Region`,
+    ctaTitle: (s, c) => `Benötigen Sie ${s.toLowerCase()} in ${c}?`,
+    ctaSubtitle: "Kostenlose Vor-Ort-Inspektion. Genaues Angebot ohne versteckte Kosten.",
+    requestInspection: "Kostenlose Inspektion anfordern",
+    faqTitle: "Häufig gestellte Fragen",
+    faqSubtitle: (s, c) => `Antworten auf die häufigsten Fragen zu ${s.toLowerCase()} in ${c}`,
+    neighborhoodsTitle: (c) => `Wir bedienen alle Bezirke von ${c}`,
+    neighborhoodsSubtitle: "Schnelle Reaktion in der ganzen Stadt und Region",
+    contactTitle: (c) => `Kontaktieren Sie uns in ${c}`,
+    contactSubtitle: "Kostenlose Inspektion, genaues Angebot, 15 Jahre schriftliche Garantie.",
+    warrantyShort: "15 J. Garantie",
+    getQuote: "Angebot erhalten",
+    callNow: "Jetzt anrufen",
+    servesAll: (c) => `Wir bedienen ganz ${c}`,
+    freeInspection24: "Kostenlose Inspektion 24h",
+    warranty15: "15 Jahre Garantie",
+    contractWork: "Vertragsarbeit",
+  },
+  fi: {
+    breadcrumbHome: "Etusivu", whyChoose: (s, c) => `Miksi valita meidät – ${s.toLowerCase()} ${c}`, yearsExp: (c) => `Yli 15 vuoden kokemus katoista alueella ${c}`,
+    ctaTitle: (s, c) => `Tarvitsetko ${s.toLowerCase()} ${c}?`, ctaSubtitle: "Ilmainen paikan päällä tehtävä tarkastus. Tarkka tarjous ilman piilokuluja.",
+    requestInspection: "Pyydä ilmainen tarkastus", faqTitle: "Usein kysytyt kysymykset", faqSubtitle: (s, c) => `Vastauksia yleisimpiin kysymyksiin: ${s.toLowerCase()} ${c}`,
+    neighborhoodsTitle: (c) => `Palvelemme kaikkia kaupunginosia: ${c}`, neighborhoodsSubtitle: "Nopea vastaus koko kaupungissa ja alueella",
+    contactTitle: (c) => `Ota yhteyttä – ${c}`, contactSubtitle: "Ilmainen tarkastus, tarkka tarjous, 15 vuoden kirjallinen takuu.",
+    warrantyShort: "15 v. takuu", getQuote: "Pyydä tarjous", callNow: "Soita nyt", servesAll: (c) => `Palvelemme koko aluetta: ${c}`, freeInspection24: "Ilmainen tarkastus 24h", warranty15: "15 vuoden takuu", contractWork: "Sopimustyö",
+  },
+  sv: {
+    breadcrumbHome: "Hem", whyChoose: (s, c) => `Varför välja oss för ${s.toLowerCase()} i ${c}`, yearsExp: (c) => `Över 15 års erfarenhet av tak i ${c} och regionen`,
+    ctaTitle: (s, c) => `Behöver du ${s.toLowerCase()} i ${c}?`, ctaSubtitle: "Gratis inspektion på plats. Exakt offert utan dolda kostnader.",
+    requestInspection: "Begär gratis inspektion", faqTitle: "Vanliga frågor", faqSubtitle: (s, c) => `Svar på de vanligaste frågorna om ${s.toLowerCase()} i ${c}`,
+    neighborhoodsTitle: (c) => `Vi betjänar alla stadsdelar i ${c}`, neighborhoodsSubtitle: "Snabb respons i hela staden och regionen",
+    contactTitle: (c) => `Kontakta oss i ${c}`, contactSubtitle: "Gratis inspektion, exakt offert, 15 års skriftlig garanti.",
+    warrantyShort: "15 års garanti", getQuote: "Få offert", callNow: "Ring nu", servesAll: (c) => `Vi betjänar hela ${c}`, freeInspection24: "Gratis inspektion 24h", warranty15: "15 års garanti", contractWork: "Avtalsarbete",
+  },
+  no: {
+    breadcrumbHome: "Hjem", whyChoose: (s, c) => `Hvorfor velge oss for ${s.toLowerCase()} i ${c}`, yearsExp: (c) => `Over 15 års erfaring med tak i ${c} og regionen`,
+    ctaTitle: (s, c) => `Trenger du ${s.toLowerCase()} i ${c}?`, ctaSubtitle: "Gratis inspeksjon på stedet. Nøyaktig tilbud uten skjulte kostnader.",
+    requestInspection: "Be om gratis inspeksjon", faqTitle: "Ofte stilte spørsmål", faqSubtitle: (s, c) => `Svar på de vanligste spørsmålene om ${s.toLowerCase()} i ${c}`,
+    neighborhoodsTitle: (c) => `Vi betjener alle bydeler i ${c}`, neighborhoodsSubtitle: "Rask respons i hele byen og regionen",
+    contactTitle: (c) => `Kontakt oss i ${c}`, contactSubtitle: "Gratis inspeksjon, nøyaktig tilbud, 15 års skriftlig garanti.",
+    warrantyShort: "15 års garanti", getQuote: "Få tilbud", callNow: "Ring nå", servesAll: (c) => `Vi betjener hele ${c}`, freeInspection24: "Gratis inspeksjon 24t", warranty15: "15 års garanti", contractWork: "Kontraktarbeid",
+  },
+  fr: {
+    breadcrumbHome: "Accueil", whyChoose: (s, c) => `Pourquoi nous choisir pour ${s.toLowerCase()} à ${c}`, yearsExp: (c) => `Plus de 15 ans d'expérience en toitures à ${c} et région`,
+    ctaTitle: (s, c) => `Besoin de ${s.toLowerCase()} à ${c} ?`, ctaSubtitle: "Inspection gratuite sur place. Devis précis sans coûts cachés.",
+    requestInspection: "Demander une inspection gratuite", faqTitle: "Questions fréquentes", faqSubtitle: (s, c) => `Réponses aux questions les plus fréquentes sur ${s.toLowerCase()} à ${c}`,
+    neighborhoodsTitle: (c) => `Nous desservons tous les quartiers de ${c}`, neighborhoodsSubtitle: "Intervention rapide dans toute la ville et la région",
+    contactTitle: (c) => `Contactez-nous à ${c}`, contactSubtitle: "Inspection gratuite, devis précis, garantie écrite 15 ans.",
+    warrantyShort: "Garantie 15 ans", getQuote: "Obtenir un devis", callNow: "Appelez maintenant", servesAll: (c) => `Nous desservons tout ${c}`, freeInspection24: "Inspection gratuite 24h", warranty15: "Garantie 15 ans", contractWork: "Travail sous contrat",
+  },
+  nl: {
+    breadcrumbHome: "Home", whyChoose: (s, c) => `Waarom ons kiezen voor ${s.toLowerCase()} in ${c}`, yearsExp: (c) => `Meer dan 15 jaar dakervaring in ${c} en regio`,
+    ctaTitle: (s, c) => `Nodig ${s.toLowerCase()} in ${c}?`, ctaSubtitle: "Gratis inspectie ter plaatse. Nauwkeurige offerte zonder verborgen kosten.",
+    requestInspection: "Gratis inspectie aanvragen", faqTitle: "Veelgestelde vragen", faqSubtitle: (s, c) => `Antwoorden op de meest gestelde vragen over ${s.toLowerCase()} in ${c}`,
+    neighborhoodsTitle: (c) => `Wij bedienen alle wijken van ${c}`, neighborhoodsSubtitle: "Snelle reactie in de hele stad en regio",
+    contactTitle: (c) => `Neem contact met ons op in ${c}`, contactSubtitle: "Gratis inspectie, nauwkeurige offerte, 15 jaar schriftelijke garantie.",
+    warrantyShort: "15 jr garantie", getQuote: "Offerte aanvragen", callNow: "Bel nu", servesAll: (c) => `Wij bedienen heel ${c}`, freeInspection24: "Gratis inspectie 24u", warranty15: "15 jaar garantie", contractWork: "Werk onder contract",
+  },
+  ru: {
+    breadcrumbHome: "Главная", whyChoose: (s, c) => `Почему выбрать нас для ${s.toLowerCase()} в ${c}`, yearsExp: (c) => `Более 15 лет опыта работы с крышами в ${c} и регионе`,
+    ctaTitle: (s, c) => `Нужен ${s.toLowerCase()} в ${c}?`, ctaSubtitle: "Бесплатный осмотр на месте. Точная смета без скрытых расходов.",
+    requestInspection: "Запросить бесплатный осмотр", faqTitle: "Часто задаваемые вопросы", faqSubtitle: (s, c) => `Ответы на самые частые вопросы о ${s.toLowerCase()} в ${c}`,
+    neighborhoodsTitle: (c) => `Обслуживаем все районы ${c}`, neighborhoodsSubtitle: "Быстрая реакция по всему городу и региону",
+    contactTitle: (c) => `Свяжитесь с нами в ${c}`, contactSubtitle: "Бесплатный осмотр, точная смета, письменная гарантия 15 лет.",
+    warrantyShort: "Гарантия 15 лет", getQuote: "Получить смету", callNow: "Позвонить сейчас", servesAll: (c) => `Обслуживаем весь ${c}`, freeInspection24: "Бесплатный осмотр 24ч", warranty15: "Гарантия 15 лет", contractWork: "Работа по договору",
+  },
+  ua: {
+    breadcrumbHome: "Головна", whyChoose: (s, c) => `Чому обрати нас для ${s.toLowerCase()} у ${c}`, yearsExp: (c) => `Понад 15 років досвіду роботи з дахами у ${c} та регіоні`,
+    ctaTitle: (s, c) => `Потрібен ${s.toLowerCase()} у ${c}?`, ctaSubtitle: "Безкоштовний огляд на місці. Точний кошторис без прихованих витрат.",
+    requestInspection: "Замовити безкоштовний огляд", faqTitle: "Часті запитання", faqSubtitle: (s, c) => `Відповіді на найчастіші запитання про ${s.toLowerCase()} у ${c}`,
+    neighborhoodsTitle: (c) => `Обслуговуємо всі райони ${c}`, neighborhoodsSubtitle: "Швидка реакція по всьому місту та регіону",
+    contactTitle: (c) => `Зв'яжіться з нами у ${c}`, contactSubtitle: "Безкоштовний огляд, точний кошторис, письмова гарантія 15 років.",
+    warrantyShort: "Гарантія 15 р.", getQuote: "Отримати кошторис", callNow: "Зателефонувати зараз", servesAll: (c) => `Обслуговуємо весь ${c}`, freeInspection24: "Безкоштовний огляд 24год", warranty15: "Гарантія 15 років", contractWork: "Робота за договором",
+  },
+};
 
 interface CityServiceTemplateProps {
   service: CityServiceContent;
