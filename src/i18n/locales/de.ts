@@ -214,6 +214,15 @@ const de = {
     ctaDesc: "Fordern Sie eine kostenlose Besichtigung an und erhalten Sie ein präzises Angebot für Ihr Dach.",
     ctaCall: "Jetzt anrufen",
   },
+  ui: {
+    quote: "Angebot anfordern",
+    calculatePrice: "Preis berechnen",
+  },
+  notFound: {
+    title: "Seite nicht gefunden",
+    desc: "Die gesuchte Seite existiert leider nicht.",
+    back: "Zur Startseite",
+  },
 };
 
 export default de;

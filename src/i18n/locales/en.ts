@@ -435,6 +435,15 @@ const en = {
     ctaDesc: "Request a free inspection and get a precise quote tailored to your roof.",
     ctaCall: "Call Now",
   },
+  ui: {
+    quote: "Request Quote",
+    calculatePrice: "Calculate Price",
+  },
+  notFound: {
+    title: "Page not found",
+    desc: "Sorry, the page you're looking for doesn't exist.",
+    back: "Back to home",
+  },
 };
 
 export default en;
