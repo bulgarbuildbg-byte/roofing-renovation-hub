@@ -363,10 +363,10 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
-              Защо да изберете нас за {service.titlePrefix.toLowerCase()} в {cityName}
+              {ui.whyChoose(titlePrefix, cityName)}
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              Над 15 години опит на покриви в {cityName} и региона
+              {ui.yearsExp(cityName)}
             </p>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {benefits.map((benefit, idx) => (
