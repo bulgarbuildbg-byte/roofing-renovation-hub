@@ -140,6 +140,7 @@ const MultiStepInquiryForm = () => {
     } catch {}
 
     trackEvent("button_click", "offer_button");
+    try { (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiry.id); } catch {}
     setSubmitted(true);
     setSubmitting(false);
   };

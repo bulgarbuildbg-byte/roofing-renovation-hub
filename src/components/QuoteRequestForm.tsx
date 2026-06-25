@@ -101,6 +101,7 @@ const QuoteRequestForm = () => {
     } catch {}
 
     trackEvent("form_submit", "quote_request_page");
+    try { (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiry.id); } catch {}
     setSubmitting(false);
     navigate(`/${currentLang}/blagodarim-vi`);
   };
