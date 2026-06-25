@@ -478,10 +478,10 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
-              Често задавани въпроси
+              {ui.faqTitle}
             </h2>
             <p className="text-muted-foreground text-center mb-12">
-              Отговори на най-честите въпроси за {service.titlePrefix.toLowerCase()} в {cityName}
+              {ui.faqSubtitle(titlePrefix, cityName)}
             </p>
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, idx) => (
