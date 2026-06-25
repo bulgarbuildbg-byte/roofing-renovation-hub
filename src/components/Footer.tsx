@@ -32,7 +32,7 @@ const Footer = () => {
     { key: "faq", routeKey: "faq" },
     { key: "contact", routeKey: "contact" },
     { key: "freeInspection", routeKey: "inspection" },
-    { key: "quote", routeKey: "quote", label: "Заявете оферта" },
+    { key: "quote", routeKey: "quote", label: t('ui.quote') },
     { key: "cities", routeKey: "cities" },
   ];
 

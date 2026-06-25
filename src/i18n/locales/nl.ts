@@ -188,5 +188,14 @@ const nl = {
     ctaDesc: "Vraag een gratis inspectie aan en ontvang een nauwkeurige offerte op maat van uw dak.",
     ctaCall: "Bel Nu",
   },
+  ui: {
+    quote: "Offerte aanvragen",
+    calculatePrice: "Prijs berekenen",
+  },
+  notFound: {
+    title: "Pagina niet gevonden",
+    desc: "De pagina die u zoekt bestaat niet.",
+    back: "Terug naar home",
+  },
 };
 export default nl;

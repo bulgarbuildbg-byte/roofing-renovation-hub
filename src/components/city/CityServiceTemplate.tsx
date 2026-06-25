@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Phone, Eye, CheckCircle, MapPin, Clock, Shield, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,6 +16,7 @@ import PriceCalculator from "@/components/PriceCalculator";
 import CalculatorDialog from "@/components/CalculatorDialog";
 import type { CityServiceContent } from "@/data/cityServices";
 import { localizedSlugs } from "@/i18n/routes";
+import { LANGUAGE_HTML_LANG, type SupportedLanguage, SUPPORTED_LANGUAGES } from "@/i18n/config";
 
 const BASE_URL = "https://www.remontnapokrivivarna.bg";
 
@@ -28,14 +29,17 @@ const interpolate = (text: string, city: string) => text.replace(/\{city\}/g, ci
 const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
   const { cityData } = useCity();
   const { getPath } = useLocalizedPath();
+  const { lang } = useParams<{ lang: string }>();
+  const currentLang: SupportedLanguage = (SUPPORTED_LANGUAGES.includes(lang as SupportedLanguage) ? lang : 'bg') as SupportedLanguage;
   const cityName = cityData.nameBg;
   const citySlug = cityData.slug;
-  const serviceSlug = localizedSlugs.bg[service.routeKey];
+  const serviceSlug = localizedSlugs[currentLang][service.routeKey];
+  const ogLocale = LANGUAGE_HTML_LANG[currentLang].replace('-', '_');
 
   const h1 = `${service.h1Prefix} ${cityName}`;
   const title = `${service.titlePrefix} ${cityName} — Безплатен Оглед 24ч | 089 397 1873`;
   const description = interpolate(service.metaDescription, cityName);
-  const canonical = `${BASE_URL}/bg/${citySlug}/${serviceSlug}`;
+  const canonical = `${BASE_URL}/${currentLang}/${citySlug}/${serviceSlug}`;
   const ogImage = `${BASE_URL}/og-image.jpg`;
 
   const benefits = service.benefits.map((b) => interpolate(b, cityName));
@@ -44,7 +48,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
     a: interpolate(f.a, cityName),
   }));
 
-  // JSON-LD: Service with city-specific provider
+  // JSON-LD: Service with city-specific provider + AggregateRating
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -59,6 +63,13 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         "postalCode": cityData.postalCode,
         "addressCountry": "BG",
       },
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "127",
+      "bestRating": "5",
+      "worstRating": "1",
     },
     "provider": {
       "@type": "RoofingContractor",
@@ -96,8 +107,8 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Начало", "item": `${BASE_URL}/bg` },
-      { "@type": "ListItem", "position": 2, "name": cityName, "item": `${BASE_URL}/bg/${citySlug}` },
+      { "@type": "ListItem", "position": 1, "name": "Начало", "item": `${BASE_URL}/${currentLang}` },
+      { "@type": "ListItem", "position": 2, "name": cityName, "item": `${BASE_URL}/${currentLang}/${citySlug}` },
       { "@type": "ListItem", "position": 3, "name": h1, "item": canonical },
     ],
   };
@@ -107,13 +118,12 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
-        <link rel="canonical" href={canonical} />
+        {/* canonical + hreflang handled by HreflangTags mounted in LanguageLayout */}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={canonical} />
         <meta property="og:image" content={ogImage} />
-        <meta property="og:locale" content="bg_BG" />
+        <meta property="og:locale" content={ogLocale} />
         <meta property="og:site_name" content={`Ремонт на Покриви ${cityName}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
@@ -123,6 +133,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+
 
       <Header />
 

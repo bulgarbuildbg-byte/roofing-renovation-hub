@@ -49,7 +49,7 @@ const MobileBottomBar = () => {
             className="flex items-center justify-center gap-1"
           >
             <MessageSquare className="w-4 h-4 flex-shrink-0" />
-            <span className="whitespace-nowrap">Заявете оферта</span>
+            <span className="whitespace-nowrap">{t('ui.quote')}</span>
           </Link>
         </Button>
       </div>

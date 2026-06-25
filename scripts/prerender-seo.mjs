@@ -106,49 +106,104 @@ const BLOG_BG = {
 const escapeHtml = (s) =>
   s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+// ── Per-language home titles & descriptions ─────────────────────────────────
+const LANG_META = {
+  bg: { locale: "bg_BG", htmlLang: "bg",    title: "Ремонт на Покриви Варна — Безплатен Оглед 24ч | 089 397 1873", desc: "Професионален ремонт, хидроизолация и монтаж на покриви във Варна. 15+ години опит, до 15г писмена гаранция, безплатен оглед до 24ч. ☎ 089 397 1873" },
+  en: { locale: "en_US", htmlLang: "en",    title: "Roof Repair Varna Bulgaria — Free 24h Inspection | +359 89 397 1873", desc: "Professional roof repair, waterproofing and new roof installation in Varna, Bulgaria. 15+ years experience, 15-year written warranty, free inspection within 24h." },
+  de: { locale: "de_DE", htmlLang: "de",    title: "Dachreparatur Varna Bulgarien — Kostenlose 24h Inspektion", desc: "Professionelle Dachreparatur, Abdichtung und Neueindeckung in Varna, Bulgarien. 15+ Jahre Erfahrung, 15 Jahre schriftliche Garantie, kostenlose Inspektion innerhalb 24h." },
+  fr: { locale: "fr_FR", htmlLang: "fr",    title: "Réparation Toiture Varna Bulgarie — Inspection gratuite 24h", desc: "Réparation professionnelle de toiture, étanchéité et nouvelle toiture à Varna, Bulgarie. 15+ ans d'expérience, garantie écrite 15 ans, inspection gratuite sous 24h." },
+  nl: { locale: "nl_NL", htmlLang: "nl",    title: "Dakreparatie Varna Bulgarije — Gratis inspectie binnen 24u", desc: "Professionele dakreparatie, waterdichting en nieuwbouw in Varna, Bulgarije. 15+ jaar ervaring, 15 jaar schriftelijke garantie, gratis inspectie binnen 24u." },
+  fi: { locale: "fi_FI", htmlLang: "fi",    title: "Kattokorjaus Varna Bulgaria — Ilmainen tarkastus 24h", desc: "Ammattimainen kattokorjaus, vedeneristys ja uudisrakentaminen Varnassa, Bulgariassa. 15+ vuoden kokemus, 15 vuoden kirjallinen takuu, ilmainen tarkastus 24h." },
+  sv: { locale: "sv_SE", htmlLang: "sv",    title: "Takreparation Varna Bulgarien — Gratis inspektion inom 24h", desc: "Professionell takreparation, tätning och nybyggnation i Varna, Bulgarien. 15+ års erfarenhet, 15 års skriftlig garanti, gratis inspektion inom 24h." },
+  no: { locale: "no_NO", htmlLang: "no",    title: "Takreparasjon Varna Bulgaria — Gratis inspeksjon innen 24t", desc: "Profesjonell takreparasjon, vanntetting og nybygg i Varna, Bulgaria. 15+ års erfaring, 15 års skriftlig garanti, gratis inspeksjon innen 24t." },
+  ru: { locale: "ru_RU", htmlLang: "ru",    title: "Ремонт крыши Варна Болгария — Бесплатный осмотр 24ч", desc: "Профессиональный ремонт крыш, гидроизоляция и монтаж новых крыш в Варне, Болгария. 15+ лет опыта, письменная гарантия 15 лет, бесплатный осмотр в течение 24ч." },
+  ua: { locale: "uk_UA", htmlLang: "uk",    title: "Ремонт даху Варна Болгарія — Безкоштовний огляд 24год", desc: "Професійний ремонт дахів, гідроізоляція та монтаж нових дахів у Варні, Болгарія. 15+ років досвіду, письмова гарантія 15 років, безкоштовний огляд 24год." },
+};
+
+// Slug map per language for /:lang/varna/<service> stubs. Mirrors src/i18n/routes.ts.
+const SERVICE_SLUGS_BY_LANG = {
+  bg: { roofRepair: "remont-na-pokrivi", leakRepair: "remont-na-techove-pokriv", waterproofing: "hidroizolacia-na-pokriv", newRoof: "nov-pokriv" },
+  en: { roofRepair: "roof-repair-varna", leakRepair: "roof-leak-repair", waterproofing: "roof-waterproofing", newRoof: "new-roof-construction" },
+  de: { roofRepair: "dachreparatur-varna", leakRepair: "leckage-reparatur-varna", waterproofing: "abdichtung-varna", newRoof: "neues-dach-varna" },
+  fr: { roofRepair: "reparation-toiture-varna", leakRepair: "reparation-fuite-varna", waterproofing: "etancheite-varna", newRoof: "nouvelle-toiture-varna" },
+  nl: { roofRepair: "dakreparatie-varna", leakRepair: "lekkage-reparatie-varna", waterproofing: "waterdichting-varna", newRoof: "nieuw-dak-varna" },
+  fi: { roofRepair: "kattokorjaus-varna", leakRepair: "vuotokorjaus-varna", waterproofing: "vedeneristys-varna", newRoof: "uusi-katto-varna" },
+  sv: { roofRepair: "takreparation-varna", leakRepair: "lackage-reparation-varna", waterproofing: "tatning-varna", newRoof: "nytt-tak-varna" },
+  no: { roofRepair: "takreparasjon-varna", leakRepair: "lekkasje-reparasjon-varna", waterproofing: "vanntetting-varna", newRoof: "nytt-tak-varna" },
+  ru: { roofRepair: "remont-kryshi-varna", leakRepair: "remont-protechek-varna", waterproofing: "gidroizolyatsiya-varna", newRoof: "novaya-krysha-varna" },
+  ua: { roofRepair: "remont-dahu-varna", leakRepair: "remont-protikan-varna", waterproofing: "gidroizolyatsiya-varna", newRoof: "novyj-dah-varna" },
+};
+
 function buildRoutes() {
-  /** @type {{ urlPath: string; title: string; description: string }[]} */
+  /** @type {{ urlPath: string; title: string; description: string; locale: string; htmlLang: string }[]} */
   const routes = [];
 
-  // /bg root → same as homepage
+  // ── BG (full coverage: home, all globals, all cities × services, blog) ──
   routes.push({
     urlPath: "/bg",
-    title: "Ремонт на Покриви Варна — Безплатен Оглед 24ч | 089 397 1873",
-    description: "Професионален ремонт, хидроизолация и монтаж на покриви във Варна. 15+ години опит, до 15г писмена гаранция, безплатен оглед до 24ч. ☎ 089 397 1873",
+    title: LANG_META.bg.title,
+    description: LANG_META.bg.desc,
+    locale: LANG_META.bg.locale,
+    htmlLang: "bg",
   });
 
-  // City homes + city × service
   for (const [, city] of Object.entries(CITIES_BG)) {
     routes.push({
       urlPath: `/bg/${city.slug}`,
       title: `Ремонт на Покриви ${city.nameBg} — Безплатен Оглед 24ч | 089 397 1873`,
       description: `Професионален ремонт на покриви в ${city.nameBg} — хидроизолация, нови покриви, ремонт на течове. Безплатен оглед, 15 години писмена гаранция. Тел: 089 397 1873.`,
+      locale: LANG_META.bg.locale, htmlLang: "bg",
     });
     for (const [serviceSlug, svc] of Object.entries(SERVICES_BG)) {
       routes.push({
         urlPath: `/bg/${city.slug}/${serviceSlug}`,
         title: `${svc.titlePrefix} ${city.nameBg} — Безплатен Оглед 24ч | 089 397 1873`,
         description: svc.metaTpl.replace(/\{city\}/g, city.nameBg),
+        locale: LANG_META.bg.locale, htmlLang: "bg",
       });
     }
   }
 
-  // Global BG pages
   for (const [slug, meta] of Object.entries(GLOBAL_BG)) {
-    routes.push({ urlPath: `/bg/${slug}`, title: meta.title, description: meta.description });
+    routes.push({ urlPath: `/bg/${slug}`, title: meta.title, description: meta.description, locale: LANG_META.bg.locale, htmlLang: "bg" });
+  }
+  for (const [slug, meta] of Object.entries(BLOG_BG)) {
+    routes.push({ urlPath: `/bg/${slug}`, title: meta.title, description: meta.description, locale: LANG_META.bg.locale, htmlLang: "bg" });
   }
 
-  // Blog posts
-  for (const [slug, meta] of Object.entries(BLOG_BG)) {
-    routes.push({ urlPath: `/bg/${slug}`, title: meta.title, description: meta.description });
+  // ── Non-BG languages: home + /varna home + 4 top services in /varna/ ──
+  for (const [lng, m] of Object.entries(LANG_META)) {
+    if (lng === "bg") continue;
+    routes.push({ urlPath: `/${lng}`, title: m.title, description: m.desc, locale: m.locale, htmlLang: m.htmlLang });
+    routes.push({
+      urlPath: `/${lng}/varna`,
+      title: m.title,
+      description: m.desc,
+      locale: m.locale, htmlLang: m.htmlLang,
+    });
+    const slugs = SERVICE_SLUGS_BY_LANG[lng] || {};
+    for (const svc of Object.keys(slugs)) {
+      routes.push({
+        urlPath: `/${lng}/varna/${slugs[svc]}`,
+        title: m.title,
+        description: m.desc,
+        locale: m.locale, htmlLang: m.htmlLang,
+      });
+    }
   }
 
   return routes;
 }
 
-function rewriteHead(html, { urlPath, title, description }) {
+
+function rewriteHead(html, { urlPath, title, description, locale, htmlLang }) {
   const canonical = `${BASE_URL}${urlPath}`;
   const ogTitle = title.replace(/ \| 089 397 1873$/, ""); // trim phone tail for social cards
+
+  // <html lang="…">
+  if (htmlLang) {
+    html = html.replace(/<html\s+lang="[^"]*"/i, `<html lang="${htmlLang}"`);
+  }
 
   // Replace <title>
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
@@ -159,7 +214,7 @@ function rewriteHead(html, { urlPath, title, description }) {
     `<meta name="description" content="${escapeHtml(description)}" />`
   );
 
-  // Replace og:title / og:description / og:url
+  // Replace og:title / og:description
   html = html.replace(
     /<meta\s+property="og:title"[^>]*\/?>/i,
     `<meta property="og:title" content="${escapeHtml(ogTitle)}" />`
@@ -168,6 +223,14 @@ function rewriteHead(html, { urlPath, title, description }) {
     /<meta\s+property="og:description"[^>]*\/?>/i,
     `<meta property="og:description" content="${escapeHtml(description)}" />`
   );
+
+  // og:locale — replace only the primary line (alternates remain)
+  if (locale) {
+    html = html.replace(
+      /<meta\s+property="og:locale"\s+content="[^"]*"\s*\/?>/i,
+      `<meta property="og:locale" content="${locale}" />`
+    );
+  }
 
   // Twitter
   html = html.replace(
@@ -179,7 +242,7 @@ function rewriteHead(html, { urlPath, title, description }) {
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`
   );
 
-  // Insert canonical + og:url right before </head> (no existing canonical in index.html)
+  // Insert canonical + og:url right before </head>
   const inject =
     `    <link rel="canonical" href="${canonical}" />\n` +
     `    <meta property="og:url" content="${canonical}" />\n`;
@@ -187,6 +250,7 @@ function rewriteHead(html, { urlPath, title, description }) {
 
   return html;
 }
+
 
 async function main() {
   const indexPath = path.join(DIST, "index.html");

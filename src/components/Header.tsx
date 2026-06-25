@@ -342,7 +342,7 @@ const Header = () => {
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 px-5"
               >
                 <Link to={getPath('quote')}>
-                  Заявете оферта
+                  {t('ui.quote')}
                 </Link>
               </Button>
 

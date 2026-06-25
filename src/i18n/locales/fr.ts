@@ -188,5 +188,14 @@ const fr = {
     ctaDesc: "Demandez une inspection gratuite et obtenez un devis précis adapté à votre toiture.",
     ctaCall: "Appelez Maintenant",
   },
+  ui: {
+    quote: "Demander un devis",
+    calculatePrice: "Calculer le prix",
+  },
+  notFound: {
+    title: "Page introuvable",
+    desc: "La page que vous cherchez n'existe pas.",
+    back: "Retour à l'accueil",
+  },
 };
 export default fr;
