@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { findRouteKeyBySlug, OLD_BG_SLUGS, isCityScopedRoute, type RouteKey } from "@/i18n/routes";
+import { findRouteKeyBySlug, OLD_BG_SLUGS, isCityScopedRoute, localizedSlugs, type RouteKey } from "@/i18n/routes";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { isCityKey } from "@/i18n/cities";
 import CityPageRouter from "@/components/CityPageRouter";
