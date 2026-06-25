@@ -126,12 +126,12 @@ const SERVICE_SLUGS_BY_LANG = {
   en: { roofRepair: "roof-repair-varna", leakRepair: "roof-leak-repair", waterproofing: "roof-waterproofing", newRoof: "new-roof-construction" },
   de: { roofRepair: "dachreparatur-varna", leakRepair: "leckage-reparatur-varna", waterproofing: "abdichtung-varna", newRoof: "neues-dach-varna" },
   fr: { roofRepair: "reparation-toiture-varna", leakRepair: "reparation-fuite-varna", waterproofing: "etancheite-varna", newRoof: "nouvelle-toiture-varna" },
-  nl: { roofRepair: "dakreparatie-varna", leakRepair: "lekkage-reparatie-varna", waterproofing: "dakdichting-varna", newRoof: "nieuw-dak-varna" },
+  nl: { roofRepair: "dakreparatie-varna", leakRepair: "lekkage-reparatie-varna", waterproofing: "waterdichting-varna", newRoof: "nieuw-dak-varna" },
   fi: { roofRepair: "kattokorjaus-varna", leakRepair: "vuotokorjaus-varna", waterproofing: "vedeneristys-varna", newRoof: "uusi-katto-varna" },
   sv: { roofRepair: "takreparation-varna", leakRepair: "lackage-reparation-varna", waterproofing: "tatning-varna", newRoof: "nytt-tak-varna" },
   no: { roofRepair: "takreparasjon-varna", leakRepair: "lekkasje-reparasjon-varna", waterproofing: "vanntetting-varna", newRoof: "nytt-tak-varna" },
   ru: { roofRepair: "remont-kryshi-varna", leakRepair: "remont-protechek-varna", waterproofing: "gidroizolyatsiya-varna", newRoof: "novaya-krysha-varna" },
-  ua: { roofRepair: "remont-dahu-varna", leakRepair: "remont-protikan-varna", waterproofing: "gidroizolyatsiya-varna", newRoof: "novyy-dah-varna" },
+  ua: { roofRepair: "remont-dahu-varna", leakRepair: "remont-protikan-varna", waterproofing: "gidroizolyatsiya-varna", newRoof: "novyj-dah-varna" },
 };
 
 function buildRoutes() {
