@@ -178,13 +178,22 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
   const cityName = cityData.nameBg;
   const citySlug = cityData.slug;
   const serviceSlug = localizedSlugs[currentLang][service.routeKey];
-  const ogLocale = LANGUAGE_HTML_LANG[currentLang].replace('-', '_');
+  const ogLocale = LANGUAGE_OG_LOCALE[currentLang];
+  const ui = UI[currentLang] ?? UI.bg;
+  const localizedMeta = getServiceMeta(currentLang, service.routeKey);
 
-  const h1 = `${service.h1Prefix} ${cityName}`;
-  const title = `${service.titlePrefix} ${cityName} — Безплатен Оглед 24ч | 089 397 1873`;
-  const description = interpolate(service.metaDescription, cityName);
+  const titlePrefix = localizedMeta?.titlePrefix ?? service.titlePrefix;
+  const h1Prefix = localizedMeta?.h1Prefix ?? service.h1Prefix;
+  const heroSubtitle = localizedMeta?.heroSubtitle ?? service.heroSubtitle;
+  const h1 = `${h1Prefix} ${cityName}`;
+  const title = `${titlePrefix} ${cityName}${getLangTitleSuffix(currentLang)}`;
+  const description = interpolate(
+    localizedMeta?.description ?? service.metaDescription,
+    cityName,
+  );
   const canonical = `${BASE_URL}/${currentLang}/${citySlug}/${serviceSlug}`;
   const ogImage = `${BASE_URL}/og-image.jpg`;
+  const siteName = `${getLangSiteSuffix(currentLang)} ${cityName}`;
 
   const benefits = service.benefits.map((b) => interpolate(b, cityName));
   const faqs = service.faqs.map((f) => ({
