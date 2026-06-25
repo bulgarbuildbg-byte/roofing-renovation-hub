@@ -67,16 +67,27 @@ const HreflangTags = () => {
 
   const currentUrl = `${BASE_URL}${canonicalPath}`;
   const ogUrl = currentUrl;
+  // x-default → BG version of the current page (BG is the primary market).
+  const bgAlternate = alternates.find((a) => a.lang === 'bg');
+  const xDefaultHref = bgAlternate?.href ?? `${BASE_URL}/bg`;
 
   return (
     <Helmet>
+      <html lang={LANGUAGE_HTML_LANG[currentLang]} />
       <link rel="canonical" href={currentUrl} />
       <meta property="og:url" content={ogUrl} />
-      <meta property="og:locale" content={LANGUAGE_HTML_LANG[currentLang].replace('-', '_')} />
+      <meta property="og:locale" content={LANGUAGE_OG_LOCALE[currentLang]} />
+      {alternates
+        .filter((alt) => alt.lang !== LANGUAGE_HTML_LANG[currentLang])
+        .map((alt) => (
+          <meta key={`ogalt-${alt.lang}`} property="og:locale:alternate" content={LANGUAGE_OG_LOCALE[
+            SUPPORTED_LANGUAGES.find((l) => LANGUAGE_HTML_LANG[l] === alt.lang) ?? 'bg'
+          ]} />
+        ))}
       {alternates.map((alt) => (
         <link key={alt.lang} rel="alternate" hrefLang={alt.lang} href={alt.href} />
       ))}
-      <link rel="alternate" hrefLang="x-default" href={`${BASE_URL}/`} />
+      <link rel="alternate" hrefLang="x-default" href={xDefaultHref} />
     </Helmet>
   );
 };
