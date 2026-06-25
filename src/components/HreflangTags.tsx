@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useParams, useLocation } from "react-router-dom";
-import { SUPPORTED_LANGUAGES, LANGUAGE_HTML_LANG, type SupportedLanguage } from "@/i18n/config";
+import { SUPPORTED_LANGUAGES, LANGUAGE_HTML_LANG, LANGUAGE_OG_LOCALE, type SupportedLanguage } from "@/i18n/config";
 import { localizedSlugs, findRouteKeyBySlug, isCityScopedRoute } from "@/i18n/routes";
 import { isCityKey, DEFAULT_CITY } from "@/i18n/cities";
 
