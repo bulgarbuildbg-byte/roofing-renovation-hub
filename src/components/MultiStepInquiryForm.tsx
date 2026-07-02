@@ -129,7 +129,7 @@ const MultiStepInquiryForm = () => {
         roof_complexity: (form.roof_complexity as any) || null,
         description: form.description || null,
         session_id: getSessionId(),
-        referrer_source: getFirstReferrerSource(),
+        ...attributionPayload(),
         device_type:
           typeof window !== "undefined" && window.innerWidth < 768
             ? "mobile"
