@@ -19,6 +19,7 @@ const OldBlogSlugRedirect = () => {
 import ScrollToTop from "./components/ScrollToTop";
 import AnalyticsTracker from "./components/AnalyticsTracker";
 import ClarityTracker from "./components/ClarityTracker";
+import PrerenderReadyBroker from "./components/PrerenderReadyBroker";
 
 // Admin pages — lazy loaded (never needed by public visitors)
 const AdminLoginPage = lazy(() => import("./pages/admin/AdminLoginPage"));
@@ -62,6 +63,7 @@ const App = () => (
           <ScrollToTop />
           <AnalyticsTracker />
           <ClarityTracker />
+          <PrerenderReadyBroker />
           <Routes>
             {/* Root: detect language and redirect */}
             <Route path="/" element={<LanguageRedirect />} />

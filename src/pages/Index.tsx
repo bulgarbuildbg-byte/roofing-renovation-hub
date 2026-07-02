@@ -59,8 +59,8 @@ const Index = () => {
       { "@type": "City", "name": "Долен Чифлик" },
       { "@type": "City", "name": "Провадия" }
     ],
-    "priceRange": "$$",
-    "currenciesAccepted": "BGN",
+    "priceRange": "€€",
+    "currenciesAccepted": "EUR, BGN",
     "paymentAccepted": "Cash, Bank Transfer",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "127" },
     "hasOfferCatalog": {
@@ -97,7 +97,7 @@ const Index = () => {
     "logo": `${BASE_URL}/favicon.png`,
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+359-88-499-7659",
+      "telephone": "+359-89-397-1873",
       "contactType": "customer service",
       "areaServed": "BG",
       "availableLanguage": ["Bulgarian", "Russian", "English"]
