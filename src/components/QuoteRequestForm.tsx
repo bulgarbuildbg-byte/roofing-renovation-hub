@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { attributionPayload } from "@/lib/attribution";
+import { fireLeadConversion } from "@/lib/conversions";
 import { Upload, X, Loader2, Send } from "lucide-react";
 
 const SERVICE_OPTIONS = [
@@ -102,6 +103,7 @@ const QuoteRequestForm = () => {
     } catch {}
 
     trackEvent("form_submit", "quote_request_page");
+    fireLeadConversion("form", { email: form.email, phone: form.phone, firstName: form.name.split(" ")[0], city: form.city || null });
     try { (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiry.id); } catch {}
     setSubmitting(false);
     navigate(`/${currentLang}/blagodarim-vi`);

@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { attributionPayload } from "@/lib/attribution";
+import { fireLeadConversion } from "@/lib/conversions";
 import { CheckCircle, Phone, ArrowLeft, ArrowRight, Send, Upload, X, Loader2 } from "lucide-react";
 
 const FAKE_EMAILS = ["test@test.com", "test@test.bg", "example@example.com", "a@a.com", "asd@asd.com"];
@@ -189,6 +190,11 @@ const MultiStepInquiryForm = () => {
     } catch {}
 
     trackEvent("button_click", "offer_button");
+    fireLeadConversion("form", {
+      email: form.email, phone: form.phone,
+      firstName: form.name.split(" ")[0], lastName: form.name.split(" ").slice(1).join(" ") || null,
+      city: form.address || null,
+    });
     try {
       (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiryId);
     } catch {}

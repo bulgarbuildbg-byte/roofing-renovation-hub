@@ -218,19 +218,11 @@ export function trackCallClick(phoneNumber: string) {
     }).then(() => {}, () => {});
   } catch { /* never break the app */ }
 
-  // Fire Google Ads conversion for both accounts
-  if (window.gtag) {
-    window.gtag("event", "conversion", {
-      send_to: "AW-17872435541/call_click",
-      value: 1.0,
-      currency: "BGN",
-    });
-    window.gtag("event", "conversion", {
-      send_to: "AW-18066399675/call_click",
-      value: 1.0,
-      currency: "BGN",
-    });
-  }
+  // Fire Google Ads + GA4 + Meta + TikTok conversion through central helper
+  // (Enhanced Conversions attach hashed phone to the Google conversion).
+  import("./conversions").then(({ fireLeadConversion }) => {
+    fireLeadConversion("call", { phone: phoneNumber, value: 1 });
+  }).catch(() => {});
 }
 
 // Ensure attribution is captured as soon as this module loads.

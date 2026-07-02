@@ -16,6 +16,7 @@ import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { trackCallClick } from "@/lib/analytics";
 import { getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { attributionPayload } from "@/lib/attribution";
+import { fireLeadConversion } from "@/lib/conversions";
 import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
 import roofFlatImg from "@/assets/roof-types/roof-flat.png";
 
@@ -125,10 +126,11 @@ const InspectionPage = () => {
 
       setSubmitted(true);
 
-      if (typeof window !== "undefined" && (window as any).gtag) {
-        (window as any).gtag("event", "conversion", { send_to: "AW-17872435541/inspection_form" });
-        (window as any).gtag("event", "conversion", { send_to: "AW-18066399675/inspection_form" });
-      }
+      fireLeadConversion("inspection", {
+        email: form.email, phone: form.phone,
+        firstName: form.name.split(" ")[0], lastName: form.name.split(" ").slice(1).join(" ") || null,
+        city: form.address || null,
+      });
     } catch {
       toast({ title: t("inspection.errorTitle"), description: t("inspection.errorDesc"), variant: "destructive" });
     } finally {

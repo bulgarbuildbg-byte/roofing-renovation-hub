@@ -1,138 +1,78 @@
-## Цел
+## 1. Проблем с контраст (бутоните и календарът)
 
-В момента системата класифицира трафика само като `direct / organic / social / referral / email`. Всичко от Facebook Ads, Google Ads и TikTok Ads попада в `social` или `direct` без да знаем, че е платено. Този план въвежда пълна маркетинг атрибуция: **канал (channel) + източник (source) + кампания** — за всяка сесия, всяко запитване и всяко обаждане, с исторически графики.
+Причината: филтърните "чипове" на страницата `Маркетинг атрибуция` и другите админ страници използват `bg-muted/40` + `text-muted-foreground` — сивo върху сиво, текстът се вижда чак при hover. Същото важи за неактивните дати в `DateRangePicker`/`Calendar` (shadcn `Calendar` използва `text-muted-foreground` за outside-month дни).
 
----
+Ще оправя:
+- Range chips (7/30/90 дни) и channel filter chips: неактивно състояние → `bg-card border-border text-foreground` вместо `text-muted-foreground` (WCAG AA контраст в тъмна тема).
+- Ще прегледам всички chip/pill групи в `MarketingAttributionPage`, `AnalyticsPage`, `RevenuePage`, `CallLogPage`, `InquiryListPage` и ще заменя ниско‑контрастните комбинации с design‑system токени.
+- Календарът (`src/components/ui/calendar.tsx`): днешната дата, избраната дата и hover state ще получат ясен primary фон с бял текст; outside‑month дните — `text-foreground/60` вместо `text-muted-foreground`.
 
-## 1. Нов модел на канали (channel)
+## 2. По‑прецизен отчет "Лидове по канал"
 
-Всяка сесия ще получи 2 нива:
-- **channel** (основно): `google_ads`, `meta_ads`, `tiktok_ads`, `organic`, `social_organic`, `direct`, `referral`, `email`
-- **source / campaign**: конкретен източник (напр. `facebook / summer_promo`)
+Секцията ще стане отделен блок с 3 подредени изгледа (табове):
 
-### Логика на класификация (по приоритет)
+**A. Разбивка по канал × тип лид** — стакова бар диаграма с колони: Google Ads, Meta Ads, TikTok Ads, Друга платена, Органично Google, Директно, Реферали, Имейл, Соц. мрежи (organic). Всяка колона стакира: `Запитване през форма`, `Обаждане от бутон`, `Чатбот лид`. Веднага се вижда „Google Ads даде 12 обаждания + 5 форми, Meta — 8 форми, 2 обаждания".
+
+**B. История ден‑по‑ден за платените канали** — линейна диаграма за 7/30/90 дни само за `google_ads`, `meta_ads`, `tiktok_ads`; отделни линии за брой лидове. Показва „кога дойдоха, колко на ден", което иска потребителят.
+
+**C. Кампании UTM (вече съществува)** — остава, добавям колона „Обаждания" отделно от „Форми" (в момента са слети в „Лидове").
+
+Обажданията в момента се пишат в `call_log` с `channel`, `utm_*`, `gclid`, `fbclid`, `ttclid` при клик върху `tel:` бутона — тази атрибуция вече работи; тук просто я визуализираме по‑добре. Ръчните записи от админа остават извън чарта (както сега).
+
+## 3. Google Ads — проверка и допълване
+
+Текущо в `index.html`: два акаунта `AW-17872435541` и `AW-18066399675` заредени коректно. Firing action labels които намерих: `call_click`, `quote_submit`, `inspection_form`. Липсва:
+
+- `MultiStepInquiryForm` (главната форма за оглед от Контакти) → не праща conversion към Google.
+- Чатбот лидове → не пращат.
+- Калкулаторът праща `quote_submit` само на пълната форма, не на "unlock price" стъпката.
+- GA4 (`G-…`) не е инсталиран — без него не можем да ползваме reports в GA4 → Google Ads import.
+
+Ще направя:
+- Един централен helper `fireLeadConversion(kind, value)` в `src/lib/analytics.ts` който:
+  1. Праща `gtag('event', 'conversion', …)` към двата AW акаунта с label според типа (`quote_submit`, `call_click`, `chatbot_lead`, `calculator_lead`).
+  2. **Enhanced Conversions**: подава `user_data: { email_address, phone_number, address: { first_name, ... } }` към `gtag('set', 'user_data', …)` преди conversion — Google хешира от страна на клиента и мачва back в Ads. Точно това е "актуалната информация към Google" която иска потребителят и подобрява ROAS отчитането.
+  3. Праща `gclid` (ако има) в `transaction_id` за точен match.
+  4. Дублира събитието в GA4 (нов property, вижте по‑долу) като `generate_lead`.
+- Ще извикам helper‑а от: `MultiStepInquiryForm`, `QuoteRequestForm` (замества съществуващия ръчен код), `PriceCalculator` (и на unlock, и на пълна форма), `InspectionPage`, `useChatFunnel`, и `trackCallClick`.
+
+## 4. GA4 property (за да работят reports "по‑канал" в Google)
+
+Ще добавя GA4 tag в `index.html`. Нужен ми е `Measurement ID` (започва с `G-…`) — ще питам потребителя преди билд. GA4 позволява import на аудитории в Google Ads и е стандартът за атрибуция.
+
+## 5. Meta Ads Pixel + Conversions API готовност
+
+`fbclid` вече ловим за атрибуция, но нищо не се праща обратно към Meta. Ще добавя Meta Pixel `fbq('init', PIXEL_ID)` в `index.html` и `fbq('track', 'Lead', {value, currency})` от `fireLeadConversion`. Ще ми трябва Pixel ID от потребителя.
+
+## 6. TikTok Pixel
+
+Аналогично, `ttq.load(TIKTOK_PIXEL_ID)` + `ttq.track('SubmitForm')` от helper‑а. Ще ми трябва Pixel ID.
+
+## 7. База‑данни — без промени в схемата
+`call_log` вече има `channel`, `utm_*`, `gclid`, `fbclid`, `ttclid`, `source`. Достатъчно за всичко по‑горе.
+
+## Технически детайли
+
+```text
+src/lib/conversions.ts (нов)
+ └── fireLeadConversion(kind: 'form'|'call'|'chatbot'|'calculator', payload)
+       ├── window.gtag('set','user_data',{sha256Email, sha256Phone})   ← Enhanced Conv
+       ├── window.gtag('event','conversion',{send_to:'AW-…/label'})    ← Google Ads
+       ├── window.gtag('event','generate_lead',{value,currency})       ← GA4
+       ├── window.fbq('track','Lead',{value,currency})                 ← Meta
+       └── window.ttq.track('SubmitForm',{value,currency})             ← TikTok
+
+src/pages/admin/MarketingAttributionPage.tsx
+ ├── + Tabs: „По канал × тип" | „История — платени" | „Кампании"
+ ├── + стакова BarChart (форми/обаждания/чат)
+ ├── + линейна LineChart само google_ads/meta_ads/tiktok_ads
+ └── контраст: chips → bg-card + text-foreground
+
+src/components/ui/calendar.tsx  ← контраст fix (day_today, day_outside)
+index.html                       ← + GA4, Meta Pixel, TikTok Pixel (след потвърждение на IDs)
 ```
-1. gclid в URL           -> google_ads
-2. fbclid / utm_source=facebook|instagram + utm_medium=paid|cpc|ads -> meta_ads
-3. ttclid / utm_source=tiktok + utm_medium=paid|cpc              -> tiktok_ads
-4. utm_medium=cpc|ppc|paid|display                                -> paid_other (+ utm_source)
-5. Referrer facebook/instagram/tiktok без UTM                     -> social_organic
-6. Google/Bing/Yahoo referrer                                     -> organic
-7. Друг referrer                                                  -> referral
-8. Няма referrer, няма UTM                                        -> direct
-```
 
-**First-touch** атрибуция: първият канал за сесията се запазва в `sessionStorage` (както сега `analytics_first_referrer_source`) и се използва за запитването/обаждането.
+Хеширане за Enhanced Conversions ще стане с вградения `crypto.subtle.digest('SHA-256')` — без външни зависимости.
 
----
-
-## 2. Промени по базата данни (миграция)
-
-Добавяне на нови колони (nullable, за да не счупим стари редове):
-
-```sql
--- analytics_events
-ALTER TABLE analytics_events
-  ADD COLUMN channel text,
-  ADD COLUMN utm_content text,
-  ADD COLUMN utm_term text,
-  ADD COLUMN gclid text,
-  ADD COLUMN fbclid text,
-  ADD COLUMN ttclid text,
-  ADD COLUMN landing_page text;
-CREATE INDEX idx_analytics_events_channel ON analytics_events(channel);
-
--- inquiries (first-touch на запитването)
-ALTER TABLE inquiries
-  ADD COLUMN channel text,
-  ADD COLUMN utm_source text,
-  ADD COLUMN utm_medium text,
-  ADD COLUMN utm_campaign text,
-  ADD COLUMN utm_content text,
-  ADD COLUMN utm_term text,
-  ADD COLUMN gclid text,
-  ADD COLUMN fbclid text,
-  ADD COLUMN ttclid text,
-  ADD COLUMN landing_page text;
-
--- call_log (за обаждания от tel: линкове)
-ALTER TABLE call_log
-  ADD COLUMN session_id text,
-  ADD COLUMN channel text,
-  ADD COLUMN utm_source text,
-  ADD COLUMN utm_medium text,
-  ADD COLUMN utm_campaign text,
-  ADD COLUMN referrer_source text,
-  ADD COLUMN page_path text,
-  ADD COLUMN source text DEFAULT 'manual'; -- 'manual' | 'web_click'
-```
-Публична INSERT политика за `call_log` за `source='web_click'` (за да могат анонимните tel: click-ове да пишат), + GRANT INSERT на `anon`. Съществуващите admin политики остават непроменени.
-
----
-
-## 3. Frontend промени
-
-### `src/lib/analytics.ts` — нова функция `classifyChannel()`
-Заменя частично `classifyReferrer`. Приема URL params + referrer + запомнени click IDs → връща `{ channel, utm_*, gclid, fbclid, ttclid }`. Записва first-touch в sessionStorage (един обект вместо само referrer_source). Персистира `gclid/fbclid/ttclid` в `localStorage` за 90 дни (стандартна attribution window).
-
-### `AnalyticsTracker.tsx`
-Изпраща новите полета във всяко `page_view`. Landing page = първата страница в сесията.
-
-### Записване на call clicks (нов ефект в `AnalyticsTracker`)
-При `tel:` click освен `trackEvent`, прави INSERT в `call_log` с `source='web_click'`, атрибуцията от sessionStorage и телефонния номер. Така обажданията ще имат канал.
-
-### Форми (`MultiStepInquiryForm`, `QuoteRequestForm`, `PriceCalculator`, `QuickContactForm`, `Contact`)
-Всяка вече праща `session_id` и `referrer_source`. Разширяваме payload-а с `channel`, всички UTM полета и click ID-та — четени от sessionStorage helper `getAttribution()`.
-
----
-
-## 4. Нови/променени административни изгледи
-
-### 4a. `AnalyticsPage.tsx` — разширение
-- **KPI карти**: Сесии, Запитвания, Обаждания, Конверсия — по канал.
-- **Голяма графика "Трафик по канал (исторически)"**: stacked area по дни за избран период (7/30/90 дни), с легенда за всеки от `google_ads`, `meta_ads`, `tiktok_ads`, `organic`, `social_organic`, `direct`, `referral`, `email`.
-- **Таблица "Резултат по канал"**: канал | сесии | запитвания | обаждания | конв. % | лиди/ден.
-- **Дриллдаун по кампания**: клик върху канал → таблица с `utm_source / utm_campaign` разбивка.
-
-### 4b. Нова страница `MarketingAttributionPage.tsx` (`/admin/marketing-attribution`)
-Специализирано табло за реклами:
-- Филтри: период, канал (Google Ads / Meta / TikTok / All Paid).
-- Таблица кампания-по-кампания: impressions (сесии), запитвания, обаждания, лиди общо, CPL-ready колона (ръчно въведен бюджет по-късно).
-- Sparkline тренд на всяка кампания.
-- Секция "Ефективни vs. слаби кампании" — авто-сортиране по конверсия.
-
-### 4c. `InquiryListPage.tsx` + `InquiryDetailPage.tsx`
-- Нова колона / badge "Канал" (цветен: жълт=Google Ads, син=Meta, розов=TikTok, зелен=organic, сив=direct).
-- Филтър по канал в списъка.
-- В детайла: пълен attribution блок (channel, utm_source, campaign, gclid, landing page, referrer).
-
-### 4d. `CallLogPage.tsx`
-- Колона "Канал" и филтър.
-- Отделяне на web-clicked обаждания vs. ръчно въведени (icon).
-
----
-
-## 5. Техническа секция
-
-**Файлове за създаване/промяна:**
-- `supabase/migrations/*_attribution.sql` — колони + политика/GRANT за анонимен `call_log` insert.
-- `src/lib/attribution.ts` (нов) — `classifyChannel`, `getAttribution`, `persistClickIds`.
-- `src/lib/analytics.ts` — интеграция с новите helpers, разширен `trackEvent` payload, `trackCallClick` пише в `call_log`.
-- `src/components/AnalyticsTracker.tsx` — праща новите полета.
-- 5-те форми — добавят attribution към INSERT.
-- `src/pages/admin/AnalyticsPage.tsx` — нов channel breakdown + stacked history chart.
-- `src/pages/admin/MarketingAttributionPage.tsx` (нов) + route в `App.tsx` + линк в admin sidebar.
-- `src/pages/admin/InquiryListPage.tsx`, `InquiryDetailPage.tsx`, `CallLogPage.tsx` — колони, филтри, badges.
-
-**Recharts:** използваме `AreaChart` (stacked) за история, `BarChart` за channel breakdown, `LineChart` за sparklines.
-
-**Обратна съвместимост:** старите редове без `channel` ще се показват като `unknown` в графиките; един back-fill SQL ще ги мапне (organic/direct/social) от `referrer_source` при миграцията.
-
-**Тестване:** ръчно посещение с `?utm_source=facebook&utm_medium=paid&utm_campaign=test` и `?gclid=abc` за верификация, че се появяват в правилен канал; тестово запитване + tel: click за проверка на end-to-end атрибуция.
-
----
-
-## Извън обхвата (за по-късно)
-- Автоматично издърпване на разходи от Google/Meta/TikTok API за реален CPL/ROAS (изисква API ключове).
-- Multi-touch атрибуция (last-touch, linear). За сега: first-touch.
-- Server-side conversion API за Meta/TikTok.
+## Отворени въпроси преди билд
+Ако имаш `G-…` (GA4), Meta Pixel ID и TikTok Pixel ID, дай ги и добавям и трите. Ако нямаш, ще направя точки 1, 2, 3 (само Google Ads + Enhanced Conversions за съществуващите AW акаунти) веднага и оставям 4–6 за когато ги вземеш.

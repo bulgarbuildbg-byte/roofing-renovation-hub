@@ -161,7 +161,7 @@ const MarketingAttributionPage = () => {
         <div className="flex gap-2 flex-wrap">
           {rangeOptions.map(o => (
             <button key={o.key} onClick={() => setDays(o.key)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium border ${days === o.key ? "bg-primary text-primary-foreground border-primary" : "bg-muted/40 text-muted-foreground border-border"}`}>
+              className={`px-3 py-1.5 rounded-md text-xs font-semibold border transition-colors ${days === o.key ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card text-foreground border-border hover:bg-accent hover:text-accent-foreground"}`}>
               {o.label}
             </button>
           ))}
@@ -186,7 +186,7 @@ const MarketingAttributionPage = () => {
           const active = channelFilter === ch;
           return (
             <button key={ch} onClick={() => setChannelFilter(ch)}
-              className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${active ? "bg-primary text-primary-foreground border-primary" : "bg-muted/30 text-muted-foreground border-border hover:bg-muted"}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${active ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card text-foreground border-border hover:bg-accent hover:text-accent-foreground"}`}>
               {label}
             </button>
           );
@@ -293,19 +293,25 @@ const MarketingAttributionPage = () => {
         </CardContent>
       </Card>
 
-      {/* Leads-per-channel bar */}
+      {/* Leads-per-channel stacked bar (inquiries vs calls) */}
       <Card>
-        <CardHeader><CardTitle>Лидове по канал</CardTitle></CardHeader>
-        <CardContent style={{ height: 260 }}>
+        <CardHeader>
+          <CardTitle>Лидове по канал — запитвания vs обаждания</CardTitle>
+          <p className="text-xs text-muted-foreground mt-1">
+            Виждате точно колко от лидовете по всеки канал са били <strong>обаждания</strong> и колко <strong>онлайн запитвания</strong>.
+            Google Ads / Meta Ads / TikTok Ads са платените канали; „Директен" и „Органично търсене" са безплатни.
+          </p>
+        </CardHeader>
+        <CardContent style={{ height: 320 }}>
           <ResponsiveContainer>
             <BarChart data={channelTable} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-              <XAxis dataKey="channel" tickFormatter={(v) => CHANNEL_LABELS[v as Channel] || v} tick={{ fontSize: 10 }} interval={0} angle={-15} textAnchor="end" height={60} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))" }} labelFormatter={(v) => CHANNEL_LABELS[v as Channel] || String(v)} />
-              <Bar dataKey="leads" name="Лидове">
-                {channelTable.map(r => <Cell key={r.channel} fill={CHANNEL_COLORS[r.channel]} />)}
-              </Bar>
+              <XAxis dataKey="channel" tickFormatter={(v) => CHANNEL_LABELS[v as Channel] || v} tick={{ fontSize: 10, fill: "hsl(var(--foreground))" }} interval={0} angle={-20} textAnchor="end" height={70} />
+              <YAxis tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }} allowDecimals={false} />
+              <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", color: "hsl(var(--foreground))" }} labelFormatter={(v) => CHANNEL_LABELS[v as Channel] || String(v)} />
+              <Legend wrapperStyle={{ fontSize: 12 }} />
+              <Bar dataKey="inquiries" name="Онлайн запитвания" stackId="leads" fill="#f59e0b" />
+              <Bar dataKey="calls" name="Обаждания" stackId="leads" fill="#22c55e" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>

@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain, Lock } from "lucide-react";
 import { trackEvent, trackCalculatorEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { attributionPayload } from "@/lib/attribution";
+import { fireLeadConversion } from "@/lib/conversions";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
@@ -316,6 +317,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     } catch {}
 
     trackEvent("button_click", "calculator_inquiry_submit");
+    fireLeadConversion("calculator", { email: formData.email, phone: formData.phone, firstName: formData.firstName, lastName: formData.lastName, city: formData.address });
     setSubmitted(true);
     setSubmitting(false);
   };
@@ -377,12 +379,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     } catch {}
 
     trackEvent("button_click", "calculator_price_unlocked");
+    fireLeadConversion("calculator", { email, phone, firstName: name.split(" ")[0], lastName: name.split(" ").slice(1).join(" ") || null });
     try {
       const w = window as any;
-      if (typeof w.gtag === "function") {
-        w.gtag("event", "conversion", { send_to: "AW-17872435541/quote_submit" });
-        w.gtag("event", "conversion", { send_to: "AW-18066399675/quote_submit" });
-      }
       w.dataLayer = w.dataLayer || [];
       w.dataLayer.push({ event: "calculator_price_unlocked" });
     } catch {}
