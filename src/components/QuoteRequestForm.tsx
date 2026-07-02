@@ -63,7 +63,8 @@ const QuoteRequestForm = () => {
         service_type: (form.service_type as any) || "other",
         description: form.description || null,
         session_id: getSessionId(),
-        referrer_source: getFirstReferrerSource(),
+        session_id: getSessionId(),
+        ...attributionPayload(),
         device_type: (typeof window !== "undefined" && window.innerWidth < 768) ? "mobile" : (window.innerWidth < 1024 ? "tablet" : "desktop"),
       } as any)
       .select()
