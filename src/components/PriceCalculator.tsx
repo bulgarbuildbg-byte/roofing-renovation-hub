@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain, Lock } from "lucide-react";
 import { trackEvent, trackCalculatorEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { attributionPayload } from "@/lib/attribution";
+import { fireLeadConversion } from "@/lib/conversions";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
