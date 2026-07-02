@@ -161,7 +161,7 @@ const MarketingAttributionPage = () => {
         <div className="flex gap-2 flex-wrap">
           {rangeOptions.map(o => (
             <button key={o.key} onClick={() => setDays(o.key)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium border ${days === o.key ? "bg-primary text-primary-foreground border-primary" : "bg-muted/40 text-muted-foreground border-border"}`}>
+              className={`px-3 py-1.5 rounded-md text-xs font-semibold border transition-colors ${days === o.key ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card text-foreground border-border hover:bg-accent hover:text-accent-foreground"}`}>
               {o.label}
             </button>
           ))}
