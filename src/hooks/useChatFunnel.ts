@@ -112,6 +112,13 @@ export function useChatFunnel() {
         ...attributionPayload(),
         email_consent: hasRealEmail,
       } as any);
+
+      fireLeadConversion("chatbot", {
+        email: hasRealEmail ? leadData.email : null,
+        phone: leadData.phone || null,
+        firstName: (leadData.name || "").split(" ")[0] || null,
+        city: leadData.address || null,
+      });
     } catch (e) {
       console.error("Lead submit error:", e);
     } finally {
