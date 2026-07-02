@@ -7,7 +7,7 @@ import {
   Inbox, FileText, Users, LogOut, Menu, X, Newspaper, ExternalLink,
   BarChart3, Megaphone, MessageSquare, Database, Link2, Mail, Star,
   PhoneCall, FolderOpen, Contact, ChevronRight, Shield, Bell,
-  Command, FileSignature, Building2, TrendingUp, Video, Smartphone,
+  Command, FileSignature, Building2, TrendingUp, Video, Smartphone, Target,
 } from "lucide-react";
 
 const navSections = [
