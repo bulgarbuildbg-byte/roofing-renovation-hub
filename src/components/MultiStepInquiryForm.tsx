@@ -98,56 +98,83 @@ const MultiStepInquiryForm = () => {
   const removeFile = (i: number) => setFiles(files.filter((_, idx) => idx !== i));
 
   const handleSubmit = async () => {
+    // Client-side validation with clear error messages
+    const parsed = contactSchema.safeParse({
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      address: form.address,
+    });
+    if (!parsed.success) {
+      const firstError = parsed.error.errors[0];
+      toast({ title: "Проверете данните", description: firstError.message, variant: "destructive" });
+      return;
+    }
+
     setSubmitting(true);
 
-    // Insert inquiry
-    const { data: inquiry, error } = await supabase
+    const inquiryId = (crypto as any).randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+    const { error } = await supabase
       .from("inquiries")
       .insert({
-        name: form.name,
-        phone: form.phone,
-        email: form.email,
-        address: form.address || null,
-        service_type: form.service_type as any || "other",
+        id: inquiryId,
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim(),
+        address: form.address.trim() || null,
+        service_type: (form.service_type as any) || "other",
         area_sqm: form.area_sqm ? Number(form.area_sqm) : null,
-        preferred_material: form.preferred_material as any || null,
-        roof_complexity: form.roof_complexity as any || null,
+        preferred_material: (form.preferred_material as any) || null,
+        roof_complexity: (form.roof_complexity as any) || null,
         description: form.description || null,
         session_id: getSessionId(),
         referrer_source: getFirstReferrerSource(),
-        device_type: (typeof window !== "undefined" && window.innerWidth < 768) ? "mobile" : (window.innerWidth < 1024 ? "tablet" : "desktop"),
-      } as any)
-      .select()
-      .single();
+        device_type:
+          typeof window !== "undefined" && window.innerWidth < 768
+            ? "mobile"
+            : window.innerWidth < 1024
+            ? "tablet"
+            : "desktop",
+      } as any);
 
-    if (error || !inquiry) {
-      toast({ title: "Грешка", description: "Моля, опитайте отново.", variant: "destructive" });
+    if (error) {
+      console.error("Inquiry submit error:", error);
+      toast({
+        title: "Грешка при изпращане",
+        description: error.message || "Моля, опитайте отново или се обадете на 089 397 1873.",
+        variant: "destructive",
+      });
       setSubmitting(false);
       return;
     }
 
-    // Upload files
+    // Upload files (best-effort)
     for (const file of files) {
-      const path = `${inquiry.id}/${Date.now()}_${file.name}`;
-      const { data: uploaded } = await supabase.storage
-        .from("inquiry-attachments")
-        .upload(path, file);
-
-      if (uploaded) {
-        const { data: urlData } = supabase.storage
+      try {
+        const path = `${inquiryId}/${Date.now()}_${file.name}`;
+        const { data: uploaded } = await supabase.storage
           .from("inquiry-attachments")
-          .getPublicUrl(uploaded.path);
+          .upload(path, file);
 
-        await supabase.from("inquiry_files").insert({
-          inquiry_id: inquiry.id,
-          file_url: urlData.publicUrl,
-          file_name: file.name,
-          file_type: file.type,
-        });
+        if (uploaded) {
+          const { data: urlData } = supabase.storage
+            .from("inquiry-attachments")
+            .getPublicUrl(uploaded.path);
+
+          await supabase.from("inquiry_files").insert({
+            inquiry_id: inquiryId,
+            file_url: urlData.publicUrl,
+            file_name: file.name,
+            file_type: file.type,
+          });
+        }
+      } catch (e) {
+        console.warn("File upload failed (non-fatal):", e);
       }
     }
 
-    // Auto-log phone to call_log
+    // Auto-log phone to call_log (best-effort)
     try {
       await supabase.from("call_log" as any).insert({
         client_name: form.name,
@@ -155,13 +182,15 @@ const MultiStepInquiryForm = () => {
         client_email: form.email || null,
         call_direction: "inbound",
         notes: "Автоматично от запитване (MultiStep форма)",
-        inquiry_id: inquiry.id,
+        inquiry_id: inquiryId,
         created_by: "00000000-0000-0000-0000-000000000000",
       });
     } catch {}
 
     trackEvent("button_click", "offer_button");
-    try { (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiry.id); } catch {}
+    try {
+      (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiryId);
+    } catch {}
     setSubmitted(true);
     setSubmitting(false);
   };
