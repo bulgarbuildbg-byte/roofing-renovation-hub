@@ -317,7 +317,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     } catch {}
 
     trackEvent("button_click", "calculator_inquiry_submit");
-    fireLeadConversion("calculator", { email: formData.email, phone: formData.phone, firstName: formData.firstName, lastName: formData.lastName, city: formData.address });
+    // NOTE: Google Ads conversion is intentionally NOT fired here. It was already
+    // fired at the unlock step (handleUnlockPrice) where the phone was captured.
+    // Firing again would double-count the same lead in Google Ads.
     setSubmitted(true);
     setSubmitting(false);
   };

@@ -13,29 +13,13 @@ const ThankYouPage = () => {
   const currentLang = lang || "bg";
 
   useEffect(() => {
-    // Custom analytics
+    // Internal analytics only. The Google Ads conversion + GA4 generate_lead
+    // event were already fired by the submitting form (QuoteRequestForm,
+    // MultiStepInquiryForm, etc.) through fireLeadConversion. Firing them
+    // again here would double-count every lead in Google Ads.
     trackEvent("conversion", "quote_request_submitted");
-
-    // Google Ads conversion (uses same accounts as call tracking)
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "conversion", {
-        send_to: "AW-17872435541/quote_submit",
-        value: 1.0,
-        currency: "BGN",
-      });
-      window.gtag("event", "conversion", {
-        send_to: "AW-18066399675/quote_submit",
-        value: 1.0,
-        currency: "BGN",
-      });
-    }
-
-    // GTM dataLayer
-    if (typeof window !== "undefined") {
-      (window as any).dataLayer = (window as any).dataLayer || [];
-      (window as any).dataLayer.push({ event: "quote_submitted" });
-    }
   }, []);
+
 
   return (
     <div className="min-h-screen bg-background">
