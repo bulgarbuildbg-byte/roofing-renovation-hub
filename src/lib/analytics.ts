@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { captureAttribution, getAttribution, attributionPayload } from "@/lib/attribution";
 
 declare global {
   interface Window {
