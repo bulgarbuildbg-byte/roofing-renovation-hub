@@ -186,7 +186,7 @@ const MarketingAttributionPage = () => {
           const active = channelFilter === ch;
           return (
             <button key={ch} onClick={() => setChannelFilter(ch)}
-              className={`px-2.5 py-1 rounded-full text-xs font-medium border transition-colors ${active ? "bg-primary text-primary-foreground border-primary" : "bg-muted/30 text-muted-foreground border-border hover:bg-muted"}`}>
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${active ? "bg-primary text-primary-foreground border-primary shadow-sm" : "bg-card text-foreground border-border hover:bg-accent hover:text-accent-foreground"}`}>
               {label}
             </button>
           );
