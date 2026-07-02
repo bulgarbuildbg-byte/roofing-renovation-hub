@@ -67,7 +67,7 @@ const AboutPage = () => {
               "sameAs": "https://bulgarbuild.com/about"
             },
             "areaServed": serviceAreas.map(area => ({ "@type": "City", "name": area })),
-            "priceRange": "$$"
+            "priceRange": "€€"
           })}
         </script>
       </Helmet>

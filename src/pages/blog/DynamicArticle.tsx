@@ -7,12 +7,14 @@ import Footer from "@/components/Footer";
 import ReactMarkdown from "react-markdown";
 import { Calendar, Clock, ArrowLeft, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useSeoDataReady } from "@/hooks/useSeoDataReady";
 
 const DynamicArticle = () => {
   const { slug } = useParams<{ slug: string }>();
   const [article, setArticle] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  useSeoDataReady("blog-article", article !== null || notFound);
 
   useEffect(() => {
     if (!slug) return;

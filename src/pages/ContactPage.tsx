@@ -38,7 +38,7 @@ const ContactPage = () => {
         "closes": "14:00"
       }
     ],
-    "priceRange": "$$",
+    "priceRange": "€€",
     "areaServed": {
       "@type": "City",
       "name": "Варна"

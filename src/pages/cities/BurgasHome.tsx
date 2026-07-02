@@ -66,7 +66,7 @@ const BurgasHome = () => {
       { "@type": "City", "name": cityData.nameBg },
       ...cityData.neighborhoods.map((n) => ({ "@type": "Place", "name": `${n}, ${cityData.nameBg}` })),
     ],
-    "priceRange": "$$",
+    "priceRange": "€€",
     "currenciesAccepted": "BGN",
     "paymentAccepted": "Cash, Bank Transfer",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "127" },

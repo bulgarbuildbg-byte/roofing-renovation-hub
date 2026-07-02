@@ -34,7 +34,7 @@ const HomeFAQ = () => {
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background" data-seo="faq">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
@@ -56,10 +56,10 @@ const HomeFAQ = () => {
                 value={`item-${index}`}
                 className="bg-secondary rounded-xl px-6 border-none"
               >
-                <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline py-6">
+                <AccordionTrigger className="text-left text-foreground hover:text-primary hover:no-underline py-6" data-seo="faq-question">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
+                <AccordionContent className="text-muted-foreground pb-6" data-seo="faq-answer">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
