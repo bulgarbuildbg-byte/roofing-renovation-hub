@@ -15,6 +15,7 @@ import { toast } from "@/hooks/use-toast";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { trackCallClick } from "@/lib/analytics";
 import { getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { attributionPayload } from "@/lib/attribution";
 import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
 import roofFlatImg from "@/assets/roof-types/roof-flat.png";
 
