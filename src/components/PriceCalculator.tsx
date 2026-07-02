@@ -317,6 +317,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     } catch {}
 
     trackEvent("button_click", "calculator_inquiry_submit");
+    fireLeadConversion("calculator", { email: formData.email, phone: formData.phone, firstName: formData.firstName, lastName: formData.lastName, city: formData.address });
     setSubmitted(true);
     setSubmitting(false);
   };
