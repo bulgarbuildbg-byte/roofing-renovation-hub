@@ -126,10 +126,11 @@ const InspectionPage = () => {
 
       setSubmitted(true);
 
-      if (typeof window !== "undefined" && (window as any).gtag) {
-        (window as any).gtag("event", "conversion", { send_to: "AW-17872435541/inspection_form" });
-        (window as any).gtag("event", "conversion", { send_to: "AW-18066399675/inspection_form" });
-      }
+      fireLeadConversion("inspection", {
+        email: form.email, phone: form.phone,
+        firstName: form.name.split(" ")[0], lastName: form.name.split(" ").slice(1).join(" ") || null,
+        city: form.address || null,
+      });
     } catch {
       toast({ title: t("inspection.errorTitle"), description: t("inspection.errorDesc"), variant: "destructive" });
     } finally {
