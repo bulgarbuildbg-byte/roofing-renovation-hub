@@ -38,8 +38,13 @@ const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
+  // forceMount keeps FAQ answers in the DOM even when the accordion is
+  // collapsed, so Google/prerender captures the full text. Radix still
+  // toggles `data-state` and the `hidden` attribute for visual behavior,
+  // so users see the same collapsed accordion they always did.
   <AccordionPrimitive.Content
     ref={ref}
+    forceMount
     className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...props}
   >
