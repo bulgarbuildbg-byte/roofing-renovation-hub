@@ -15,6 +15,7 @@ const navSections = [
     label: "Основни",
     items: [
       { to: "/admin/analytics", label: "Аналитика", icon: BarChart3 },
+      { to: "/admin/attribution", label: "Маркетинг атрибуция", icon: Target },
       { to: "/admin/behavior", label: "Поведение & Записи", icon: Video },
       { to: "/admin/devices", label: "Устройства", icon: Smartphone },
       { to: "/admin/leads", label: "CRM Лийдове", icon: Database },
