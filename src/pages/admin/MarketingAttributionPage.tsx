@@ -114,9 +114,9 @@ const MarketingAttributionPage = () => {
       for (const ch of ALL_CHANNELS) row[ch] = perDay[k][ch].size;
       return row;
     });
-  }, [events]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [events, days]);
 
-  function rangeSize() { return days; }
+
 
   const campaignTable = useMemo(() => {
     const key = (r: Row) => `${channelKey(r.channel)}|${r.utm_source || "-"}|${r.utm_campaign || "-"}`;
