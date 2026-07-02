@@ -378,12 +378,9 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
     } catch {}
 
     trackEvent("button_click", "calculator_price_unlocked");
+    fireLeadConversion("calculator", { email, phone, firstName: name.split(" ")[0], lastName: name.split(" ").slice(1).join(" ") || null });
     try {
       const w = window as any;
-      if (typeof w.gtag === "function") {
-        w.gtag("event", "conversion", { send_to: "AW-17872435541/quote_submit" });
-        w.gtag("event", "conversion", { send_to: "AW-18066399675/quote_submit" });
-      }
       w.dataLayer = w.dataLayer || [];
       w.dataLayer.push({ event: "calculator_price_unlocked" });
     } catch {}
