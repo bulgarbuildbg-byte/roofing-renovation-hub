@@ -90,9 +90,7 @@ const MarketingAttributionPage = () => {
 
   // Stacked history per day per channel
   const history = useMemo(() => {
-    const days = eachDayOfInterval({ start: subDays(new Date(), 29).length ? subDays(new Date(), 29) : new Date(), end: new Date() });
-    void days; // typing safety
-    const dayList = eachDayOfInterval({ start: subDays(startOfDay(new Date()), 29 < 0 ? 0 : (rangeSize() - 1)), end: endOfDay(new Date()) });
+    const dayList = eachDayOfInterval({ start: startOfDay(subDays(new Date(), days - 1)), end: endOfDay(new Date()) });
     // Build per-day session-first-touch map
     const perDay: Record<string, Record<Channel, Set<string>>> = {};
     for (const d of dayList) {
