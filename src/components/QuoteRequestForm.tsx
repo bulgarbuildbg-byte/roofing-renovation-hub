@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { attributionPayload } from "@/lib/attribution";
 import { Upload, X, Loader2, Send } from "lucide-react";
 
 const SERVICE_OPTIONS = [
@@ -62,7 +63,7 @@ const QuoteRequestForm = () => {
         service_type: (form.service_type as any) || "other",
         description: form.description || null,
         session_id: getSessionId(),
-        referrer_source: getFirstReferrerSource(),
+        ...attributionPayload(),
         device_type: (typeof window !== "undefined" && window.innerWidth < 768) ? "mobile" : (window.innerWidth < 1024 ? "tablet" : "desktop"),
       } as any)
       .select()

@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { captureAttribution, getAttribution, attributionPayload } from "@/lib/attribution";
 
 declare global {
   interface Window {
@@ -137,23 +138,32 @@ export async function trackEvent(
 ) {
   try {
     const botFlag = isBot();
+    const attr = attributionPayload();
     await supabase.from("analytics_events" as any).insert({
       event_type: eventType,
       event_name: eventName,
       session_id: getSessionId(),
       page_path: extras?.page_path ?? window.location.pathname,
       duration_seconds: extras?.duration_seconds ?? null,
-      referrer_source: extras?.referrer_source ?? null,
       referrer: extras?.referrer ?? null,
       device_type: extras?.device_type ?? getDeviceType(),
       viewport_w: extras?.viewport_w ?? window.innerWidth,
       viewport_h: extras?.viewport_h ?? window.innerHeight,
       time_on_page_ms: extras?.time_on_page_ms ?? null,
       is_exit: extras?.is_exit ?? false,
-      utm_source: extras?.utm_source ?? null,
-      utm_medium: extras?.utm_medium ?? null,
-      utm_campaign: extras?.utm_campaign ?? null,
       is_bot: botFlag,
+      // First-touch attribution (overridable by explicit extras for backwards compat)
+      channel: attr.channel,
+      referrer_source: extras?.referrer_source ?? attr.referrer_source,
+      utm_source: extras?.utm_source ?? attr.utm_source,
+      utm_medium: extras?.utm_medium ?? attr.utm_medium,
+      utm_campaign: extras?.utm_campaign ?? attr.utm_campaign,
+      utm_content: attr.utm_content,
+      utm_term: attr.utm_term,
+      gclid: attr.gclid,
+      fbclid: attr.fbclid,
+      ttclid: attr.ttclid,
+      landing_page: attr.landing_page,
     });
   } catch {
     // silently fail - analytics should never break the app
@@ -179,14 +189,34 @@ export function trackCalculatorEvent(
 }
 
 /**
- * Log a phone call click: track analytics event + fire Google Ads conversion.
- * Called from the global tel: click interceptor in AnalyticsTracker.
+ * Log a phone call click: analytics event + Google Ads conversion +
+ * anonymous row in `call_log` so admins can see the marketing channel
+ * that produced the call.
  */
 export function trackCallClick(phoneNumber: string) {
   // Track as analytics event (public insert allowed)
   trackEvent("button_click", "call_button", {
     page_path: window.location.pathname,
   });
+
+  // Log the call itself with its attribution so admins can attribute revenue
+  try {
+    const attr = getAttribution();
+    supabase.from("call_log" as any).insert({
+      client_name: "Уеб посетител",
+      client_phone: phoneNumber,
+      call_direction: "inbound",
+      source: "web_click",
+      session_id: getSessionId(),
+      page_path: window.location.pathname,
+      channel: attr.channel,
+      referrer_source: attr.referrer_source,
+      utm_source: attr.utm_source,
+      utm_medium: attr.utm_medium,
+      utm_campaign: attr.utm_campaign,
+      notes: "Автоматично уловено обаждане от бутона за телефон.",
+    }).then(() => {}, () => {});
+  } catch { /* never break the app */ }
 
   // Fire Google Ads conversion for both accounts
   if (window.gtag) {
@@ -202,3 +232,9 @@ export function trackCallClick(phoneNumber: string) {
     });
   }
 }
+
+// Ensure attribution is captured as soon as this module loads.
+if (typeof window !== "undefined") {
+  try { captureAttribution(); } catch { /* ignore */ }
+}
+

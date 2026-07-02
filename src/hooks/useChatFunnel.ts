@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { attributionPayload } from "@/lib/attribution";
 
 // ---------- Types ----------
 export interface FunnelButton {
@@ -107,9 +108,9 @@ export function useChatFunnel() {
         area_sqm: leadData.area || null,
         description: desc,
         session_id: getSessionId(),
-        referrer_source: getFirstReferrerSource(),
+        ...attributionPayload(),
         email_consent: hasRealEmail,
-      });
+      } as any);
     } catch (e) {
       console.error("Lead submit error:", e);
     } finally {

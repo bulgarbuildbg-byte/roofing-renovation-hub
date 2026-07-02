@@ -50,6 +50,7 @@ const SiteDetailPage = lazy(() => import("./pages/admin/SiteDetailPage"));
 const RevenuePage = lazy(() => import("./pages/admin/RevenuePage"));
 const BehaviorPage = lazy(() => import("./pages/admin/BehaviorPage"));
 const DeviceAnalyticsPage = lazy(() => import("./pages/admin/DeviceAnalyticsPage"));
+const MarketingAttributionPage = lazy(() => import("./pages/admin/MarketingAttributionPage"));
 
 const queryClient = new QueryClient();
 
@@ -125,6 +126,8 @@ const App = () => (
               <Route path="revenue" element={<Suspense fallback={null}><RevenuePage /></Suspense>} />
               <Route path="behavior" element={<Suspense fallback={null}><BehaviorPage /></Suspense>} />
               <Route path="devices" element={<Suspense fallback={null}><DeviceAnalyticsPage /></Suspense>} />
+              <Route path="attribution" element={<Suspense fallback={null}><MarketingAttributionPage /></Suspense>} />
+              <Route path="marketing" element={<Suspense fallback={null}><MarketingAttributionPage /></Suspense>} />
               <Route path="staff" element={<Suspense fallback={null}><ProtectedRoute requireAdmin><StaffManagementPage /></ProtectedRoute></Suspense>} />
             </Route>
 

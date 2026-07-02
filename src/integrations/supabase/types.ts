@@ -55,65 +55,86 @@ export type Database = {
       }
       analytics_events: {
         Row: {
+          channel: string | null
           clarity_session_id: string | null
           created_at: string
           device_type: string | null
           duration_seconds: number | null
           event_name: string
           event_type: string
+          fbclid: string | null
+          gclid: string | null
           id: string
           is_bot: boolean | null
           is_exit: boolean | null
+          landing_page: string | null
           page_path: string | null
           referrer: string | null
           referrer_source: string | null
           session_id: string
           time_on_page_ms: number | null
+          ttclid: string | null
           utm_campaign: string | null
+          utm_content: string | null
           utm_medium: string | null
           utm_source: string | null
+          utm_term: string | null
           viewport_h: number | null
           viewport_w: number | null
         }
         Insert: {
+          channel?: string | null
           clarity_session_id?: string | null
           created_at?: string
           device_type?: string | null
           duration_seconds?: number | null
           event_name: string
           event_type: string
+          fbclid?: string | null
+          gclid?: string | null
           id?: string
           is_bot?: boolean | null
           is_exit?: boolean | null
+          landing_page?: string | null
           page_path?: string | null
           referrer?: string | null
           referrer_source?: string | null
           session_id: string
           time_on_page_ms?: number | null
+          ttclid?: string | null
           utm_campaign?: string | null
+          utm_content?: string | null
           utm_medium?: string | null
           utm_source?: string | null
+          utm_term?: string | null
           viewport_h?: number | null
           viewport_w?: number | null
         }
         Update: {
+          channel?: string | null
           clarity_session_id?: string | null
           created_at?: string
           device_type?: string | null
           duration_seconds?: number | null
           event_name?: string
           event_type?: string
+          fbclid?: string | null
+          gclid?: string | null
           id?: string
           is_bot?: boolean | null
           is_exit?: boolean | null
+          landing_page?: string | null
           page_path?: string | null
           referrer?: string | null
           referrer_source?: string | null
           session_id?: string
           time_on_page_ms?: number | null
+          ttclid?: string | null
           utm_campaign?: string | null
+          utm_content?: string | null
           utm_medium?: string | null
           utm_source?: string | null
+          utm_term?: string | null
           viewport_h?: number | null
           viewport_w?: number | null
         }
@@ -248,41 +269,65 @@ export type Database = {
         Row: {
           call_date: string
           call_direction: string
+          channel: string | null
           client_email: string | null
           client_name: string
           client_phone: string
           created_at: string
-          created_by: string
+          created_by: string | null
           duration_minutes: number | null
           id: string
           inquiry_id: string | null
           notes: string | null
+          page_path: string | null
+          referrer_source: string | null
+          session_id: string | null
+          source: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
         }
         Insert: {
           call_date?: string
           call_direction?: string
+          channel?: string | null
           client_email?: string | null
           client_name: string
           client_phone: string
           created_at?: string
-          created_by: string
+          created_by?: string | null
           duration_minutes?: number | null
           id?: string
           inquiry_id?: string | null
           notes?: string | null
+          page_path?: string | null
+          referrer_source?: string | null
+          session_id?: string | null
+          source?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Update: {
           call_date?: string
           call_direction?: string
+          channel?: string | null
           client_email?: string | null
           client_name?: string
           client_phone?: string
           created_at?: string
-          created_by?: string
+          created_by?: string | null
           duration_minutes?: number | null
           id?: string
           inquiry_id?: string | null
           notes?: string | null
+          page_path?: string | null
+          referrer_source?: string | null
+          session_id?: string | null
+          source?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: [
           {
@@ -577,13 +622,17 @@ export type Database = {
           area_sqm: number | null
           assigned_to: string | null
           campaign_id: string | null
+          channel: string | null
           clarity_session_id: string | null
           created_at: string
           description: string | null
           device_type: string | null
           email: string
           email_consent: boolean | null
+          fbclid: string | null
+          gclid: string | null
           id: string
+          landing_page: string | null
           name: string
           phone: string
           preferred_material:
@@ -595,8 +644,14 @@ export type Database = {
           session_id: string | null
           sms_consent: boolean | null
           status: Database["public"]["Enums"]["inquiry_status"]
+          ttclid: string | null
           unsubscribed_at: string | null
           updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
         }
         Insert: {
           address?: string | null
@@ -604,13 +659,17 @@ export type Database = {
           area_sqm?: number | null
           assigned_to?: string | null
           campaign_id?: string | null
+          channel?: string | null
           clarity_session_id?: string | null
           created_at?: string
           description?: string | null
           device_type?: string | null
           email: string
           email_consent?: boolean | null
+          fbclid?: string | null
+          gclid?: string | null
           id?: string
+          landing_page?: string | null
           name: string
           phone: string
           preferred_material?:
@@ -624,8 +683,14 @@ export type Database = {
           session_id?: string | null
           sms_consent?: boolean | null
           status?: Database["public"]["Enums"]["inquiry_status"]
+          ttclid?: string | null
           unsubscribed_at?: string | null
           updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
         }
         Update: {
           address?: string | null
@@ -633,13 +698,17 @@ export type Database = {
           area_sqm?: number | null
           assigned_to?: string | null
           campaign_id?: string | null
+          channel?: string | null
           clarity_session_id?: string | null
           created_at?: string
           description?: string | null
           device_type?: string | null
           email?: string
           email_consent?: boolean | null
+          fbclid?: string | null
+          gclid?: string | null
           id?: string
+          landing_page?: string | null
           name?: string
           phone?: string
           preferred_material?:
@@ -653,8 +722,14 @@ export type Database = {
           session_id?: string | null
           sms_consent?: boolean | null
           status?: Database["public"]["Enums"]["inquiry_status"]
+          ttclid?: string | null
           unsubscribed_at?: string | null
           updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
         }
         Relationships: [
           {

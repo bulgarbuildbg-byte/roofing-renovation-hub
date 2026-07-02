@@ -15,6 +15,7 @@ import { toast } from "@/hooks/use-toast";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { trackCallClick } from "@/lib/analytics";
 import { getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { attributionPayload } from "@/lib/attribution";
 import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
 import roofFlatImg from "@/assets/roof-types/roof-flat.png";
 
@@ -89,9 +90,11 @@ const InspectionPage = () => {
         preferred_material: (form.preferred_material as any) || null,
         roof_complexity: (form.roof_complexity as any) || null,
         description: form.description.trim() ? `[Безплатен оглед] Тип: ${roofType === "flat" ? "Плосък" : "С наклон"}. ${form.description.trim()}` : `[Безплатен оглед] Тип: ${roofType === "flat" ? "Плосък" : "С наклон"}`,
-        referrer_source: "inspection_landing",
         session_id: getSessionId(),
-      }).select().single();
+        ...attributionPayload(),
+        // Override channel-agnostic label to distinguish inspection landing traffic
+        referrer_source: "inspection_landing",
+      } as any).select().single();
 
       if (error || !inquiry) throw error;
 

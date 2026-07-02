@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Phone, Calculator, Shield, Eye, Clock, ArrowLeft, Home, Layers, HardHat, HelpCircle, Droplets, Wrench, Search, CheckCircle, Upload, X, Loader2, Send, Camera, Truck, ArrowUpDown, Mountain, Lock } from "lucide-react";
 import { trackEvent, trackCalculatorEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { attributionPayload } from "@/lib/attribution";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import roofPitchedImg from "@/assets/roof-types/roof-pitched.jpg";
@@ -281,7 +282,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
         preferred_material: materialToEnum(material) as any || null,
         description: buildDescription(),
         session_id: getSessionId(),
-        referrer_source: getFirstReferrerSource(),
+        ...attributionPayload(),
       } as any)
       .select()
       .single();
@@ -352,7 +353,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
         preferred_material: materialToEnum(material) as any || null,
         description,
         session_id: getSessionId(),
-        referrer_source: getFirstReferrerSource(),
+        ...attributionPayload(),
       } as any)
       .select()
       .single();

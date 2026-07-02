@@ -1,59 +1,138 @@
-## Диагноза
+## Цел
 
-Тествах директно API-то с истинско фалшиво запитване (test@test.com) и получих истинската грешка от базата:
+В момента системата класифицира трафика само като `direct / organic / social / referral / email`. Всичко от Facebook Ads, Google Ads и TikTok Ads попада в `social` или `direct` без да знаем, че е платено. Този план въвежда пълна маркетинг атрибуция: **канал (channel) + източник (source) + кампания** — за всяка сесия, всяко запитване и всяко обаждане, с исторически графики.
 
+---
+
+## 1. Нов модел на канали (channel)
+
+Всяка сесия ще получи 2 нива:
+- **channel** (основно): `google_ads`, `meta_ads`, `tiktok_ads`, `organic`, `social_organic`, `direct`, `referral`, `email`
+- **source / campaign**: конкретен източник (напр. `facebook / summer_promo`)
+
+### Логика на класификация (по приоритет)
 ```
-new row violates row-level security policy for table "inquiries"
+1. gclid в URL           -> google_ads
+2. fbclid / utm_source=facebook|instagram + utm_medium=paid|cpc|ads -> meta_ads
+3. ttclid / utm_source=tiktok + utm_medium=paid|cpc              -> tiktok_ads
+4. utm_medium=cpc|ppc|paid|display                                -> paid_other (+ utm_source)
+5. Referrer facebook/instagram/tiktok без UTM                     -> social_organic
+6. Google/Bing/Yahoo referrer                                     -> organic
+7. Друг referrer                                                  -> referral
+8. Няма referrer, няма UTM                                        -> direct
 ```
 
-**Причина (техническа):** Формата прави `insert(...).select().single()` — тоест след записа PostgREST се опитва да върне новосъздадения ред. За целта е нужна SELECT-политика. Публичните посетители имат право да ВПИСВАТ запитвания (`INSERT` policy = public/true), но НЯМАТ право да ги ЧЕТАТ (SELECT е само за admin/staff). Затова цялата заявка се проваля с код 42501 и потребителят вижда безсмислено „Моля, опитайте отново."
+**First-touch** атрибуция: първият канал за сесията се запазва в `sessionStorage` (както сега `analytics_first_referrer_source`) и се използва за запитването/обаждането.
 
-Това е грешка от първи ден и се проявява при ВСЕКИ реален посетител, не само при твоя тест. Имейлът/телефонът НЕ са невалидни — проблемът е технически.
+---
 
-## Какво ще направя
+## 2. Промени по базата данни (миграция)
 
-### 1. Поправка на изпращането (root cause)
+Добавяне на нови колони (nullable, за да не счупим стари редове):
 
-В `src/components/MultiStepInquiryForm.tsx`:
+```sql
+-- analytics_events
+ALTER TABLE analytics_events
+  ADD COLUMN channel text,
+  ADD COLUMN utm_content text,
+  ADD COLUMN utm_term text,
+  ADD COLUMN gclid text,
+  ADD COLUMN fbclid text,
+  ADD COLUMN ttclid text,
+  ADD COLUMN landing_page text;
+CREATE INDEX idx_analytics_events_channel ON analytics_events(channel);
 
-- Ще генерирам `id` на клиента с `crypto.randomUUID()` и ще го подам в `insert({ id, ... })`.
-- Ще махна `.select().single()` — вече не ни трябва да четем реда обратно, защото знаем id-то предварително. Оставащата логика (качване на файлове в `inquiry-attachments`, вписване в `inquiry_files`, `call_log`, `analytics_events`) ще ползва същия `id`.
-- Ако някой от вторичните insert-и (file upload, call_log) също се блъска в същия проблем, ще ги оправя по същия начин.
+-- inquiries (first-touch на запитването)
+ALTER TABLE inquiries
+  ADD COLUMN channel text,
+  ADD COLUMN utm_source text,
+  ADD COLUMN utm_medium text,
+  ADD COLUMN utm_campaign text,
+  ADD COLUMN utm_content text,
+  ADD COLUMN utm_term text,
+  ADD COLUMN gclid text,
+  ADD COLUMN fbclid text,
+  ADD COLUMN ttclid text,
+  ADD COLUMN landing_page text;
 
-### 2. По-ясни съобщения за грешка
+-- call_log (за обаждания от tel: линкове)
+ALTER TABLE call_log
+  ADD COLUMN session_id text,
+  ADD COLUMN channel text,
+  ADD COLUMN utm_source text,
+  ADD COLUMN utm_medium text,
+  ADD COLUMN utm_campaign text,
+  ADD COLUMN referrer_source text,
+  ADD COLUMN page_path text,
+  ADD COLUMN source text DEFAULT 'manual'; -- 'manual' | 'web_click'
+```
+Публична INSERT политика за `call_log` за `source='web_click'` (за да могат анонимните tel: click-ове да пишат), + GRANT INSERT на `anon`. Съществуващите admin политики остават непроменени.
 
-В момента при ВСЯКА грешка потребителят вижда „Моля, опитайте отново." Ще добавя:
+---
 
-- **Клиентска валидация със zod** преди insert:
-  - Име: 2–100 символа
-  - Телефон: български формат (0xxxxxxxxx или +359xxxxxxxxx), 9–15 цифри
-  - Имейл: валиден формат (`email().max(255)`)
-  - Адрес: 5–255 символа
-- При невалидно поле → toast с конкретния проблем, напр. „Невалиден имейл адрес" или „Телефонният номер трябва да е 9–10 цифри".
-- Ако все пак сървърът върне грешка → toast показва оригиналното `error.message` в допълнение към общото съобщение, за да го виждаш при бъдещи проблеми.
+## 3. Frontend промени
 
-### 3. Клиентска проверка на явно фалшиви данни (по избор)
+### `src/lib/analytics.ts` — нова функция `classifyChannel()`
+Заменя частично `classifyReferrer`. Приема URL params + referrer + запомнени click IDs → връща `{ channel, utm_*, gclid, fbclid, ttclid }`. Записва first-touch в sessionStorage (един обект вместо само referrer_source). Персистира `gclid/fbclid/ttclid` в `localStorage` за 90 дни (стандартна attribution window).
 
-Ще блокирам най-очевидните тестови стойности с ясно съобщение (не за да пречим на теб, а за да отсяваме ботове):
-- `test@test.com`, `example@example.com` → „Моля, използвайте истински имейл адрес"
-- Телефон от типа `0000000000`, `1234567890` → „Моля, въведете валиден телефонен номер"
+### `AnalyticsTracker.tsx`
+Изпраща новите полета във всяко `page_view`. Landing page = първата страница в сесията.
 
-Ако не искаш този филтър — кажи и го пропускам.
+### Записване на call clicks (нов ефект в `AnalyticsTracker`)
+При `tel:` click освен `trackEvent`, прави INSERT в `call_log` с `source='web_click'`, атрибуцията от sessionStorage и телефонния номер. Така обажданията ще имат канал.
 
-### 4. Проверка на другите публични форми
+### Форми (`MultiStepInquiryForm`, `QuoteRequestForm`, `PriceCalculator`, `QuickContactForm`, `Contact`)
+Всяка вече праща `session_id` и `referrer_source`. Разширяваме payload-а с `channel`, всички UTM полета и click ID-та — четени от sessionStorage helper `getAttribution()`.
 
-Ще прегледам бързо `QuickContactForm`, calculator inquiry, inspection формата и `QuoteRequestForm` за същия `.select().single()` капан и ще ги поправя, ако ги има.
+---
 
-### 5. Верификация
+## 4. Нови/променени административни изгледи
 
-След промените ще:
-- Пусна нов curl тест със същите фалшиви данни и ще потвърдя, че връща 201 Created.
-- Ще потвърдя, че записът се появява в `inquiries` таблицата.
-- Ще проверя в CRM Panel, че се вижда като нов lead.
+### 4a. `AnalyticsPage.tsx` — разширение
+- **KPI карти**: Сесии, Запитвания, Обаждания, Конверсия — по канал.
+- **Голяма графика "Трафик по канал (исторически)"**: stacked area по дни за избран период (7/30/90 дни), с легенда за всеки от `google_ads`, `meta_ads`, `tiktok_ads`, `organic`, `social_organic`, `direct`, `referral`, `email`.
+- **Таблица "Резултат по канал"**: канал | сесии | запитвания | обаждания | конв. % | лиди/ден.
+- **Дриллдаун по кампания**: клик върху канал → таблица с `utm_source / utm_campaign` разбивка.
 
-## Файлове, които ще пипна
+### 4b. Нова страница `MarketingAttributionPage.tsx` (`/admin/marketing-attribution`)
+Специализирано табло за реклами:
+- Филтри: период, канал (Google Ads / Meta / TikTok / All Paid).
+- Таблица кампания-по-кампания: impressions (сесии), запитвания, обаждания, лиди общо, CPL-ready колона (ръчно въведен бюджет по-късно).
+- Sparkline тренд на всяка кампания.
+- Секция "Ефективни vs. слаби кампании" — авто-сортиране по конверсия.
 
-- `src/components/MultiStepInquiryForm.tsx` (главна поправка)
-- може би `src/components/QuickContactForm.tsx`, `src/components/QuoteRequestForm.tsx`, `src/pages/InspectionPage.tsx`, `src/components/CalculatorDialog.tsx` — ако имат същия проблем
+### 4c. `InquiryListPage.tsx` + `InquiryDetailPage.tsx`
+- Нова колона / badge "Канал" (цветен: жълт=Google Ads, син=Meta, розов=TikTok, зелен=organic, сив=direct).
+- Филтър по канал в списъка.
+- В детайла: пълен attribution блок (channel, utm_source, campaign, gclid, landing page, referrer).
 
-Не се налага миграция на базата — политиките и правата са коректни, кодът просто ги ползваше грешно.
+### 4d. `CallLogPage.tsx`
+- Колона "Канал" и филтър.
+- Отделяне на web-clicked обаждания vs. ръчно въведени (icon).
+
+---
+
+## 5. Техническа секция
+
+**Файлове за създаване/промяна:**
+- `supabase/migrations/*_attribution.sql` — колони + политика/GRANT за анонимен `call_log` insert.
+- `src/lib/attribution.ts` (нов) — `classifyChannel`, `getAttribution`, `persistClickIds`.
+- `src/lib/analytics.ts` — интеграция с новите helpers, разширен `trackEvent` payload, `trackCallClick` пише в `call_log`.
+- `src/components/AnalyticsTracker.tsx` — праща новите полета.
+- 5-те форми — добавят attribution към INSERT.
+- `src/pages/admin/AnalyticsPage.tsx` — нов channel breakdown + stacked history chart.
+- `src/pages/admin/MarketingAttributionPage.tsx` (нов) + route в `App.tsx` + линк в admin sidebar.
+- `src/pages/admin/InquiryListPage.tsx`, `InquiryDetailPage.tsx`, `CallLogPage.tsx` — колони, филтри, badges.
+
+**Recharts:** използваме `AreaChart` (stacked) за история, `BarChart` за channel breakdown, `LineChart` за sparklines.
+
+**Обратна съвместимост:** старите редове без `channel` ще се показват като `unknown` в графиките; един back-fill SQL ще ги мапне (organic/direct/social) от `referrer_source` при миграцията.
+
+**Тестване:** ръчно посещение с `?utm_source=facebook&utm_medium=paid&utm_campaign=test` и `?gclid=abc` за верификация, че се появяват в правилен канал; тестово запитване + tel: click за проверка на end-to-end атрибуция.
+
+---
+
+## Извън обхвата (за по-късно)
+- Автоматично издърпване на разходи от Google/Meta/TikTok API за реален CPL/ROAS (изисква API ключове).
+- Multi-touch атрибуция (last-touch, linear). За сега: first-touch.
+- Server-side conversion API за Meta/TikTok.
