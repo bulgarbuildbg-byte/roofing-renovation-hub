@@ -35,9 +35,9 @@ const DIST = path.join(ROOT, "dist");
 const BASE_URL = "https://www.remontnapokrivivarna.bg";
 const LOCAL_PORT = 4173;
 const LOCAL_BASE = `http://127.0.0.1:${LOCAL_PORT}`;
-const CONCURRENCY = 4;
-const NAV_TIMEOUT_MS = 30_000;
-const READY_TIMEOUT_MS = 20_000;
+const CONCURRENCY = 2;
+const NAV_TIMEOUT_MS = 45_000;
+const READY_TIMEOUT_MS = 35_000;
 
 // ── Source data (mirrors src/i18n/cities.ts + src/data/cityServices.ts) ──────
 const CITIES_BG = {
