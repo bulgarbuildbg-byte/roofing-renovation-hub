@@ -291,7 +291,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
 
       <Header />
 
-      <main className="pt-20">
+      <main className="pt-20" data-seo="main">
         {/* HERO */}
         <section className="relative bg-black text-white py-16 md:py-24 overflow-hidden">
           <img
@@ -301,19 +301,20 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
             loading="eager"
             width={1920}
             height={1080}
+            data-seo-critical
           />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_rgba(15,23,42,0.6)_70%,_rgba(15,23,42,0.9)_100%)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/75 via-[#0f172a]/35 to-transparent" />
           <div className="container mx-auto px-4 relative z-10">
-            <nav className="text-sm mb-6 text-white/70">
+            <nav className="text-sm mb-6 text-white/70" aria-label="breadcrumb">
               <Link to={getPath("home")} className="hover:text-white">{ui.breadcrumbHome}</Link>
               <span className="mx-2">/</span>
-              <Link to={`/${currentLang}/${citySlug}`} className="hover:text-white">{cityName}</Link>
+              <Link to={`/${currentLang}/${citySlug}`} className="hover:text-white" data-seo="city-name">{cityName}</Link>
               <span className="mx-2">/</span>
               <span className="text-white">{titlePrefix}</span>
             </nav>
             <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_3px_16px_rgba(0,0,0,0.9)]">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 [text-shadow:_0_3px_16px_rgba(0,0,0,0.9)]" data-seo="h1">
                 {h1}
               </h1>
               <p className="text-xl md:text-2xl text-white/90 max-w-3xl mb-6 [text-shadow:_0_2px_8px_rgba(0,0,0,0.6)]">
@@ -475,7 +476,7 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
         <PriceCalculator />
 
         {/* FAQ */}
-        <section className="py-16 bg-background">
+        <section className="py-16 bg-background" data-seo="faq">
           <div className="container mx-auto px-4 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
               {ui.faqTitle}
@@ -486,8 +487,8 @@ const CityServiceTemplate = ({ service }: CityServiceTemplateProps) => {
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, idx) => (
                 <AccordionItem key={idx} value={`item-${idx}`}>
-                  <AccordionTrigger className="text-left text-lg">{faq.q}</AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+                  <AccordionTrigger className="text-left text-lg" data-seo="faq-question">{faq.q}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-base leading-relaxed" data-seo="faq-answer">
                     {faq.a}
                   </AccordionContent>
                 </AccordionItem>
