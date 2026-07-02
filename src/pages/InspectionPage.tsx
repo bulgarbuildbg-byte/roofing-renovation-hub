@@ -90,9 +90,11 @@ const InspectionPage = () => {
         preferred_material: (form.preferred_material as any) || null,
         roof_complexity: (form.roof_complexity as any) || null,
         description: form.description.trim() ? `[Безплатен оглед] Тип: ${roofType === "flat" ? "Плосък" : "С наклон"}. ${form.description.trim()}` : `[Безплатен оглед] Тип: ${roofType === "flat" ? "Плосък" : "С наклон"}`,
-        referrer_source: "inspection_landing",
         session_id: getSessionId(),
-      }).select().single();
+        ...attributionPayload(),
+        // Override channel-agnostic label to distinguish inspection landing traffic
+        referrer_source: "inspection_landing",
+      } as any).select().single();
 
       if (error || !inquiry) throw error;
 
