@@ -50,6 +50,7 @@ const SiteDetailPage = lazy(() => import("./pages/admin/SiteDetailPage"));
 const RevenuePage = lazy(() => import("./pages/admin/RevenuePage"));
 const BehaviorPage = lazy(() => import("./pages/admin/BehaviorPage"));
 const DeviceAnalyticsPage = lazy(() => import("./pages/admin/DeviceAnalyticsPage"));
+const MarketingAttributionPage = lazy(() => import("./pages/admin/MarketingAttributionPage"));
 
 const queryClient = new QueryClient();
 
