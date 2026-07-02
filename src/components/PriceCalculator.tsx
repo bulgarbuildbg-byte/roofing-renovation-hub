@@ -353,7 +353,7 @@ const PriceCalculator = ({ variant = "full" }: PriceCalculatorProps) => {
         preferred_material: materialToEnum(material) as any || null,
         description,
         session_id: getSessionId(),
-        referrer_source: getFirstReferrerSource(),
+        ...attributionPayload(),
       } as any)
       .select()
       .single();
