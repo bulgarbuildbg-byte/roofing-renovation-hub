@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { CheckCircle, Phone, Home } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HreflangTags from "@/components/HreflangTags";
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 
@@ -42,7 +43,14 @@ const ThankYouPage = () => {
         <title>Благодарим Ви! Запитването е получено | Ремонт на покриви Варна</title>
         <meta name="description" content="Благодарим Ви за запитването. Наш представител ще се свърже с Вас в най-кратък срок." />
         <meta name="robots" content="noindex, follow" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Благодарим Ви",
+          "url": `https://www.remontnapokrivivarna.bg/${currentLang}/blagodarim-vi`,
+        })}</script>
       </Helmet>
+      <HreflangTags />
 
       <Header />
 
