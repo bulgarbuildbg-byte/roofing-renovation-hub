@@ -279,8 +279,8 @@ async function renderOne(browser, route) {
       const jsonLd = qAll('script[type="application/ld+json"]');
       const main = q("main") || q("article") || document.body;
       const bodyText = (main.innerText || "").replace(/\s+/g, " ").trim();
-      const internalLinks = qAll('main a[href^="/"]');
-      const imagesInMain = Array.from(qAll("main img"));
+      const internalLinks = (main.querySelectorAll ? main.querySelectorAll('a[href^="/"]') : qAll('main a[href^="/"]'));
+      const imagesInMain = Array.from(main.querySelectorAll ? main.querySelectorAll("img") : qAll("main img"));
       const brokenImg = imagesInMain.find(
         (i) => !i.getAttribute("src") || !i.getAttribute("alt"),
       );
