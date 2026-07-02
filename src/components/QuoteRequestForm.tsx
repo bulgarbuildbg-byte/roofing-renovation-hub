@@ -103,6 +103,7 @@ const QuoteRequestForm = () => {
     } catch {}
 
     trackEvent("form_submit", "quote_request_page");
+    fireLeadConversion("form", { email: form.email, phone: form.phone, firstName: form.name.split(" ")[0], city: form.city || null });
     try { (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiry.id); } catch {}
     setSubmitting(false);
     navigate(`/${currentLang}/blagodarim-vi`);
