@@ -293,19 +293,25 @@ const MarketingAttributionPage = () => {
         </CardContent>
       </Card>
 
-      {/* Leads-per-channel bar */}
+      {/* Leads-per-channel stacked bar (inquiries vs calls) */}
       <Card>
-        <CardHeader><CardTitle>Лидове по канал</CardTitle></CardHeader>
-        <CardContent style={{ height: 260 }}>
+        <CardHeader>
+          <CardTitle>Лидове по канал — запитвания vs обаждания</CardTitle>
+          <p className="text-xs text-muted-foreground mt-1">
+            Виждате точно колко от лидовете по всеки канал са били <strong>обаждания</strong> и колко <strong>онлайн запитвания</strong>.
+            Google Ads / Meta Ads / TikTok Ads са платените канали; „Директен" и „Органично търсене" са безплатни.
+          </p>
+        </CardHeader>
+        <CardContent style={{ height: 320 }}>
           <ResponsiveContainer>
             <BarChart data={channelTable} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-              <XAxis dataKey="channel" tickFormatter={(v) => CHANNEL_LABELS[v as Channel] || v} tick={{ fontSize: 10 }} interval={0} angle={-15} textAnchor="end" height={60} />
-              <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))" }} labelFormatter={(v) => CHANNEL_LABELS[v as Channel] || String(v)} />
-              <Bar dataKey="leads" name="Лидове">
-                {channelTable.map(r => <Cell key={r.channel} fill={CHANNEL_COLORS[r.channel]} />)}
-              </Bar>
+              <XAxis dataKey="channel" tickFormatter={(v) => CHANNEL_LABELS[v as Channel] || v} tick={{ fontSize: 10, fill: "hsl(var(--foreground))" }} interval={0} angle={-20} textAnchor="end" height={70} />
+              <YAxis tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }} allowDecimals={false} />
+              <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", color: "hsl(var(--foreground))" }} labelFormatter={(v) => CHANNEL_LABELS[v as Channel] || String(v)} />
+              <Legend wrapperStyle={{ fontSize: 12 }} />
+              <Bar dataKey="inquiries" name="Онлайн запитвания" stackId="leads" fill="#f59e0b" />
+              <Bar dataKey="calls" name="Обаждания" stackId="leads" fill="#22c55e" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
