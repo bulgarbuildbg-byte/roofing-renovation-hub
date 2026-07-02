@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +10,26 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
 import { CheckCircle, Phone, ArrowLeft, ArrowRight, Send, Upload, X, Loader2 } from "lucide-react";
+
+const FAKE_EMAILS = ["test@test.com", "test@test.bg", "example@example.com", "a@a.com", "asd@asd.com"];
+const contactSchema = z.object({
+  name: z.string().trim().min(2, "Името трябва да е поне 2 символа").max(100, "Името е твърде дълго"),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^(\+359|0)[\s-]?\d[\s\d-]{7,13}\d$/, "Невалиден телефонен номер (напр. 0888 123 456 или +359 88 812 3456)")
+    .refine((v) => {
+      const digits = v.replace(/\D/g, "");
+      return !/^(\d)\1+$/.test(digits) && digits !== "1234567890";
+    }, "Моля, въведете истински телефонен номер"),
+  email: z
+    .string()
+    .trim()
+    .email("Невалиден имейл адрес")
+    .max(255, "Имейлът е твърде дълъг")
+    .refine((v) => !FAKE_EMAILS.includes(v.toLowerCase()), "Моля, използвайте истински имейл адрес"),
+  address: z.string().trim().min(5, "Адресът трябва да е поне 5 символа").max(255, "Адресът е твърде дълъг"),
+});
 
 const serviceOptions = [
   { value: "repair", label: "Ремонт на покрив (частичен)" },
