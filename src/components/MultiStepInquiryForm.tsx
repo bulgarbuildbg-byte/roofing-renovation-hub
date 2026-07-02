@@ -190,6 +190,11 @@ const MultiStepInquiryForm = () => {
     } catch {}
 
     trackEvent("button_click", "offer_button");
+    fireLeadConversion("form", {
+      email: form.email, phone: form.phone,
+      firstName: form.name.split(" ")[0], lastName: form.name.split(" ").slice(1).join(" ") || null,
+      city: form.address || null,
+    });
     try {
       (await import("@/components/ClarityTracker")).tagClarityInquiry(inquiryId);
     } catch {}
