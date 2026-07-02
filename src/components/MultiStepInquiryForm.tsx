@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, getSessionId, getFirstReferrerSource } from "@/lib/analytics";
+import { attributionPayload } from "@/lib/attribution";
 import { CheckCircle, Phone, ArrowLeft, ArrowRight, Send, Upload, X, Loader2 } from "lucide-react";
 
 const FAKE_EMAILS = ["test@test.com", "test@test.bg", "example@example.com", "a@a.com", "asd@asd.com"];
