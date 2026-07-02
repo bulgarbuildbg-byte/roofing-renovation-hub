@@ -1,78 +1,65 @@
-## 1. Проблем с контраст (бутоните и календарът)
+## Диагноза на дублираните конверсии
 
-Причината: филтърните "чипове" на страницата `Маркетинг атрибуция` и другите админ страници използват `bg-muted/40` + `text-muted-foreground` — сивo върху сиво, текстът се вижда чак при hover. Същото важи за неактивните дати в `DateRangePicker`/`Calendar` (shadcn `Calendar` използва `text-muted-foreground` за outside-month дни).
+Проверих сайта и намерих **точния източник на дублирането** — той е изцяло **вътре в платформата/сайта**, не е GTM, GA4 импорт или CRM.
 
-Ще оправя:
-- Range chips (7/30/90 дни) и channel filter chips: неактивно състояние → `bg-card border-border text-foreground` вместо `text-muted-foreground` (WCAG AA контраст в тъмна тема).
-- Ще прегледам всички chip/pill групи в `MarketingAttributionPage`, `AnalyticsPage`, `RevenuePage`, `CallLogPage`, `InquiryListPage` и ще заменя ниско‑контрастните комбинации с design‑system токени.
-- Календарът (`src/components/ui/calendar.tsx`): днешната дата, избраната дата и hover state ще получат ясен primary фон с бял текст; outside‑month дните — `text-foreground/60` вместо `text-muted-foreground`.
+### Какво се случва при изпращане на форма „Заявете оферта"
 
-## 2. По‑прецизен отчет "Лидове по канал"
+1. `QuoteRequestForm.tsx` (ред 106) извиква `fireLeadConversion("form", ...)` → изпраща `event: conversion` към `AW-17872435541/quote_submit` **и** `AW-18066399675/quote_submit`, плюс `generate_lead` (GA4).
+2. Веднага след това (ред 109) прави `navigate(...)` към `/bg/blagodarim-vi`.
+3. `ThankYouPage.tsx` (редове 20–37) при монтиране **отново** извиква:
+   - `gtag("event","conversion", send_to: "AW-17872435541/quote_submit")`
+   - `gtag("event","conversion", send_to: "AW-18066399675/quote_submit")`
+   - `dataLayer.push({event:"quote_submitted"})`
 
-Секцията ще стане отделен блок с 3 подредени изгледа (табове):
+Резултат: едно реално запитване = **2× Conversion hit** към същия AW-ID и същия label. Точно това вижда Tag Assistant.
 
-**A. Разбивка по канал × тип лид** — стакова бар диаграма с колони: Google Ads, Meta Ads, TikTok Ads, Друга платена, Органично Google, Директно, Реферали, Имейл, Соц. мрежи (organic). Всяка колона стакира: `Запитване през форма`, `Обаждане от бутон`, `Чатбот лид`. Веднага се вижда „Google Ads даде 12 обаждания + 5 форми, Meta — 8 форми, 2 обаждания".
+### Втори (по-мек) източник на дублиране
 
-**B. История ден‑по‑ден за платените канали** — линейна диаграма за 7/30/90 дни само за `google_ads`, `meta_ads`, `tiktok_ads`; отделни линии за брой лидове. Показва „кога дойдоха, колко на ден", което иска потребителят.
+`PriceCalculator.tsx` пуска `fireLeadConversion("calculator", ...)` **два пъти** в един поток:
+- Ред 382 — при „отключване" на цената (потребителят въвежда телефон, за да види ориентировъчна цена) → 1× Conversion.
+- Ред 320 — ако след това направи и пълно запитване → още 1× Conversion със същия label.
 
-**C. Кампании UTM (вече съществува)** — остава, добавям колона „Обаждания" отделно от „Форми" (в момента са слети в „Лидове").
+Един и същ потребител = 2 конверсии за Ads.
 
-Обажданията в момента се пишат в `call_log` с `channel`, `utm_*`, `gclid`, `fbclid`, `ttclid` при клик върху `tel:` бутона — тази атрибуция вече работи; тук просто я визуализираме по‑добре. Ръчните записи от админа остават извън чарта (както сега).
+### Какво НЕ е причина
 
-## 3. Google Ads — проверка и допълване
+- Няма GTM контейнер в `index.html` — само директен gtag.js. Значи няма дублиране „сайт + GTM".
+- Няма втори `AW-…/config`. И двата акаунта (`AW-17872435541`, `AW-18066399675`) имат по един `config`.
+- CRM/Supabase не изпраща нищо към Google Ads — само записва в базата.
+- Другите форми (`MultiStepInquiryForm`, `InspectionPage`, `useChatFunnel`, обажданията през `trackCallClick`) минават **само** през `fireLeadConversion` — те изпращат по 1× Conversion, коректно.
 
-Текущо в `index.html`: два акаунта `AW-17872435541` и `AW-18066399675` заредени коректно. Firing action labels които намерих: `call_click`, `quote_submit`, `inspection_form`. Липсва:
+---
 
-- `MultiStepInquiryForm` (главната форма за оглед от Контакти) → не праща conversion към Google.
-- Чатбот лидове → не пращат.
-- Калкулаторът праща `quote_submit` само на пълната форма, не на "unlock price" стъпката.
-- GA4 (`G-…`) не е инсталиран — без него не можем да ползваме reports в GA4 → Google Ads import.
+## План за поправка
 
-Ще направя:
-- Един централен helper `fireLeadConversion(kind, value)` в `src/lib/analytics.ts` който:
-  1. Праща `gtag('event', 'conversion', …)` към двата AW акаунта с label според типа (`quote_submit`, `call_click`, `chatbot_lead`, `calculator_lead`).
-  2. **Enhanced Conversions**: подава `user_data: { email_address, phone_number, address: { first_name, ... } }` към `gtag('set', 'user_data', …)` преди conversion — Google хешира от страна на клиента и мачва back в Ads. Точно това е "актуалната информация към Google" която иска потребителят и подобрява ROAS отчитането.
-  3. Праща `gclid` (ако има) в `transaction_id` за точен match.
-  4. Дублира събитието в GA4 (нов property, вижте по‑долу) като `generate_lead`.
-- Ще извикам helper‑а от: `MultiStepInquiryForm`, `QuoteRequestForm` (замества съществуващия ръчен код), `PriceCalculator` (и на unlock, и на пълна форма), `InspectionPage`, `useChatFunnel`, и `trackCallClick`.
+### 1. `src/pages/ThankYouPage.tsx` — премахване на дублиращия conversion код
+- Махам `useEffect`-а, който извиква `window.gtag("event","conversion", ...)` към двата AW акаунта и `dataLayer.push({event:"quote_submitted"})`.
+- Оставям само `trackEvent("conversion", "quote_request_submitted")` за вътрешната аналитика в базата (не отива към Google).
+- Причина: конверсията към Google Ads вече е изпратена от `QuoteRequestForm` при submit. Thank-you страницата не трябва да я изпраща повторно.
 
-## 4. GA4 property (за да работят reports "по‑канал" в Google)
+### 2. `src/components/PriceCalculator.tsx` — една конверсия на потребител
+- Оставям `fireLeadConversion("calculator", ...)` **само** на unlock (ред 382) — това е реалният lead момент (телефонът е уловен).
+- Премахвам повторния `fireLeadConversion(...)` от пълния submit (ред 320). Замествам го с обикновен `trackEvent(...)` за вътрешна CRM аналитика, за да продължим да виждаме „пълно запитване" отделно, но без втори hit към Google Ads.
 
-Ще добавя GA4 tag в `index.html`. Нужен ми е `Measurement ID` (започва с `G-…`) — ще питам потребителя преди билд. GA4 позволява import на аудитории в Google Ads и е стандартът за атрибуция.
+### 3. Защита срещу бъдещо повторно въвеждане
+- Добавям кратък коментар в началото на `src/lib/conversions.ts`, че **всяка** Google Ads конверсия трябва да минава само през `fireLeadConversion` и никога през директен inline `gtag("event","conversion", …)` в компонент/страница.
+- Записвам правило в паметта на проекта: „Google Ads conversions се изпращат единствено през `fireLeadConversion`. Никакви inline `gtag conversion` извиквания в страници (включително thank-you). Конверсията се изпраща при момента на lead-а, не при показване на thank-you."
 
-## 5. Meta Ads Pixel + Conversions API готовност
+### 4. Проверка след поправката
+- `rg -n "gtag\(.*conversion" src/` — трябва да върне резултати само от `src/lib/conversions.ts`. Ако върне нещо в страница или компонент — сигнал за нов дубликат.
+- Тест с Tag Assistant за 4-те сценария, които поиска клиентът:
+  - клик на телефон → 1× Conversion (`call_click`, и в двата AW акаунта — това е нормално, това са 2 отделни акаунта, не 2× за същия акаунт);
+  - submit на форма „Заявете оферта" → 1× Conversion (`quote_submit`), thank-you страницата НЕ пали втора;
+  - submit през чатбота → 1× Conversion (`quote_submit`);
+  - зареждане без действие → 0 Conversion (само page_view/remarketing hit-ове, което е коректно).
 
-`fbclid` вече ловим за атрибуция, но нищо не се праща обратно към Meta. Ще добавя Meta Pixel `fbq('init', PIXEL_ID)` в `index.html` и `fbq('track', 'Lead', {value, currency})` от `fireLeadConversion`. Ще ми трябва Pixel ID от потребителя.
+### Какво остава като нормално поведение (не е дублиране)
 
-## 6. TikTok Pixel
+- `Remarketing` hit при всяко зареждане на страница — това идва от `gtag("config","AW-…")` и е стандартно, не е конверсия.
+- `User provided data` hit преди Conversion — това е Enhanced Conversions (хешираните email/phone). Един такъв hit преди един Conversion е коректно.
+- `generate_lead` (GA4 event) — това е GA4, не Google Ads конверсия. Няма да го брои Ads, освен ако не е импортнат като конверсия. **Важно:** ако клиентът вече е импортнал `generate_lead` от GA4 в Google Ads като конверсия, ще получи трети дубликат. Препоръка към клиента: в Google Ads → Conversions да се остави активна **само** конверсията с action name `quote_submit` (директната от gtag) и `generate_lead` от GA4 импорт да се маркира като „Secondary" или да се изтрие. Аз мога да проверя това само в кода — настройките в Google Ads UI трябва да ги прегледа клиентът.
+- Двата AW акаунта (`AW-17872435541` и `AW-18066399675`) получават по 1 Conversion всеки при едно действие. Ако клиентът иска само един от тях да отчита, кажи ми кой да махна.
 
-Аналогично, `ttq.load(TIKTOK_PIXEL_ID)` + `ttq.track('SubmitForm')` от helper‑а. Ще ми трябва Pixel ID.
+## Обобщение
 
-## 7. База‑данни — без промени в схемата
-`call_log` вече има `channel`, `utm_*`, `gclid`, `fbclid`, `ttclid`, `source`. Достатъчно за всичко по‑горе.
-
-## Технически детайли
-
-```text
-src/lib/conversions.ts (нов)
- └── fireLeadConversion(kind: 'form'|'call'|'chatbot'|'calculator', payload)
-       ├── window.gtag('set','user_data',{sha256Email, sha256Phone})   ← Enhanced Conv
-       ├── window.gtag('event','conversion',{send_to:'AW-…/label'})    ← Google Ads
-       ├── window.gtag('event','generate_lead',{value,currency})       ← GA4
-       ├── window.fbq('track','Lead',{value,currency})                 ← Meta
-       └── window.ttq.track('SubmitForm',{value,currency})             ← TikTok
-
-src/pages/admin/MarketingAttributionPage.tsx
- ├── + Tabs: „По канал × тип" | „История — платени" | „Кампании"
- ├── + стакова BarChart (форми/обаждания/чат)
- ├── + линейна LineChart само google_ads/meta_ads/tiktok_ads
- └── контраст: chips → bg-card + text-foreground
-
-src/components/ui/calendar.tsx  ← контраст fix (day_today, day_outside)
-index.html                       ← + GA4, Meta Pixel, TikTok Pixel (след потвърждение на IDs)
-```
-
-Хеширане за Enhanced Conversions ще стане с вградения `crypto.subtle.digest('SHA-256')` — без външни зависимости.
-
-## Отворени въпроси преди билд
-Ако имаш `G-…` (GA4), Meta Pixel ID и TikTok Pixel ID, дай ги и добавям и трите. Ако нямаш, ще направя точки 1, 2, 3 (само Google Ads + Enhanced Conversions за съществуващите AW акаунти) веднага и оставям 4–6 за когато ги вземеш.
+Дублирането идва от **сайта**: `QuoteRequestForm` пуска конверсия при submit и `ThankYouPage` я пуска отново при монтиране. Малко по-мек дубликат има и в `PriceCalculator` (unlock + full submit). Поправката е локална, в 2 файла, без промяна по GTM/GA4/CRM.
