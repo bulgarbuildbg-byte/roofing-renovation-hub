@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (data) {
       setIsAdmin(data.some((r: any) => r.role === "admin"));
-      setIsStaff(data.some((r: any) => r.role === "staff" || r.role === "admin"));
+      setIsStaff(data.length > 0);
     } else {
       setIsAdmin(false);
       setIsStaff(false);
