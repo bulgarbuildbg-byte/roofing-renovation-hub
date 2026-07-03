@@ -96,37 +96,39 @@ const StaffManagementPage = () => {
         <Shield className="h-6 w-6" /> Управление на екипа
       </h1>
 
-      <div className="bg-card rounded-xl border border-border p-6 mb-6">
-        <h2 className="font-semibold mb-4">Добави нов член на екипа</h2>
-        <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
-          <div>
-            <Label>Име</Label>
-            <Input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Иван Иванов" required />
-          </div>
-          <div>
-            <Label>Имейл</Label>
-            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-          <div>
-            <Label>Парола</Label>
-            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-          </div>
-          <div>
-            <Label>Роля</Label>
-            <Select value={role} onValueChange={setRole}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>
-                {Object.entries(ROLE_LABELS).map(([val, label]) => (
-                  <SelectItem key={val} value={val}>{label}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button type="submit" disabled={adding}>
-            <UserPlus className="h-4 w-4 mr-2" /> {adding ? "Добавяне..." : "Добави"}
-          </Button>
-        </form>
-      </div>
+      {isAdmin && (
+        <div className="bg-card rounded-xl border border-border p-6 mb-6">
+          <h2 className="font-semibold mb-4">Добави нов член на екипа</h2>
+          <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
+            <div>
+              <Label>Име</Label>
+              <Input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Иван Иванов" required />
+            </div>
+            <div>
+              <Label>Имейл</Label>
+              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div>
+              <Label>Парола</Label>
+              <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
+            </div>
+            <div>
+              <Label>Роля</Label>
+              <Select value={role} onValueChange={setRole}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {Object.entries(ROLE_LABELS).map(([val, label]) => (
+                    <SelectItem key={val} value={val}>{label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button type="submit" disabled={adding}>
+              <UserPlus className="h-4 w-4 mr-2" /> {adding ? "Добавяне..." : "Добави"}
+            </Button>
+          </form>
+        </div>
+      )}
 
       {loading ? (
         <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>
