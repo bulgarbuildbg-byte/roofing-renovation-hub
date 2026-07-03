@@ -236,9 +236,22 @@ const InquiryListPage = () => {
                   </div>
                 )}
 
-                <div className="mt-3 flex items-center justify-end text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: "hsl(215 80% 65%)" }}>
-                  Виж детайли <Eye className="h-3 w-3 ml-1" />
+                <div className="mt-3 flex items-center justify-between text-xs font-medium">
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      onClick={(e) => handleDelete(e, inquiry.id)}
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md opacity-70 hover:opacity-100 transition-opacity"
+                      style={{ background: "hsl(0 70% 45% / 0.12)", color: "#f87171" }}
+                      title="Изтрий запитването (само за администратори)"
+                    >
+                      <Trash2 className="h-3 w-3" /> Изтрий
+                    </button>
+                  ) : <span />}
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center"
+                    style={{ color: "hsl(215 80% 65%)" }}>
+                    Виж детайли <Eye className="h-3 w-3 ml-1" />
+                  </span>
                 </div>
               </Link>
             );
