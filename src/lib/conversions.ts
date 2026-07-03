@@ -19,6 +19,13 @@ import { getAttribution } from "./attribution";
 // Single Google Ads account that receives real conversion events.
 const PRIMARY_ADS_ACCOUNT = "AW-18066399675";
 
+// GA4 Measurement ID (e.g. "G-XXXXXXX"). When set, helper events
+// (`generate_lead`, `lead_engagement`) are routed exclusively to GA4 via
+// `send_to`, so they cannot be picked up by any AW-* Google Ads account.
+// When null, helper events are DISABLED entirely to avoid leaking into
+// Ads accounts configured in index.html.
+const GA4_MEASUREMENT_ID: string | null = null;
+
 // Conversion action labels configured in the primary Google Ads account.
 const LABELS: Record<LeadKind, string> = {
   form:       "quote_submit",
@@ -101,20 +108,23 @@ export async function fireLeadConversion(kind: LeadKind, payload: LeadPayload = 
         transaction_id: attr.gclid || `${kind}-${Date.now()}`,
       });
 
-      // --- GA4-only helper events (NO send_to → cannot become Ads Primary) ---
-      // `generate_lead` for form-style leads; skipped for phone clicks.
-      if (kind !== "call") {
-        w.gtag("event", "generate_lead", {
-          value,
-          currency,
+      // --- GA4-only helper events --------------------------------------------
+      // Only fire when a GA4 property is configured. `send_to` is scoped to
+      // the GA4 Measurement ID so no AW-* Ads account can receive them.
+      if (GA4_MEASUREMENT_ID) {
+        if (kind !== "call") {
+          w.gtag("event", "generate_lead", {
+            send_to: GA4_MEASUREMENT_ID,
+            value,
+            currency,
+            lead_source: kind,
+          });
+        }
+        w.gtag("event", "lead_engagement", {
+          send_to: GA4_MEASUREMENT_ID,
           lead_source: kind,
         });
       }
-      // Universal remarketing audience trigger. Use it in GA4 → Google Ads as
-      // an Audience source, NOT as a conversion.
-      w.gtag("event", "lead_engagement", {
-        lead_source: kind,
-      });
     } catch { /* never break UX */ }
   }
 
