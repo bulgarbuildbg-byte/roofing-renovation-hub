@@ -13,10 +13,8 @@ const ThankYouPage = () => {
   const currentLang = lang || "bg";
 
   useEffect(() => {
-    // Internal analytics only. The Google Ads conversion + GA4 generate_lead
-    // event were already fired by the submitting form (QuoteRequestForm,
-    // MultiStepInquiryForm, etc.) through fireLeadConversion. Firing them
-    // again here would double-count every lead in Google Ads.
+    // Internal analytics only. Google Ads conversions are fired once by the
+    // submitting form through fireLeadConversion, not by the thank-you page.
     trackEvent("conversion", "quote_request_submitted");
   }, []);
 
