@@ -42,18 +42,36 @@ const StaffManagementPage = () => {
     e.preventDefault();
     setAdding(true);
 
-    const { data, error } = await supabase.functions.invoke("create-team-member", {
-      body: { email, password, role, full_name: fullName },
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke("create-team-member", {
+        body: { email, password, role, full_name: fullName },
+      });
 
-    if (error || data?.error) {
-      toast({ title: "Грешка", description: data?.error || error?.message, variant: "destructive" });
-    } else {
-      toast({ title: "Потребителят е добавен успешно" });
-      setFullName(""); setEmail(""); setPassword("");
-      fetchMembers();
+      // Try to extract the real error message from the function's response body
+      let errorMsg: string | undefined = data?.error;
+      if (error) {
+        errorMsg = error.message;
+        const ctxResp = (error as any)?.context?.response;
+        if (ctxResp && typeof ctxResp.json === "function") {
+          try {
+            const body = await ctxResp.json();
+            if (body?.error) errorMsg = body.error;
+          } catch { /* ignore */ }
+        }
+      }
+
+      if (errorMsg) {
+        toast({ title: "Грешка", description: errorMsg, variant: "destructive" });
+      } else {
+        toast({ title: "Потребителят е добавен успешно" });
+        setFullName(""); setEmail(""); setPassword("");
+        fetchMembers();
+      }
+    } catch (err: any) {
+      toast({ title: "Грешка", description: err?.message || "Неочаквана грешка", variant: "destructive" });
+    } finally {
+      setAdding(false);
     }
-    setAdding(false);
   };
 
   const handleDelete = async (userId: string, roleId: string) => {
