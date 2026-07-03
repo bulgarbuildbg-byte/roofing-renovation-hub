@@ -48,6 +48,7 @@ const QuoteRequestForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
     if (!form.name.trim() || !form.phone.trim()) {
       toast({ title: "Моля попълнете име и телефон", variant: "destructive" });
       return;

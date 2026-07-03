@@ -100,6 +100,8 @@ const MultiStepInquiryForm = () => {
   const removeFile = (i: number) => setFiles(files.filter((_, idx) => idx !== i));
 
   const handleSubmit = async () => {
+    if (submitting || submitted) return;
+
     // Client-side validation with clear error messages
     const parsed = contactSchema.safeParse({
       name: form.name,
