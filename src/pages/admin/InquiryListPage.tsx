@@ -5,7 +5,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
-import { Eye, Search, Inbox, Phone, MapPin, Calendar, FileSignature, Paperclip, Euro } from "lucide-react";
+import { Eye, Search, Inbox, Phone, MapPin, Calendar, FileSignature, Paperclip, Euro, Trash2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 import {
   INQUIRY_STATUS_LABELS,
   PHASE_LABELS,
@@ -23,6 +25,8 @@ const serviceLabels: Record<string, string> = {
 const glassCard = { background: "hsl(220 20% 10% / 0.7)", backdropFilter: "blur(16px)", border: "1px solid hsl(220 15% 18%)" };
 
 const InquiryListPage = () => {
+  const { isAdmin } = useAuth();
+  const { toast } = useToast();
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [quotesByInquiry, setQuotesByInquiry] = useState<Record<string, number>>({});
   const [contractsByInquiry, setContractsByInquiry] = useState<Record<string, { value: number; currency: string; files: number }>>({});
@@ -30,6 +34,19 @@ const InquiryListPage = () => {
   const [phaseFilter, setPhaseFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleDelete = async (e: React.MouseEvent, inquiryId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!confirm("Сигурни ли сте, че искате да изтриете това запитване? Действието е необратимо.")) return;
+    const { error } = await supabase.from("inquiries").delete().eq("id", inquiryId);
+    if (error) {
+      toast({ title: "Грешка при изтриване", description: error.message, variant: "destructive" });
+      return;
+    }
+    setInquiries((prev) => prev.filter((i) => i.id !== inquiryId));
+    toast({ title: "Запитването е изтрито" });
+  };
 
   const fetchAll = async () => {
     setLoading(true);
