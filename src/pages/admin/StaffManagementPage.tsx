@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { UserPlus, Trash2, Shield } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ROLE_LABELS: Record<string, string> = {
   admin: "Администратор",
@@ -20,6 +21,7 @@ const ROLE_LABELS: Record<string, string> = {
 
 const StaffManagementPage = () => {
   const { toast } = useToast();
+  const { isAdmin } = useAuth();
   const [members, setMembers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [fullName, setFullName] = useState("");
@@ -43,25 +45,32 @@ const StaffManagementPage = () => {
     setAdding(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke("create-team-member", {
-        body: { email, password, role, full_name: fullName },
-      });
-
-      // Try to extract the real error message from the function's response body
-      let errorMsg: string | undefined = data?.error;
-      if (error) {
-        errorMsg = error.message;
-        const ctxResp = (error as any)?.context?.response;
-        if (ctxResp && typeof ctxResp.json === "function") {
-          try {
-            const body = await ctxResp.json();
-            if (body?.error) errorMsg = body.error;
-          } catch { /* ignore */ }
-        }
+      // Use direct fetch so we can always read the response body (functions.invoke
+      // swallows the JSON error message on non-2xx and only returns a generic
+      // "Edge Function returned a non-2xx status code").
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        toast({ title: "Грешка", description: "Няма активна сесия. Моля, влезте отново.", variant: "destructive" });
+        return;
       }
 
-      if (errorMsg) {
-        toast({ title: "Грешка", description: errorMsg, variant: "destructive" });
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-team-member`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+        body: JSON.stringify({ email, password, role, full_name: fullName }),
+      });
+
+      let body: any = null;
+      try { body = await res.json(); } catch { /* ignore */ }
+
+      if (!res.ok || body?.error) {
+        const msg = body?.error || `HTTP ${res.status}`;
+        toast({ title: "Грешка", description: msg, variant: "destructive" });
       } else {
         toast({ title: "Потребителят е добавен успешно" });
         setFullName(""); setEmail(""); setPassword("");
@@ -87,37 +96,39 @@ const StaffManagementPage = () => {
         <Shield className="h-6 w-6" /> Управление на екипа
       </h1>
 
-      <div className="bg-card rounded-xl border border-border p-6 mb-6">
-        <h2 className="font-semibold mb-4">Добави нов член на екипа</h2>
-        <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
-          <div>
-            <Label>Име</Label>
-            <Input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Иван Иванов" required />
-          </div>
-          <div>
-            <Label>Имейл</Label>
-            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-          <div>
-            <Label>Парола</Label>
-            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
-          </div>
-          <div>
-            <Label>Роля</Label>
-            <Select value={role} onValueChange={setRole}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>
-                {Object.entries(ROLE_LABELS).map(([val, label]) => (
-                  <SelectItem key={val} value={val}>{label}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button type="submit" disabled={adding}>
-            <UserPlus className="h-4 w-4 mr-2" /> {adding ? "Добавяне..." : "Добави"}
-          </Button>
-        </form>
-      </div>
+      {isAdmin && (
+        <div className="bg-card rounded-xl border border-border p-6 mb-6">
+          <h2 className="font-semibold mb-4">Добави нов член на екипа</h2>
+          <form onSubmit={handleAdd} className="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
+            <div>
+              <Label>Име</Label>
+              <Input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Иван Иванов" required />
+            </div>
+            <div>
+              <Label>Имейл</Label>
+              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div>
+              <Label>Парола</Label>
+              <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} />
+            </div>
+            <div>
+              <Label>Роля</Label>
+              <Select value={role} onValueChange={setRole}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {Object.entries(ROLE_LABELS).map(([val, label]) => (
+                    <SelectItem key={val} value={val}>{label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button type="submit" disabled={adding}>
+              <UserPlus className="h-4 w-4 mr-2" /> {adding ? "Добавяне..." : "Добави"}
+            </Button>
+          </form>
+        </div>
+      )}
 
       {loading ? (
         <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>
@@ -149,9 +160,11 @@ const StaffManagementPage = () => {
                       : "—"}
                   </TableCell>
                   <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(m.user_id, m.id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
+                    {isAdmin && (
+                      <Button variant="ghost" size="icon" onClick={() => handleDelete(m.user_id, m.id)}>
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

@@ -5,7 +5,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
-import { Eye, Search, Inbox, Phone, MapPin, Calendar, FileSignature, Paperclip, Euro } from "lucide-react";
+import { Eye, Search, Inbox, Phone, MapPin, Calendar, FileSignature, Paperclip, Euro, Trash2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 import {
   INQUIRY_STATUS_LABELS,
   PHASE_LABELS,
@@ -23,6 +25,8 @@ const serviceLabels: Record<string, string> = {
 const glassCard = { background: "hsl(220 20% 10% / 0.7)", backdropFilter: "blur(16px)", border: "1px solid hsl(220 15% 18%)" };
 
 const InquiryListPage = () => {
+  const { isAdmin } = useAuth();
+  const { toast } = useToast();
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [quotesByInquiry, setQuotesByInquiry] = useState<Record<string, number>>({});
   const [contractsByInquiry, setContractsByInquiry] = useState<Record<string, { value: number; currency: string; files: number }>>({});
@@ -30,6 +34,19 @@ const InquiryListPage = () => {
   const [phaseFilter, setPhaseFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleDelete = async (e: React.MouseEvent, inquiryId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!confirm("Сигурни ли сте, че искате да изтриете това запитване? Действието е необратимо.")) return;
+    const { error } = await supabase.from("inquiries").delete().eq("id", inquiryId);
+    if (error) {
+      toast({ title: "Грешка при изтриване", description: error.message, variant: "destructive" });
+      return;
+    }
+    setInquiries((prev) => prev.filter((i) => i.id !== inquiryId));
+    toast({ title: "Запитването е изтрито" });
+  };
 
   const fetchAll = async () => {
     setLoading(true);
@@ -219,9 +236,22 @@ const InquiryListPage = () => {
                   </div>
                 )}
 
-                <div className="mt-3 flex items-center justify-end text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: "hsl(215 80% 65%)" }}>
-                  Виж детайли <Eye className="h-3 w-3 ml-1" />
+                <div className="mt-3 flex items-center justify-between text-xs font-medium">
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      onClick={(e) => handleDelete(e, inquiry.id)}
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md opacity-70 hover:opacity-100 transition-opacity"
+                      style={{ background: "hsl(0 70% 45% / 0.12)", color: "#f87171" }}
+                      title="Изтрий запитването (само за администратори)"
+                    >
+                      <Trash2 className="h-3 w-3" /> Изтрий
+                    </button>
+                  ) : <span />}
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center"
+                    style={{ color: "hsl(215 80% 65%)" }}>
+                    Виж детайли <Eye className="h-3 w-3 ml-1" />
+                  </span>
                 </div>
               </Link>
             );

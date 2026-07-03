@@ -45,7 +45,10 @@ const emptyForm = {
   is_active: true, sort_order: 0,
 };
 
+import { useAuth } from "@/contexts/AuthContext";
+
 const ProjectsManagementPage = () => {
+  const { isAdmin } = useAuth();
   const queryClient = useQueryClient();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -283,9 +286,11 @@ const ProjectsManagementPage = () => {
                   <Button size="sm" variant="secondary" className="h-8 shadow-lg" onClick={() => openEdit(p)}>
                     <Pencil className="w-3 h-3 mr-1" /> Редактирай
                   </Button>
-                  <Button size="sm" variant="destructive" className="h-8 shadow-lg" onClick={() => { if (confirm("Изтриване на проекта?")) deleteMutation.mutate(p.id); }}>
-                    <Trash2 className="w-3 h-3" />
-                  </Button>
+                  {isAdmin && (
+                    <Button size="sm" variant="destructive" className="h-8 shadow-lg" onClick={() => { if (confirm("Изтриване на проекта?")) deleteMutation.mutate(p.id); }}>
+                      <Trash2 className="w-3 h-3" />
+                    </Button>
+                  )}
                 </div>
                 {/* Status badges */}
                 <div className="absolute top-2 left-2 flex gap-1.5">

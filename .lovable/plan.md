@@ -1,36 +1,71 @@
+
 ## Цел
+1. Само администраторът да може да изтрива записи от целия админ панел.
+2. Само администраторът да добавя нови членове на екипа и да сменя пароли.
+3. Всички други роли (маркетинг, SEO, поддръжка, редактор, работник) виждат всичко в разрешените им секции, но нямат никакви бутони за изтриване или управление на пароли.
+4. Да оправим грешката „Edge Function", която в момента блокира добавянето на нов член.
 
-Да потвърдим с реален browser test, че текущата логика в `src/lib/conversions.ts` изпраща **точно 1 Google Ads Conversion** на едно реално lead действие — без дублиране.
+## Какво ще направя
 
-## Какво ще направя (read-only, без промени по кода)
+### 1. Централен gate за админ права (frontend)
+- Използвам вече наличния `isAdmin` от `useAuth()` (в `src/contexts/AuthContext.tsx`).
+- Всеки бутон „Изтрий" / „Delete" в админ панела ще се рендерира само ако `isAdmin === true`.
+- Немe-администраторите ще виждат данните в read-only вид (без бутоните).
 
-1. Стартирам Playwright headless срещу `http://localhost:8080/bg/varna` с viewport 1280×1800.
-2. Прихващам всички network заявки към `googleadservices.com/pagead/conversion/`, `google.com/pagead/`, `google-analytics.com/g/collect`, `google.com/ccm/collect` — това са ендпойнтите, през които `gtag` изпраща conversions и GA4 events.
-3. Изпълнявам три реални сценария и броя събитията отделно за всеки:
-   - **A. Клик на телефонен бутон** (`tel:0893971873` в хедъра) → очаквано: 1× conversion към `AW-18066399675` с call label.
-   - **B. Попълване и submit на Quote форма** (`/bg/zayavete-oferta` или главната inquiry форма) с тестови данни → очаквано: 1× conversion към `AW-18066399675` с form label + 1× `user_data` set преди него.
-   - **C. PriceCalculator unlock** (въвеждане на телефон за отключване на цената) → очаквано: 1× conversion, без второ при финалния submit.
-4. За всеки сценарий:
-   - Броя POST-ове към `/pagead/conversion/AW-18066399675/` и групирам по conversion label.
-   - Броя POST-ове към GA4 (`google-analytics.com/g/collect`) с `en=generate_lead` и `en=lead_engagement` — те трябва да са GA4-only (без `tid=AW-...`).
-   - Проверявам, че НЯМА POST към `AW-17872435541` (стария акаунт).
-   - Правя screenshot преди/след всяко действие в `/tmp/browser/ads-audit/`.
-5. Извеждам таблица:
+### 2. Списък със страници, в които добавям admin-only Delete
+Ще мина през всички админ списъци и ще скрия изтриването за не-админи:
+- `InquiryListPage` + `InquiryDetailPage` (запитвания)
+- `QuoteListPage` + `QuoteEditorPage` (оферти)
+- `ContractsListPage` + `ContractEditorPage` (договори)
+- `SitesListPage` + `SiteDetailPage` (обекти)
+- `ProjectsManagementPage` (проекти/галерия)
+- `CallLogPage` (обаждания)
+- `LeadDatabasePage` + `ContactDatabasePage` (лийдове/контакти)
+- `ArticleListPage` (блог статии)
+- `CommentsModPage` (коментари)
+- `CampaignListPage` (кампании)
+- `EmailCampaignListPage` (имейл кампании)
+- `TestimonialsManagementPage` (отзиви)
+- `BacklinksPage` (бекликове)
+- `StaffManagementPage` (екип — вече е admin-only чрез `ProtectedRoute requireAdmin`, ще потвърдя).
 
-   ```text
-   Action              | Ads Conversions | GA4 events | Ads accounts hit
-   Call click          | ?               | ?          | ?
-   Form submit         | ?               | ?          | ?
-   Calculator unlock   | ?               | ?          | ?
-   ```
+Където някоя страница все още няма бутон за изтриване (напр. запитване), ще добавя такъв — но **само видим за админа** — с потвърждение („Сигурни ли сте?"), soft feedback чрез toast и почистване на свързани записи (напр. при изтриване на inquiry → изтриване на свързани `inquiry_files`, `quotes`, `contracts` чрез cascade или в две стъпки).
 
-## Възможни изходи
+### 3. RLS защита на ниво база данни (не разчитаме само на UI)
+Ще добавя миграция, която за всяка от изброените таблици задава DELETE политика **само за admin** (чрез `public.has_role(auth.uid(), 'admin')`). Така дори ако някой не-админ извика Delete директно през API, базата ще откаже.
 
-- **Всичко е 1×** → потвърждавам пред теб, че кодът е чист. Дублирането в Ads UI (ако още го виждаш) е от Ads Goals config (GA4 imports маркирани като Primary) — това не се фиксва в кода.
-- **Някъде вижда 2×** → показвам ти точните URL-и на дублираните POST-ове, идентифицирам къде в кода се пали второто събитие и предлагам конкретна корекция (нов план).
+Таблици за които ще ограничим DELETE до admin:
+`inquiries, inquiry_files, quotes, contracts, contract_files, project_sites, project_documents, project_timeline, projects, call_log, articles, comments, campaigns, email_campaigns, testimonials, backlinks, analytics_events, article_views, admin_tasks, user_roles`.
 
-## Технически бележки
+Съществуващите SELECT/INSERT/UPDATE политики няма да се пипат — маркетинг, SEO и т.н. продължават да четат и редактират каквото могат сега.
 
-- Тестът тръгва от `LOVABLE_BROWSER_AUTH_STATUS` = каквото е (не е нужна автентикация за публични страници и формите).
-- Формата ще изпрати реален lead в `inquiries` — ще го маркирам с име `TEST_ADS_AUDIT` и телефон `0000000000`, за да може лесно да се изтрие след теста.
-- Няма да пипам production tracking IDs.
+### 4. Поправка на „Edge Function" грешката при добавяне на член на екипа
+
+От тестовете и логовете:
+- Edge функцията `create-team-member` **не получава заявка** (няма логове след последния опит), значи проблемът е между клиента и функцията, не в самата логика.
+- Вероятни причини: (а) фронтендът праща `Authorization` header, който функцията изисква, но при `verify_jwt = false` Supabase invoke понякога не добавя токена коректно; (б) CORS preflight пада; (в) функцията не е още преразгърната след последното редактиране.
+
+Ще направя:
+- В `supabase/functions/create-team-member/index.ts`: (1) добавям изричен CORS preflight отговор с `Access-Control-Max-Age`; (2) ако липсва `Authorization`, връщам ясно съобщение; (3) допълнителен `console.log` в самото начало на handler-а, за да сме сигурни, че заявката влиза.
+- В `StaffManagementPage.handleAdd`: (1) вземам активната сесия с `supabase.auth.getSession()` и подавам `access_token` изрично като `headers: { Authorization: 'Bearer ...' }` към `functions.invoke`; (2) показвам целия HTTP статус + response body в toast-а при грешка, за да видим точния Edge отговор при следващия опит.
+- Ако след това пак виси, ще направя browser test (Playwright) с реален админ логин и ще уловим network отговора от `/functions/v1/create-team-member`.
+
+### 5. Проверка след промените
+- Build + бърз Playwright тест: логин като админ → добавяне на нов член → успех.
+- Логин като маркетинг/друга роля → потвърждаване, че бутоните „Изтрий" и „Управление на екипа" не се виждат никъде.
+
+## Технически детайли (кратко)
+- Frontend gate: `{isAdmin && <Button …>Изтрий</Button>}` навсякъде.
+- RLS шаблон:
+  ```sql
+  DROP POLICY IF EXISTS "<old delete policy>" ON public.<table>;
+  CREATE POLICY "Only admin can delete <table>"
+    ON public.<table> FOR DELETE TO authenticated
+    USING (public.has_role(auth.uid(), 'admin'));
+  ```
+- Edge функцията остава с `verify_jwt = false` (както е в `config.toml`); валидацията на потребителя се прави в кода чрез `getUser()` върху подадения Bearer token.
+
+## Извън обхват
+- Не пипам съществуващите SELECT/INSERT/UPDATE политики.
+- Не променям кой има достъп до кои страници (това вече е настроено през `ProtectedRoute`).
+- Не сменям съществуващи роли на потребителите.

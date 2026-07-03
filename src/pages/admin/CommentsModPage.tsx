@@ -27,7 +27,10 @@ const statusColors: Record<string, string> = {
   rejected: "bg-red-100 text-red-800",
 };
 
+import { useAuth } from "@/contexts/AuthContext";
+
 const CommentsModPage = () => {
+  const { isAdmin } = useAuth();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("all");
@@ -136,9 +139,11 @@ const CommentsModPage = () => {
                         <X className="h-4 w-4 text-orange-500" />
                       </Button>
                     )}
-                    <Button variant="ghost" size="icon" onClick={() => deleteComment(c.id)} title="Изтрий">
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
+                    {isAdmin && (
+                      <Button variant="ghost" size="icon" onClick={() => deleteComment(c.id)} title="Изтрий">
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    )}
                   </div>
                 </div>
               </CardContent>

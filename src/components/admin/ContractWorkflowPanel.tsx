@@ -28,7 +28,7 @@ interface Props {
 
 export default function ContractWorkflowPanel({ inquiry }: Props) {
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -440,14 +440,16 @@ export default function ContractWorkflowPanel({ inquiry }: Props) {
                     <span className="text-[10px] text-muted-foreground">
                       {format(new Date(f.uploaded_at), "dd.MM.yyyy", { locale: bg })}
                     </span>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-7 w-7"
-                      onClick={() => deleteFile(f.id)}
-                    >
-                      <Trash2 className="h-3 w-3 text-destructive" />
-                    </Button>
+                    {isAdmin && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7"
+                        onClick={() => deleteFile(f.id)}
+                      >
+                        <Trash2 className="h-3 w-3 text-destructive" />
+                      </Button>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -36,7 +36,10 @@ const emptyForm = {
   is_verified: false, consent_received: false, is_active: true, sort_order: 0,
 };
 
+import { useAuth } from "@/contexts/AuthContext";
+
 const TestimonialsManagementPage = () => {
+  const { isAdmin } = useAuth();
   const queryClient = useQueryClient();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -303,9 +306,11 @@ const TestimonialsManagementPage = () => {
                   <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(t)}>
                     <Pencil className="w-3 h-3" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => { if (confirm("Изтриване на отзива?")) deleteMutation.mutate(t.id); }}>
-                    <Trash2 className="w-3 h-3 text-destructive" />
-                  </Button>
+                  {isAdmin && (
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => { if (confirm("Изтриване на отзива?")) deleteMutation.mutate(t.id); }}>
+                      <Trash2 className="w-3 h-3 text-destructive" />
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
