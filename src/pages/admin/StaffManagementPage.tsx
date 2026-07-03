@@ -171,14 +171,14 @@ const StaffManagementPage = () => {
                 <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground py-8">Няма добавени членове</TableCell></TableRow>
               ) : members.map((m) => (
                 <TableRow key={m.id}>
-                  <TableCell className="font-medium">{(m as any).profiles?.full_name || "—"}</TableCell>
-                  <TableCell>{(m as any).profiles?.email || m.user_id}</TableCell>
+                  <TableCell className="font-medium">{m.profile?.full_name || "—"}</TableCell>
+                  <TableCell>{m.profile?.email || m.user_id}</TableCell>
                   <TableCell>
                     <Badge variant="secondary">{ROLE_LABELS[m.role] || m.role}</Badge>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
-                    {(m as any).profiles?.last_login
-                      ? new Date((m as any).profiles.last_login).toLocaleDateString("bg-BG")
+                    {m.profile?.last_login
+                      ? new Date(m.profile.last_login).toLocaleDateString("bg-BG")
                       : "—"}
                   </TableCell>
                   <TableCell>
