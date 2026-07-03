@@ -28,7 +28,7 @@ interface Props {
 
 export default function ContractWorkflowPanel({ inquiry }: Props) {
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

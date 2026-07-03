@@ -27,7 +27,10 @@ const statusColors: Record<string, string> = {
   rejected: "bg-red-100 text-red-800",
 };
 
+import { useAuth } from "@/contexts/AuthContext";
+
 const CommentsModPage = () => {
+  const { isAdmin } = useAuth();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("all");

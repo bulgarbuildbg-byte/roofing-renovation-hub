@@ -45,7 +45,10 @@ const emptyForm = {
   is_active: true, sort_order: 0,
 };
 
+import { useAuth } from "@/contexts/AuthContext";
+
 const ProjectsManagementPage = () => {
+  const { isAdmin } = useAuth();
   const queryClient = useQueryClient();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);

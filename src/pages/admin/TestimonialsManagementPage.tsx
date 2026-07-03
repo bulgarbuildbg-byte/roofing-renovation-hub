@@ -36,7 +36,10 @@ const emptyForm = {
   is_verified: false, consent_received: false, is_active: true, sort_order: 0,
 };
 
+import { useAuth } from "@/contexts/AuthContext";
+
 const TestimonialsManagementPage = () => {
+  const { isAdmin } = useAuth();
   const queryClient = useQueryClient();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
