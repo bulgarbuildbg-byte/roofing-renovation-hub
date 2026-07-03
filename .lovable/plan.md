@@ -1,71 +1,60 @@
+## Какво намерих
 
-## Цел
-1. Само администраторът да може да изтрива записи от целия админ панел.
-2. Само администраторът да добавя нови членове на екипа и да сменя пароли.
-3. Всички други роли (маркетинг, SEO, поддръжка, редактор, работник) виждат всичко в разрешените им секции, но нямат никакви бутони за изтриване или управление на пароли.
-4. Да оправим грешката „Edge Function", която в момента блокира добавянето на нов член.
+Проверих директно базата (със сервисни права):
 
-## Какво ще направя
+**`user_roles` таблицата съдържа и двамата:**
+- `zhekoviliya@gmail.com` → `admin` ✅
+- `radnev.alexander@gmail.com` → `marketing` ✅ (регистрацията му **е минала успешно** преди — затова сега при нов опит идва „email already registered")
 
-### 1. Централен gate за админ права (frontend)
-- Използвам вече наличния `isAdmin` от `useAuth()` (в `src/contexts/AuthContext.tsx`).
-- Всеки бутон „Изтрий" / „Delete" в админ панела ще се рендерира само ако `isAdmin === true`.
-- Немe-администраторите ще виждат данните в read-only вид (без бутоните).
+**RLS политики на `user_roles`:**
+```
+SELECT → само has_role(auth.uid(), 'admin')
+```
+Тоест SELECT работи само ако `auth.uid()` вече е наличен в момента на заявката.
 
-### 2. Списък със страници, в които добавям admin-only Delete
-Ще мина през всички админ списъци и ще скрия изтриването за не-админи:
-- `InquiryListPage` + `InquiryDetailPage` (запитвания)
-- `QuoteListPage` + `QuoteEditorPage` (оферти)
-- `ContractsListPage` + `ContractEditorPage` (договори)
-- `SitesListPage` + `SiteDetailPage` (обекти)
-- `ProjectsManagementPage` (проекти/галерия)
-- `CallLogPage` (обаждания)
-- `LeadDatabasePage` + `ContactDatabasePage` (лийдове/контакти)
-- `ArticleListPage` (блог статии)
-- `CommentsModPage` (коментари)
-- `CampaignListPage` (кампании)
-- `EmailCampaignListPage` (имейл кампании)
-- `TestimonialsManagementPage` (отзиви)
-- `BacklinksPage` (бекликове)
-- `StaffManagementPage` (екип — вече е admin-only чрез `ProtectedRoute requireAdmin`, ще потвърдя).
+**Проблемът в `StaffManagementPage.tsx`:**
+```ts
+useEffect(() => { fetchMembers(); }, []);
+```
+`fetchMembers` се пуска веднага при mount, **преди `AuthContext` да е възстановил сесията**. В този момент `auth.uid()` е `null`, `has_role(...)` връща `false`, RLS блокира SELECT и получаваме празен масив → таблицата „Няма добавени членове", въпреки че данните са там.
 
-Където някоя страница все още няма бутон за изтриване (напр. запитване), ще добавя такъв — но **само видим за админа** — с потвърждение („Сигурни ли сте?"), soft feedback чрез toast и почистване на свързани записи (напр. при изтриване на inquiry → изтриване на свързани `inquiry_files`, `quotes`, `contracts` чрез cascade или в две стъпки).
+Затова:
+- Не се вижда нито Alexander, нито ти самият като админ.
+- Данните обаче са коректно записани и „email already registered" при повторен опит е правилно.
 
-### 3. RLS защита на ниво база данни (не разчитаме само на UI)
-Ще добавя миграция, която за всяка от изброените таблици задава DELETE политика **само за admin** (чрез `public.has_role(auth.uid(), 'admin')`). Така дори ако някой не-админ извика Delete директно през API, базата ще откаже.
+## План за поправка
 
-Таблици за които ще ограничим DELETE до admin:
-`inquiries, inquiry_files, quotes, contracts, contract_files, project_sites, project_documents, project_timeline, projects, call_log, articles, comments, campaigns, email_campaigns, testimonials, backlinks, analytics_events, article_views, admin_tasks, user_roles`.
-
-Съществуващите SELECT/INSERT/UPDATE политики няма да се пипат — маркетинг, SEO и т.н. продължават да четат и редактират каквото могат сега.
-
-### 4. Поправка на „Edge Function" грешката при добавяне на член на екипа
-
-От тестовете и логовете:
-- Edge функцията `create-team-member` **не получава заявка** (няма логове след последния опит), значи проблемът е между клиента и функцията, не в самата логика.
-- Вероятни причини: (а) фронтендът праща `Authorization` header, който функцията изисква, но при `verify_jwt = false` Supabase invoke понякога не добавя токена коректно; (б) CORS preflight пада; (в) функцията не е още преразгърната след последното редактиране.
-
-Ще направя:
-- В `supabase/functions/create-team-member/index.ts`: (1) добавям изричен CORS preflight отговор с `Access-Control-Max-Age`; (2) ако липсва `Authorization`, връщам ясно съобщение; (3) допълнителен `console.log` в самото начало на handler-а, за да сме сигурни, че заявката влиза.
-- В `StaffManagementPage.handleAdd`: (1) вземам активната сесия с `supabase.auth.getSession()` и подавам `access_token` изрично като `headers: { Authorization: 'Bearer ...' }` към `functions.invoke`; (2) показвам целия HTTP статус + response body в toast-а при грешка, за да видим точния Edge отговор при следващия опит.
-- Ако след това пак виси, ще направя browser test (Playwright) с реален админ логин и ще уловим network отговора от `/functions/v1/create-team-member`.
-
-### 5. Проверка след промените
-- Build + бърз Playwright тест: логин като админ → добавяне на нов член → успех.
-- Логин като маркетинг/друга роля → потвърждаване, че бутоните „Изтрий" и „Управление на екипа" не се виждат никъде.
-
-## Технически детайли (кратко)
-- Frontend gate: `{isAdmin && <Button …>Изтрий</Button>}` навсякъде.
-- RLS шаблон:
-  ```sql
-  DROP POLICY IF EXISTS "<old delete policy>" ON public.<table>;
-  CREATE POLICY "Only admin can delete <table>"
-    ON public.<table> FOR DELETE TO authenticated
-    USING (public.has_role(auth.uid(), 'admin'));
+### 1. Изчакай auth сесията, преди да четеш `user_roles`
+В `src/pages/admin/StaffManagementPage.tsx`:
+- Взимам `user` и `loading` от `useAuth()`.
+- Стартовият `useEffect` вече зависи от `user?.id`:
+  ```ts
+  useEffect(() => {
+    if (loading) return;
+    if (!user) { setLoading(false); return; }
+    fetchMembers();
+  }, [user?.id, loading]);
   ```
-- Edge функцията остава с `verify_jwt = false` (както е в `config.toml`); валидацията на потребителя се прави в кода чрез `getUser()` върху подадения Bearer token.
+- Локалният `loading` state се преименува, за да не се бърка с auth loading (напр. `fetching`).
+- След успешен `handleAdd` — извиквам `fetchMembers()` (вече ще работи, защото сесията е активна).
+
+### 2. Fallback политика: всеки авторизиран потребител да вижда собствената си роля
+Малка миграция, която добавя допълнителна `SELECT` политика на `user_roles`:
+```sql
+CREATE POLICY "Users can view own role"
+  ON public.user_roles FOR SELECT
+  TO authenticated
+  USING (auth.uid() = user_id);
+```
+Това не пипа admin политиките (те продължават да виждат всичко) и е нужно, защото `AuthContext.checkRoles()` също чете `user_roles` за текущия user — ако някога сесията се възстанови по-бавно, admin-ът може да остане маркиран като не-admin и да не вижда бутоните.
+
+### 3. Обяснение на „already registered"
+Не е бъг — Alexander Radnev **вече е регистриран** в системата (auth user + `user_roles.role='marketing'`). След поправка №1 той ще се появи веднага в таблицата „Управление на екипа". Ако искаш да го премахнеш и регистрираш наново, ще го изтриеш от списъка (бутонът с кошчето) и после ще го добавиш пак — но иначе просто вече е там.
+
+### 4. Проверка
+- Playwright: логин като админ → отваряне на „Управление на екипа" → таблицата показва 2 реда (админ + маркетинг), с имена/имейли/роли.
+- Screenshot за потвърждение.
 
 ## Извън обхват
-- Не пипам съществуващите SELECT/INSERT/UPDATE политики.
-- Не променям кой има достъп до кои страници (това вече е настроено през `ProtectedRoute`).
-- Не сменям съществуващи роли на потребителите.
+- Не пипам edge функцията `create-team-member` — тя работи правилно (логът показва точния 422 от Supabase Auth: email вече е регистриран).
+- Не променям други RLS политики.
