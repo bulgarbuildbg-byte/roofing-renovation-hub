@@ -1,60 +1,40 @@
-## Какво намерих
+## Два бъга, две поправки
 
-Проверих директно базата (със сервисни права):
-
-**`user_roles` таблицата съдържа и двамата:**
-- `zhekoviliya@gmail.com` → `admin` ✅
-- `radnev.alexander@gmail.com` → `marketing` ✅ (регистрацията му **е минала успешно** преди — затова сега при нов опит идва „email already registered")
-
-**RLS политики на `user_roles`:**
-```
-SELECT → само has_role(auth.uid(), 'admin')
-```
-Тоест SELECT работи само ако `auth.uid()` вече е наличен в момента на заявката.
-
-**Проблемът в `StaffManagementPage.tsx`:**
+### Бъг 1 — „Could not find a relation between user_roles and profiles"
+`StaffManagementPage.fetchMembers` използва embedded join:
 ```ts
-useEffect(() => { fetchMembers(); }, []);
+supabase.from("user_roles").select("id, user_id, role, profiles(full_name, email, last_login)")
 ```
-`fetchMembers` се пуска веднага при mount, **преди `AuthContext` да е възстановил сесията**. В този момент `auth.uid()` е `null`, `has_role(...)` връща `false`, RLS блокира SELECT и получаваме празен масив → таблицата „Няма добавени членове", въпреки че данните са там.
+PostgREST търси foreign key между `user_roles` и `profiles`. Такъв няма — и двете таблици сочат към `auth.users(id)`, не една към друга. Затова гърми.
 
-Затова:
-- Не се вижда нито Alexander, нито ти самият като админ.
-- Данните обаче са коректно записани и „email already registered" при повторен опит е правилно.
-
-## План за поправка
-
-### 1. Изчакай auth сесията, преди да четеш `user_roles`
-В `src/pages/admin/StaffManagementPage.tsx`:
-- Взимам `user` и `loading` от `useAuth()`.
-- Стартовият `useEffect` вече зависи от `user?.id`:
-  ```ts
-  useEffect(() => {
-    if (loading) return;
-    if (!user) { setLoading(false); return; }
-    fetchMembers();
-  }, [user?.id, loading]);
-  ```
-- Локалният `loading` state се преименува, за да не се бърка с auth loading (напр. `fetching`).
-- След успешен `handleAdd` — извиквам `fetchMembers()` (вече ще работи, защото сесията е активна).
-
-### 2. Fallback политика: всеки авторизиран потребител да вижда собствената си роля
-Малка миграция, която добавя допълнителна `SELECT` политика на `user_roles`:
-```sql
-CREATE POLICY "Users can view own role"
-  ON public.user_roles FOR SELECT
-  TO authenticated
-  USING (auth.uid() = user_id);
+**Fix:** два отделни SELECT-а и merge в JS:
+```ts
+const { data: roles } = await supabase.from("user_roles").select("id, user_id, role");
+const ids = [...new Set((roles ?? []).map(r => r.user_id))];
+const { data: profs } = await supabase.from("profiles").select("id, full_name, email, last_login").in("id", ids);
+const map = new Map(profs?.map(p => [p.id, p]));
+setMembers((roles ?? []).map(r => ({ ...r, profile: map.get(r.user_id) })));
 ```
-Това не пипа admin политиките (те продължават да виждат всичко) и е нужно, защото `AuthContext.checkRoles()` също чете `user_roles` за текущия user — ако някога сесията се възстанови по-бавно, admin-ът може да остане маркиран като не-admin и да не вижда бутоните.
+И в JSX сменям `m.profiles?.full_name` → `m.profile?.full_name`.
 
-### 3. Обяснение на „already registered"
-Не е бъг — Alexander Radnev **вече е регистриран** в системата (auth user + `user_roles.role='marketing'`). След поправка №1 той ще се появи веднага в таблицата „Управление на екипа". Ако искаш да го премахнеш и регистрираш наново, ще го изтриеш от списъка (бутонът с кошчето) и после ще го добавиш пак — но иначе просто вече е там.
+### Бъг 2 — маркетинг (и други не-admin/не-staff роли) не могат да влязат в админ панела
+В `AuthContext.tsx`:
+```ts
+setIsStaff(data.some(r => r.role === "staff" || r.role === "admin"));
+```
+Всеки с роля `marketing`, `editor`, `seo`, `support` получава `isStaff = false` → `ProtectedRoute` го препраща към `/admin/login`. Затова маркетинг човекът няма достъп изобщо до CRM, аналитика, атрибуции и т.н.
 
-### 4. Проверка
-- Playwright: логин като админ → отваряне на „Управление на екипа" → таблицата показва 2 реда (админ + маркетинг), с имена/имейли/роли.
-- Screenshot за потвърждение.
+**Fix:** всяка призната роля в `user_roles` дава достъп до админ панела:
+```ts
+setIsStaff((data ?? []).length > 0);
+```
+Sidebar-ът вече показва всички секции на всеки staff — само „Екип" остава под `isAdmin`. RLS на конкретните таблици контролира какво реално се вижда/променя, а бутоните за изтриване вече са скрити за не-админ.
 
-## Извън обхват
-- Не пипам edge функцията `create-team-member` — тя работи правилно (логът показва точния 422 от Supabase Auth: email вече е регистриран).
-- Не променям други RLS политики.
+Резултат за маркетинг ролята: достъп до Аналитика, Лийдове, Контакти, Запитвания, Оферти, Кампании, Имейл кампании, Атрибуции, Поведение, Устройства, Обаждания, Статии, Дискусии, Отзиви, Бекликове — точно каквото искаш. Изтриване, добавяне на членове и смяна на пароли остават само за админа.
+
+### Проверка
+- Playwright: логин с админ → отваряш „Управление на екипа" → таблицата показва 2 реда (админ + маркетинг), без грешка. Screenshot.
+- Логин с `radnev.alexander@gmail.com` (marketing) → потвърждаване, че вижда CRM секциите и че бутоните „Изтрий" не се показват никъде.
+
+### Извън обхват
+- Не пипам RLS, edge функцията и sidebar структурата.

@@ -32,14 +32,26 @@ const StaffManagementPage = () => {
 
   const fetchMembers = async () => {
     setFetching(true);
-    const { data, error } = await supabase
+    const { data: roles, error } = await supabase
       .from("user_roles")
-      .select("id, user_id, role, profiles(full_name, email, last_login)");
+      .select("id, user_id, role");
     if (error) {
       console.error("[StaffManagement] fetchMembers error:", error);
       toast({ title: "Грешка при зареждане", description: error.message, variant: "destructive" });
+      setMembers([]);
+      setFetching(false);
+      return;
     }
-    setMembers(data || []);
+    const ids = Array.from(new Set((roles ?? []).map((r: any) => r.user_id)));
+    let profileMap = new Map<string, any>();
+    if (ids.length > 0) {
+      const { data: profs } = await supabase
+        .from("profiles")
+        .select("id, full_name, email, last_login")
+        .in("id", ids);
+      profileMap = new Map((profs ?? []).map((p: any) => [p.id, p]));
+    }
+    setMembers((roles ?? []).map((r: any) => ({ ...r, profile: profileMap.get(r.user_id) })));
     setFetching(false);
   };
 
@@ -159,14 +171,14 @@ const StaffManagementPage = () => {
                 <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground py-8">Няма добавени членове</TableCell></TableRow>
               ) : members.map((m) => (
                 <TableRow key={m.id}>
-                  <TableCell className="font-medium">{(m as any).profiles?.full_name || "—"}</TableCell>
-                  <TableCell>{(m as any).profiles?.email || m.user_id}</TableCell>
+                  <TableCell className="font-medium">{m.profile?.full_name || "—"}</TableCell>
+                  <TableCell>{m.profile?.email || m.user_id}</TableCell>
                   <TableCell>
                     <Badge variant="secondary">{ROLE_LABELS[m.role] || m.role}</Badge>
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
-                    {(m as any).profiles?.last_login
-                      ? new Date((m as any).profiles.last_login).toLocaleDateString("bg-BG")
+                    {m.profile?.last_login
+                      ? new Date(m.profile.last_login).toLocaleDateString("bg-BG")
                       : "—"}
                   </TableCell>
                   <TableCell>
