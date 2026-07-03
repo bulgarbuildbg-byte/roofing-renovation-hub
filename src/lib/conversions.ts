@@ -108,20 +108,23 @@ export async function fireLeadConversion(kind: LeadKind, payload: LeadPayload = 
         transaction_id: attr.gclid || `${kind}-${Date.now()}`,
       });
 
-      // --- GA4-only helper events (NO send_to → cannot become Ads Primary) ---
-      // `generate_lead` for form-style leads; skipped for phone clicks.
-      if (kind !== "call") {
-        w.gtag("event", "generate_lead", {
-          value,
-          currency,
+      // --- GA4-only helper events --------------------------------------------
+      // Only fire when a GA4 property is configured. `send_to` is scoped to
+      // the GA4 Measurement ID so no AW-* Ads account can receive them.
+      if (GA4_MEASUREMENT_ID) {
+        if (kind !== "call") {
+          w.gtag("event", "generate_lead", {
+            send_to: GA4_MEASUREMENT_ID,
+            value,
+            currency,
+            lead_source: kind,
+          });
+        }
+        w.gtag("event", "lead_engagement", {
+          send_to: GA4_MEASUREMENT_ID,
           lead_source: kind,
         });
       }
-      // Universal remarketing audience trigger. Use it in GA4 → Google Ads as
-      // an Audience source, NOT as a conversion.
-      w.gtag("event", "lead_engagement", {
-        lead_source: kind,
-      });
     } catch { /* never break UX */ }
   }
 
