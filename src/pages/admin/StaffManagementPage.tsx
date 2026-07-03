@@ -32,14 +32,26 @@ const StaffManagementPage = () => {
 
   const fetchMembers = async () => {
     setFetching(true);
-    const { data, error } = await supabase
+    const { data: roles, error } = await supabase
       .from("user_roles")
-      .select("id, user_id, role, profiles(full_name, email, last_login)");
+      .select("id, user_id, role");
     if (error) {
       console.error("[StaffManagement] fetchMembers error:", error);
       toast({ title: "Грешка при зареждане", description: error.message, variant: "destructive" });
+      setMembers([]);
+      setFetching(false);
+      return;
     }
-    setMembers(data || []);
+    const ids = Array.from(new Set((roles ?? []).map((r: any) => r.user_id)));
+    let profileMap = new Map<string, any>();
+    if (ids.length > 0) {
+      const { data: profs } = await supabase
+        .from("profiles")
+        .select("id, full_name, email, last_login")
+        .in("id", ids);
+      profileMap = new Map((profs ?? []).map((p: any) => [p.id, p]));
+    }
+    setMembers((roles ?? []).map((r: any) => ({ ...r, profile: profileMap.get(r.user_id) })));
     setFetching(false);
   };
 
