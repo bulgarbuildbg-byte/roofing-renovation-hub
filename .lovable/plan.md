@@ -1,35 +1,59 @@
+# Правилна tracking структура: 1 реален lead = 1 Ads Conversion
+
 ## Проблем
 
-При добавяне на нов член с роля „Маркетинг" от `/admin/staff` UI показва общата грешка „Edge Function returned a non-2xx status code". В логовете на `create-team-member` виждам само boot записи — няма log при заявката, значи функцията чупи преди да върне ясен error, или клиентът получава грешка, която не се показва пълна на потребителя.
+Текущата логика в `src/lib/conversions.ts` изпраща `conversion` event **към двата Google Ads акаунта** (`AW-17872435541` и `AW-18066399675`) за едно действие. Ако и в двата акаунта е конфигуриран `call_click` като Primary conversion → 1 обаждане = **2 конверсии**. Същият риск съществува и за `quote_submit`.
 
-Ролята `marketing` съществува в enum-а (`20260222163754_...sql`), така че причината не е невалидна стойност за enum.
+Освен това при последната редакция премахнахме напълно `generate_lead` и не сме имали remarketing audience event, което обяснява защо в Google Ads/GA4 вече не се виждат тези помощни събития.
 
-## План
+## Решение
 
-### 1. Добавяне на подробно логване в edge функцията
-Файл: `supabase/functions/create-team-member/index.ts`
-- Log при вход: получени полета (без парола), caller id.
-- Log преди `createUser`, `insert user_roles`.
-- Всеки error branch да логва `console.error` с реалното съобщение от Supabase (createUser често връща „User already registered" или „Password should be at least 6 characters" — сега това може да идва като HTTP 400 без да се вижда ясно на UI-я).
-- Гарантирано връщане на JSON `{ error: "..." }` с точен текст.
+Един източник на истина: `src/lib/conversions.ts`. Всички реални Ads conversions отиват само в `AW-18066399675`. GA4 получава помощни събития. `user_data` остава прикачен към реалната Ads conversion (Enhanced Conversions), не като отделно събитие.
 
-### 2. Показване на реалната грешка в UI
-Файл: `src/pages/admin/StaffManagementPage.tsx`
-- При `supabase.functions.invoke`, ако response body съдържа `error`, да се показва целият текст в toast (сега `data?.error` може да е `undefined` когато статусът е non-2xx, защото `invoke` не парсва body при грешка). Ще прочета response през `error.context.response.json()` fallback.
+### 1. `src/lib/conversions.ts` — пренаписване на логиката
 
-### 3. Проверка на профилния trigger
-`handle_new_user` вмъква в `profiles` при създаване на потребител. Ще проверя дали не се чупи (напр. NOT NULL нарушение), защото това би направило `createUser` да върне грешка и досегашното съобщение е неясно. Ако е нужно — правя `full_name` толерантно към празни стойности (вече е `COALESCE ... ''`).
+- Заменям масива `GOOGLE_ADS_ACCOUNTS` с една константа `PRIMARY_ADS_ACCOUNT = "AW-18066399675"`. `AW-17872435541` спира да получава conversion events — остава активен в `index.html` само за page views / remarketing аудитории.
+- `gtag("set", "user_data", {...})` продължава да се извиква преди conversion event-а (Enhanced Conversions). Без промяна в структурата на хешираните данни (email/phone SHA-256, city в чист вид).
+- Един `gtag("event", "conversion", { send_to: "AW-18066399675/<label>", ... })` на действие. `transaction_id` остава за дедупликация.
+- След реалната Ads conversion добавям **GA4-only** помощни събития — без `send_to`, така Google Ads не може да ги внесе като Primary:
+  - `gtag("event", "generate_lead", { value, currency, lead_source: kind })` — за формите (`form`, `calculator`, `chatbot`, `inspection`).
+  - `gtag("event", "lead_engagement", { lead_source: kind })` — универсално remarketing audience event и за форми, и за обаждания. Използва се в GA4 → Google Ads като Audience trigger, не като conversion.
+- Meta Pixel (`fbq("track", "Lead", ...)`) и TikTok Pixel остават без промяна — по 1 event на действие.
 
-### 4. Тест и потвърждение
-След deploy на функцията:
-- Пускам тестов POST през `curl_edge_functions` с валидна admin сесия и `role: "marketing"`.
-- Ако грешката е „email already registered" (най-често при повторни опити с един и същ email), ще добавя специална обработка + ясно съобщение „Този имейл вече е регистриран".
-- Проверявам, че новосъздаденият маркетинг потребител вижда очакваните секции (маркетинг/лидове/анализи) през съществуващите role guards.
+### 2. Проверка, че няма други места, които палят Ads conversions
 
-### 5. Без промяна в обхвата
-- Не пипам друга функционалност, конверсии, CRM таблици или трекинг.
-- Ролята „marketing" вече дава достъп според `StaffManagementPage` описанието; ако при теста установя, че `ProtectedRoute`/sidebar филтрира маркетинг излишно строго, ще нанеса минимална корекция само за да види Analytics, Leads, Campaigns, Email marketing.
+Бърза ревизия на:
+- `src/lib/analytics.ts` — `trackCallClick` вече минава само през `fireLeadConversion("call", ...)`. Оставя се както е.
+- `src/pages/ThankYouPage.tsx` — вече не пали conversion. Оставя се както е.
+- `src/components/PriceCalculator.tsx` — вече пали само веднъж (на unlock). Оставя се както е.
+- `src/components/QuoteRequestForm.tsx` и `src/components/MultiStepInquiryForm.tsx` — `submitting` guard-ът е на място, без промяна.
+- `index.html` — `gtag('config', 'AW-17872435541')` и `gtag('config', 'AW-18066399675')` остават (нужни за page view / remarketing / auto-tagging). Не се добавя inline conversion snippet.
 
-## Резултат
-- Ясно error съобщение вместо генерично „Edge Function".
-- Успешно добавяне на маркетинг потребител с достъп до статистики и лидове.
+### 3. Резултат в Google Ads / GA4
+
+| Действие | Google Ads (AW-18066399675) | Google Ads (AW-17872435541) | GA4 |
+|---|---|---|---|
+| Попълнена форма | 1× `quote_submit` (Primary) + Enhanced Conv user_data | — | `generate_lead` + `lead_engagement` |
+| Обаждане (tel: click) | 1× `call_click` (Primary) + Enhanced Conv user_data | — | `lead_engagement` |
+| Chatbot lead | 1× `quote_submit` + user_data | — | `generate_lead` + `lead_engagement` |
+| Заявка за оглед | 1× `inspection_form` + user_data | — | `generate_lead` + `lead_engagement` |
+
+**Primary conversions** (Google Ads настройка от твоя страна, не в кода):
+- `quote_submit` — форма
+- `call_click` — обаждане
+- `inspection_form` — оглед
+
+**Secondary / audience** (стой като Secondary или Audience-only в Google Ads):
+- Всичко импортнато от GA4 (`generate_lead`, `lead_engagement`) → използвай за ремаркетинг списъци, **не** го маркирай като Primary conversion, иначе се връща дублирането.
+
+## За твоя страна в Google Ads (извън кода)
+
+1. В `AW-17872435541` → Goals → Conversions: увери се, че `call_click` и `quote_submit` са изключени / не Primary. Кодът вече няма да им праща събития, но старите настройки могат да продължат да броят исторически.
+2. В `AW-18066399675` → провери, че `call_click`, `quote_submit`, `inspection_form` съществуват като Primary conversion actions с точно тези имена (те са labels, не conversion IDs — трябва да съвпадат с това, което вече е конфигурирано).
+3. Ако импортираш GA4 events в Ads (`generate_lead`, `lead_engagement`) → задължително ги остави на **Secondary**, за да не се броят като реални leads.
+
+## Технически файлове за промяна
+
+- `src/lib/conversions.ts` — единствен реален code change.
+
+Не пипам компоненти, форми, `analytics.ts`, `index.html`, edge functions или база данни.

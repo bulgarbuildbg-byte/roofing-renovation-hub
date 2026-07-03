@@ -1,21 +1,25 @@
 /**
- * Centralized conversion firing to Google Ads (both accounts),
- * Meta Pixel and TikTok Pixel. Includes Enhanced Conversions for Google:
- * hashed email + phone are attached before the conversion event so Google
- * can match the lead back to a click and improve reporting.
+ * Centralized conversion firing.
  *
- * Safe to call from anywhere in the browser — every call is guarded, so a
- * missing pixel or a blocked network request never breaks the app.
- *
- * IMPORTANT: Do not send GA4 generate_lead here. If imported into Google Ads
- * as a Primary conversion, it duplicates the direct Google Ads quote_submit
- * conversion for the same submitted form.
+ * Rules (see .lovable/plan.md):
+ *  - EXACTLY ONE real Google Ads Conversion per lead action, sent to a single
+ *    Ads account (AW-18066399675). The second account (AW-17872435541) stays
+ *    active in index.html for page views / remarketing audiences only — it
+ *    never receives a `conversion` event from the app.
+ *  - Enhanced Conversions: hashed email/phone/name are attached with
+ *    `gtag("set", "user_data", ...)` BEFORE the conversion event, so Google
+ *    reads them as part of the same conversion, not as a separate event.
+ *  - GA4-only helper events (`generate_lead`, `lead_engagement`) are fired
+ *    WITHOUT `send_to`, so Google Ads cannot import them as Primary
+ *    conversions. Use them for GA4 reporting and remarketing audiences only.
+ *  - Meta Pixel + TikTok Pixel fire once per action.
  */
 import { getAttribution } from "./attribution";
 
-const GOOGLE_ADS_ACCOUNTS = ["AW-17872435541", "AW-18066399675"] as const;
+// Single Google Ads account that receives real conversion events.
+const PRIMARY_ADS_ACCOUNT = "AW-18066399675";
 
-// Conversion action labels configured in the Google Ads accounts.
+// Conversion action labels configured in the primary Google Ads account.
 const LABELS: Record<LeadKind, string> = {
   form:       "quote_submit",
   calculator: "quote_submit",
@@ -65,7 +69,7 @@ export async function fireLeadConversion(kind: LeadKind, payload: LeadPayload = 
   const value = payload.value ?? 50;
   const currency = payload.currency ?? "BGN";
 
-  // --- Google Ads Enhanced Conversions -------------------------------------
+  // --- Google Ads: 1 real conversion + Enhanced Conversions -----------------
   if (w.gtag) {
     try {
       const emailNorm = payload.email?.trim().toLowerCase() || null;
@@ -77,6 +81,7 @@ export async function fireLeadConversion(kind: LeadKind, payload: LeadPayload = 
         payload.lastName ? sha256(payload.lastName) : Promise.resolve(null),
       ]);
 
+      // Enhanced Conversions — attached to the SAME conversion, not a separate event.
       const userData: Record<string, unknown> = {};
       if (emailHash) userData.sha256_email_address = emailHash;
       if (phoneHash) userData.sha256_phone_number = phoneHash;
@@ -87,16 +92,29 @@ export async function fireLeadConversion(kind: LeadKind, payload: LeadPayload = 
       if (Object.keys(address).length) userData.address = address;
       if (Object.keys(userData).length) w.gtag("set", "user_data", userData);
 
+      // Single real Google Ads Conversion — one account only.
       const label = LABELS[kind];
-      for (const account of GOOGLE_ADS_ACCOUNTS) {
-        w.gtag("event", "conversion", {
-          send_to: `${account}/${label}`,
+      w.gtag("event", "conversion", {
+        send_to: `${PRIMARY_ADS_ACCOUNT}/${label}`,
+        value,
+        currency,
+        transaction_id: attr.gclid || `${kind}-${Date.now()}`,
+      });
+
+      // --- GA4-only helper events (NO send_to → cannot become Ads Primary) ---
+      // `generate_lead` for form-style leads; skipped for phone clicks.
+      if (kind !== "call") {
+        w.gtag("event", "generate_lead", {
           value,
           currency,
-          transaction_id: attr.gclid || `${kind}-${Date.now()}`,
+          lead_source: kind,
         });
       }
-
+      // Universal remarketing audience trigger. Use it in GA4 → Google Ads as
+      // an Audience source, NOT as a conversion.
+      w.gtag("event", "lead_engagement", {
+        lead_source: kind,
+      });
     } catch { /* never break UX */ }
   }
 
@@ -110,3 +128,4 @@ export async function fireLeadConversion(kind: LeadKind, payload: LeadPayload = 
     try { w.ttq.track(kind === "call" ? "ClickButton" : "SubmitForm", { value, currency, content_type: kind }); } catch {}
   }
 }
+
