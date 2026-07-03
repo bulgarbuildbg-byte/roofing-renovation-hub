@@ -9,6 +9,7 @@ import { Plus, Loader2, Pencil, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Campaign {
   id: string;
@@ -30,6 +31,7 @@ const platformColors: Record<string, string> = {
 };
 
 const CampaignListPage = () => {
+  const { isAdmin } = useAuth();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [leadCounts, setLeadCounts] = useState<Record<string, number>>({});
