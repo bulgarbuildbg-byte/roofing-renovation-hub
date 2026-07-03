@@ -114,9 +114,11 @@ const CampaignListPage = () => {
                         <Button variant="ghost" size="icon" onClick={() => navigate(`/admin/campaigns/${c.id}/edit`)}>
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDelete(c.id)}>
-                          <Trash2 className="h-4 w-4 text-destructive" />
-                        </Button>
+                        {isAdmin && (
+                          <Button variant="ghost" size="icon" onClick={() => handleDelete(c.id)}>
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        )}
                       </div>
                     </TableCell>
                   </TableRow>

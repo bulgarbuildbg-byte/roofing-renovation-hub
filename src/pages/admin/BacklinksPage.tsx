@@ -165,7 +165,7 @@ const BacklinksPage = () => {
                   <TableCell><Badge variant={b.follow_type === "follow" ? "default" : "secondary"}>{b.follow_type}</Badge></TableCell>
                   <TableCell><Badge variant={b.status === "active" ? "default" : "destructive"}>{b.status}</Badge></TableCell>
                   <TableCell className="text-sm text-muted-foreground">{b.discovered_at}</TableCell>
-                  <TableCell><Button variant="ghost" size="icon" onClick={() => handleDelete(b.id)}><Trash2 className="h-4 w-4 text-destructive" /></Button></TableCell>
+                  <TableCell>{isAdmin && (<Button variant="ghost" size="icon" onClick={() => handleDelete(b.id)}><Trash2 className="h-4 w-4 text-destructive" /></Button>)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

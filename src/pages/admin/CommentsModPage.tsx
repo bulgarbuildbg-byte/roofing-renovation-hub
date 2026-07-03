@@ -136,9 +136,11 @@ const CommentsModPage = () => {
                         <X className="h-4 w-4 text-orange-500" />
                       </Button>
                     )}
-                    <Button variant="ghost" size="icon" onClick={() => deleteComment(c.id)} title="Изтрий">
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
+                    {isAdmin && (
+                      <Button variant="ghost" size="icon" onClick={() => deleteComment(c.id)} title="Изтрий">
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    )}
                   </div>
                 </div>
               </CardContent>

@@ -273,9 +273,11 @@ const SiteDetailPage = () => {
                         <Button variant="ghost" size="icon" onClick={() => downloadDoc(d)}>
                           <Download className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => deleteDoc(d)}>
-                          <Trash2 className="h-4 w-4 text-destructive" />
-                        </Button>
+                        {isAdmin && (
+                          <Button variant="ghost" size="icon" onClick={() => deleteDoc(d)}>
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        )}
                       </div>
                     ))}
                   </div>

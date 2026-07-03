@@ -6,11 +6,13 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ArticleListPage = () => {
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { isAdmin } = useAuth();
 
   const fetchArticles = async () => {
     const { data } = await supabase
@@ -77,9 +79,11 @@ const ArticleListPage = () => {
                       <Button variant="ghost" size="icon" asChild>
                         <Link to={`/admin/articles/${a.id}/edit`}><Pencil className="h-4 w-4" /></Link>
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(a.id)}>
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
+                      {isAdmin && (
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(a.id)}>
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>

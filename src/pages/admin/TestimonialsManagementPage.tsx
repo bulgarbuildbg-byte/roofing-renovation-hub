@@ -303,9 +303,11 @@ const TestimonialsManagementPage = () => {
                   <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(t)}>
                     <Pencil className="w-3 h-3" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => { if (confirm("Изтриване на отзива?")) deleteMutation.mutate(t.id); }}>
-                    <Trash2 className="w-3 h-3 text-destructive" />
-                  </Button>
+                  {isAdmin && (
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => { if (confirm("Изтриване на отзива?")) deleteMutation.mutate(t.id); }}>
+                      <Trash2 className="w-3 h-3 text-destructive" />
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
