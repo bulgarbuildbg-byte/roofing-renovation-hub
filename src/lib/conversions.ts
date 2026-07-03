@@ -1,11 +1,15 @@
 /**
- * Centralized conversion firing to Google Ads (both accounts), GA4,
+ * Centralized conversion firing to Google Ads (both accounts),
  * Meta Pixel and TikTok Pixel. Includes Enhanced Conversions for Google:
  * hashed email + phone are attached before the conversion event so Google
  * can match the lead back to a click and improve reporting.
  *
  * Safe to call from anywhere in the browser — every call is guarded, so a
  * missing pixel or a blocked network request never breaks the app.
+ *
+ * IMPORTANT: Do not send GA4 generate_lead here. If imported into Google Ads
+ * as a Primary conversion, it duplicates the direct Google Ads quote_submit
+ * conversion for the same submitted form.
  */
 import { getAttribution } from "./attribution";
 
@@ -93,15 +97,6 @@ export async function fireLeadConversion(kind: LeadKind, payload: LeadPayload = 
         });
       }
 
-      // GA4 (fires only if a G-… property is configured in index.html — otherwise no-op)
-      w.gtag("event", "generate_lead", {
-        currency,
-        value,
-        lead_type: kind,
-        channel: attr.channel,
-        utm_source: attr.utm_source || undefined,
-        utm_campaign: attr.utm_campaign || undefined,
-      });
     } catch { /* never break UX */ }
   }
 
