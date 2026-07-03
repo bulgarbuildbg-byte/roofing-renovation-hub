@@ -21,9 +21,9 @@ const ROLE_LABELS: Record<string, string> = {
 
 const StaffManagementPage = () => {
   const { toast } = useToast();
-  const { isAdmin } = useAuth();
+  const { isAdmin, user, loading: authLoading } = useAuth();
   const [members, setMembers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [fetching, setFetching] = useState(true);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,14 +31,24 @@ const StaffManagementPage = () => {
   const [adding, setAdding] = useState(false);
 
   const fetchMembers = async () => {
-    const { data } = await supabase
+    setFetching(true);
+    const { data, error } = await supabase
       .from("user_roles")
       .select("id, user_id, role, profiles(full_name, email, last_login)");
+    if (error) {
+      console.error("[StaffManagement] fetchMembers error:", error);
+      toast({ title: "Грешка при зареждане", description: error.message, variant: "destructive" });
+    }
     setMembers(data || []);
-    setLoading(false);
+    setFetching(false);
   };
 
-  useEffect(() => { fetchMembers(); }, []);
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) { setFetching(false); return; }
+    fetchMembers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id, authLoading]);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,7 +140,7 @@ const StaffManagementPage = () => {
         </div>
       )}
 
-      {loading ? (
+      {fetching ? (
         <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>
       ) : (
         <div className="bg-card rounded-xl border border-border overflow-hidden">
