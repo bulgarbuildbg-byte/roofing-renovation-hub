@@ -51,6 +51,7 @@ const RevenuePage = lazy(() => import("./pages/admin/RevenuePage"));
 const BehaviorPage = lazy(() => import("./pages/admin/BehaviorPage"));
 const DeviceAnalyticsPage = lazy(() => import("./pages/admin/DeviceAnalyticsPage"));
 const MarketingAttributionPage = lazy(() => import("./pages/admin/MarketingAttributionPage"));
+const OAuthConsent = lazy(() => import("./pages/OAuthConsent"));
 
 const queryClient = new QueryClient();
 
@@ -96,6 +97,7 @@ const App = () => (
             </Route>
 
             {/* Admin routes (no language prefix) — all lazy loaded */}
+            <Route path="/.lovable/oauth/consent" element={<Suspense fallback={null}><OAuthConsent /></Suspense>} />
             <Route path="/admin/login" element={<Suspense fallback={null}><AdminLoginPage /></Suspense>} />
             <Route path="/admin" element={<Suspense fallback={null}><ProtectedRoute><AdminDashboardPage /></ProtectedRoute></Suspense>}>
               <Route path="analytics" element={<Suspense fallback={null}><AnalyticsPage /></Suspense>} />
