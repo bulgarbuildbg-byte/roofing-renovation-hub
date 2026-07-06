@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,9 @@ import { Lock, Mail, Shield } from "lucide-react";
 const AdminLoginPage = () => {
   const { signIn, user, isStaff } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const nextParam = searchParams.get("next");
+  const safeNext = nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : null;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,7 +30,7 @@ const AdminLoginPage = () => {
   }, []);
 
   if (user && isStaff) {
-    navigate("/admin", { replace: true });
+    navigate(safeNext ?? "/admin", { replace: true });
     return null;
   }
 
@@ -39,7 +42,7 @@ const AdminLoginPage = () => {
     if (error) {
       setError("Невалиден имейл или парола");
     } else {
-      navigate("/admin");
+      navigate(safeNext ?? "/admin");
     }
     setLoading(false);
   };
