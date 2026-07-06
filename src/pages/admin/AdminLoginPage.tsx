@@ -30,7 +30,7 @@ const AdminLoginPage = () => {
   }, []);
 
   if (user && isStaff) {
-    navigate("/admin", { replace: true });
+    navigate(safeNext ?? "/admin", { replace: true });
     return null;
   }
 
@@ -42,7 +42,7 @@ const AdminLoginPage = () => {
     if (error) {
       setError("Невалиден имейл или парола");
     } else {
-      navigate("/admin");
+      navigate(safeNext ?? "/admin");
     }
     setLoading(false);
   };
