@@ -1,61 +1,48 @@
-## Контекст
+## Диагноза с наличната инфо
 
-Кампанията е **Eligible**, върви от 1–3 дни, но всички колони са празни (0 импресии, 0 клика, без CTR). Конверсионният тракинг вече е потвърден и работи (обаждания и форми се броят коректно), т.е. `gtag` кодовете на сайта не са причината.
+Изключваме: bid strategy Max Conversions ❌, нов акаунт ❌, бюджет ❌ (€13/ден е ОК за Варна Search), disapproved ads ❌, локация ❌, billing ❌, landing page ❌ (проверено — 200 OK, prerender OK, robots.txt fix-нат).
 
-Важно разграничение: **импресии и CTR се генерират от Google Ads системата (аукциона), а НЕ от кода на сайта.** Кодът на сайта може само да *пречи* (напр. да блокира crawler-a на Google) или да развали *качеството* на обявата (напр. бавен/счупен landing page → нисък Ad Rank → 0 импресии). Не може да "включи" импресии сам по себе си.
+Кампанията е **Search**, keywords са **Eligible**, но 0 impressions. Това стеснява реалните причини до **3 сценария**, всички в самия Google Ads акаунт (не в кода):
 
-## Част 1 — Технически одит на сайта (правя аз в кода)
+### Сценарий 1 — Bid strategy без реален bid (най-вероятно)
+"Не знам точно" bid стратегията + 0 impressions често значи **eCPC / Enhanced CPC / Target Impression Share** с грешно зададен параметър:
+- Target Impression Share с *max CPC limit €0.10* → Google просто не наддава
+- Target CPA настроен на нереалистично ниска стойност (напр. €5 при пазарен €30) → нула аукциони
+- Manual CPC с bid €0.05 → под минималния за аукциона
 
-Проверявам всичко, което може да блокира Google да покаже рекламата или да занули Ad Rank:
+Keyword status **Eligible** ≠ достатъчен bid — Google не показва "Below first page bid" статус за всички bid strategies.
 
-1. **`public/robots.txt`** — да не блокира `Googlebot` или `AdsBot-Google` / `AdsBot-Google-Mobile`. AdsBot **не се подчинява на `User-agent: *`** и трябва да е изрично разрешен, иначе landing page-ът се маркира като „destination not crawlable" и кампанията получава 0 импресии.
-2. **`<meta name="robots">`** на landing страниците (най-вече `/bg/zayavete-oferta`, `/bg/varna`, service pages) — да няма `noindex` или `none` там, където се насочва рекламата.
-3. **HTTP статус на final URL-a** — проверявам чрез curl, че рекламните destination URLs връщат `200`, не `301/302 → 404`, не редиректи между езици (`/` → `/bg` → `/bg/varna` може да се брои като „excessive redirects").
-4. **Prerender output** — потвърждавам, че prerender-натият HTML на landing страниците съдържа реален title/description/H1 (Google Ads краулва статичния HTML, не React).
-5. **Page speed / Core Web Vitals blockers** — бърз одит за очевидни regressions на LCP/CLS, които влизат в Quality Score.
-6. **Проверка на `ads.txt` / `app-ads.txt`** — само ако се показват грешки за издателски одобрения (не е задължителен за Search кампании).
-7. **Conflict check** — потвърждавам, че няма skрипт (например Cookie banner блокиращ render), който да прави страницата „празна" за AdsBot.
+### Сценарий 2 — Match type + audience/keyword conflict
+- Всички keywords са **[Exact match]** с ниски локални обеми (напр. `[ремонт покрив варна]` има 20 searches/месец) → math prevents impressions
+- **Negative keyword list** случайно блокира главните думи (напр. добавена `-ремонт` от друг account)
+- **Audience targeting = Targeting (not Observation)** с малка/грешна аудитория → зануляваме reach
 
-Резултат: списък с намерените проблеми + фиксовете, приложени в същата стъпка.
+### Сценарий 3 — Conversion tracking конфликт (по-рядко)
+Ако кампанията е свързана с **Smart Bidding**, което разчита на conversion action, което наскоро е било **паузирано или преместено** (спомни си: наскоро махнахме `generate_lead` и `lead_engagement` от primary conversions) → алгоритъмът "губи" сигнала и спира да наддава. Ако primary conversion action е било едно от помощните и сега няма нищо, което да брои → системата чака данни и не наддава.
 
-## Част 2 — Чеклист за Google Ads UI (правиш ти)
+## Какво искам от теб — 4 конкретни screenshots
 
-Най-честите причини за 0 импресии при Eligible кампания, които са **само в Ads панела** и не могат да се фиксат от кода:
+За да идентифицирам точния сценарий, вместо да гадая, ми трябва:
 
-### A. Бюджет и наддаване
-- [ ] Дневен бюджет достатъчен за таргетирания пазар (за Варна: минимум €5–10/ден за Search)
-- [ ] Стратегия за наддаване: ако е **Maximize Conversions** — има ли изобщо натрупани конверсии за обучение? В новите акаунти често трябва да се стартира с **Manual CPC** или **Maximize Clicks** за първите 2 седмици
-- [ ] Ако е Target CPA / Target ROAS — цел, която е нереалистично ниска, спира показването
+1. **Campaign settings → Bidding** — целия блок (стратегия + всички max/target стойности)
+2. **Campaigns → Columns → Modify columns → Competitive metrics** → добави: `Search Impr. share`, `Search lost IS (rank)`, `Search lost IS (budget)`, `Search lost IS (top)`, `Search abs. top IS`. После screenshot на реда с кампанията.
+3. **Keywords таб** — screenshot с колоните `Status`, `Max CPC`, `Quality Score`, `Match type` за топ 10 keywords
+4. **Tools → Diagnostics → "Ad Preview and Diagnosis"** — въведи главна ключова дума + локация Варна и виж какво пише Google защо не показва обявата
 
-### B. Ключови думи и Ad Rank
-- [ ] Ключовите думи имат ли статус „Rarely shown due to low quality score" / „Below first page bid"?
-- [ ] Ако всички са **Exact match** и с ниски search volumes → малко импресии. Пусни поне 1 ad group с **Phrase match**
-- [ ] Провери **Auction Insights** — има ли изобщо аукциони, в които участваш?
+Алтернативно: **Campaigns → click на кампанията → бутон "Recommendations"** — screenshot от там. Google обикновено директно казва какво липсва (най-често *"Fix ad strengths"*, *"Add responsive search ads"*, *"Raise bids"*).
 
-### C. Таргетиране
-- [ ] Локация: „People **in** or regularly in your targeted locations" (не „interested in") — иначе не таргетираш реално Варна
-- [ ] Language: включен **Български** И **Английски** (много Chrome-и в БГ имат EN default)
-- [ ] Ad Schedule: не е ли ограничено само до определени часове?
-- [ ] Device bid adjustments: няма ли -100% на mobile/desktop случайно?
+## Какво НЕ мога да направя от кода
 
-### D. Обяви и активи
-- [ ] Обявите статус **Approved** (не Under review, не Disapproved)? Отхвърлена обява → 0 импресии, дори кампанията да е Eligible
-- [ ] Минимум 2 обяви на ad group + поне 4 sitelinks / callouts / structured snippets
-- [ ] Final URL съвпада с показвания display URL домейн
+Impressions се управляват изцяло от Google Ads аукциона. От кода:
+- ✅ Направено: `robots.txt` разрешава експлицитно AdsBot
+- ✅ Проверено: landing pages 200 OK, prerender OK, няма noindex
+- ✅ Проверено: conversion tracking работи (потвърдено с browser test)
+- ❌ Не мога: да увеличавам bid, да променям match types, да пусна impressions
 
-### E. Плащане и акаунт
-- [ ] Payment method валиден, няма отхвърлено плащане
-- [ ] Акаунтът не е под review за billing/policy verification (в горния десен ъгъл има ⚠️)
-- [ ] Ако е нов Google Ads акаунт → **първите 24–72ч** често има забавяне преди първи impressions
+## План
 
-### F. Полезни диагностични изгледи в Ads UI
-1. **Campaigns → Overview → Recommendations** — Google явно казва какво липсва
-2. **Keywords → Status column** — ако е сиво „Eligible (Limited)" → hover-ни за причина
-3. **Ads → Policy details** — за отхвърлени обяви
-4. **Tools → Troubleshooter „Why are my ads not showing?"** — вграден wizard на Google
+**Стъпка 1 (ти):** Прати ми поне един от 4-те screenshot-a по-горе. Най-важен е #1 (Bidding) и #2 (Impression Share metrics) — те решават 90% от случаите на 0 impressions при Eligible кампания.
 
-## Deliverables
+**Стъпка 2 (аз):** След като видя screenshot-ите, ще ти дам точна инструкция какво да смениш в Ads UI (bid стойност, match type, target CPA и т.н.) — 5 минути работа, не изисква никаква промяна в кода.
 
-1. Кратък technical audit report в чата (какво е намерено в сайта, какво е поправено)
-2. Този чеклист по-горе като reference, който можеш да следваш в Ads UI
-3. Ако след технически фикс проблемът е само в Ads UI — ясно го казвам, за да не търсим бъгове в кода
+**Стъпка 3 (аз, ако се окаже сценарий 3):** Ако primary conversion action в Google Ads вече не съществува / не се тригерира, ще потвърдя от кода кой event стига до Ads и ще ти кажа кой да маркираш като Primary в **Tools → Conversions**.
