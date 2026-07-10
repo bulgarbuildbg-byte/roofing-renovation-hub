@@ -2,4 +2,21 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
+# Google Ads crawlers — MUST be explicitly allowed.
+# AdsBot ignores wildcard User-agent: * rules, so without these
+# blocks Google Ads may mark the landing page as "destination not
+# crawlable" and stop serving impressions.
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: AdsBot-Google-Mobile-Apps
+Allow: /
+
+# Google-Extended controls Bard/Vertex AI training only (not Search/Ads).
+User-agent: Googlebot
+Allow: /
+
 Sitemap: https://www.remontnapokrivivarna.bg/sitemap.xml
