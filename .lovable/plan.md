@@ -1,71 +1,61 @@
-# Add Agent Integrations (MCP) to Remont Pokrivi Varna
+## Контекст
 
-Expose this app as an MCP (Model Context Protocol) server so external AI assistants (ChatGPT, Claude, Cursor, Lovable's own agent) can connect to it and use a curated set of tools that read/write data in the app's backend on behalf of the signed-in user.
+Кампанията е **Eligible**, върви от 1–3 дни, но всички колони са празни (0 импресии, 0 клика, без CTR). Конверсионният тракинг вече е потвърден и работи (обаждания и форми се броят коректно), т.е. `gtag` кодовете на сайта не са причината.
 
-## What the user gets
+Важно разграничение: **импресии и CTR се генерират от Google Ads системата (аукциона), а НЕ от кода на сайта.** Кодът на сайта може само да *пречи* (напр. да блокира crawler-a на Google) или да развали *качеството* на обявата (напр. бавен/счупен landing page → нисък Ad Rank → 0 импресии). Не може да "включи" импресии сам по себе си.
 
-- A public MCP endpoint hosted as a Supabase Edge Function at `/functions/v1/mcp`.
-- OAuth 2.1 sign-in via the app's existing Supabase Auth (admins/staff sign in with their normal account; RLS decides what each role can see).
-- A "Connect to Claude / ChatGPT / Cursor" flow via the standard MCP consent page at `/.lovable/oauth/consent`.
-- A first set of read-only tools focused on the CRM (safest starting surface), so an assistant can answer questions like *"How many new inquiries came in this week?"* or *"Show me the last 10 leads from Varna."*
+## Част 1 — Технически одит на сайта (правя аз в кода)
 
-## Initial tool set (read-only, admin/staff scoped by RLS)
+Проверявам всичко, което може да блокира Google да покаже рекламата или да занули Ad Rank:
 
-1. `list_recent_inquiries` — last N inquiries (name, phone, city, service_type, status, created_at).
-2. `get_inquiry` — full inquiry detail by id (incl. description, attribution).
-3. `search_inquiries` — filter by status / city / service_type / date range.
-4. `list_call_log` — recent entries from `call_log`.
-5. `inquiry_stats` — counts by status and by day for the last 30 days.
-6. `list_articles` — published/draft articles from the blog CMS (title, slug, status, views).
+1. **`public/robots.txt`** — да не блокира `Googlebot` или `AdsBot-Google` / `AdsBot-Google-Mobile`. AdsBot **не се подчинява на `User-agent: *`** и трябва да е изрично разрешен, иначе landing page-ът се маркира като „destination not crawlable" и кампанията получава 0 импресии.
+2. **`<meta name="robots">`** на landing страниците (най-вече `/bg/zayavete-oferta`, `/bg/varna`, service pages) — да няма `noindex` или `none` там, където се насочва рекламата.
+3. **HTTP статус на final URL-a** — проверявам чрез curl, че рекламните destination URLs връщат `200`, не `301/302 → 404`, не редиректи между езици (`/` → `/bg` → `/bg/varna` може да се брои като „excessive redirects").
+4. **Prerender output** — потвърждавам, че prerender-натият HTML на landing страниците съдържа реален title/description/H1 (Google Ads краулва статичния HTML, не React).
+5. **Page speed / Core Web Vitals blockers** — бърз одит за очевидни regressions на LCP/CLS, които влизат в Quality Score.
+6. **Проверка на `ads.txt` / `app-ads.txt`** — само ако се показват грешки за издателски одобрения (не е задължителен за Search кампании).
+7. **Conflict check** — потвърждавам, че няма skрипт (например Cookie banner блокиращ render), който да прави страницата „празна" за AdsBot.
 
-All tools call Supabase with the **user's** access token (forwarded from the MCP `ToolContext`), so RLS is enforced exactly as in the admin panel. Marketing users see what marketing sees; admins see everything. No service-role key is ever used.
+Резултат: списък с намерените проблеми + фиксовете, приложени в същата стъпка.
 
-No write/delete tools in this first pass — we add those in a follow-up once the read surface is verified.
+## Част 2 — Чеклист за Google Ads UI (правиш ти)
 
-## Auth model
+Най-честите причини за 0 импресии при Eligible кампания, които са **само в Ads панела** и не могат да се фиксат от кода:
 
-- OAuth 2.1 authorization server = Supabase Auth (activated via `configure_oauth_server`).
-- Resource server = the MCP edge function, verifying tokens issued by `https://vpsbqrxrjrwjmttnptfr.supabase.co/auth/v1`.
-- Consent page = new route `/.lovable/oauth/consent` reusing the existing `AuthContext` / Supabase client. If the user isn't logged in, it redirects to `/admin/login?next=<consent-url>` and returns after sign-in.
-- Only users that exist in `user_roles` will actually see data (RLS already enforces this).
+### A. Бюджет и наддаване
+- [ ] Дневен бюджет достатъчен за таргетирания пазар (за Варна: минимум €5–10/ден за Search)
+- [ ] Стратегия за наддаване: ако е **Maximize Conversions** — има ли изобщо натрупани конверсии за обучение? В новите акаунти често трябва да се стартира с **Manual CPC** или **Maximize Clicks** за първите 2 седмици
+- [ ] Ако е Target CPA / Target ROAS — цел, която е нереалистично ниска, спира показването
 
-## Files to add
+### B. Ключови думи и Ad Rank
+- [ ] Ключовите думи имат ли статус „Rarely shown due to low quality score" / „Below first page bid"?
+- [ ] Ако всички са **Exact match** и с ниски search volumes → малко импресии. Пусни поне 1 ad group с **Phrase match**
+- [ ] Провери **Auction Insights** — има ли изобщо аукциони, в които участваш?
 
-```text
-src/lib/mcp/index.ts                          # defineMcp entry (name, version, tools, OAuth)
-src/lib/mcp/tools/list-recent-inquiries.ts
-src/lib/mcp/tools/get-inquiry.ts
-src/lib/mcp/tools/search-inquiries.ts
-src/lib/mcp/tools/list-call-log.ts
-src/lib/mcp/tools/inquiry-stats.ts
-src/lib/mcp/tools/list-articles.ts
-src/pages/OAuthConsent.tsx                    # /.lovable/oauth/consent page
-```
+### C. Таргетиране
+- [ ] Локация: „People **in** or regularly in your targeted locations" (не „interested in") — иначе не таргетираш реално Варна
+- [ ] Language: включен **Български** И **Английски** (много Chrome-и в БГ имат EN default)
+- [ ] Ad Schedule: не е ли ограничено само до определени часове?
+- [ ] Device bid adjustments: няма ли -100% на mobile/desktop случайно?
 
-## Files to modify
+### D. Обяви и активи
+- [ ] Обявите статус **Approved** (не Under review, не Disapproved)? Отхвърлена обява → 0 импресии, дори кампанията да е Eligible
+- [ ] Минимум 2 обяви на ad group + поне 4 sitelinks / callouts / structured snippets
+- [ ] Final URL съвпада с показвания display URL домейн
 
-- `vite.config.ts` — add `mcpPlugin()` from `@lovable.dev/mcp-js/stacks/supabase/vite`.
-- `src/App.tsx` — register the `/.lovable/oauth/consent` route.
-- `src/pages/admin/AdminLoginPage.tsx` — honor `?next=` query param to return to the consent page after sign-in.
-- `package.json` — add `@lovable.dev/mcp-js` and `zod` (zod already present, verify).
+### E. Плащане и акаунт
+- [ ] Payment method валиден, няма отхвърлено плащане
+- [ ] Акаунтът не е под review за billing/policy verification (в горния десен ъгъл има ⚠️)
+- [ ] Ако е нов Google Ads акаунт → **първите 24–72ч** често има забавяне преди първи impressions
 
-## Files auto-generated (do NOT hand-edit)
+### F. Полезни диагностични изгледи в Ads UI
+1. **Campaigns → Overview → Recommendations** — Google явно казва какво липсва
+2. **Keywords → Status column** — ако е сиво „Eligible (Limited)" → hover-ни за причина
+3. **Ads → Policy details** — за отхвърлени обяви
+4. **Tools → Troubleshooter „Why are my ads not showing?"** — вграден wizard на Google
 
-- `supabase/functions/mcp/index.ts` — emitted by the Vite plugin on build.
-- `supabase/config.toml` — add `[functions.mcp] verify_jwt = false` (mcp-js does its own OAuth verification).
-- `.lovable/mcp/manifest.json` — produced by `extract_mcp_manifest`.
+## Deliverables
 
-## Steps
-
-1. Install `@lovable.dev/mcp-js`.
-2. Write the 6 tool files + `src/lib/mcp/index.ts` with `auth.oauth.issuer(...)` bound to the Supabase project issuer.
-3. Add `mcpPlugin()` to `vite.config.ts`.
-4. Add `verify_jwt = false` for the `mcp` function in `supabase/config.toml`.
-5. Build the `OAuthConsent` page and route; wire `?next=` through `AdminLoginPage`.
-6. Call `configure_oauth_server` to activate Supabase OAuth 2.1 + dynamic client registration.
-7. Run `extract_mcp_manifest` and deploy the `mcp` edge function.
-8. Verify: open the app's Agent integrations panel, connect from Claude/ChatGPT, call `list_recent_inquiries`, confirm RLS scoping works for both admin and marketing users.
-
-## Open question (does not block the plan)
-
-The initial toolset is **read-only CRM**. If you'd also like write tools in this first pass — e.g. "mark inquiry as contacted", "add a call log entry", "create draft article" — tell me which ones and I'll add them before implementation. Otherwise I'll ship read-only first and we add mutations in a follow-up.
+1. Кратък technical audit report в чата (какво е намерено в сайта, какво е поправено)
+2. Този чеклист по-горе като reference, който можеш да следваш в Ads UI
+3. Ако след технически фикс проблемът е само в Ads UI — ясно го казвам, за да не търсим бъгове в кода
