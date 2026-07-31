@@ -38,23 +38,28 @@ Deno.serve(async (req) => {
     return json(400, { error: "Password too short" });
   if (!role || !ALLOWED_ROLES.has(role)) return json(400, { error: "Invalid role" });
 
-  const { data: created, error: createError } = await admin.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true,
-    user_metadata: { full_name: full_name || "" },
-  });
+  // Look up existing user first
+  const { data: list } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+  let userId = list?.users?.find((u) => u.email?.toLowerCase() === email.toLowerCase())?.id;
 
-  let userId = created?.user?.id;
-  if (createError) {
-    if (!/already registered|already exists|duplicate/i.test(createError.message)) {
-      return json(400, { error: createError.message });
-    }
-    const { data: list } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-    userId = list?.users?.find((u) => u.email?.toLowerCase() === email.toLowerCase())?.id;
-    if (!userId) return json(400, { error: "User exists but could not be resolved" });
-    await admin.auth.admin.updateUserById(userId, { password, email_confirm: true });
+  if (userId) {
+    const { error: updErr } = await admin.auth.admin.updateUserById(userId, {
+      password,
+      email_confirm: true,
+      user_metadata: { full_name: full_name || "" },
+    });
+    if (updErr) return json(400, { error: `update: ${updErr.message}` });
+  } else {
+    const { data: created, error: createError } = await admin.auth.admin.createUser({
+      email,
+      password,
+      email_confirm: true,
+      user_metadata: { full_name: full_name || "" },
+    });
+    if (createError || !created?.user) return json(400, { error: createError?.message || "create failed" });
+    userId = created.user.id;
   }
+
 
   const { error: roleError } = await admin
     .from("user_roles")
