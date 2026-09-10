@@ -103,7 +103,6 @@ const PlovdivHome = () => {
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
-        <link rel="canonical" href={canonical} />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content="Ремонт на покриви в Пловдив — керемиди, течове, конструкция" />
         <meta
