@@ -406,4 +406,38 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/sofia</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/sofia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/sofia"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/sofia"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/sofia"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/sofia"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/sofia"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/sofia"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/sofia"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/sofia"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/sofia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/sofia"/>
+  </url>
+  <url>
+    <loc>https://www.remontnapokrivivarna.bg/bg/plovdiv</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.remontnapokrivivarna.bg/bg/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.remontnapokrivivarna.bg/en/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.remontnapokrivivarna.bg/de/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://www.remontnapokrivivarna.bg/fi/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://www.remontnapokrivivarna.bg/sv/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="no" href="https://www.remontnapokrivivarna.bg/no/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.remontnapokrivivarna.bg/fr/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.remontnapokrivivarna.bg/nl/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.remontnapokrivivarna.bg/ru/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.remontnapokrivivarna.bg/ua/plovdiv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.remontnapokrivivarna.bg/bg/plovdiv"/>
+  </url>
 </urlset>
