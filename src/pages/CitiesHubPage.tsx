@@ -13,7 +13,7 @@ const BASE_URL = "https://www.remontnapokrivivarna.bg";
 /**
  * CitiesHubPage — /bg/gradove/
  * Hub за всички градове, в които компанията работи.
- * Шоукейс на 3 активни града (Варна, Бургас, Русе) + 2 предстоящи (Пловдив, София).
+ * Шоукейс на обслужваните градове: Варна, Бургас, Русе, Добрич, София, Пловдив.
  */
 const CitiesHubPage = () => {
   const canonical = `${BASE_URL}/bg/gradove`;
@@ -54,15 +54,15 @@ const CitiesHubPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>Градове, в които работим — Ремонт на Покриви | Варна, Бургас, Русе, Добрич</title>
+        <title>Градове, в които работим — Ремонт на Покриви | Варна, Бургас, Русе, Добрич, София, Пловдив</title>
         <meta
           name="description"
-          content="Професионален ремонт на покриви в 4 града в България — Варна, Бургас, Русе и Добрич. Безплатен оглед, 15 години писмена гаранция. Скоро в Пловдив и София."
+          content="Покривни услуги във Варна, Бургас, Русе, Добрич, София и Пловдив — ремонт, хидроизолация и нови покриви. Оглед на място и 15 години писмена гаранция."
         />
         <link rel="canonical" href={canonical} />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content="Градове, в които работим — Ремонт на Покриви" />
-        <meta property="og:description" content="Професионален ремонт на покриви във Варна, Бургас, Русе и Добрич. Безплатен оглед, 15 години гаранция." />
+        <meta property="og:description" content="Професионален ремонт на покриви във Варна, Бургас, Русе, Добрич, София и Пловдив. Оглед на място, 15 години гаранция." />
         <meta property="og:url" content={canonical} />
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
@@ -86,7 +86,7 @@ const CitiesHubPage = () => {
               Градове, в които работим
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mb-8">
-              Професионален ремонт на покриви, хидроизолация и нови покриви в 4 големи града в България. Безплатен оглед в рамките на 24 часа, 15 години писмена гаранция.
+              Професионален ремонт на покриви, хидроизолация и нови покриви в шест града в България. Оглед на място и 15 години писмена гаранция.
             </p>
 
             <div className="flex flex-wrap gap-2 md:gap-4">
