@@ -126,7 +126,7 @@ const SofiaHome = () => {
             <img
               src={heroImage}
               alt="Покривен специалист работи по ремонт на скатен покрив"
-              fetchPriority="high"
+              loading="eager"
               decoding="sync"
               width={1920}
               height={1080}

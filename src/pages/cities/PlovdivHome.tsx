@@ -126,7 +126,7 @@ const PlovdivHome = () => {
             <img
               src={heroImage}
               alt="Подмяна на керемиди върху скатен покрив на еднофамилна къща"
-              fetchPriority="high"
+              loading="eager"
               decoding="sync"
               width={1920}
               height={1080}
