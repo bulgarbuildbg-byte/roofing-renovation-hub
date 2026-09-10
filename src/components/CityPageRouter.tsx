@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { isCityKey } from "@/i18n/cities";
+import { isCityKey, SERVICE_PAGE_CITIES, type CityKey } from "@/i18n/cities";
 import { findRouteKeyBySlug, localizedSlugs } from "@/i18n/routes";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n/config";
 import { CITY_SERVICES } from "@/data/cityServices";
@@ -7,6 +7,8 @@ import BurgasHome from "@/pages/cities/BurgasHome";
 import VarnaHome from "@/pages/cities/VarnaHome";
 import RuseHome from "@/pages/cities/RuseHome";
 import DobrichHome from "@/pages/cities/DobrichHome";
+import SofiaHome from "@/pages/cities/SofiaHome";
+import PlovdivHome from "@/pages/cities/PlovdivHome";
 import CityServiceTemplate from "@/components/city/CityServiceTemplate";
 import NotFound from "@/pages/NotFound";
 
@@ -37,6 +39,13 @@ const CityPageRouter = () => {
     if (city === "varna") return <VarnaHome />;
     if (city === "ruse") return <RuseHome />;
     if (city === "dobrich") return <DobrichHome />;
+    if (city === "sofia") return <SofiaHome />;
+    if (city === "plovdiv") return <PlovdivHome />;
+  }
+
+  // Cities without dedicated service sub-pages: send any sub-path to the city home
+  if (!SERVICE_PAGE_CITIES.includes(city as CityKey)) {
+    return <Navigate to={`/${currentLang}/${city}`} replace />;
   }
 
   // Service sub-page: try the current language first

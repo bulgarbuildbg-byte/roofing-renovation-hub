@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "./config";
 
-export type CityKey = "varna" | "burgas" | "ruse" | "dobrich";
+export type CityKey = "varna" | "burgas" | "ruse" | "dobrich" | "sofia" | "plovdiv";
 
 export interface CityData {
   slug: string;
@@ -97,19 +97,60 @@ export const CITIES: Record<CityKey, CityData> = {
     region: "Добрич",
     defaultLang: "bg",
   },
+  sofia: {
+    slug: "sofia",
+    nameBg: "София",
+    nameLatin: "Sofia",
+    nameLocative: "в София",
+    phone: "089 397 1873",
+    phoneTel: "0893971873",
+    email: "remontnapokrivivarna@gmail.com",
+    workingHours: "Пон–Съб 08:00–18:00",
+    emergency: "Аварии 24/7",
+    neighborhoods: [
+      "Лозенец", "Младост", "Люлин", "Драгалевци", "Бояна",
+      "Овча купел", "Витоша", "Надежда", "Изгрев", "Банишора",
+    ],
+    geo: { lat: 42.6977, lng: 23.3219 },
+    postalCode: "1000",
+    region: "София-град",
+    defaultLang: "bg",
+  },
+  plovdiv: {
+    slug: "plovdiv",
+    nameBg: "Пловдив",
+    nameLatin: "Plovdiv",
+    nameLocative: "в Пловдив",
+    phone: "089 397 1873",
+    phoneTel: "0893971873",
+    email: "remontnapokrivivarna@gmail.com",
+    workingHours: "Пон–Съб 08:00–18:00",
+    emergency: "Аварии 24/7",
+    neighborhoods: [
+      "Кючук Париж", "Тракия", "Каменица", "Смирненски", "Център",
+      "Западен", "Остромила", "Коматево", "Гагарин", "Мараша",
+    ],
+    geo: { lat: 42.1354, lng: 24.7453 },
+    postalCode: "4000",
+    region: "Пловдив",
+    defaultLang: "bg",
+  },
 };
 
 export const DEFAULT_CITY: CityKey = "varna";
 
-export const ACTIVE_CITIES: CityKey[] = ["varna", "burgas", "ruse", "dobrich"];
+export const ACTIVE_CITIES: CityKey[] = ["varna", "burgas", "ruse", "dobrich", "sofia", "plovdiv"];
 
-export const COMING_SOON_CITIES: { slug: string; nameBg: string }[] = [
-  { slug: "plovdiv", nameBg: "Пловдив" },
-  { slug: "sofia", nameBg: "София" },
-];
+/** Градове с пълен набор подстраници за отделни услуги (/bg/:city/:service). */
+export const SERVICE_PAGE_CITIES: CityKey[] = ["varna", "burgas", "ruse", "dobrich"];
+
+export const COMING_SOON_CITIES: { slug: string; nameBg: string }[] = [];
 
 export function isCityKey(value: string | undefined): value is CityKey {
-  return value === "varna" || value === "burgas" || value === "ruse" || value === "dobrich";
+  return (
+    value === "varna" || value === "burgas" || value === "ruse" ||
+    value === "dobrich" || value === "sofia" || value === "plovdiv"
+  );
 }
 
 export function getCityFromSlug(slug: string | undefined): CityKey | null {

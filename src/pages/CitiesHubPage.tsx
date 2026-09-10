@@ -13,7 +13,7 @@ const BASE_URL = "https://www.remontnapokrivivarna.bg";
 /**
  * CitiesHubPage — /bg/gradove/
  * Hub за всички градове, в които компанията работи.
- * Шоукейс на 3 активни града (Варна, Бургас, Русе) + 2 предстоящи (Пловдив, София).
+ * Шоукейс на обслужваните градове: Варна, Бургас, Русе, Добрич, София, Пловдив.
  */
 const CitiesHubPage = () => {
   const canonical = `${BASE_URL}/bg/gradove`;
@@ -54,15 +54,15 @@ const CitiesHubPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>Градове, в които работим — Ремонт на Покриви | Варна, Бургас, Русе, Добрич</title>
+        <title>Градове, в които работим — Ремонт на Покриви | Варна, Бургас, Русе, Добрич, София, Пловдив</title>
         <meta
           name="description"
-          content="Професионален ремонт на покриви в 4 града в България — Варна, Бургас, Русе и Добрич. Безплатен оглед, 15 години писмена гаранция. Скоро в Пловдив и София."
+          content="Покривни услуги във Варна, Бургас, Русе, Добрич, София и Пловдив — ремонт, хидроизолация и нови покриви. Оглед на място и 15 години писмена гаранция."
         />
         <link rel="canonical" href={canonical} />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:title" content="Градове, в които работим — Ремонт на Покриви" />
-        <meta property="og:description" content="Професионален ремонт на покриви във Варна, Бургас, Русе и Добрич. Безплатен оглед, 15 години гаранция." />
+        <meta property="og:description" content="Професионален ремонт на покриви във Варна, Бургас, Русе, Добрич, София и Пловдив. Оглед на място, 15 години гаранция." />
         <meta property="og:url" content={canonical} />
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
@@ -86,7 +86,7 @@ const CitiesHubPage = () => {
               Градове, в които работим
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl text-primary-foreground/90 max-w-3xl mb-8">
-              Професионален ремонт на покриви, хидроизолация и нови покриви в 4 големи града в България. Безплатен оглед в рамките на 24 часа, 15 години писмена гаранция.
+              Професионален ремонт на покриви, хидроизолация и нови покриви в шест града в България. Оглед на място и 15 години писмена гаранция.
             </p>
 
             <div className="flex flex-wrap gap-2 md:gap-4">
@@ -114,7 +114,7 @@ const CitiesHubPage = () => {
                 Активни градове
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Нашите екипи работят в четирите града и обслужват целите им региони.
+                Приемаме покривни обекти в шест града и в техните региони.
               </p>
             </div>
 
@@ -123,7 +123,7 @@ const CitiesHubPage = () => {
               <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border-2 border-border shadow-2xl bg-card">
                 <img
                   src={bulgariaMap}
-                  alt="Карта на България с обслужвани градове: Варна, Бургас, Русе, Добрич"
+                  alt="Карта на България с обслужвани градове: Варна, Бургас, Русе, Добрич, София, Пловдив"
                   loading="lazy"
                   className="w-full h-full object-contain"
                 />
@@ -216,6 +216,7 @@ const CitiesHubPage = () => {
         </section>
 
         {/* Coming Soon */}
+        {COMING_SOON_CITIES.length > 0 && (
         <section className="py-16 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
@@ -258,6 +259,7 @@ const CitiesHubPage = () => {
             </div>
           </div>
         </section>
+        )}
 
         {/* Why we work in these cities */}
         <section className="py-16 md:py-20 bg-background">
@@ -267,13 +269,18 @@ const CitiesHubPage = () => {
             </h2>
             <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
               <p>
-                Над 15 години Булгар Билд ЕООД доказва своята експертиза в покривните услуги в северо-източна България. Започнахме работа във Варна и постепенно разширихме обслужването си в Бургас и Русе — където имаше търсене на качествен и надежден изпълнител с писмена гаранция.
+                Над 15 години Булгар Билд ЕООД доказва своята експертиза в покривните услуги в северо-източна България. Започнахме работа във Варна и постепенно разширихме обслужването си в Бургас, Русе и Добрич — където имаше търсене на качествен и надежден изпълнител с писмена гаранция.
               </p>
               <p>
-                Във всеки град имаме <strong className="text-foreground">локален екип, складова база и автомобилен парк</strong>. Това ни позволява да реагираме в рамките на 24 часа за безплатен оглед и до няколко часа при аварийни ситуации (течове, повреди от буря, паднали керемиди).
+                Във Варна, Бургас, Русе и Добрич разполагаме с <strong className="text-foreground">екип, складова база и автомобилен парк</strong>. Това ни позволява да реагираме бързо за оглед и при аварийни ситуации (течове, повреди от буря, паднали керемиди).
               </p>
               <p>
-                Услугите ни в трите града включват ремонт на покриви, хидроизолация, изграждане на нови покриви, подмяна на керемиди, ремонт на плоски покриви, метални покриви и редовна поддръжка. Всички работи се извършват с <strong className="text-foreground">15 години писмена гаранция</strong>.
+                <strong className="text-foreground">София и Пловдив</strong> са обслужвани територии — там нямаме офис и постоянно базиран екип, а приемаме обекти и изпращаме бригада за конкретния договор. Вижте{" "}
+                <Link to="/bg/sofia" className="text-primary underline">ремонт на покриви в София</Link> и{" "}
+                <Link to="/bg/plovdiv" className="text-primary underline">покривни услуги в Пловдив</Link>.
+              </p>
+              <p>
+                Услугите ни включват ремонт на покриви, хидроизолация, изграждане на нови покриви, подмяна на керемиди, ремонт на плоски покриви, метални покриви и редовна поддръжка — с <strong className="text-foreground">до 15 години писмена гаранция</strong>.
               </p>
             </div>
           </div>

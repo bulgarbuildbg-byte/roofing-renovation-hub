@@ -148,6 +148,20 @@ function buildRoutes() {
     }
   }
 
+  // Cities served without dedicated service sub-pages (city landing page only)
+  routes.push({
+    urlPath: "/bg/sofia",
+    title: "Ремонт на покриви София | Покривни услуги",
+    description: "Ремонт на покриви в София — отстраняване на течове, подмяна на керемиди, хидроизолация на тераси и плоски покриви, нов покрив. Оглед, писмена оферта и до 15 години гаранция.",
+    locale: LANG_META.bg.locale, htmlLang: "bg", critical: true, kind: "city-home",
+  });
+  routes.push({
+    urlPath: "/bg/plovdiv",
+    title: "Ремонт на покриви Пловдив | Покривни услуги",
+    description: "Покривни услуги в Пловдив — ремонт на керемиден покрив, спиране на течове, дървена конструкция, хидроизолация и нов покрив. Оглед на място, количества и писмена оферта.",
+    locale: LANG_META.bg.locale, htmlLang: "bg", critical: true, kind: "city-home",
+  });
+
   for (const [slug, meta] of Object.entries(GLOBAL_BG)) {
     routes.push({ urlPath: `/bg/${slug}`, title: meta.title, description: meta.description, locale: LANG_META.bg.locale, htmlLang: "bg", critical: false, kind: "global" });
   }
